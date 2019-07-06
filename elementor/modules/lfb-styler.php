@@ -90,8 +90,8 @@ class Lead_Form_Styler extends Widget_Base {
     $this->lf_styler_general_style_controls();  
     $this->lf_styler_label_style_controls();  
   	$this->lf_field_style_controls();
-  	$this->lf_button_style_controls();
   	$this->lf_radio_checkbox_style_controls();
+  	$this->lf_button_style_controls();
   	$this->lf_message_style_controls();
 }
 
