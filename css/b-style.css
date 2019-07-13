@@ -925,10 +925,11 @@ table.wp-list-table.widefat.fixed.striped.posts {
     letter-spacing: normal;
     text-indent: 0em;
 }
+
 .leadform-show-form textarea {
-    width:100%;
-    min-height:150px;
-    text-indent: 0em;
+   width: 100%;
+   min-height: 150px;
+   text-indent: 0px;
 }
 
 .leadform-show-form select, 
@@ -1151,6 +1152,7 @@ border-radius:2px;
 color:white;
 background: #838383;
 float: right;
+margin-top: -5px;
 }
 .show-all-form .wp-list-table .row-actions span{
     padding:0 2px;
@@ -2176,4 +2178,38 @@ input[type=radio], input[type=checkbox] {
 #recaptcha input.regular-text {
     width: 100%;
 }
+}
+
+/***************JQuery Sweet dropdown styling*****************/
+
+.dropdown-menu .divider{
+    margin: 0 !important; 
+}
+
+.dropdown-menu ul li>a{
+    padding: 10px !important; 
+}
+.dropdown-menu ul li>a i{
+    margin: 2px 5px 0 0;
+}
+.dropdown-menu ul li>a img{
+    margin-right:5px;
+}
+
+.dropdown-menu ul li:last-child span{
+    margin-left: 40px;
+}
+.dropdown-menu ul li span.pro-feature{
+    margin-left: 0px;
+}
+
+/***********Frontend calendar styling***********/
+.ui-datepicker-calendar .ui-datepicker-today a {
+   color: #000000 !important;
+}
+
+.ui-datepicker-calendar thead th span {
+   -moz-box-shadow: none !important;
+   -webkit-box-shadow: none !important;
+   box-shadow: none !important;
 }

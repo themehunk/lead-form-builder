@@ -161,6 +161,7 @@ class Lead_Form_Styler extends Widget_Base {
 	      [
 	        'label'        => __( 'Form Container Alignment', 'lead-form-builder' ),
 	        'type'         => Controls_Manager::CHOOSE,
+	        'label_block'  => true,
 	        'options'      => [
 	          'flex-start'   => [
 	            'title' => __( 'Left', 'lead-form-builder' ),
@@ -871,6 +872,7 @@ protected function lf_field_style_controls() {
 	      [
 	        'label'        => __( 'Button Alignment', 'lead-form-builder' ),
 	        'type'         => Controls_Manager::CHOOSE,
+	        'label_block'  => true,
 	        'separator' => 'after',
 			'options'      => [
 	          'left'   => [
