@@ -107,7 +107,7 @@ if ( get_option('captcha-setting-sitekey') !== false ) {
                     </label>
             </div>';
 }else{
-       echo '<abbr title="' . $captcha_status . '">Missing Keys</abbr>';
+       echo '<span title="' . $captcha_status . '">Missing Keys</span>';
 }
         
         echo '</li>
@@ -138,7 +138,7 @@ Export (Form Leads) '.LFB_FORM_PRO_FEATURE.'</a></li>
 
         <li><a href="#"><img width="18px" src="'.LFB_FORM_EXPORT_IMAGE.'" title="Form Export">
 Form Export '.LFB_FORM_PRO_FEATURE.'</a></li>
-
+    <li class="divider"></li>
 <li><a href="#"><img width="18px" src="'.LFB_FORM_IMPORT_IMAGE.'" title="Form Import">
 Form Import '.LFB_FORM_PRO_FEATURE.'</a></li>
 <li class="divider"></li>
@@ -151,7 +151,7 @@ Form Import '.LFB_FORM_PRO_FEATURE.'</a></li>
 </td>
 
         <td class="form-date column-form-date" data-colname="Form-date">
-        <abbr title="' . $form_date . '">' .  date("d M, Y", strtotime($form_date)). '</abbr>
+        <span title="' . $form_date . '">' .  date("d M, Y", strtotime($form_date)). '</span>
         </td>
 		</tr>';
             }

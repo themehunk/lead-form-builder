@@ -92,7 +92,7 @@ class Lead_Form_Styler extends Widget_Base {
   	$this->lf_field_style_controls();
   	$this->lf_radio_checkbox_style_controls();
   	$this->lf_button_style_controls();
-  	$this->lf_message_style_controls();
+  	// $this->lf_message_style_controls();
 }
 
 	protected function lf_styler_general_controls() {
@@ -161,6 +161,7 @@ class Lead_Form_Styler extends Widget_Base {
 	      [
 	        'label'        => __( 'Form Container Alignment', 'lead-form-builder' ),
 	        'type'         => Controls_Manager::CHOOSE,
+	        'label_block'  => true,
 	        'options'      => [
 	          'flex-start'   => [
 	            'title' => __( 'Left', 'lead-form-builder' ),
@@ -281,19 +282,162 @@ class Lead_Form_Styler extends Widget_Base {
 			$this->end_controls_section();
 	}
 
-		protected function lf_field_style_controls() {
+protected function lf_field_style_controls() {
 
-			$this->start_controls_section(
-				'form_inputs',
+	$this->start_controls_section(
+		'form_inputs',
+		[
+			'label' => __( 'Field Styling', 'lead-form-builder' ),
+			'tab' => Controls_Manager::TAB_STYLE,
+		]
+	);
+
+	$this->start_controls_tabs(
+		'form_inputs_tabs'
+	);
+
+		$this->start_controls_tab(
+			'form_inputs_color_typo_tab',
+			[
+				'label' => __( 'Color', 'lead-form-builder' ),
+			]
+		);
+
+		$this->add_control(
+				'lf_field_color_heading',
 				[
-					'label' => __( 'Field Styling', 'lead-form-builder' ),
-					'tab' => Controls_Manager::TAB_STYLE,
+					'label'     => __( 'Choose Color', 'lead-form-builder' ),
+					'type'      => Controls_Manager::HEADING,
+					'separator' => 'before',
 				]
 			);
+
+			$this->add_control(
+				'form_inputs_bg',
+				[
+					'label' => __( 'Field Background', 'lead-form-builder' ),
+					'type' => Controls_Manager::COLOR,
+					'default' => '#f9f9f9',
+					'scheme' => [
+						'type' => Scheme_Color::get_type(),
+						'value' => Scheme_Color::COLOR_3,
+					],
+					'selectors' => [
+						'{{WRAPPER}} .lf-field input:not([type=submit]), {{WRAPPER}} .lf-field textarea' => 'background-color: {{VALUE}};',
+					],
+				]
+			);
+
+			$this->add_control(
+				'form_inputs_txt_color',
+				[
+					'label' => __( 'Input Text / Placeholder', 'lead-form-builder' ),
+					'type' => Controls_Manager::COLOR,
+					'scheme' => [
+						'type' => Scheme_Color::get_type(),
+						'value' => Scheme_Color::COLOR_2,
+					],
+					'selectors' => [
+						'{{WRAPPER}} .lf-field input:not([type=submit]), {{WRAPPER}} .lf-field textarea' => 'color: {{VALUE}};',
+					],
+				]
+			);
+
+			$this->add_control(
+				'form_select_input_text_color',
+				[
+					'label' => __( 'Drop Down Text', 'lead-form-builder' ),
+					'type' => Controls_Manager::COLOR,
+					'scheme' => [
+						'type' => Scheme_Color::get_type(),
+						'value' => Scheme_Color::COLOR_2,
+					],
+					'selectors' => [
+						'{{WRAPPER}} .lf-field select' => 'color: {{VALUE}};',
+					],
+				]
+			);
+
+			$this->add_control(
+				'form_select_inputs_bg',
+				[
+					'label' => __( 'Drop Down Background', 'lead-form-builder' ),
+					'type' => Controls_Manager::COLOR,
+					'default' => '#fff',
+					'scheme' => [
+						'type' => Scheme_Color::get_type(),
+						'value' => Scheme_Color::COLOR_3,
+					],
+					'selectors' => [
+						'{{WRAPPER}} .lf-field select' => 'background: {{VALUE}};',
+					],
+				]
+			);			
+
+			$this->add_control(
+				'lf_field_typography_heading',
+				[
+					'label'     => __( 'TYPOGRAPHY', 'lead-form-builder' ),
+					'type'      => Controls_Manager::HEADING,
+					'separator' => 'before',
+				]
+			);
+
+			$this->add_group_control(
+				Group_Control_Typography::get_type(),
+				[
+					'label' => __( 'Field Text', 'lead-form-builder' ),
+					'name' => 'form_field_typography',
+					'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+					'selector' => '{{WRAPPER}} .lf-field input:not([type=submit]), {{WRAPPER}} .lf-field textarea'
+				]
+			);
+
+			$this->add_group_control(
+				Group_Control_Typography::get_type(),
+				[	
+					'label' => __( 'Drop Down Text', 'lead-form-builder' ),
+					'name' => 'form_drop_down_typography',
+					'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+					'selector' => '{{WRAPPER}} .lf-field select',
+				]
+
+			);
+			
+		$this->add_control(
+				'lf_field_border_heading',
+				[
+					'label'     => __( 'Border', 'lead-form-builder' ),
+					'type'      => Controls_Manager::HEADING,
+					'separator' => 'before',
+				]
+			);
+	
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			[
+				'name' => 'form_inputs_border',
+				'label' => __( 'Border', 'lead-form-builder' ),
+				'selector' => '{{WRAPPER}} .lf-field input:not([type=submit]):not([type="checkbox"]):not([type="radio"]),
+						   {{WRAPPER}} .lf-field textarea'
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'form_inputs_dimensions_tab',
+			[
+				'label' => __( 'Dimensions', 'lead-form-builder' ),
+			]
+		);
+
+
 			$this->add_responsive_control(
 				'lf_text_align',
 				[
 					'label'     => __( 'Field Alignment', 'lead-form-builder' ),
+					'separator' => 'before',
 					'type'      => Controls_Manager::CHOOSE,
 					'options'   => [
 						'left'   => [
@@ -321,7 +465,6 @@ class Lead_Form_Styler extends Widget_Base {
 				[
 					'label'     => __( 'Spacing', 'lead-form-builder' ),
 					'type'      => Controls_Manager::HEADING,
-					'separator' => 'before',
 				]
 			);
 			$this->add_responsive_control(
@@ -385,12 +528,12 @@ class Lead_Form_Styler extends Widget_Base {
 				'size_units' => [ 'px', 'em', '%' ],
 				'range' => [
 					'px' => [
-						'min' => 10,
-						'max' => 1200,
+						'min' => 0,
+						'max' => 200,
 					],
 					'em' => [
 						'min' => 1,
-						'max' => 80,
+						'max' => 10,
 					],
 				],
                 'default'   => [
@@ -398,7 +541,8 @@ class Lead_Form_Styler extends Widget_Base {
                     'unit'  => '%'
                 ],
 					'selectors' => [
-						'{{WRAPPER}} .lf-field .lfb-date-icon' => 'bottom: {{SIZE}}{{UNIT}};',
+						'{{WRAPPER}} .lf-field .lfb-date-icon,
+						{{WRAPPER}} .lf-field .lfb_input_upload::before' => 'bottom: {{SIZE}}{{UNIT}};',
 					],
 				]
 			);
@@ -411,12 +555,16 @@ class Lead_Form_Styler extends Widget_Base {
 				'size_units' => [ 'px', 'em', '%' ],
 				'range' => [
 					'px' => [
-						'min' => 10,
-						'max' => 1200,
+						'min' => 0,
+						'max' => 250,
 					],
 					'em' => [
+						'min' => 0,
+						'max' => 15,
+					],
+					'%' => [
 						'min' => 1,
-						'max' => 80,
+						'max' => 50,
 					],
 				],
                 'default'   => [
@@ -536,126 +684,7 @@ class Lead_Form_Styler extends Widget_Base {
 			]
   		); 
 
-			$this->add_control(
-				'lf_field_color_heading',
-				[
-					'label'     => __( 'Choose Color', 'lead-form-builder' ),
-					'type'      => Controls_Manager::HEADING,
-					'separator' => 'before',
-				]
-			);
-
-			$this->add_control(
-				'form_inputs_bg',
-				[
-					'label' => __( 'Field Background', 'lead-form-builder' ),
-					'type' => Controls_Manager::COLOR,
-					'default' => '#f9f9f9',
-					'scheme' => [
-						'type' => Scheme_Color::get_type(),
-						'value' => Scheme_Color::COLOR_3,
-					],
-					'selectors' => [
-						'{{WRAPPER}} .lf-field input:not([type=submit]), {{WRAPPER}} .lf-field textarea' => 'background-color: {{VALUE}};',
-					],
-				]
-			);
-
-			$this->add_control(
-				'form_inputs_txt_color',
-				[
-					'label' => __( 'Input Text / Placeholder', 'lead-form-builder' ),
-					'type' => Controls_Manager::COLOR,
-					'scheme' => [
-						'type' => Scheme_Color::get_type(),
-						'value' => Scheme_Color::COLOR_2,
-					],
-					'selectors' => [
-						'{{WRAPPER}} .lf-field input:not([type=submit]), {{WRAPPER}} .lf-field textarea' => 'color: {{VALUE}};',
-					],
-				]
-			);
-
-			$this->add_control(
-				'form_select_inputs_bg',
-				[
-					'label' => __( 'Drop Down Background', 'lead-form-builder' ),
-					'type' => Controls_Manager::COLOR,
-					'default' => '#fff',
-					'scheme' => [
-						'type' => Scheme_Color::get_type(),
-						'value' => Scheme_Color::COLOR_3,
-					],
-					'selectors' => [
-						'{{WRAPPER}} .lf-field select' => 'background: {{VALUE}};',
-					],
-				]
-			);
-
-			$this->add_control(
-				'form_select_input_text_color',
-				[
-					'label' => __( 'Drop Down Text', 'lead-form-builder' ),
-					'type' => Controls_Manager::COLOR,
-					'scheme' => [
-						'type' => Scheme_Color::get_type(),
-						'value' => Scheme_Color::COLOR_2,
-					],
-					'selectors' => [
-						'{{WRAPPER}} .lf-field select' => 'color: {{VALUE}};',
-					],
-				]
-			);
-
-			$this->add_control(
-				'lf_field_typography_heading',
-				[
-					'label'     => __( 'TYPOGRAPHY', 'lead-form-builder' ),
-					'type'      => Controls_Manager::HEADING,
-					'separator' => 'before',
-				]
-			);
-
-			$this->add_group_control(
-				Group_Control_Typography::get_type(),
-				[
-					'label' => __( 'Field Text', 'lead-form-builder' ),
-					'name' => 'form_field_typography',
-					'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-					'selector' => '{{WRAPPER}} .lf-field input:not([type=submit]), {{WRAPPER}} .lf-field textarea'
-				]
-			);
-
-			$this->add_group_control(
-				Group_Control_Typography::get_type(),
-				[	
-					'label' => __( 'Drop Down Text', 'lead-form-builder' ),
-					'name' => 'form_drop_down_typography',
-					'scheme' => Scheme_Typography::TYPOGRAPHY_1,
-					'selector' => '{{WRAPPER}} .lf-field select',
-				]
-
-			);
 			
-		$this->add_control(
-				'lf_field_border_heading',
-				[
-					'label'     => __( 'Border', 'lead-form-builder' ),
-					'type'      => Controls_Manager::HEADING,
-					'separator' => 'before',
-				]
-			);
-	
-		$this->add_group_control(
-			Group_Control_Border::get_type(),
-			[
-				'name' => 'form_inputs_border',
-				'label' => __( 'Border', 'lead-form-builder' ),
-				'selector' => '{{WRAPPER}} .lf-field input:not([type=submit]):not([type="checkbox"]):not([type="radio"]),
-						   {{WRAPPER}} .lf-field textarea'
-			]
-		);
-
 	       $this->add_control(
 				'form_inputs_border_radius',
 				[
@@ -713,18 +742,9 @@ class Lead_Form_Styler extends Widget_Base {
 				]
 			);
 
-			// $this->add_responsive_control(
-			// 	'lf_field_padding',
-			// 	[
-			// 		'label' => __( 'Padding', 'lead-form-builder' ),
-			// 		'type' => Controls_Manager::DIMENSIONS,
-			// 		'size_units' => [ 'px', '%' ],
-			// 		'selectors' => [
-			// 			'{{WRAPPER}} .lf-field input:not([type=submit]):not([type="checkbox"]):not([type="radio"]),
-			// 			   {{WRAPPER}} .lf-field textarea' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-			// 		],
-			// 	]
-			// );
+			$this->end_controls_tab();
+
+			$this->end_controls_tabs();
 		
 			$this->end_controls_section();
 	}
@@ -852,6 +872,7 @@ class Lead_Form_Styler extends Widget_Base {
 	      [
 	        'label'        => __( 'Button Alignment', 'lead-form-builder' ),
 	        'type'         => Controls_Manager::CHOOSE,
+	        'label_block'  => true,
 	        'separator' => 'after',
 			'options'      => [
 	          'left'   => [
@@ -1100,58 +1121,6 @@ class Lead_Form_Styler extends Widget_Base {
 			);
 
 			$this->add_control(
-				'lf_radio_check_label_color',
-				[
-					'label'     => __( 'Label Color', 'lead-form-builder' ),
-					'type'      => Controls_Manager::COLOR,
-					'default'   => '',
-					'condition'  => [
-						'lf_custom_radio_checkbox' => 'yes',
-					],
-					'selectors' => [
-						'{{WRAPPER}} .checkbox-type.lf-field ul li, 
-						 {{WRAPPER}} .radio-type.lf-field ul li,
-						 {{WRAPPER}} .lf-field.lfb-terms span' => 'color: {{VALUE}};',
-					],
-				]
-			);
-
-			$this->add_responsive_control(
-				'lf_radio_checkbox_font-size',
-				[
-					'label'      => __( 'Label Font Size', 'lead-form-builder' ),
-					'type'       => Controls_Manager::SLIDER,
-					'size_units' => [ 'px', 'em', 'rem' ],
-					'default'    => [
-						'size' => '18',
-						'unit' => 'px',
-					],
-					'range'      => [
-						'px' => [
-							'min' => 1,
-							'max' => 50,
-						],
-						'em' => [
-							'min' => 1,
-							'max' => 5,
-						],
-						'rem' => [
-							'min' => 1,
-							'max' => 5,
-						],
-					],
-					'condition'  => [
-						'lf_custom_radio_checkbox' => 'yes',
-					],
-					'selectors' => [
-						'{{WRAPPER}} .checkbox-type.lf-field ul li, 
-						 {{WRAPPER}} .radio-type.lf-field ul li,
-						 {{WRAPPER}} .lf-field.lfb-terms span' => 'font-size: {{SIZE}}{{UNIT}};',
-					],
-				]
-			);
-
-			$this->add_control(
             'lf_radio_checkbox_spacing',
             [
                 'label'                 => __( 'Spacing', 'lead-form-builder' ),
@@ -1235,82 +1204,6 @@ class Lead_Form_Styler extends Widget_Base {
 			);
 
 		$this->add_control(
-				'radio_check_color_heading',
-				[
-					'label'      => __( 'Radio and Checkbox Color', 'lead-form-builder' ),
-					'type'      => Controls_Manager::HEADING,
-					'separator' => 'before',
-					'condition' => [
-                    'lf_custom_radio_checkbox' => 'yes',
-                ],
-				]
-		);	
-
-		$this->start_controls_tabs( 'tabs_radio_checkbox_style' );
-
-        $this->start_controls_tab(
-            'radio_checkbox_normal',
-            [
-                'label'                 => __( 'Unchecked', 'lead-form-builder' ),
-                'condition'             => [
-                    'lf_custom_radio_checkbox' => 'yes',
-                ],
-            ]
-        );
-
-        $this->add_control(
-            'radio_checkbox_color',
-            [
-                'label'                 => __( 'Background Color', 'lead-form-builder' ),
-                'type'                  => Controls_Manager::COLOR,
-                'default'               => '',
-                'selectors'             => [
-                    '{{WRAPPER}} .lf-custom-radio-checkbox .lf-field input[type=checkbox]:before, {{WRAPPER}} .lf-custom-radio-checkbox .lf-field input[type=radio]:before' => 'background: {{VALUE}}',
-                ],
-                'condition'             => [
-                    'lf_custom_radio_checkbox' => 'yes',
-                ],
-            ]
-        );
-        
-        $this->add_responsive_control(
-            'radio_checkbox_border_width',
-            [
-                'label'                 => __( 'Border Width', 'lead-form-builder' ),
-                'type'                  => Controls_Manager::SLIDER,
-                'range'                 => [
-                    'px'        => [
-                        'min'   => 0,
-                        'max'   => 15,
-                        'step'  => 1,
-                    ],
-                ],
-                'size_units'            => [ 'px' ],
-                'selectors'             => [
-                    '{{WRAPPER}} .lf-custom-radio-checkbox .lf-field input[type=checkbox], {{WRAPPER}} .lf-custom-radio-checkbox .lf-field input[type=radio]' => 'border-width: {{SIZE}}{{UNIT}}',
-                ],
-                'condition'             => [
-                    'lf_custom_radio_checkbox' => 'yes',
-                ],
-            ]
-        );
-
-        $this->add_control(
-            'radio_checkbox_border_color',
-            [
-                'label'                 => __( 'Border Color', 'lead-form-builder' ),
-                'type'                  => Controls_Manager::COLOR,
-                'default'               => '',
-                'selectors'             => [
-                    '{{WRAPPER}} .lf-custom-radio-checkbox .lf-field input[type=checkbox], {{WRAPPER}} .lf-custom-radio-checkbox .lf-field input[type=radio]' => 'border-color: {{VALUE}}',
-                ],
-                'condition'             => [
-                    'lf_custom_radio_checkbox' => 'yes',
-                ],
-            ]
-        );
-        
-        $this->add_control(
             'checkbox_heading',
             [
                 'label'                 => __( 'Checkbox', 'lead-form-builder' ),
@@ -1362,52 +1255,6 @@ class Lead_Form_Styler extends Widget_Base {
 			]
 		);
 
-        $this->end_controls_tab();
-
-        $this->start_controls_tab(
-            'radio_checkbox_checked',
-            [
-                'label'                 => __( 'Checked', 'lead-form-builder' ),
-                'condition'             => [
-                    'lf_custom_radio_checkbox' => 'yes',
-                ],
-            ]
-        );
-
-        $this->add_control(
-            'radio_checkbox_color_checked',
-            [
-                'label'                 => __( 'Background Color', 'lead-form-builder' ),
-                'type'                  => Controls_Manager::COLOR,
-                'default'               => '#e0e0e0',
-                'selectors'             => [
-                    '{{WRAPPER}} .lf-custom-radio-checkbox .lf-field input[type="checkbox"]:checked:before' => 'background: {{VALUE}}',
-                ],
-                'condition'             => [
-                    'lf_custom_radio_checkbox' => 'yes',
-                ],
-            ]
-        );
-
-         $this->add_control(
-            'radio_checkbox_check_color_checked',
-            [
-                'label'                 => __( 'Radio / Checkbox Symbol Color', 'lead-form-builder' ),
-                'type'                  => Controls_Manager::COLOR,
-                'default'               => '#777777',
-                'selectors'             => [
-                    '{{WRAPPER}} .lf-custom-radio-checkbox .lf-field input[type=checkbox]:checked:before' => 'color: {{VALUE}}',
-                    '{{WRAPPER}} .lf-custom-radio-checkbox .lf-field input[type=radio]:checked:before' => 'background: {{VALUE}}',
-                ],
-                'condition'             => [
-                    'lf_custom_radio_checkbox' => 'yes',
-                ],
-            ]
-        );
-
-        $this->end_controls_tab();
-
-        $this->end_controls_tabs();
 		$this->end_controls_section();
 	}
 
@@ -1586,7 +1433,7 @@ class Lead_Form_Styler extends Widget_Base {
 		<?php 
 			$view_form_submit_msg = ( $settings['show_form_submit_msg'] == 'yes' ) ? ' show-submit-msg' : '';
 		?>
-	    <div class="lead-form-container <?php echo $hide_form_title; ?><?php echo $view_form_submit_msg; ?>">
+	    <div class="lead-form-container<?php echo $hide_form_title; ?><?php echo $view_form_submit_msg; ?>">
 	    	
 	    	<!-- Check if plugin is activated -->
 	    	<?php 
