@@ -2093,7 +2093,7 @@ overflow-y: scroll;
 .lfb-total-wrapper {
     padding: 10px;
     position: relative;
-    bottom: -12px;
+    top: 280px;
     background: #fff;
 }
 .lfb-total-wrapper .lfb-featured-image img{

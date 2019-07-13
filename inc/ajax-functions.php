@@ -239,7 +239,7 @@ function lfb_ShowAllLeadThisForm() {
             $popupTab   = '';
 
             if($headcount >= 6 && $leadscount == 5){
-                     $table_head .='<th>Date</th><th> . . . </th><th><input type="button" onclick="show_all_leads(' . $id . ',' . $form_id . ')" value="Show all Columns"></th>';
+                     $table_head .='<th></th><th> . . . </th><th><input type="button" onclick="show_all_leads(' . $id . ',' . $form_id . ')" value="Show all Columns"></th>';
                 }
             
         foreach ($posts as $results) {
