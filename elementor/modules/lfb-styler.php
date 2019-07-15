@@ -92,7 +92,6 @@ class Lead_Form_Styler extends Widget_Base {
   	$this->lf_field_style_controls();
   	$this->lf_radio_checkbox_style_controls();
   	$this->lf_button_style_controls();
-  	// $this->lf_message_style_controls();
 }
 
 	protected function lf_styler_general_controls() {
@@ -331,14 +330,32 @@ protected function lf_field_style_controls() {
 			$this->add_control(
 				'form_inputs_txt_color',
 				[
-					'label' => __( 'Input Text / Placeholder', 'lead-form-builder' ),
+					'label' => __( 'Input Text', 'lead-form-builder' ),
 					'type' => Controls_Manager::COLOR,
 					'scheme' => [
 						'type' => Scheme_Color::get_type(),
 						'value' => Scheme_Color::COLOR_2,
 					],
 					'selectors' => [
-						'{{WRAPPER}} .lf-field input:not([type=submit]), {{WRAPPER}} .lf-field textarea' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .lf-field input:not([type=submit]), 
+						{{WRAPPER}} .lf-field textarea' => 'color: {{VALUE}};',
+
+					],
+				]
+			);
+
+			$this->add_control(
+				'form_inputs_placeholder_color',
+				[
+					'label' => __( 'Placeholder Text', 'lead-form-builder' ),
+					'type' => Controls_Manager::COLOR,
+					'scheme' => [
+						'type' => Scheme_Color::get_type(),
+						'value' => Scheme_Color::COLOR_2,
+					],
+					'selectors' => [
+						'{{WRAPPER}} .lf-field ::placeholder' => 'color: {{VALUE}};',
+
 					],
 				]
 			);
@@ -377,7 +394,7 @@ protected function lf_field_style_controls() {
 			$this->add_control(
 				'lf_field_typography_heading',
 				[
-					'label'     => __( 'TYPOGRAPHY', 'lead-form-builder' ),
+					'label'     => __( 'Typography', 'lead-form-builder' ),
 					'type'      => Controls_Manager::HEADING,
 					'separator' => 'before',
 				]
@@ -390,6 +407,16 @@ protected function lf_field_style_controls() {
 					'name' => 'form_field_typography',
 					'scheme' => Scheme_Typography::TYPOGRAPHY_1,
 					'selector' => '{{WRAPPER}} .lf-field input:not([type=submit]), {{WRAPPER}} .lf-field textarea'
+				]
+			);
+
+			$this->add_group_control(
+				Group_Control_Typography::get_type(),
+				[
+					'label' => __( 'Field Placeholder Text', 'lead-form-builder' ),
+					'name' => 'form_field_placeholder_typography',
+					'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+					'selector' => '{{WRAPPER}} .lf-field ::placeholder'
 				]
 			);
 
@@ -949,8 +976,23 @@ protected function lf_field_style_controls() {
 					[
 						'name'        => 'btn_border',
 						'label'       => __( 'Border', 'lead-form-builder' ),
-						'placeholder' => '1px',
-						'default'     => '1px',
+						'fields_options' => [
+							'border' => [
+								'default' => 'none',
+							],
+							'width' => [
+								'default' => [
+									'top' => '0',
+									'right' => '0',
+									'bottom' => '0',
+									'left' => '0',
+									'isLinked' => true,
+								],
+							],
+							'color' => [
+								'default' => '#000',
+							],
+						],
 						'selector'    => '{{WRAPPER}} .lf-field input[type="submit"]',
 					]
 				);
@@ -1258,146 +1300,6 @@ protected function lf_field_style_controls() {
 		$this->end_controls_section();
 	}
 
-		protected function lf_message_style_controls() {
-
-		$this->start_controls_section(
-			'lf_error_section',
-			[
-				'label' => __( 'Form Submission Message', 'lead-form-builder' ),
-				'tab' => Controls_Manager::TAB_STYLE,
-			]
-		);
-
-		$this->add_control(
-            'show_form_submit_msg',
-            [
-                'label'                 => __( 'Preview Submission Message', 'lead-form-builder' ),
-                'type'                  => Controls_Manager::SWITCHER,
-                'description' 			=> __( '<b>Use this for preview purpose only. Please hide this here to show this message only after the user submits the form.', 'lead-form-builder</b>' ),
-                'label_on'              => __( 'Yes', 'lead-form-builder' ),
-                'label_off'             => __( 'No', 'lead-form-builder' ),
-                'return_value'          => 'yes',
-            ]
-        );
-			$this->add_control(
-				'lf_form_success_message_color',
-				[
-					'label'     => __( 'Text Color', 'lead-form-builder' ),
-					'type'      => Controls_Manager::COLOR,
-					'default'   => '',
-					'selectors' => [
-						'{{WRAPPER}} .lead-form-container .successmsg' => 'color: {{VALUE}};',
-					],
-				]
-			);
-
-			$this->add_control(
-					'lf_form_success_message_bg_color',
-					[
-						'label'     => __( 'Background Color', 'lead-form-builder' ),
-						'type'      => Controls_Manager::COLOR,
-						'separator' => 'after',
-						'default'   => '',
-						'selectors' => [
-							'{{WRAPPER}} .lead-form-container .successmsg' => 'background-color: {{VALUE}};',
-						],
-					]
-				);
-
-			$this->add_control(
-				'lf_form_success_message_border',
-				[
-					'label'       => __( 'Border Style', 'lead-form-builder' ),
-					'type'        => Controls_Manager::SELECT,
-					'default'     => 'solid',
-					'label_block' => true,
-					'options'     => [
-						'none'   => __( 'None', 'lead-form-builder' ),
-						'solid'  => __( 'Solid', 'lead-form-builder' ),
-						'double' => __( 'Double', 'lead-form-builder' ),
-						'dotted' => __( 'Dotted', 'lead-form-builder' ),
-						'dashed' => __( 'Dashed', 'lead-form-builder' ),
-					],
-					'selectors'  => [
-							'{{WRAPPER}} .lead-form-container .successmsg' => 'border-style: {{VALUE}};',
-						],
-				]
-			);
-
-				$this->add_control(
-					'lf_form_success_message_border_color',
-					[
-						'label'     => __( 'Border Color', 'lead-form-builder' ),
-						'type'      => Controls_Manager::COLOR,
-						'default'   => '#ffffff',
-						'condition' => [
-							'lf_form_success_message_border!' => 'none',
-						],
-						'selectors' => [
-							'{{WRAPPER}} .lead-form-container .successmsg' => 'border-color: {{VALUE}};',
-						],
-					]
-				);
-
-
-				$this->add_responsive_control(
-					'lf_form_success_message_border_size',
-					[
-						'label'      => __( 'Border Width', 'lead-form-builder' ),
-						'type'       => Controls_Manager::DIMENSIONS,
-						'size_units' => [ 'px', 'em', '%' ],
-						'default'    => [
-							'top'    => '2',
-							'bottom' => '2',
-							'left'   => '2',
-							'right'  => '2',
-							'unit'   => 'px',
-						],
-						'condition' => [
-							'lf_form_success_message_border!' => 'none',
-						],
-						'selectors'  => [
-							'{{WRAPPER}} .lead-form-container .successmsg' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-						],
-					]
-				);
-
-				$this->add_responsive_control(
-					'lf_form_success_message_border_radius',
-					[
-						'label'      => __( 'Border Radius', 'lead-form-builder' ),
-						'type'       => Controls_Manager::DIMENSIONS,
-						'size_units' => [ 'px', 'em', '%' ],
-						'selectors'  => [
-							'{{WRAPPER}} .lead-form-container .successmsg' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-						],
-					]
-				);
-
-				$this->add_responsive_control(
-					'lf_form_success_message_padding',
-					[
-						'label'      => __( 'Message Padding', 'lead-form-builder' ),
-						'type'       => Controls_Manager::DIMENSIONS,
-						'size_units' => [ 'px', 'em', '%' ],
-						'selectors'  => [
-							'{{WRAPPER}} .lead-form-container .successmsg' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-						],
-					]
-				);
-
-				$this->add_group_control(
-					Group_Control_Typography::get_type(),
-					[
-						'name'     => 'lf_form_success_message_typography',
-						'scheme'   => Scheme_Typography::TYPOGRAPHY_3,
-						'selector' => '{{WRAPPER}} .lead-form-container .successmsg',
-					]
-				);
-
-		$this->end_controls_section();
-
-	}
 
 	public function is_lf_active(){
 		if (is_plugin_active('lead-form-builder/lead-form-builder.php')){
@@ -1410,7 +1312,8 @@ protected function lf_field_style_controls() {
 	public function lfb_get_lf_forms(){
 		if ($this->is_lf_active()) {
 			global $wpdb;
-			$lf_forms = $wpdb->get_results( "SELECT id, form_title FROM wp_lead_form ");
+			$table_name = $wpdb->prefix.'lead_form';
+			$lf_forms = $wpdb->get_results( "SELECT id, form_title FROM $table_name ");
 
 			foreach ($lf_forms as $form){
 					$list[$form->id] = $form->form_title;
@@ -1429,11 +1332,8 @@ protected function lf_field_style_controls() {
 	<div class="lead-form-wrapper">
 		<?php 
 			$hide_form_title = ( $settings['lf_hide_form_title'] == 'yes' ) ? ' hide-form-title' : '';
-		?>		
-		<?php 
-			$view_form_submit_msg = ( $settings['show_form_submit_msg'] == 'yes' ) ? ' show-submit-msg' : '';
 		?>
-	    <div class="lead-form-container<?php echo $hide_form_title; ?><?php echo $view_form_submit_msg; ?>">
+	    <div class="lead-form-container<?php echo $hide_form_title; ?>">
 	    	
 	    	<!-- Check if plugin is activated -->
 	    	<?php 
