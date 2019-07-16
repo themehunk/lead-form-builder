@@ -236,6 +236,7 @@ class Lead_Form_Styler extends Widget_Base {
                 'label_on'              => __( 'Yes', 'lead-form-builder' ),
                 'label_off'             => __( 'No', 'lead-form-builder' ),
                 'return_value'          => 'yes',
+                'default'      			=> 'no',
             ]
         );
 
@@ -1083,6 +1084,7 @@ protected function lf_field_style_controls() {
                 'label_on'              => __( 'Yes', 'lead-form-builder' ),
                 'label_off'             => __( 'No', 'lead-form-builder' ),
                 'return_value'          => 'yes',
+                'default'      			=> 'no',
             ]
         );
 

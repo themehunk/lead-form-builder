@@ -351,8 +351,9 @@ max-width: 100%;
 background-size: cover!important;  
 }
 .leadform-show-form textarea {
-width:100%;
-min-height:150px;
+   width: 100%;
+   min-height: 150px;
+   text-indent: 0px;
 }
 
 .lead-form-frontdiv #ui-datepicker-div {
