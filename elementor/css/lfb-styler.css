@@ -60,10 +60,12 @@
     font-family: dashicons;
 }
 
-
-.lf-custom-radio-checkbox .lf-field input[type=checkbox]:checked:before,
 .lf-custom-radio-checkbox .lf-field input[type=radio]:checked:before {
     background: #8c8c8c;
+}
+.lf-custom-radio-checkbox .lf-field input[type=checkbox]:checked:before{
+    background: #e0e0e0;
+    color: #777777;
 }
 
 .lf-custom-radio-checkbox .lf-field input[type=radio] {
@@ -73,3 +75,4 @@
 .lf-custom-radio-checkbox .lf-field input[type=radio]:before {
     border-radius: 50%; 
 }
+
