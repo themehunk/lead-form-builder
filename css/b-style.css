@@ -632,9 +632,17 @@ width:243px;
     min-height:100px;
     margin-bottom:10px;
 }
-#lfb-form-success-msg .pro-feature{
-    margin: -41px 80px 0 0; 
+
+@media only screen and (min-width: 1300px) {
+  #lfb-form-success-msg .pro-feature{
+    margin: -41px 0px 0 0; 
 }
+}
+@media only screen and (min-width: 1170px) {
+  #lfb-form-success-msg .pro-feature{
+    margin: -41px -30px 0 0;
+}
+
 #lfb_redirect_url{
     min-width:250px;
     height:35px;
@@ -2185,7 +2193,9 @@ input[type=radio], input[type=checkbox] {
 .dropdown-menu .divider{
     margin: 0 !important; 
 }
-
+.dropdown-menu ul{
+    padding: 0;
+}
 .dropdown-menu ul li>a{
     padding: 10px !important; 
 }
@@ -2194,6 +2204,7 @@ input[type=radio], input[type=checkbox] {
 }
 .dropdown-menu ul li>a img{
     margin-right:5px;
+    margin-bottom: -5px;
 }
 
 .dropdown-menu ul li:last-child span{

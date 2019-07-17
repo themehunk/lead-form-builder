@@ -83,9 +83,11 @@ Class LFB_SHOW_FORMS {
         <li><a href="'.$edit_url_nonce.'&email-setting"><i class="fa fa-envelope-o" aria-hidden="true"></i>
  Email Notification (Auto-responders)</a></li>
                 <li class="divider"></li>
-        <li><a href="#"><i class="fa fa-repeat" aria-hidden="true"></i>
- Form Redirction Option'.LFB_FORM_PRO_FEATURE.'</li>
-        <li class="divider"></li>
+        <li>
+            <a href="#"><i class="fa fa-repeat" aria-hidden="true"></i>
+            Form Redirction Option'.LFB_FORM_PRO_FEATURE.'
+        </li>
+        <li class="divider"></li><li class="divider"></li>
         <li><a href="'.$edit_url_nonce.'&form-setting"> <i class="fa fa-bullhorn" aria-hidden="true"></i> Lead Receiving Method (Email, Database, Both)</a></li>
                 <li class="divider"></li>
 
@@ -93,6 +95,7 @@ Class LFB_SHOW_FORMS {
  Form Submit (Thank You Message) <span class="pro-feature"><i class="fa fa-lock"></i>
 
  Pro Feature<span></a></li>
+ <li class="divider"></li>
  <li><a href="'.$edit_url_nonce.'&captcha-setting"><img width="18px" src="'.LFB_FORM_CAPTCHA_SVG.'" title="Form Import">
 Spam Protection (Google Captcha)</a>';
 
@@ -121,11 +124,11 @@ if ( get_option('captcha-setting-sitekey') !== false ) {
         
 <li><a href="#"><img width="18" src="'.LFB_FORM_COLOR_IMAGE.'" />
 Form Color Customize'.LFB_FORM_PRO_FEATURE.'</li>
-<li class="divider"></li>
+<li class="divider"></li><li class="divider"></li>
 
         <li><a href="#"><img width="18px" src="'.LFB_MCPI_IMAGE.'" title="Mailchimp">
 Mailchimp Adon Settings'.LFB_FORM_PRO_FEATURE.'</li>
-<li class="divider"></li>
+<li class="divider"></li><li class="divider"></li>
 
         <li><a href=""><img width="18px" src="'.LFB_SMTP_IMAGE.'" title="SMTP Configure">
 SMTP Adon Settings <span class="pro-feature"><i class="fa fa-lock"></i>
