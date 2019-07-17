@@ -76,3 +76,13 @@
     border-radius: 50%; 
 }
 
+/*Hide labels for input fields and checkboxes*/
+
+.hide-input-label .lf-field:not(.radio-type):not(.checkbox-type) label{
+    display: none;
+}
+
+.hide-radio-checkbox-label .lf-field.radio-type label,
+.hide-radio-checkbox-label .lf-field.checkbox-type label{
+    display: none;
+}
