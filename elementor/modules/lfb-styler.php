@@ -229,13 +229,39 @@ class Lead_Form_Styler extends Widget_Base {
 			);
 
 		$this->add_control(
+            'lf_hide_input_label',
+            [
+                'label'                 => __( 'Hide All Fields Labels', 'lead-form-builder' ),
+                'type'                  => Controls_Manager::SWITCHER,
+                'label_on'              => __( 'Yes', 'lead-form-builder' ),
+                'label_off'             => __( 'No', 'lead-form-builder' ),
+                'default'				=> 'no',
+                'return_value'          => 'yes',
+            ]
+        );	
+
+		$this->add_control(
+            'lf_hide_radio_checkbox_label',
+            [
+                'label'                 => __( 'Hide Radio &amp; Checkbox Labels', 'lead-form-builder' ),
+                'type'                  => Controls_Manager::SWITCHER,
+                'label_on'              => __( 'Yes', 'lead-form-builder' ),
+                'label_off'             => __( 'No', 'lead-form-builder' ),
+                'default'				=> 'no',
+                'return_value'          => 'yes',
+            ]
+        );	
+
+		$this->add_control(
             'lf_hide_form_title',
             [
                 'label'                 => __( 'Hide Form Title', 'lead-form-builder' ),
                 'type'                  => Controls_Manager::SWITCHER,
                 'label_on'              => __( 'Yes', 'lead-form-builder' ),
                 'label_off'             => __( 'No', 'lead-form-builder' ),
+                'default'				=> 'no',
                 'return_value'          => 'yes',
+                'default'      			=> 'no',
             ]
         );
 
@@ -1083,6 +1109,7 @@ protected function lf_field_style_controls() {
                 'label_on'              => __( 'Yes', 'lead-form-builder' ),
                 'label_off'             => __( 'No', 'lead-form-builder' ),
                 'return_value'          => 'yes',
+                'default'      			=> 'no',
             ]
         );
 
@@ -1332,8 +1359,10 @@ protected function lf_field_style_controls() {
 	<div class="lead-form-wrapper">
 		<?php 
 			$hide_form_title = ( $settings['lf_hide_form_title'] == 'yes' ) ? ' hide-form-title' : '';
+			$lf_hide_input_label = ( $settings['lf_hide_input_label'] == 'yes' ) ? ' hide-input-label' : '';
+			$lf_hide_radio_checkbox_label = ( $settings['lf_hide_radio_checkbox_label'] == 'yes' ) ? ' hide-radio-checkbox-label' : '';
 		?>
-	    <div class="lead-form-container<?php echo $hide_form_title; ?>">
+	    <div class="lead-form-container<?php echo $hide_form_title . $lf_hide_input_label . $lf_hide_radio_checkbox_label; ?>">
 	    	
 	    	<!-- Check if plugin is activated -->
 	    	<?php 
