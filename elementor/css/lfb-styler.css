@@ -78,11 +78,16 @@
 
 /*Hide labels for input fields and checkboxes*/
 
-.hide-input-label .lf-field:not(.radio-type):not(.checkbox-type) label{
+.hide-input-label .lf-field:not(.radio-type):not(.checkbox-type):not(.submit-type) label{
     display: none;
 }
 
 .hide-radio-checkbox-label .lf-field.radio-type label,
 .hide-radio-checkbox-label .lf-field.checkbox-type label{
     display: none;
+}
+
+.lf-custom-radio-checkbox .lf-field input[type=checkbox],
+.lf-custom-radio-checkbox .lf-field input[type=radio] {
+    border: 1px solid #a5a5a5;
 }

@@ -389,7 +389,7 @@ protected function lf_field_style_controls() {
 			$this->add_control(
 				'form_select_input_text_color',
 				[
-					'label' => __( 'Drop Down Text', 'lead-form-builder' ),
+					'label' => __( 'Select Drop Down Text', 'lead-form-builder' ),
 					'type' => Controls_Manager::COLOR,
 					'scheme' => [
 						'type' => Scheme_Color::get_type(),
@@ -404,7 +404,7 @@ protected function lf_field_style_controls() {
 			$this->add_control(
 				'form_select_inputs_bg',
 				[
-					'label' => __( 'Drop Down Background', 'lead-form-builder' ),
+					'label' => __( 'Select Drop Down Background', 'lead-form-builder' ),
 					'type' => Controls_Manager::COLOR,
 					'default' => '#fff',
 					'scheme' => [
@@ -449,7 +449,7 @@ protected function lf_field_style_controls() {
 			$this->add_group_control(
 				Group_Control_Typography::get_type(),
 				[	
-					'label' => __( 'Drop Down Text', 'lead-form-builder' ),
+					'label' => __( 'Select Drop Down Text', 'lead-form-builder' ),
 					'name' => 'form_drop_down_typography',
 					'scheme' => Scheme_Typography::TYPOGRAPHY_1,
 					'selector' => '{{WRAPPER}} .lf-field select',
@@ -1121,11 +1121,11 @@ protected function lf_field_style_controls() {
 					'size_units' => [ 'px', 'em', 'rem' ],
 					'default'    => [
 						'unit' => 'px',
-						'size' => '20',
+						'size' => '16',
 					],
 					'range'      => [
 						'px' => [
-							'min' => 10,
+							'min' => 1,
 							'max' => 50,
 						],
 					],
@@ -1147,11 +1147,11 @@ protected function lf_field_style_controls() {
 					'size_units' => [ 'px', 'em', 'rem' ],
 					'default'    => [
 						'unit' => 'px',
-						'size' => '20',
+						'size' => '15',
 					],
 					'range'      => [
 						'px' => [
-							'min' => 10,
+							'min' => 1,
 							'max' => 50,
 						],
 					],
@@ -1172,11 +1172,11 @@ protected function lf_field_style_controls() {
 					'size_units' => [ 'px', 'em', 'rem' ],
 					'default'    => [
 						'unit' => 'px',
-						'size' => '12',
+						'size' => '6',
 					],
 					'range'      => [
 						'px' => [
-							'min' => 10,
+							'min' => 1,
 							'max' => 50,
 						],
 					],
@@ -1275,7 +1275,7 @@ protected function lf_field_style_controls() {
 		$this->add_control(
             'checkbox_heading',
             [
-                'label'                 => __( 'Checkbox', 'lead-form-builder' ),
+                'label'                 => __( 'Border Radius', 'lead-form-builder' ),
                 'type'                  => Controls_Manager::HEADING,
 				'condition'             => [
 					'lf_custom_radio_checkbox' => 'yes',
@@ -1286,7 +1286,7 @@ protected function lf_field_style_controls() {
 		$this->add_control(
 			'checkbox_border_radius',
 			[
-				'label'                 => __( 'Border Radius', 'lead-form-builder' ),
+				'label'                 => __( 'Checkbox', 'lead-form-builder' ),
 				'type'                  => Controls_Manager::DIMENSIONS,
 				'size_units'            => [ 'px', 'em', '%' ],
 				'selectors'             => [
@@ -1298,21 +1298,11 @@ protected function lf_field_style_controls() {
 			]
 		);
         
-        $this->add_control(
-            'radio_heading',
-            [
-                'label'                 => __( 'Radio Buttons', 'lead-form-builder' ),
-                'type'                  => Controls_Manager::HEADING,
-				'condition'             => [
-					'lf_custom_radio_checkbox' => 'yes',
-				],
-            ]
-        );
 
 		$this->add_control(
 			'radio_border_radius',
 			[
-				'label'                 => __( 'Border Radius', 'lead-form-builder' ),
+				'label'                 => __( 'Radio', 'lead-form-builder' ),
 				'type'                  => Controls_Manager::DIMENSIONS,
 				'size_units'            => [ 'px', 'em', '%' ],
 				'selectors'             => [
@@ -1340,7 +1330,7 @@ protected function lf_field_style_controls() {
 		if ($this->is_lf_active()) {
 			global $wpdb;
 			$table_name = $wpdb->prefix.'lead_form';
-			$lf_forms = $wpdb->get_results( "SELECT id, form_title FROM $table_name ");
+			$lf_forms = $wpdb->get_results( "SELECT id, form_title FROM $table_name WHERE form_status = 'ACTIVE'");
 
 			foreach ($lf_forms as $form){
 					$list[$form->id] = $form->form_title;
