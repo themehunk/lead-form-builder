@@ -2,7 +2,7 @@
 /*
   Plugin Name: Lead Form Builder
   Description: Lead Form Builder Plugin is a contact form builder as well as lead generator. This plugin is compatible with   all page builders like Elementor, Brizy, SiteOrigin, Gutenburg etc. Plugin comes with nearly all field options required to create Contact form, Registration form, News letter and contain Ajax based drag & drop field ordering.
-  Version: 1.4.3
+  Version: 1.4.4
   Author: ThemeHunk
   Text Domain: lead-form-builder
   Author URI: http://www.themehunk.com/
@@ -43,9 +43,6 @@ include_once( plugin_dir_path(__FILE__) . 'inc/inc.php' );
 add_action('init','lfb_include_file');
 }
 include_once( plugin_dir_path(__FILE__) . 'inc/lfb-widget.php' );
-
-
 include_once( plugin_dir_path(__FILE__) . 'elementor/lfb-addon-elementor.php' );
-
 
 ?>
