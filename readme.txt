@@ -1,10 +1,10 @@
-====== Contact Form & Lead Form Elementor Addon ========
-Contributors: themehunk
-Author URI: : http://www.themehunk.com/
-Tags: form, contact form, form builder, contact, email, captcha, registration, lead-form, field ordering, contact form builder, contact forms plugin, easy form, newsletter form, Responsive form, easy contact form, unlimited form, contact us, email send form, drag and drop contact form, form maker, widget contact form, view form simple form
-Requires at least: 4.5
-Tested up to: 5.2.2
-Stable tag: 1.4.4
+====== Contact Form & Lead Form Elementor Builder ========
+Contributors: ThemeHunk
+Author URI: : https://www.themehunk.com/
+Tags: contact form, responsive form, form builder, contact, email, captcha, registration, lead-form, field ordering, contact form builder, contact forms plugin, easy form, newsletter form, Responsive form, easy contact form, unlimited form, contact us, email send form, drag and drop contact form, form maker, widget contact form, view form simple form
+Requires at least: 5.5
+Tested up to: 5.7.1
+Stable tag: 1.5.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,17 +12,18 @@ Creating a contact form has never been so easy. Integrate forms anywhere at your
 
 == Description ==
 
-Lead Form Builder Plugin is a contact form builder as well as lead generator. This plugin is compatible with   all page builders like Elementor, Brizy, SiteOrigin, Gutenburg etc. Plugin comes with nearly all field options required to create Contact form, Registration form, News letter and contain Ajax based drag & drop field ordering. [Check Documentation](http://www.themehunk.com/docs/lead-form/)
+Lead Form Builder Plugin is a contact form builder as well as lead generator. Contact Form plugin is compatible with all page builders like Elementor, Brizy, SiteOrigin, Gutenburg etc. Lead Form Builder allows you to create beautiful contact forms. Plugin comes with nearly all field options required to create Contact form, Registration form, News letter and contain Ajax based drag & drop field ordering. [Check Documentation](http://www.themehunk.com/docs/lead-form/)
 
 **Key Features:-**
 
-* Create unlimited forms for unlimited sites.
+
+* Create unlimited contact forms for unlimited sites.
 * Lead Form Styler Elementor addon available.
-* Create forms with 9 field types: text(name), email, url, number, textarea(message), radio, checkbox, date, and dropdown.
+* Create contact forms with 9 field types: text(name), email, url, number, textarea(message), radio, checkbox, date, and dropdown.
 * Use prebuild forms or add your own. A contact form template is included.
 * Three form sizing options available (small, medium, large). 
 * Send unlimited email notifications, including autoresponders to the form submitter.
-* View created form from the back-end before publishing it live.
+* View created contact form from the back-end before publishing it live.
 * Three lead receiving methods (Receive Leads in Email, Save Leads in database(you can see all leads in the lead option), Receive Leads in Email and Save in database).
 * Send forms to the trash.
 * Generate easy to use shortcode.
@@ -99,6 +100,68 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 9. screenshot-6.png
 
 == Changelog ==
+
+= Version 1.5.9 =
+* notify updated.
+
+= Version 1.5.8 =
+* notify file update.
+
+= Version 1.5.7 =
+* notify update.
+
+= Version 1.5.6 =
+* notify image and text update.
+
+= Version 1.5.5 =
+* notify style issue fixed.
+
+
+= Version 1.5.4 =
+* add dashboard new icon.
+
+= Version 1.5.3 =
+* dropdown style issue fixed.
+
+
+= Version 1.5.2 =
+* Notify issue fixed.
+
+= Version 1.5.1 =
+* Notify banner add.
+
+= Version 1.5.0 =
+* Date icon issue fixed.
+
+= Version 1.4.13 =
+* Lead display date issue fixed.
+
+= Version 1.4.12 =
+* Elementor - form title issue fixed.
+
+= Version 1.4.11 =
+* heading class added.
+
+= Version 1.4.10 =
+* js issue fixed.
+
+= Version 1.4.9 =
+* Form heading replace h1 to h2 
+* style issue fixed
+
+= Version 1.4.8 =
+* Alter table code remove.
+* error issue fixed.
+
+= Version 1.4.7 =
+* image and text change.
+
+= Version 1.4.6 =
+* bug fixed.
+* wordpress logo change.
+
+= Version 1.4.5 =
+* Admin notice removed.
 
 = Version 1.4.4 =
 * textarea placeholder text issue fixed.
