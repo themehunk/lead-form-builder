@@ -1,7 +1,7 @@
 
 .th-notice-slide-wrapper{
      background: #ffff;
-    border: 1px solid #f6f7f7;
+    border: 1px solid #c3c4c7;
     border-left-color: #4f94d4;
     border-inline-start-width: 4px;
     -webkit-box-shadow: var(--e-notice-box-shadow);
@@ -10,11 +10,11 @@
 }
 
 
-.th-notice-slide-wrap.owl-carousel .thunk-notice {
-    padding: 1.5rem;
+.th-notice-slide-wrap .thunk-notice {
+    padding: 1rem;
     display: flex;
 }
-.th-notice-slide-wrap.owl-carousel .thunk-review-thumbnail img{
+.th-notice-slide-wrap .thunk-review-thumbnail img{
     width:500px;
     vertical-align: middle;
 }
@@ -23,11 +23,14 @@
     text-align: center;
     position: relative;
     display: block;
-        margin-right:20px;
+    margin-right:20px;
 }
 .th-notice-slide-wrap .thunk-review-ul li {
     display: inline-block;
 margin-right:10px;
+}
+.th-notice-slide-wrap .thunk-notice-text{
+    position: relative;
 }
 .th-notice-slide-wrap .thunk-notice-text h3 {
     font-size: 24px;
@@ -39,29 +42,3 @@ margin-right:10px;
 font-size:15px;
 line-height:27px;
 }
-
-.th-notice-slide-wrap.owl-carousel .owl-dots{
-position: absolute;
-    bottom: 12px;
-    text-align: center;
-    left: 0;
-    right: 0;
-}
-
-.th-notice-slide-wrap.owl-carousel button.owl-dot,
- .th-notice-slide-wrap.owl-carousel button.owl-dot{
-    width: 11px;
-    height: 11px;
-    line-height: 11px;
-    border-radius: 50%;
-    background: #9e9e9efc;
-    margin: 0 4px;
-    opacity: 0.7;
-}
-.th-notice-slide-wrap.owl-carousel button.owl-dot.active,
-.th-notice-slide-wrap.th-notice-slide-wrapwl-carousel button.owl-dot.active{
-background:#111;
-width:20px;
-border-radius:30px;
-}
-
