@@ -85,7 +85,7 @@ function lfb_register_my_custom_menu_page() {
        add_menu_page(__('Lead Form', 'lead-form-builder'), __('Lead Form', 'lead-form-builder'), 'lfb_manager', 'wplf-plugin-menu', 'lfb_lead_form_page', plugins_url('../images/icon.png', __FILE__ ));
     add_submenu_page('wplf-plugin-menu', __('Add Forms', 'lead-form-builder'), __('Add Forms', 'lead-form-builder'), 'lfb_manager', 'add-new-form', 'lfb_add_contact_forms');
     add_submenu_page('wplf-plugin-menu', __('View Leads', 'lead-form-builder'), __('View Leads', 'lead-form-builder'), 'lfb_manager', 'all-form-leads', 'lfb_all_forms_lead');
-    add_submenu_page('wplf-plugin-menu', __('About Lead From', 'th-lead-form'), __('About Lead From', 'th-lead-form'), 'delete_others_posts', 'pro-form-leads', 'lfb_pro_feature');
+    add_submenu_page('wplf-plugin-menu', __('Premium Version', 'th-lead-form'), __('Premium Version', 'th-lead-form'), 'delete_others_posts', 'pro-form-leads', 'lfb_pro_feature');
 
 }
 add_action('admin_menu', 'lfb_register_my_custom_menu_page');
