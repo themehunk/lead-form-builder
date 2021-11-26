@@ -796,6 +796,9 @@ function delete_this_lead(this_lead_id) {
     jQuery('#lead-id-'+this_lead_id).remove();
     form_data = "&lead_id="+this_lead_id+"&action=delete_leads_backend";
     SaveByAjaxRequest(form_data, 'POST').success(function(response) {
+        if(response==false){
+        alert("No Permission !");
+        }
     })
     }
 }

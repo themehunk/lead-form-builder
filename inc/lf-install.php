@@ -82,9 +82,16 @@ add_action('wp_enqueue_scripts', 'lfb_wp_assets', 15);
  * Register custom menu pages.
  */
 function lfb_register_my_custom_menu_page() {
+
+$user = get_userdata( get_current_user_id() );
+// Get all the user roles as an array.
+$user_roles = $user->roles;
+
        add_menu_page(__('Lead Form', 'lead-form-builder'), __('Lead Form', 'lead-form-builder'), 'lfb_manager', 'wplf-plugin-menu', 'lfb_lead_form_page', plugins_url('../images/icon.png', __FILE__ ));
     add_submenu_page('wplf-plugin-menu', __('Add Forms', 'lead-form-builder'), __('Add Forms', 'lead-form-builder'), 'lfb_manager', 'add-new-form', 'lfb_add_contact_forms');
+    if( in_array( 'administrator', $user_roles, true )) {
     add_submenu_page('wplf-plugin-menu', __('View Leads', 'lead-form-builder'), __('View Leads', 'lead-form-builder'), 'lfb_manager', 'all-form-leads', 'lfb_all_forms_lead');
+    }
     add_submenu_page('wplf-plugin-menu', __('Premium Version', 'th-lead-form'), __('Premium Version', 'th-lead-form'), 'delete_others_posts', 'pro-form-leads', 'lfb_pro_feature');
 
 }

@@ -76,7 +76,7 @@ function lfbInserForm(element,form_id,uploaddata=''){
 
             form_data = this_form_data + "&action=Save_Form_Data";
 
-        SavedataByAjaxRequest(form_data, 'POST').success(function(response) {    
+        SavedataByAjaxRequest(form_data, 'POST').success(function(response) {
             element.find('#loading_image').hide();;
             if (jQuery.trim(response) == 'invalidcaptcha') {
 
