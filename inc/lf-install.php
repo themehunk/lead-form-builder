@@ -152,7 +152,7 @@ function lfb_add_contact_forms() {
       'form_data' => $form_data
     ), 
     array( 'id' => $update_form_id ));
-    $rd_url = admin_url().'admin.php?page=add-new-form&action=edit&redirect=update&formid='.$update_form_id;
+    $rd_url = admin_url().'echo esc_url(admin.php?page=add-new-form&action=edit&redirect=update&formid=);'.$update_form_id;
     $complete_url = wp_nonce_url($rd_url);
   }
 
@@ -175,16 +175,16 @@ function lfb_all_forms_lead() {
 }
 
 function lfb_pro_feature(){
-echo '<iframe height="700px" width="100%" src="//themehunk.com/feature/wp-lead-form/" onload="lfbresizeIframe(this)"></iframe>';
+echo '<iframe height="700px" width="100%" src="echo esc_url(//themehunk.com/feature/wp-lead-form/);" onload="lfbresizeIframe(this)"></iframe>';
 }
 
 function lfb_theme_promotion(){
     $html = '<div class="lfb-total-wrapper">
-        <div class="lfb-featured-image"><a target="_blank" href="https://bit.ly/34ds6R4" ><img src="https://themehunk.com/wp-content/uploads/2020/07/Top-store-Featured-Image-1.png"></a></div>
+        <div class="lfb-featured-image"><a target="_blank" href="echo esc_url(https://bit.ly/34ds6R4);" ><img src="echo esc_url(https://themehunk.com/wp-content/uploads/2020/07/Top-store-Featured-Image-1.png);"></a></div>
         <div class="lfb-featured-desc-wrapper">
-            <div class="lfb-featured-title"><a target="_blank" href="https://bit.ly/34ds6R4"><h2 style="font-size: 1.5em;">Top Store : Multipurpose Responsive Free & Ecommerce Theme</h2></a></div>
-            <div class="lfb-featured-desc"><p style="font-size: 15px; line-height: 1.7;">Top Store is a powerful responsive eCommerce WordPress theme specially designed for eStore websites. Theme is deeply integrated with WooCommerce plugin to sell your products online. Best suited for websites like electronic, food, home appliances site, gadget store, jewelry shop, fashion shop, furniture, grocery, clothing, and decorative stores. Theme contains multiple widgets options, Header and footer layout combinations, Color and Background option. It also has Sidebar option for both the FrontPage and inner pages to show Widgets.See demo here: </p></div></div>
-            <a target="_blank" class="button button-primary" href="https://bit.ly/34ds6R4">LIVE DEMO</a>
+            <div class="lfb-featured-title"><a target="_blank" href="echo esc_url(https://bit.ly/34ds6R4);"><h2 style="font-size: 1.5em;">'.__("Top Store : Multipurpose Responsive Free & Ecommerce Theme","lead-form-builder").'</h2></a></div>
+            <div class="lfb-featured-desc"><p style="font-size: 15px; line-height: 1.7;">'.__("Top Store is a powerful responsive eCommerce WordPress theme specially designed for eStore websites. Theme is deeply integrated with WooCommerce plugin to sell your products online. Best suited for websites like electronic, food, home appliances site, gadget store, jewelry shop, fashion shop, furniture, grocery, clothing, and decorative stores. Theme contains multiple widgets options, Header and footer layout combinations, Color and Background option. It also has Sidebar option for both the FrontPage and inner pages to show Widgets.See demo here:","lead-form-builder").' </p></div></div>
+            <a target="_blank" class="button button-primary" href="echo esc_url(https://bit.ly/34ds6R4);">'.__("LIVE DEMO","lead-form-builder").'</a>
         </div>';
         return $html; 
 }

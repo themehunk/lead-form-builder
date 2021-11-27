@@ -39,13 +39,13 @@ Class LFB_EDIT_DEL_FORM {
         if(isset($_GET['redirect'])){
             $redirect_value= $_GET['redirect'];
             if($redirect_value=='create'){
-        $form_message='<div id="message" class="updated notice is-dismissible"><p>Form <strong>Saved</strong>.</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+        $form_message='<div id="message" class="updated notice is-dismissible"><p>Form <strong>Saved</strong>.</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">'.__("Dismiss this notice.","lead-form-builder").'</span></button></div>';
         }if($redirect_value=='update'){
-            $form_message='<div id="message" class="updated notice is-dismissible"><p>Form <strong>Updated</strong>.</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+            $form_message='<div id="message" class="updated notice is-dismissible"><p>Form <strong>Updated</strong>.</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">'.__("Dismiss this notice.","lead-form-builder").'</span></button></div>';
             }
         }
         $nonce = wp_create_nonce( '_nonce_verify' );
-        $update_url ="admin.php?page=add-new-form&action=edit&redirect=update&formid=".$this_form_id.'&_wpnonce='.$nonce;
+        $update_url ="echo esc_url(admin.php?page=add-new-form&action=edit&redirect=update&formid=);".$this_form_id.'&_wpnonce='.$nonce;
        $this->lfb_active_form_tab();
         echo '<div class="wrap">
         <h2> Edit From</h2>'.$form_message.'
@@ -120,16 +120,16 @@ Class LFB_EDIT_DEL_FORM {
 
     function lfb_basic_form() {
         echo "<div class='inside spth_setting_section'  id='wpth_add_form'>
-          <h2 class='sec_head'>Form Fields</h2>
+          <h2 class='sec_head'>".__('Form Fields','lead-form-builder')."</h2>
           <table class='widefat' id='sortable'>          
           <thead>
           <tr>
-          <th>Field name</th>
-          <th>Field Type</th>
-          <th>Default Value</th>
-          <th>Use Default Value as Placeholder</th>
-          <th>Required</th>
-          <th>Action</th>
+          <th>".__('Field name','lead-form-builder')."</th>
+          <th>".__('Field Type','lead-form-builder')."</th>
+          <th>".__('Default Value','lead-form-builder')."</th>
+          <th>".__('Use Default Value as Placeholder','lead-form-builder')."</th>
+          <th>".__('Required','lead-form-builder')."</th>
+          <th>".__('Action','lead-form-builder')."</th>
           </tr></thead>";
           //          <th>S.N.</th>
 

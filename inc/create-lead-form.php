@@ -16,7 +16,7 @@ $wpdb->query( $wpdb->prepare(
   "INSERT INTO $table_name ( form_title, form_data, date ) VALUES ( %s, %s, %s )",
    $title, $form_data, date('Y/m/d g:i:s') ) );
 
-    $rd_url = admin_url().'admin.php?page=add-new-form&action=edit&redirect=create&formid='.$wpdb->insert_id.'&_wpnonce='.$_REQUEST['_wpnonce'];
+    $rd_url = admin_url().'echo esc_url(admin.php?page=add-new-form&action=edit&redirect=create&formid=);'.$wpdb->insert_id.'&_wpnonce='.$_REQUEST['_wpnonce'];
     wp_redirect($rd_url);
 }
 Class LFB_AddNewForm {
@@ -24,10 +24,10 @@ function lfb_add_new_form(){
 	echo '<div class="wrap">
         <h2>Add New From</h2>
         <h2 class="nav-tab-wrapper">
-            <a class="nav-tab nav-tab-active lead-form-create-form" href="#">Create Form</a>
-            <a class="nav-tab lead-form-email-setting" href="#">Email Setting</a>
-            <a class="nav-tab lead-form-captcha-setting" href="#">Captcha Setting</a>
-            <a class="nav-tab lead-form-setting" href="#">Setting</a>
+            <a class="nav-tab nav-tab-active lead-form-create-form" href="#"> '.__("Create Form","lead-form-builder").'</a>
+            <a class="nav-tab lead-form-email-setting" href="#">'.__("Email Setting","lead-form-builder").'</a>
+            <a class="nav-tab lead-form-captcha-setting" href="#"> '.__("Captcha Setting","lead-form-builder").'</a>
+            <a class="nav-tab lead-form-setting" href="#">'.__("Setting", "lead-form-builder").'</a>
        </h2>
         <div id="sections">
             <section>';
@@ -39,11 +39,11 @@ function lfb_add_new_form(){
                 if (is_admin()) {
                     echo '<div class="wrap">
 <div class="infobox">
-<h1>Email Setting</h1></div>
+<h1>'.__("Email Setting", "lead-form-builder").'</h1></div>
 <br class="clear"><div class="inside setting_section">
            <div class="card">
                 <form name="" id="new-lead-email-setting" method="post" action="">
-                <p class="sec_head">Please create and save your Lead Form to do these settings.</p>  
+                <p class="sec_head">'.__("Please create and save your Lead Form to do these settings.","lead-form-builder").'</p>  
                 </form>            
             </div>
             </div></div>';
@@ -53,11 +53,11 @@ function lfb_add_new_form(){
            if (is_admin()) {
                     echo '<div class="wrap">
 <div class="infobox">
-<h1>Captcha Setting</h1></div>
+<h1>'.__("Captcha Setting","lead-form-builder").'</h1></div>
 <br class="clear"><div class="inside setting_section">
            <div class="card">
                 <form name="" id="new-captcha-setting" method="post" action="">
-                <p class="sec_head">Please create and save your Lead Form to do these settings.</p>  
+                <p class="sec_head">'.__("Please create and save your Lead Form to do these settings.","lead-form-builder").'</p>  
                 </form>            
             </div>
             </div></div>';
@@ -70,7 +70,7 @@ function lfb_add_new_form(){
 <br class="clear"><div class="inside setting_section">
            <div class="card">
                 <form name="" id="new-lead-form-setting" method="post" action="">
-                <p class="sec_head">Please create and save your Lead Form to do these settings.</p>  
+                <p class="sec_head">'.__("Please create and save your Lead Form to do these settings.","lead-form-builder").'</p>  
                 </form>            
             </div>
             </div></div>';
@@ -81,10 +81,10 @@ function lfb_add_new_form(){
 function lfb_add_form_setting() {
 $nonce = wp_create_nonce( '_nonce_verify' );
 
-        $create_url ="admin.php?page=add-new-form&action=edit&redirect=create&_wpnonce=".$nonce;
+        $create_url ="echo esc_url(admin.php?page=add-new-form&action=edit&redirect=create&_wpnonce=);".$nonce;
 
     echo "<div class='wrap'>
-        <h1>Lead Form Settings</h1>
+        <h1>".__('Lead Form Settings','lead-form-builder')."</h1>
         <form method='post' action='".$create_url."' id='new_lead_form'>
             <div id='poststuff'>
                 <div id='post-body'>
@@ -112,16 +112,16 @@ $nonce = wp_create_nonce( '_nonce_verify' );
 
 function lfb_basic_form() {
     echo "<div class='inside spth_setting_section'  id='wpth_add_form'>
-          <h2 class='sec_head'>Form Fields</h2>
+          <h2 class='sec_head'>'.__('Form Fields','lead-form-builder').'</h2>
           <table class='widefat' id='sortable'>
           <thead>
           <tr>
-          <th>Field name</th>
-          <th>Field Type</th>
-          <th>Default Value</th>
-          <th>Use Default Value as Placeholder</th>
-          <th>Required</th>
-          <th>Action</th>
+          <th>".__('Field name','lead-form-builder')."</th>
+          <th>".__('Field Type','lead-form-builder')."</th>
+          <th>".__('Default Value','lead-form-builder')."</th>
+          <th>".__('Use Default Value as Placeholder', 'lead-form-builder')."</th>
+          <th>"._('Required', 'lead-form-builder')."</th>
+          <th>".__('Action','lead-form-builder')."</th>
           </tr></thead>";
 }
 
@@ -130,21 +130,21 @@ function lfb_form_first_fields() {
 	      <td><input type='text' name='form_field_1[field_name]' id='field_name_1' value=''></td>
 		  <td>
 		  <select class='form_field_select' name='form_field_1[field_type][type]' id='field_type_1'>
-		    <option value='select'>Select Field Type</option>
-		    <option value='name'>Name</option>		    
-		    <option value='email'>Email</option>
-		    <option value='message'>Message</option>
-            <option value='dob'>DOB</option>
-		    <option value='date'>Date</option>	    
-		    <option value='text'>Text (Single Line Text)</option>
-        <option value='textarea'>Textarea (Multiple Line Text)</option>
-		    <option value='htmlfield'>Content Area (Read only Text)</option>
-            <option value='url'>Url (Website url)</option>
-            <option value='number'>Number (Only Numeric 0-9 )</option>
-            <option value='radio'>Radio (Choose Single Option)</option>    
-            <option value='option'>Option (Choose Single Option)</option>  
-            <option value='checkbox'>Checkbox (Choose Multiple Option)</option>
-            <option value='terms'>Checkbox (Terms & condition)</option>
+		    <option value='select'>".__('Select Field Type','lead-form-builder')."</option>
+		    <option value='name'>".__('Name','lead-form-builder')."</option>		    
+		    <option value='email'>".__('Email','lead-form-builder')."</option>
+		    <option value='message'>".__('Message','lead-form-builder')."</option>
+            <option value='dob'>".__('DOB','lead-form-builder')."</option>
+		    <option value='date'>".__('Date','lead-form-builder')." </option>	    
+		    <option value='text'>".__('Text (Single Line Text)','lead-form-builder')." </option>
+        <option value='textarea'>".__('Textarea (Multiple Line Text)','lead-form-builder')." </option>
+		    <option value='htmlfield'>".__('Content Area (Read only Text)','lead-form-builder')." </option>
+            <option value='url'>".__('Url (Website url)','lead-form-builder')."</option>
+            <option value='number'>".__('Number (Only Numeric 0-9 )','lead-form-builder')."</option>
+            <option value='radio'>".__('Radio (Choose Single Option)','lead-form-builder')." </option>    
+            <option value='option'>".__('Option (Choose Single Option)','lead-form-builder')." </option>  
+            <option value='checkbox'>".__('Checkbox (Choose Multiple Option)','lead-form-builder')."  </option>
+            <option value='terms'>".__('Checkbox (Terms & condition)','lead-form-builder')." </option>
 			</select>
 			<div class='add_radio_checkbox_1' id='add_radio_checkbox'>
 			<div class='' id='add_radio'></div>
@@ -177,7 +177,7 @@ function lfb_form_last_fields(){
           <td>
           <input type='hidden' name='form_field_0[field_name]' id='field_name_0' value='submit'>
           <select class='form_field_select' name='form_field_0[field_type][type]' id='field_type_0'>        
-            <option value='submit'>Submit Button</option>
+            <option value='submit'>".__('Submit Button','lead-form-builder')."</option>
             </select>
         </td>
         <td><input type='text' class='default_value' name='form_field_0[default_value]' id='default_value_0' value='SUBMIT'>
