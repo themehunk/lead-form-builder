@@ -38,11 +38,12 @@ lfb_roles::init();
 /*
  * Include assets
  */
-function lfb_admin_assets() {
-    $pageSearch = array('wplf-plugin-menu','add-new-form','lfb-form-extension','all-form-leads','lfb-import-form','lfb-popup-menu','add-lfb-popup','settings-lfb-popup');
-    if(isset($_GET['page']) && in_array($_GET['page'], $pageSearch)){
-        wp_enqueue_style('sweet-dropdown.min', LFB_PLUGIN_URL . 'css/jquery.sweet-dropdown.min.css');
+function lfb_admin_assets($hook) {
+    $pageSearch = array('toplevel_page_wplf-plugin-menu','lead-form_page_add-new-form','lead-form_page_all-form-leads','lead-form_page_pro-form-leads');
+    if(in_array($hook, $pageSearch)){
         wp_enqueue_style('wpth_fa_css', LFB_PLUGIN_URL . 'font-awesome/css/font-awesome.css');
+        wp_enqueue_style('lfb-option-css', LFB_PLUGIN_URL . 'css/option-style.css');
+        wp_enqueue_style('sweet-dropdown.min', LFB_PLUGIN_URL . 'css/jquery.sweet-dropdown.min.css');
         wp_enqueue_style('wpth_b_css', LFB_PLUGIN_URL . 'css/b-style.css');
         wp_enqueue_style('wpth_color_picker_css', LFB_PLUGIN_URL . 'inc/color-picker/color-picker.css',array( 'wp-color-picker' ));
         wp_enqueue_script('lfb_modernizr_js', LFB_PLUGIN_URL . 'js/modernizr.js', '', LFB_VER, true);
@@ -58,7 +59,6 @@ function lfb_admin_assets() {
         wp_enqueue_script("jquery-ui-draggable");
         wp_enqueue_script("jquery-ui-droppable"); 
         wp_enqueue_script("jquery-ui-accordion");
-        wp_register_style('jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css');
         wp_enqueue_style( 'jquery-ui' );  
         wp_enqueue_script('lfb_color_picker_js', LFB_PLUGIN_URL . 'inc/color-picker/color-picker.js', array( 'jquery', 'wp-color-picker' ), LFB_VER, true);
         wp_enqueue_script('lfb_upload', LFB_PLUGIN_URL . 'js/upload.js', '', LFB_VER, true);
@@ -181,17 +181,10 @@ function lfb_all_forms_lead() {
     $th_show_forms->lfb_show_form_leads();
 }
 
-function lfb_pro_feature(){
-echo '<iframe height="700px" width="100%" src="//themehunk.com/feature/wp-lead-form/" onload="lfbresizeIframe(this)"></iframe>';
-}
 
-function lfb_theme_promotion(){
-    $html = '<div class="lfb-total-wrapper">
-        <div class="lfb-featured-image"><a target="_blank" href="https://bit.ly/34ds6R4" ><img src="https://themehunk.com/wp-content/uploads/2020/07/Top-store-Featured-Image-1.png"></a></div>
-        <div class="lfb-featured-desc-wrapper">
-            <div class="lfb-featured-title"><a target="_blank" href="https://bit.ly/34ds6R4"><h2 style="font-size: 1.5em;">Top Store : Multipurpose Responsive Free & Ecommerce Theme</h2></a></div>
-            <div class="lfb-featured-desc"><p style="font-size: 15px; line-height: 1.7;">Top Store is a powerful responsive eCommerce WordPress theme specially designed for eStore websites. Theme is deeply integrated with WooCommerce plugin to sell your products online. Best suited for websites like electronic, food, home appliances site, gadget store, jewelry shop, fashion shop, furniture, grocery, clothing, and decorative stores. Theme contains multiple widgets options, Header and footer layout combinations, Color and Background option. It also has Sidebar option for both the FrontPage and inner pages to show Widgets.See demo here: </p></div></div>
-            <a target="_blank" class="button button-primary" href="https://bit.ly/34ds6R4">LIVE DEMO</a>
-        </div>';
-        return $html; 
+
+function lfb_pro_feature(){
+
+include_once( plugin_dir_path(__FILE__) . 'options/option.php' );
+
 }

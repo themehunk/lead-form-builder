@@ -670,10 +670,8 @@ function lfb_Save_Form_Data() {
 
     $lf_store   = new LFB_LeadStoreType();
     $th_save_db = new LFB_SAVE_DB();
-    $mailext    = NEW LFB_Extension();
 
     $lf_store->lfb_mail_type($form_id,$form_data,$th_save_db,$user_emailid);
-    $mailext->getFormData($form_id,$en,$th_save_db);
     
     die();
 }
