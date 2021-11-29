@@ -159,7 +159,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                 
               </span>
               <span class="color-wrap">
-                  <label class="lfb-form-paddingtop">Top </label>
+                  <label class="lfb-form-paddingtop"><?php  _e('Top' ,'lead-form-builder'); ?> </label>
                  <div id="lfb-form-padding-top">
                       <input type="hidden"  name="lfb_form_padding_top" id="lfb_form_padding_top" value="<?php echo $lfb_form_padding_top_; ?>" />
                         <div id="lfb-form-padding-top-handle" class="ui-slider-handle"></div>
@@ -167,7 +167,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                       </div>
                    </span>
                    <span class="color-wrap">
-                       <label class="lfb-form-paddingbottom" >Bottom</label>
+                       <label class="lfb-form-paddingbottom" ><?php  _e('Bottom' ,'lead-form-builder'); ?> </label>
                       <div id="lfb-form-padding-bottom">
                       <input type="hidden"  name="lfb_form_padding_bottom" id="lfb_form_padding_bottom" value="<?php echo $lfb_form_padding_bottom_; ?>" />
                         <div id="lfb-form-padding-bottom-handle" class="ui-slider-handle"></div>
@@ -175,7 +175,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                       </div>
                       </span>
                       <span class="color-wrap">
-                       <label class="lfb-form-paddingleft" >Left</label>
+                       <label class="lfb-form-paddingleft" ><?php  _e('Left' ,'lead-form-builder'); ?></label>
                       <div id="lfb-form-padding-left">
                       <input type="hidden"  name="lfb_form_padding_left" id="lfb_form_padding_left" value="<?php echo $lfb_form_padding_left_; ?>" />
                         <div id="lfb-form-padding-left-handle" class="ui-slider-handle"></div>
@@ -183,7 +183,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                       </div>
                       </span>
                       <span class="color-wrap">
-                       <label class="lfb-form-paddingright" >Right</label>
+                       <label class="lfb-form-paddingright" ><?php  _e('Right' ,'lead-form-builder'); ?></label>
                       <div id="lfb-form-padding-right">
                       <input type="hidden"  name="lfb_form_padding_right" id="lfb_form_padding_right" value="<?php echo $lfb_form_padding_right_; ?>" />
                         <div id="lfb-form-padding-right-handle" class="ui-slider-handle"></div>

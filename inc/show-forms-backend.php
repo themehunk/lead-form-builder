@@ -7,21 +7,21 @@ Class LFB_SHOW_FORMS {
     }
     function lfb_show_all_forms($id) {
         $lfb_admin_url = admin_url();
-        echo '<div class="wrap show-all-form"> <a class="button_lfb" target="_blank" href="//themehunk.com/product/lead-form-builder-pro/">Get Pro Version</a>
-<h1>Lead Forms Builder<a href="' . $lfb_admin_url . 'admin.php?page=add-new-form&_wpnonce='.$this->lfb_show_form_nonce().'" class="add-new-h2">Add New</a></h1>
+        echo '<div class="wrap show-all-form"> <a class="button_lfb" target="_blank" href="//themehunk.com/product/lead-form-builder-pro/">'.esc_html__('Get Pro Version','lead-form-builder').' </a>
+<h1>'.esc_html__('Lead Forms Builder','lead-form-builder').' <a href="' . $lfb_admin_url . 'admin.php?page=add-new-form&_wpnonce='.$this->lfb_show_form_nonce().'" class="add-new-h2">Add New</a></h1>
 <div>
 <table class="wp-list-table widefat fixed striped posts ">
 	<thead>
 	<tr>
-		<th scope="col" id="title" class="manage-column column-title column-primary sortable asc"><a><span>Title</span><span class="sorting-indicator"></span></a></th>
-		<th scope="col" id="shortcode" class="manage-column column-shortcode">Shortcode</th>
-		<th scope="col" id="today_count" class="manage-column column-form-count sortable desc">Today\'s Lead</th>
-		<th scope="col" id="total_count" class="manage-column column-form-count sortable desc">Total Lead</th>
-        <th scope="col" id="email-settings" class="manage-column column-form-email sortable desc"><a><span>Form Settings</span><span class="sorting-indicator"></span></a></th>
+		<th scope="col" id="title" class="manage-column column-title column-primary sortable asc"><a><span>'.esc_html__('Title','lead-form-builder').'</span><span class="sorting-indicator"></span></a></th>
+		<th scope="col" id="shortcode" class="manage-column column-shortcode">'.esc_html__('Shortcode','lead-form-builder').'</th>
+		<th scope="col" id="today_count" class="manage-column column-form-count sortable desc">'.esc_html__("Today\'s Lead",'lead-form-builder').' </th>
+		<th scope="col" id="total_count" class="manage-column column-form-count sortable desc">'.esc_html__('Total Lead','lead-form-builder').' </th>
+        <th scope="col" id="email-settings" class="manage-column column-form-email sortable desc"><a><span>'.esc_html__('Form Settings','lead-form-builder').' </span><span class="sorting-indicator"></span></a></th>
 
-        <th scope="col" id="email-settings" class="manage-column column-form-adon sortable desc"><a><span>Form Add-Ons</span><span class="sorting-indicator"></span></a></th>
+        <th scope="col" id="email-settings" class="manage-column column-form-adon sortable desc"><a><span>'.esc_html__('Form Add-Ons','lead-form-builder').' </span><span class="sorting-indicator"></span></a></th>
 
-        <th scope="col" id="date" class="manage-column column-form-date sortable desc">Date</th>
+        <th scope="col" id="date" class="manage-column column-form-date sortable desc">'.esc_html__('Date','lead-form-builder').' </th>
 		</tr>
 	</thead>
 	<tbody id="the-list" data-wp-lists="list:post">';
@@ -62,8 +62,8 @@ Class LFB_SHOW_FORMS {
         echo '<tr><td class="title column-title has-row-actions column-primary" data-colname="Title"><strong>' . $form_count . '.  <a class="row-title" href="'.$edit_url_nonce. '" title="Edit “' . $form_title . '”">' . $form_title . '</a></strong>
 		<div class="row-actions"><span class="edit"><a href="' . $edit_url_nonce. '">Edit</a></span>|<span class="edit"><a href="' . $lfb_admin_url . 'admin.php?page=wplf-plugin-menu&action=delete&page_id='.$id.'&formid=' . $form_id . '">Delete</a></span>|<span class="edit"><a href="'.$form_color.'" target="_blank" >View Form</a></span>
 		</div>
-		<button type="button" class="toggle-row"><span class="screen-reader-text">Show more details</span></button>
-		<button type="button" class="toggle-row"><span class="screen-reader-text">Show more details</span></button>
+		<button type="button" class="toggle-row"><span class="screen-reader-text">'.esc_html__('Show more details','lead-form-builder').' </span></button>
+		<button type="button" class="toggle-row"><span class="screen-reader-text">'.esc_html__('Show more details','lead-form-builder').' </span></button>
 		</td>
 		<td class="shortcode column-shortcode" data-colname="Shortcode"><span class="shortcode">
 		<input type="text" onfocus="this.select();" readonly="readonly" value="[lead-form form-id=' . $form_id . ' title=' . $form_title . ']" class="large-text code"></span>
@@ -81,16 +81,16 @@ Class LFB_SHOW_FORMS {
         <div class="dropdown-menu dropdown-anchor-top-left dropdown-has-anchor" id="lfb-dropdown-with-'.$form_id.'">
     <ul>
         <li><a href="'.$edit_url_nonce.'&email-setting"><i class="fa fa-envelope-o" aria-hidden="true"></i>
- Email Notification (Auto-responders)</a></li>
+ '.esc_html__('Email Notification (Auto-responders).','lead-form-builder').' </a></li>
                 <li class="divider"></li>
         <li><a href="#"><i class="fa fa-repeat" aria-hidden="true"></i>
  Form Redirction Option'.LFB_FORM_PRO_FEATURE.'</li>
         <li class="divider"></li>
-        <li><a href="'.$edit_url_nonce.'&form-setting"> <i class="fa fa-bullhorn" aria-hidden="true"></i> Lead Receiving Method (Email, Database, Both)</a></li>
+        <li><a href="'.$edit_url_nonce.'&form-setting"> <i class="fa fa-bullhorn" aria-hidden="true"></i> '.esc_html__('Lead Receiving Method (Email, Database, Both).','lead-form-builder').' </a></li>
                 <li class="divider"></li>
 
         <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>
- Form Submit (Thank You Message) <span class="pro-feature"><i class="fa fa-lock"></i>
+ '.esc_html__('Form Submit (Thank You Message)','lead-form-builder').' <span class="pro-feature"><i class="fa fa-lock"></i>
 
  Pro Feature<span></a></li>
  <li><a href="'.$edit_url_nonce.'&captcha-setting"><img width="18px" src="'.LFB_FORM_CAPTCHA_SVG.'" title="Form Import">

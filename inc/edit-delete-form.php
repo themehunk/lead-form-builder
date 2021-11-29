@@ -120,16 +120,16 @@ Class LFB_EDIT_DEL_FORM {
 
     function lfb_basic_form() {
         echo "<div class='inside spth_setting_section'  id='wpth_add_form'>
-          <h2 class='sec_head'>Form Fields</h2>
+          <h2 class='sec_head'>".esc_html__('Form Fields','lead-form-builder')."</h2>
           <table class='widefat' id='sortable'>          
           <thead>
           <tr>
-          <th>Field name</th>
-          <th>Field Type</th>
-          <th>Default Value</th>
-          <th>Use Default Value as Placeholder</th>
-          <th>Required</th>
-          <th>Action</th>
+          <th>".esc_html__('Field name','lead-form-builder')."</th>
+          <th>".esc_html__('Field Type','lead-form-builder')."</th>
+          <th>".esc_html__('Default Value','lead-form-builder')."</th>
+          <th>".esc_html__('Use Default Value as Placeholder','lead-form-builder')."</th>
+          <th>".esc_html__('Required','lead-form-builder')."</th>
+          <th>".esc_html__('Action','lead-form-builder')."</th>
           </tr></thead>";
           //          <th>S.N.</th>
 
