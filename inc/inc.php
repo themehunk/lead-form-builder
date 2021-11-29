@@ -11,7 +11,6 @@ if ( is_admin() ) {
 include_once( plugin_dir_path(__FILE__) . 'edit-delete-form.php' );
 include_once( plugin_dir_path(__FILE__) . 'create-lead-form.php' );
 }
-include_once( plugin_dir_path(__FILE__) . 'lfb-get-formdata.php' );
 include_once( plugin_dir_path(__FILE__) . 'email-setting.php' );
 include_once( plugin_dir_path(__FILE__) . 'show-forms-backend.php' );
 include_once( plugin_dir_path(__FILE__) . 'front-end.php' );

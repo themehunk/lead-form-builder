@@ -135,7 +135,13 @@ add_action('wp_ajax_SaveCaptchaSettings', 'lfb_save_captcha_settings');
  * Delete Leads From Back-end
  */
 function lfb_delete_leads_backend() {
-    if (isset($_POST['lead_id'])) {
+$user = get_userdata( get_current_user_id() );
+// Get all the user roles as an array.
+$user_roles = $user->roles;
+    $check = false;
+if (isset($_POST['lead_id'])  && ( in_array( 'administrator', $user_roles, true ) || in_array( 'lfb_role', $user_roles, true ))) {
+        $check = true;
+
         $this_lead_id = intval($_POST['lead_id']);
         global $wpdb;
         $table_name = LFB_FORM_DATA_TBL;
@@ -146,6 +152,8 @@ function lfb_delete_leads_backend() {
         $update_leads = $th_save_db->lfb_delete_form($update_query);
         echo $update_leads;
     }
+
+    echo $check;
 }
 
 add_action('wp_ajax_delete_leads_backend', 'lfb_delete_leads_backend');
@@ -607,6 +615,43 @@ add_action('wp_ajax_ShowAllLeadThisFormDate', 'lfb_ShowAllLeadThisFormDate');
             return $name_email;
     }
 
+    function lfb_lead_sanitize($leads){
+        if(is_array($leads)){
+            foreach($leads as $key=>$value){
+                $rKey = preg_replace("/[^a-zA-Z]+/", "", $key);
+                    if($rKey === 'name' || $rKey === 'text' || $rKey === 'radio' || $rKey === 'option'){
+                        $leads[$key] = sanitize_text_field($value);
+                                
+                    }elseif($rKey === 'email'){
+                    $leads[$key] = sanitize_email($value);
+
+                    }elseif($rKey === 'number'){
+                        $leads[$key] = intval($value);
+
+                    }elseif($rKey === 'message' || $rKey === 'textarea'){
+                    $leads[$key] = sanitize_textarea_field($value);
+
+                    }elseif($rKey === 'date' || $rKey === 'dob'){
+                             $leads[$key] = sanitize_text_field($value);
+                        
+                    }elseif($rKey === 'url'){
+                        $leads[$key] = esc_url_raw($value);
+                    }elseif($rKey === 'checkbox'){
+
+                                    foreach($value as $ckey=>$cvalue){
+                                            $value[$ckey] = sanitize_text_field($cvalue);
+                                    }
+                            $leads[$key] = $value;
+                    }
+
+            } // end foreach
+
+              return $leads;
+
+        }
+
+    }
+
 function lfb_Save_Form_Data() {
     $form_id = intval($_POST['hidden_field']);
     unset($_POST['g-recaptcha-response']);
@@ -619,15 +664,14 @@ function lfb_Save_Form_Data() {
     $user_emailid =sanitize_email($en['email']);
     }else{
     $user_emailid ='invalid_email';
-    }
-    $form_data = maybe_serialize($_POST);
+    }          
+    $sanitize_leads =  lfb_lead_sanitize($_POST);
+    $form_data = maybe_serialize($sanitize_leads);
 
     $lf_store   = new LFB_LeadStoreType();
     $th_save_db = new LFB_SAVE_DB();
-    $mailext    = NEW LFB_Extension();
 
     $lf_store->lfb_mail_type($form_id,$form_data,$th_save_db,$user_emailid);
-    $mailext->getFormData($form_id,$en,$th_save_db);
     
     die();
 }

@@ -29,21 +29,8 @@ function lfbErrorCheck(){
 
 
 jQuery(document).ready(function(){
+var dateToday = new Date();
 
-// jQuery('.lfb-date-icon').click(function(event){
-//     event.preventDefault();
-// jQuery('.lf-jquery-datepicker').datepicker({
-//             dateFormat: "mm/dd/yy",
-//             showOtherMonths: true,
-//             selectOtherMonths: true,
-//             autoclose: true,
-//             changeMonth: true,
-//             changeYear: true,
-//             gotoCurrent: true,
-//             allowInputToggle: true,
-//         }).focus();  
-
-// });
     jQuery('.lf-jquery-datepicker').datepicker({
             dateFormat: "mm/dd/yy",
             showOtherMonths: true,
@@ -52,6 +39,7 @@ jQuery(document).ready(function(){
             changeMonth: true,
             changeYear: true,
             gotoCurrent: true,
+            yearRange:  (dateToday.getFullYear()-200) +":" + (dateToday.getFullYear()),
         });
 });
 
@@ -66,7 +54,6 @@ jQuery(document).ready(function(){
   };
 
  var correctCaptcha = function(response) {
-   //alert(response);
  };
  function lfb_upload_button(newthis){
     $id = jQuery(newthis).attr('filetext');
@@ -89,7 +76,7 @@ function lfbInserForm(element,form_id,uploaddata=''){
 
             form_data = this_form_data + "&action=Save_Form_Data";
 
-        SavedataByAjaxRequest(form_data, 'POST').success(function(response) {    
+        SavedataByAjaxRequest(form_data, 'POST').success(function(response) {
             element.find('#loading_image').hide();;
             if (jQuery.trim(response) == 'invalidcaptcha') {
 
