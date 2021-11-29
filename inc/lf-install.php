@@ -152,7 +152,7 @@ function lfb_add_contact_forms() {
       'form_data' => $form_data
     ), 
     array( 'id' => $update_form_id ));
-    $rd_url = admin_url().'echo esc_url(admin.php?page=add-new-form&action=edit&redirect=update&formid=);'.$update_form_id;
+    $rd_url = admin_url().'admin.php?page=add-new-form&action=edit&redirect=update&formid='.$update_form_id;
     $complete_url = wp_nonce_url($rd_url);
   }
 
@@ -175,7 +175,7 @@ function lfb_all_forms_lead() {
 }
 
 function lfb_pro_feature(){
-echo '<iframe height="700px" width="100%" src="echo esc_url(//themehunk.com/feature/wp-lead-form/);" onload="lfbresizeIframe(this)"></iframe>';
+echo '<iframe height="700px" width="100%" src="esc_url(//themehunk.com/feature/wp-lead-form/);" onload="lfbresizeIframe(this)"></iframe>';
 }
 
 function lfb_theme_promotion(){

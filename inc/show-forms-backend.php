@@ -7,21 +7,21 @@ Class LFB_SHOW_FORMS {
     }
     function lfb_show_all_forms($id) {
         $lfb_admin_url = admin_url();
-        echo '<div class="wrap show-all-form"> <a class="button_lfb" target="_blank" href="//themehunk.com/product/lead-form-builder-pro/">'.__("Get Pro Version","lead-form-builder").'</a>
-<h1>'.__("Lead Forms Builder","lead-form-builder").'<a href="' . $lfb_admin_url . 'echo esc_url(admin.php?page=add-new-form&_wpnonce=);'.$this->lfb_show_form_nonce().'" class="add-new-h2">'.__("Add New","lead-form-builder").'</a></h1>
+        echo '<div class="wrap show-all-form"> <a class="button_lfb" target="_blank" href="//themehunk.com/product/lead-form-builder-pro/">'.esc_html__("Get Pro Version","lead-form-builder").'</a>
+<h1>'.esc_html__("Lead Forms Builder","lead-form-builder").'<a href="' . $lfb_admin_url . 'echo esc_url(admin.php?page=add-new-form&_wpnonce=);'.$this->lfb_show_form_nonce().'" class="add-new-h2">'.esc_html__("Add New","lead-form-builder").'</a></h1>
 <div>
 <table class="wp-list-table widefat fixed striped posts ">
 	<thead>
 	<tr>
 		<th scope="col" id="title" class="manage-column column-title column-primary sortable asc"><a><span>Title</span><span class="sorting-indicator"></span></a></th>
-		<th scope="col" id="shortcode" class="manage-column column-shortcode">'.__("Shortcode","lead-form-builder").'</th>
-		<th scope="col" id="today_count" class="manage-column column-form-count sortable desc">'.__("Today\'s Lead","lead-form-builder").'</th>
-		<th scope="col" id="total_count" class="manage-column column-form-count sortable desc">'.__("Total Lead","lead-form-builder").'</th>
-        <th scope="col" id="email-settings" class="manage-column column-form-email sortable desc"><a><span>'.__("Form Settings","lead-form-builder").'</span><span class="sorting-indicator"></span></a></th>
+		<th scope="col" id="shortcode" class="manage-column column-shortcode">'.esc_html__("Shortcode","lead-form-builder").'</th>
+		<th scope="col" id="today_count" class="manage-column column-form-count sortable desc">'.esc_html__("Today\'s Lead","lead-form-builder").'</th>
+		<th scope="col" id="total_count" class="manage-column column-form-count sortable desc">'.esc_html__("Total Lead","lead-form-builder").'</th>
+        <th scope="col" id="email-settings" class="manage-column column-form-email sortable desc"><a><span>'.esc_html__("Form Settings","lead-form-builder").'</span><span class="sorting-indicator"></span></a></th>
 
-        <th scope="col" id="email-settings" class="manage-column column-form-adon sortable desc"><a><span>'.__("Form Add-Ons","lead-form-builder").'</span><span class="sorting-indicator"></span></a></th>
+        <th scope="col" id="email-settings" class="manage-column column-form-adon sortable desc"><a><span>'.esc_html__("Form Add-Ons","lead-form-builder").'</span><span class="sorting-indicator"></span></a></th>
 
-        <th scope="col" id="date" class="manage-column column-form-date sortable desc">'.__("Date","lead-form-builder").'</th>
+        <th scope="col" id="date" class="manage-column column-form-date sortable desc">'.esc_html__("Date","lead-form-builder").'</th>
 		</tr>
 	</thead>
 	<tbody id="the-list" data-wp-lists="list:post">';
@@ -76,25 +76,25 @@ Class LFB_SHOW_FORMS {
 		<abbr><a href="' . $lfb_admin_url . 'echo esc_url(admin.php?page=wplf-plugin-menu&action=total_leads&formid=)' . $form_id . '" target="_blank"><div class="lfb-counter">' . $total_lead_result . '</div></a></abbr>
 		</td>
         <td class="form-config column-form-date" data-colname="Form-date">
-        <abbr title="Configure"><button data-dropdown="#lfb-dropdown-with-'.$form_id.'" class="lfb-dropdown-btn">'.__("Form Settings","lead-form-builder").'</button>
+        <abbr title="Configure"><button data-dropdown="#lfb-dropdown-with-'.$form_id.'" class="lfb-dropdown-btn">'.esc_html__("Form Settings","lead-form-builder").'</button>
 </abbr>
         <div class="dropdown-menu dropdown-anchor-top-left dropdown-has-anchor" id="lfb-dropdown-with-'.$form_id.'">
     <ul>
         <li><a href="'.$edit_url_nonce.'&email-setting"><i class="fa fa-envelope-o" aria-hidden="true"></i>
- '.__("Email Notification (Auto-responders)","lead-form-builder").'</a></li>
+ '.esc_html__("Email Notification (Auto-responders)","lead-form-builder").'</a></li>
                 <li class="divider"></li>
         <li><a href="#"><i class="fa fa-repeat" aria-hidden="true"></i>
  Form Redirction Option'.LFB_FORM_PRO_FEATURE.'</li>
         <li class="divider"></li>
-        <li><a href="'.$edit_url_nonce.'&form-setting"> <i class="fa fa-bullhorn" aria-hidden="true"></i> '.__("Lead Receiving Method (Email, Database, Both)","lead-form-builder").'</a></li>
+        <li><a href="'.$edit_url_nonce.'&form-setting"> <i class="fa fa-bullhorn" aria-hidden="true"></i> '.esc_html__("Lead Receiving Method (Email, Database, Both)","lead-form-builder").'</a></li>
                 <li class="divider"></li>
 
-        <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>'.__(
+        <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>'.esc_html__(
  "Form Submit (Thank You Message)","lead-form-builder").' <span class="pro-feature"><i class="fa fa-lock"></i>
 
- '.__("Pro Feature","lead-form-builder").'<span></a></li>
+ '.esc_html__("Pro Feature","lead-form-builder").'<span></a></li>
  <li><a href="'.$edit_url_nonce.'&captcha-setting"><img width="18px" src="'.LFB_FORM_CAPTCHA_SVG.'" title="Form Import">
-'.__("Spam Protection (Google Captcha)","lead-form-builder").'</a>';
+'.esc_html__("Spam Protection (Google Captcha)","lead-form-builder").'</a>';
 
 if ( get_option('captcha-setting-sitekey') !== false ) {
 
@@ -107,7 +107,7 @@ if ( get_option('captcha-setting-sitekey') !== false ) {
                     </label>
             </div>';
 }else{
-       echo '<span title="' . $captcha_status . '">'.__("Missing Keys","lead-form-builder").'</span>';
+       echo '<span title="' . $captcha_status . '">'.esc_html__("Missing Keys","lead-form-builder").'</span>';
 }
         
         echo '</li>
@@ -120,27 +120,27 @@ if ( get_option('captcha-setting-sitekey') !== false ) {
     <ul>
         
 <li><a href="#"><img width="18" src="'.LFB_FORM_COLOR_IMAGE.'" />
-'.__("Form Color Customize","lead-form-builder").''.LFB_FORM_PRO_FEATURE.'</li>
+'.esc_html__("Form Color Customize","lead-form-builder").''.LFB_FORM_PRO_FEATURE.'</li>
 <li class="divider"></li>
 
         <li><a href="#"><img width="18px" src="'.LFB_MCPI_IMAGE.'" title="Mailchimp">
-'.__("Mailchimp Adon Settings","lead-form-builder").''.LFB_FORM_PRO_FEATURE.'</li>
+'.esc_html__("Mailchimp Adon Settings","lead-form-builder").''.LFB_FORM_PRO_FEATURE.'</li>
 <li class="divider"></li>
 
         <li><a href=""><img width="18px" src="'.LFB_SMTP_IMAGE.'" title="SMTP Configure">
-'.__("SMTP Adon Settings","lead-form-builder").' <span class="pro-feature"><i class="fa fa-lock"></i>
- '.__("Pro Feature","lead-form-builder").'<span> </a></li>
+'.esc_html__("SMTP Adon Settings","lead-form-builder").' <span class="pro-feature"><i class="fa fa-lock"></i>
+ '.esc_html__("Pro Feature","lead-form-builder").'<span> </a></li>
 <li class="divider"></li>
 
         <li><a href="#"><img width="18px" src="'.LFB_EXPORT_IMAGE.'" title="Entry Export">
-'.__("Export (Form Leads)","lead-form-builder").' '.LFB_FORM_PRO_FEATURE.'</a></li>
+'.esc_html__("Export (Form Leads)","lead-form-builder").' '.LFB_FORM_PRO_FEATURE.'</a></li>
 <li class="divider"></li>
 
         <li><a href="#"><img width="18px" src="'.LFB_FORM_EXPORT_IMAGE.'" title="Form Export">
-'.__("Form Export","lead-form-builder").' '.LFB_FORM_PRO_FEATURE.'</a></li>
+'.esc_html__("Form Export","lead-form-builder").' '.LFB_FORM_PRO_FEATURE.'</a></li>
     <li class="divider"></li>
 <li><a href="#"><img width="18px" src="'.LFB_FORM_IMPORT_IMAGE.'" title="Form Import">
-'.__("Form Import","lead-form-builder").' '.LFB_FORM_PRO_FEATURE.'</a></li>
+'.esc_html__("Form Import","lead-form-builder").' '.LFB_FORM_PRO_FEATURE.'</a></li>
 <li class="divider"></li>
 
 
