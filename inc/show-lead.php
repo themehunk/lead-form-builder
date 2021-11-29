@@ -24,7 +24,7 @@ Class LFB_Show_Leads {
             }
         }
         echo '<div class="wrap"><div class="inside"><div class="card"><table class="form-table"><tbody><tr><th scope="row">
-<label for="select_form_lead">'.esc_html__("Select From","lead-form-builder").'</label></th>
+<label for="select_form_lead">Select From</label></th>
 <td><select name="select_form_lead" id="select_form_lead">' . $option_form . '</select>
 <td><input type="button" value="Remember this form" onclick="remember_this_form_id();" id="remember_this_form_id"></td>
 </tr><tr><td><div id="remember_this_message" ></div></td></tr></tbody></table></div></div></div>';
