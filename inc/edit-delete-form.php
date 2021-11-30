@@ -37,7 +37,7 @@ Class LFB_EDIT_DEL_FORM {
         }
        $form_message ='';
         if(isset($_GET['redirect'])){
-            $redirect_value= $_GET['redirect'];
+            $redirect_value= esc_html($_GET['redirect']);
             if($redirect_value=='create'){
         $form_message='<div id="message" class="updated notice is-dismissible"><p>Form <strong>Saved</strong>.</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
         }if($redirect_value=='update'){

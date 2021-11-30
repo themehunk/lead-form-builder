@@ -21,7 +21,6 @@ add_filter( 'upload_dir', 'lfb_upload_dir' );
         7 => "Failed to write file to disk",
         8 => "A PHP extension stoped file to upload" );
 
-    $posted_data =  isset( $_POST ) ? $_POST : array();
     $file_data = isset( $_FILES ) ? $_FILES : array();
     $overrides = array( 'test_form' => false );
     $response = array();
@@ -74,11 +73,10 @@ add_action('wp_ajax_SaveLeadSettings', 'lfb_save_lead_settings');
 
 function lfb_save_email_settings() {
     unset($_POST['action']);
-    $email_setting = maybe_serialize($_POST);
-    $this_form_id = $_POST['email_setting']['form-id'];
+    $this_form_id = intval($_POST['email_setting']['form-id']);
     global $wpdb;
     $table_name = LFB_FORM_FIELD_TBL;
-    $update_query = "update " . LFB_FORM_FIELD_TBL . " set mail_setting='" . esc_sql($email_setting) . "' where id='" . esc_sql($this_form_id) . "'";
+    $update_query = "update " . LFB_FORM_FIELD_TBL . " set mail_setting='" . esc_sql($_POST) . "' where id='" . esc_sql($this_form_id) . "'";
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
@@ -97,9 +95,8 @@ function lfb_savesuccessmsg() {
     if(isset($_POST['lfb-form-id'])){
     unset($_POST['action']);
     $this_form_id = intval($_POST['lfb-form-id']);
-    $arrayData = maybe_serialize($_POST);
     $table_name = LFB_FORM_FIELD_TBL;
-    $update_query = "update " . LFB_FORM_FIELD_TBL . " set multiData='" . esc_sql($arrayData) . "' where id='" . esc_sql($this_form_id) . "'";
+    $update_query = "update " . LFB_FORM_FIELD_TBL . " set multiData='" . esc_sql($_POST) . "' where id='" . esc_sql($this_form_id) . "'";
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
@@ -116,8 +113,8 @@ add_action('wp_ajax_lfbsavesuccessmsg', 'lfb_savesuccessmsg');
  */
 
 function lfb_save_captcha_settings() {
-$captcha_setting_sitekey = esc_html($_POST['captcha-setting-sitekey']);
-$captcha_setting_secret = esc_html($_POST['captcha-setting-secret']);
+$captcha_setting_sitekey = esc_attr($_POST['captcha-setting-sitekey']);
+$captcha_setting_secret = esc_attr($_POST['captcha-setting-secret']);
 
 if ( get_option('captcha-setting-sitekey') !== false ) {
     update_option('captcha-setting-sitekey', $captcha_setting_sitekey);
@@ -769,7 +766,7 @@ function lfb_save_colors_settings() {
 
     if(isset($_POST['colorid'])):
     $lfbDb = new LFB_SAVE_DB();
-        $fid = $_POST['colorid'];
+        $fid = intval($_POST['colorid']);
         unset($_POST['action']);
      $serialize = maybe_serialize(array_map('stripslashes_deep', $_POST));
    echo $lfbDb->lfb_colors_insert_update($fid,$serialize);

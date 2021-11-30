@@ -126,6 +126,7 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 
 = Version 1.6.5 =
 * escaping issue fixed.
+* all issue fixed.
 
 = Version 1.6.4 =
 *  Unauthenticated Stored Cross-Site Scripting issue fixed.

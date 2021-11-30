@@ -3,7 +3,7 @@
 class LFB_COLORS {
 
   function change_color(){
-    return '<a href="#0" class="lfb-cd-btn">Form Customize</a>';
+    return '<a href="#0" class="lfb-cd-btn">'.__('Form Customize','lead-form-builder').'</a>';
   }
 
 function lfb_color_form($fid){ 
@@ -74,7 +74,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                     <span class='color-wrap'>
                       <label class="lfb-form-size"><?php _e('Form Width in (%)','lead-form-builder'); ?></label>
                       <div id="lfb-formwidth">
-                      <input type="hidden" name="lfb_form_width" id="lfb_form_width" value="<?php echo $lfb_form_width_; ?>" />
+                      <input type="hidden" name="lfb_form_width" id="lfb_form_width" value="<?php echo esc_html($lfb_form_width_); ?>" />
                         <div id="lfb-formwidth-handle" class="ui-slider-handle"></div>
                         <div id="lfb-formwidth-handle-rng" class="ui-slider-range ui-widget-header ui-slider-range-min"></div>
                       </div>
@@ -88,15 +88,15 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                   <span><label><?php  _e('Header Image' ,'lead-form-builder'); ?></label>
                   </span>
                   <div class="lfb_header_image">
-                      <img class="lfb_custom_media_image lfb_custom_media_header_image" src="<?php echo $lfb_header_image_; ?>" style="margin:0;padding:0;max-width:50px;display:inline-block" /> 
-                      <input type="hidden" class="widefat lfb_custom_media_header" name="lfb_header_image" lfb_hb='header' id="lfb_header_image" value="<?php echo $lfb_header_image_; ?>" style="margin-top:5px;">
+                      <img class="lfb_custom_media_image lfb_custom_media_header_image" src="<?php echo esc_url($lfb_header_image_); ?>" style="margin:0;padding:0;max-width:50px;display:inline-block" /> 
+                      <input type="hidden" class="widefat lfb_custom_media_header" name="lfb_header_image" lfb_hb='header' id="lfb_header_image" value="<?php echo esc_url($lfb_header_image_); ?>" style="margin-top:5px;">
 
                      <input type="button" class="button button-primary lfb_custom_media_button" id="lfb_custom_media_header_button" name="lfb_header_image_button" value="Upload Image" style="margin-top:5px;" />
                     <a class="image-panel-close button button-primary custom_remove_button"  onClick="remove_image('h');"><?php _e('Remove','lead-form-builder'); ?></a>
                   </div>        
                 <span class='color-wrap'>
                   <label><?php _e('Heading Color','lead-form-builder'); ?> </label>        
-                    <input type="text" class="alpha-color-picker" name="lfb_color_heading" id="lfb_color_heading" value="<?php echo $color_heading_; ?>" data-palette="<?php echo $color_palate; ?>" data-default-color="<?php echo $color_heading_; ?>" data-show-opacity="true" />
+                    <input type="text" class="alpha-color-picker" name="lfb_color_heading" id="lfb_color_heading" value="<?php echo esc_html($color_heading_); ?>" data-palette="<?php echo esc_html($color_palate); ?>" data-default-color="<?php echo esc_html($color_heading_); ?>" data-show-opacity="true" />
                 </span>
                 <span class='color-wrap' >
                 <label><?php  _e('Alignment' ,'lead-form-builder'); ?></label>
@@ -113,7 +113,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                     <span class='color-wrap' >
                        <label class="lfb-header-fontsize"><?php _e('Heading Font Size','lead-form-builder'); ?></label>
                       <div id="lfb-heading-font">
-                      <input type="hidden" name="lfb_heading_font_size" id="lfb_heading_font_size" value="<?php echo $lfb_heading_font_size_; ?>" />
+                      <input type="hidden" name="lfb_heading_font_size" id="lfb_heading_font_size" value="<?php echo esc_html($lfb_heading_font_size_); ?>" />
                         <div id="lfb-heading-handle" class="ui-slider-handle"></div>
                         <div id="lfb-heading-handle-rng" class="ui-slider-range ui-widget-header ui-slider-range-min"></div>
                       </div>
@@ -121,7 +121,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                   <span class='color-wrap' >
                        <label class="lfb-header-paddingtb" ><?php _e('Top Padding','lead-form-builder'); ?></label>
                       <div id="lfb-header-algmnt-tb">
-                      <input type="hidden" name="lfb_header_algmnt_tb" id="lfb_header_algmnt_tb" value="<?php echo $lfb_header_algmnt_tb_; ?>" />
+                      <input type="hidden" name="lfb_header_algmnt_tb" id="lfb_header_algmnt_tb" value="<?php echo esc_html($lfb_header_algmnt_tb_); ?>" />
                         <div id="lfb-header-algmnt-tb-handle" class="ui-slider-handle"></div>
                         <div id="lfb-header-algmnt-tb-rng" class="ui-slider-range ui-widget-header ui-slider-range-min"></div>
                       </div>
@@ -129,7 +129,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                     <span class='color-wrap' style="display: none;" >
                        <label class="lfb-header-paddinglr" ><?php _e('Header Left/right Padding','lead-form-builder'); ?></label>
                       <div id="lfb-header-algmnt-lr">
-                      <input type="hidden" name="lfb_header_algmnt_lr" id="lfb_header_algmnt_lr" value="<?php echo $lfb_header_algmnt_lr_; ?>" />
+                      <input type="hidden" name="lfb_header_algmnt_lr" id="lfb_header_algmnt_lr" value="<?php echo esc_html($lfb_header_algmnt_lr_); ?>" />
                         <div id="lfb-header-algmnt-lr-handle" class="ui-slider-handle"></div>
                         <div id="lfb-header-algmnt-lr-rng" class="ui-slider-range ui-widget-header ui-slider-range-min"></div>
                       </div>
@@ -142,8 +142,8 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                       </span>
                       
                     <div class="lfb_header_image">
-                        <img class="lfb_custom_media_image lfb_custom_media_bg_image" src="<?php echo $lfb_bg_image_; ?>" style="margin:0;padding:0;max-width:50px;display:inline-block" /> 
-                      <input type="hidden" class="widefat lfb_custom_media_bg" name="lfb_bg_image" id="lfb_bg_image" lfb_hb='bg' value="<?php echo $lfb_bg_image_; ?>" style="margin-top:5px;">
+                        <img class="lfb_custom_media_image lfb_custom_media_bg_image" src="<?php echo esc_url($lfb_bg_image_); ?>" style="margin:0;padding:0;max-width:50px;display:inline-block" /> 
+                      <input type="hidden" class="widefat lfb_custom_media_bg" name="lfb_bg_image" id="lfb_bg_image" lfb_hb='bg' value="<?php echo esc_url($lfb_bg_image_); ?>" style="margin-top:5px;">
 
                      <input type="button" class="button button-primary lfb_custom_media_button" id="lfb_custom_media_bg_button"   name="lfb_bg_image_button" value="Upload Image" style="margin-top:5px;" />
                     <a class="image-panel-close button button-primary custom_remove_button"  onClick="remove_image('b');"><?php _e('Remove','lead-form-builder'); ?></a>
@@ -151,7 +151,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
 
                    <span class='color-wrap'>
             <label><?php _e('Form Background Color','lead-form-builder'); ?> </label>        
-              <input type="text" class="alpha-color-picker" name="lfb_color_bg" id="lfb_color_bg" value="<?php echo $color_bg_; ?>" data-palette="<?php echo $color_palate; ?>" data-default-color="<?php echo $color_bg_; ?>" data-show-opacity="false" />
+              <input type="text" class="alpha-color-picker" name="lfb_color_bg" id="lfb_color_bg" value="<?php echo esc_html($color_bg_); ?>" data-palette="<?php echo esc_html($color_palate); ?>" data-default-color="<?php echo esc_html($color_bg_); ?>" data-show-opacity="false" />
               </span>
 
                 <span>
@@ -161,7 +161,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
               <span class="color-wrap">
                   <label class="lfb-form-paddingtop"><?php  _e('Top' ,'lead-form-builder'); ?> </label>
                  <div id="lfb-form-padding-top">
-                      <input type="hidden"  name="lfb_form_padding_top" id="lfb_form_padding_top" value="<?php echo $lfb_form_padding_top_; ?>" />
+                      <input type="hidden"  name="lfb_form_padding_top" id="lfb_form_padding_top" value="<?php echo esc_html($lfb_form_padding_top_); ?>" />
                         <div id="lfb-form-padding-top-handle" class="ui-slider-handle"></div>
                         <div id="lfb-form-padding-top-rng" class="ui-slider-range ui-widget-header ui-slider-range-min"></div>
                       </div>
@@ -169,7 +169,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                    <span class="color-wrap">
                        <label class="lfb-form-paddingbottom" ><?php  _e('Bottom' ,'lead-form-builder'); ?> </label>
                       <div id="lfb-form-padding-bottom">
-                      <input type="hidden"  name="lfb_form_padding_bottom" id="lfb_form_padding_bottom" value="<?php echo $lfb_form_padding_bottom_; ?>" />
+                      <input type="hidden"  name="lfb_form_padding_bottom" id="lfb_form_padding_bottom" value="<?php echo esc_html($lfb_form_padding_bottom_); ?>" />
                         <div id="lfb-form-padding-bottom-handle" class="ui-slider-handle"></div>
                         <div id="lfb-form-padding-bottom-rng" class="ui-slider-range ui-widget-header ui-slider-range-min"></div>
                       </div>
@@ -177,7 +177,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                       <span class="color-wrap">
                        <label class="lfb-form-paddingleft" ><?php  _e('Left' ,'lead-form-builder'); ?></label>
                       <div id="lfb-form-padding-left">
-                      <input type="hidden"  name="lfb_form_padding_left" id="lfb_form_padding_left" value="<?php echo $lfb_form_padding_left_; ?>" />
+                      <input type="hidden"  name="lfb_form_padding_left" id="lfb_form_padding_left" value="<?php echo esc_html($lfb_form_padding_left_); ?>" />
                         <div id="lfb-form-padding-left-handle" class="ui-slider-handle"></div>
                         <div id="lfb-form-padding-left-rng" class="ui-slider-range ui-widget-header ui-slider-range-min"></div>
                       </div>
@@ -185,7 +185,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                       <span class="color-wrap">
                        <label class="lfb-form-paddingright" ><?php  _e('Right' ,'lead-form-builder'); ?></label>
                       <div id="lfb-form-padding-right">
-                      <input type="hidden"  name="lfb_form_padding_right" id="lfb_form_padding_right" value="<?php echo $lfb_form_padding_right_; ?>" />
+                      <input type="hidden"  name="lfb_form_padding_right" id="lfb_form_padding_right" value="<?php echo esc_html($lfb_form_padding_right_); ?>" />
                         <div id="lfb-form-padding-right-handle" class="ui-slider-handle"></div>
                         <div id="lfb-form-padding-right-rng" class="ui-slider-range ui-widget-header ui-slider-range-min"></div>
                       </div>
@@ -196,18 +196,18 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
               <div>
                <span class='color-wrap'>
             <label><?php _e('Label Color','lead-form-builder'); ?> </label>        
-              <input type="text" class="alpha-color-picker" name="lfb_color_label" id="lfb_color_label" value="<?php echo $color_label_; ?>" data-palette="<?php echo $color_palate; ?>" data-default-color="<?php echo $color_label_; ?>" data-show-opacity="true" />
+              <input type="text" class="alpha-color-picker" name="lfb_color_label" id="lfb_color_label" value="<?php echo esc_html($color_label_); ?>" data-palette="<?php echo esc_html($color_palate); ?>" data-default-color="<?php echo esc_html($color_label_); ?>" data-show-opacity="true" />
               </span>
                <span class='color-wrap'>
             <label><?php _e('Border Color','lead-form-builder'); ?> </label>        
-              <input type="text" class="alpha-color-picker" name="lfb_color_field_border" id="lfb_color_field_border" value="<?php echo $color_field_border_; ?>" data-palette="<?php echo $color_palate; ?>" data-default-color="<?php echo $color_field_border_; ?>" data-show-opacity="true" />
+              <input type="text" class="alpha-color-picker" name="lfb_color_field_border" id="lfb_color_field_border" value="<?php echo esc_html($color_field_border_); ?>" data-palette="<?php echo esc_html($color_palate); ?>" data-default-color="<?php echo esc_html($color_field_border_); ?>" data-show-opacity="true" />
               </span>
 
               <span class='color-wrap'>
-                <label><?php _e('Background Color','lead-form-builder'); ?> </label>    <input type="text" class="alpha-color-picker" name="lfb_color_field_bg" id="lfb_color_field_bg" value="<?php echo $color_field_bg_; ?>" data-palette="<?php echo $color_palate; ?>" data-default-color="<?php echo $color_field_bg_; ?>" data-show-opacity="true" />
+                <label><?php _e('Background Color','lead-form-builder'); ?> </label>    <input type="text" class="alpha-color-picker" name="lfb_color_field_bg" id="lfb_color_field_bg" value="<?php echo $color_field_bg_; ?>" data-palette="<?php echo esc_html($color_palate); ?>" data-default-color="<?php echo esc_html($color_field_bg_); ?>" data-show-opacity="true" />
               </span>
                <span class='color-wrap'>
-                <label><?php _e('Placeholder Color','lead-form-builder'); ?> </label>    <input type="text" class="alpha-color-picker" name="lfb_color_field_placeholder" id="lfb_color_field_placeholder"  value="<?php echo $color_field_placeholder_; ?>" data-palette="<?php echo $color_palate; ?>" data-default-color="<?php echo $color_field_placeholder_; ?>" data-show-opacity="true" />
+                <label><?php _e('Placeholder Color','lead-form-builder'); ?> </label>    <input type="text" class="alpha-color-picker" name="lfb_color_field_placeholder" id="lfb_color_field_placeholder"  value="<?php echo esc_html($color_field_placeholder_); ?>" data-palette="<?php echo $color_palate; ?>" data-default-color="<?php echo esc_html($color_field_placeholder_); ?>" data-show-opacity="true" />
               </span> 
 
              </div> 
@@ -216,19 +216,19 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
             <div>
              <span class='color-wrap'>
                 <label><?php _e('Text Color','lead-form-builder'); ?> </label>   
-                 <input type="text" class="alpha-color-picker" name="lfb_color_button_text" id="lfb_color_button_text" value="<?php $color_button_text_; ?>" data-palette="<?php echo $color_palate; ?>" data-default-color="<?php $color_button_text_; ?>" data-show-opacity="true" />
+                 <input type="text" class="alpha-color-picker" name="lfb_color_button_text" id="lfb_color_button_text" value="<?php echo esc_html($color_button_text_); ?>" data-palette="<?php echo esc_html($color_palate); ?>" data-default-color="<?php echo esc_html($color_button_text_); ?>" data-show-opacity="true" />
               </span>
               <span class='color-wrap'>
                 <label><?php _e('Background Color','lead-form-builder'); ?> </label>    
-                <input type="text" class="alpha-color-picker" name="lfb_color_button_bg" id="lfb_color_button_bg" value="<?php echo $color_button_bg_; ?>" data-palette="<?php echo $color_palate; ?>" data-default-color="<?php echo $color_button_bg_; ?>" data-show-opacity="true" />
+                <input type="text" class="alpha-color-picker" name="lfb_color_button_bg" id="lfb_color_button_bg" value="<?php echo esc_html($color_button_bg_); ?>" data-palette="<?php echo esc_html($color_palate); ?>" data-default-color="<?php echo esc_html($color_button_bg_); ?>" data-show-opacity="true" />
               </span>
               <span class='color-wrap'>
                 <label><?php _e('Hover Background Color','lead-form-builder'); ?> </label>   
-                 <input type="text" class="alpha-color-picker" name="lfb_color_button_bg_hover" id="lfb_color_button_bg_hover" value="<?php echo $color_button_bg_hover_; ?>" data-palette="<?php echo $color_palate; ?>" data-default-color="<?php echo $color_button_bg_hover_; ?>" data-show-opacity="true" />
+                 <input type="text" class="alpha-color-picker" name="lfb_color_button_bg_hover" id="lfb_color_button_bg_hover" value="<?php echo esc_html($color_button_bg_hover_); ?>" data-palette="<?php echo esc_html($color_palate); ?>" data-default-color="<?php echo esc_html($color_button_bg_hover_); ?>" data-show-opacity="true" />
               </span>
               <span class='color-wrap'>
                 <label><?php _e('Border Color','lead-form-builder'); ?> </label>   
-                 <input type="text" class="alpha-color-picker" name="lfb_color_button_border" id="lfb_color_button_border" value="<?php echo $lfb_color_button_border_; ?>" data-palette="<?php echo $color_palate; ?>" data-default-color="<?php echo $lfb_color_button_border_; ?>" data-show-opacity="true" />
+                 <input type="text" class="alpha-color-picker" name="lfb_color_button_border" id="lfb_color_button_border" value="<?php echo esc_html($lfb_color_button_border_); ?>" data-palette="<?php echo esc_html($color_palate); ?>" data-default-color="<?php echo esc_html($lfb_color_button_border_); ?>" data-show-opacity="true" />
               </span>
             <span class='color-wrap' >
                 <label><?php  _e('Button Alignment' ,'lead-form-builder'); ?></label>
@@ -239,7 +239,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                 <span class='color-wrap' >
                     <label class="lfb-button-fontsize" ><?php _e('Button Text Size','lead-form-builder'); ?> </label>
                       <div id="lfb-button-font">
-                      <input type="hidden"  name="lfb_button_font_size" id="lfb_button_font_size" value="<?php echo $lfb_button_font_size_; ?>" />
+                      <input type="hidden"  name="lfb_button_font_size" id="lfb_button_font_size" value="<?php echo esc_html($lfb_button_font_size_); ?>" />
                         <div id="lfb-button-handle" class="ui-slider-handle"></div>
                         <div id="lfb-button-font-rng" class="ui-slider-range ui-widget-header ui-slider-range-min"></div>
                       </div>
@@ -247,7 +247,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                 <span class='color-wrap' >
                   <label class="lfb-button-paddingtb"><?php _e('Top/Bottom Padding','lead-form-builder'); ?> </label>
                       <div id="lfb-btn-padding-tb">
-                      <input type="hidden"  name="lfb_btn_padding_tb" id="lfb_btn_padding_tb" value="<?php echo $lfb_btn_padding_tb_; ?>" />
+                      <input type="hidden"  name="lfb_btn_padding_tb" id="lfb_btn_padding_tb" value="<?php echo esc_html($lfb_btn_padding_tb_); ?>" />
                         <div id="lfb-btn-padding-tb-handle" class="ui-slider-handle"></div>
                         <div id="lfb-btn-padding-tb-rng" class="ui-slider-range ui-widget-header ui-slider-range-min"></div>
                       </div>
@@ -255,7 +255,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                         <span class='color-wrap'>
                   <label class="lfb-button-paddinglr" ><?php _e('Button Width','lead-form-builder'); ?> </label>
                     <div id="lfb-btn-padding-lr">
-                      <input type="hidden"  name="lfb_btn_padding_lr" id="lfb_btn_padding_lr" value="<?php echo $lfb_btn_padding_lr_; ?>" />
+                      <input type="hidden"  name="lfb_btn_padding_lr" id="lfb_btn_padding_lr" value="<?php echo esc_html($lfb_btn_padding_lr_); ?>" />
                         <div id="lfb-btn-padding-lr-handle" class="ui-slider-handle"></div>
                         <div id="lfb-btn-padding-lr-rng" class="ui-slider-range ui-widget-header ui-slider-range-min"></div>
                     </div>
@@ -267,7 +267,7 @@ $lfb_form_width_ = isset($lfb_form_width)?$lfb_form_width:'60';
                 <p>
                   <span class='color-wrap'>
                   <label> <?php _e('Custom Css Write','lead-form-builder'); ?></label>    
-                  <textarea rows="8" class="alpha-color-picker" name="lfb_custom_css" id="lfb_custom_css"><?php echo $lfb_custom_css_; ?></textarea>  
+                  <textarea rows="8" class="alpha-color-picker" name="lfb_custom_css" id="lfb_custom_css"><?php echo esc_html($lfb_custom_css_); ?></textarea>  
                   </span>
                 </p>
               </div>

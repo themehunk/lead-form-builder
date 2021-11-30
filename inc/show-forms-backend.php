@@ -164,17 +164,17 @@ Form Import '.LFB_FORM_PRO_FEATURE.'</a></li>
             $rows = count($rows);
             $total = ceil($rows / $limit);
             if ($id > 1) {
-                echo "<a href='". $lfb_admin_url . "admin.php?page=wplf-plugin-menu&page_id=" . ($id - 1) . "' class='button'><i class='fa fa-chevron-right'></i></a>";
+                echo "<a href='". esc_url($lfb_admin_url . "admin.php?page=wplf-plugin-menu&page_id=" . ($id - 1) ). "' class='button'><i class='fa fa-chevron-right'></i></a>";
             }
             if ($id != $total) {
-                echo "<a href='". $lfb_admin_url . "admin.php?page=wplf-plugin-menu&page_id=" . ($id + 1) . "' class='button'><i class='fa fa-chevron-left'></i></a>";
+                echo "<a href='". esc_url($lfb_admin_url . "admin.php?page=wplf-plugin-menu&page_id=" . ($id + 1) ). "' class='button'><i class='fa fa-chevron-left'></i></a>";
             }
             echo "<ul class='page'>";
             for ($i = 1; $i <= $total; $i++) {
                 if ($i == $id) {
                     echo "<li class='lf-current'><a href='#'>" . $i . "</a></li>";
                 } else {
-                    echo "<li><a href='". $lfb_admin_url . "admin.php?page=wplf-plugin-menu&page_id=" .$i. "'>" . $i . "</a></li>";
+                    echo "<li><a href='". esc_url($lfb_admin_url . "admin.php?page=wplf-plugin-menu&page_id=" .$i ). "'>" . $i . "</a></li>";
                 }
             }
              echo '</ul>';

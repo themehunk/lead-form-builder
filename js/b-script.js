@@ -945,5 +945,8 @@ jQuery('#lfb_formColor').append('<style>#wpbody-content{width:800px;}</style>');
         // Add the specific color to the button used to open the tab content
         elmnt.style.backgroundColor = color;
         }
+        if(document.getElementById("defaultOpen")){
+
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen").click();
+            }

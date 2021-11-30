@@ -143,7 +143,7 @@ function lfb_array_stripslash($theArray){
 function lfb_add_contact_forms() {
     if (intval(isset($_POST['update_form']) && wp_verify_nonce($_REQUEST['_wpnonce'],'_nonce_verify')) ) {
     $form_data=$_POST;
-    $update_form_id = stripslashes($_POST['update_form_id']);
+    $update_form_id = intval(stripslashes($_POST['update_form_id']));
     $title = sanitize_text_field($_POST['post_title']);
     unset($_POST['_wpnonce']);
     unset($_POST['post_title']);

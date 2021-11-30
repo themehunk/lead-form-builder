@@ -53,7 +53,7 @@ class ThemeHunk_Notify{
 		function unset_cookie(){
 
 			$visit_time = time();
-  			$cookie_time = $_COOKIE['thc_time'];
+  			$cookie_time = esc_html($_COOKIE['thc_time']);
 
 			if ($cookie_time < $visit_time) {
 				setcookie('thc_time', null, strtotime('-1 day'));
