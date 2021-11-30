@@ -24,10 +24,10 @@ function lfb_add_new_form(){
 	echo '<div class="wrap">
         <h2>Add New From</h2>
         <h2 class="nav-tab-wrapper">
-            <a class="nav-tab nav-tab-active lead-form-create-form" href="#">Create Form</a>
-            <a class="nav-tab lead-form-email-setting" href="#">Email Setting</a>
-            <a class="nav-tab lead-form-captcha-setting" href="#">Captcha Setting</a>
-            <a class="nav-tab lead-form-setting" href="#">Setting</a>
+            <a class="nav-tab nav-tab-active lead-form-create-form" href="#">'.esc_html__('Create Form','lead-form-builder').'</a>
+            <a class="nav-tab lead-form-email-setting" href="#">'.esc_html__('Email Setting','lead-form-builder').'</a>
+            <a class="nav-tab lead-form-captcha-setting" href="#">'.esc_html__('Captcha Setting','lead-form-builder').'</a>
+            <a class="nav-tab lead-form-setting" href="#">'.esc_html__('Setting','lead-form-builder').'</a>
        </h2>
         <div id="sections">
             <section>';
@@ -43,7 +43,7 @@ function lfb_add_new_form(){
 <br class="clear"><div class="inside setting_section">
            <div class="card">
                 <form name="" id="new-lead-email-setting" method="post" action="">
-                <p class="sec_head">Please create and save your Lead Form to do these settings.</p>  
+                <p class="sec_head">'.esc_html__('Please create and save your Lead Form to do these settings.','lead-form-builder').'</p>  
                 </form>            
             </div>
             </div></div>';
@@ -57,7 +57,7 @@ function lfb_add_new_form(){
 <br class="clear"><div class="inside setting_section">
            <div class="card">
                 <form name="" id="new-captcha-setting" method="post" action="">
-                <p class="sec_head">Please create and save your Lead Form to do these settings.</p>  
+                <p class="sec_head">'.esc_html__('Please create and save your Lead Form to do these settings.','lead-form-builder').'</p>  
                 </form>            
             </div>
             </div></div>';
@@ -70,7 +70,7 @@ function lfb_add_new_form(){
 <br class="clear"><div class="inside setting_section">
            <div class="card">
                 <form name="" id="new-lead-form-setting" method="post" action="">
-                <p class="sec_head">Please create and save your Lead Form to do these settings.</p>  
+                <p class="sec_head">'.esc_html__('Please create and save your Lead Form to do these settings.','lead-form-builder').'</p>  
                 </form>            
             </div>
             </div></div>';
@@ -112,16 +112,16 @@ $nonce = wp_create_nonce( '_nonce_verify' );
 
 function lfb_basic_form() {
     echo "<div class='inside spth_setting_section'  id='wpth_add_form'>
-          <h2 class='sec_head'>Form Fields</h2>
+          <h2 class='sec_head'>".esc_html__('Form Fields','lead-form-builder')."</h2>
           <table class='widefat' id='sortable'>
           <thead>
           <tr>
-          <th>Field name</th>
-          <th>Field Type</th>
-          <th>Default Value</th>
-          <th>Use Default Value as Placeholder</th>
-          <th>Required</th>
-          <th>Action</th>
+          <th>".esc_html__('Field name','lead-form-builder')." </th>
+          <th>".esc_html__('Field Type','lead-form-builder')." </th>
+          <th>".esc_html__('Default Value','lead-form-builder')." </th>
+          <th>".esc_html__('Use Default Value as Placeholder','lead-form-builder')."</th>
+          <th>".esc_html__('Required','lead-form-builder')." </th>
+          <th>".esc_html__('Action','lead-form-builder')." </th>
           </tr></thead>";
 }
 
@@ -130,21 +130,21 @@ function lfb_form_first_fields() {
 	      <td><input type='text' name='form_field_1[field_name]' id='field_name_1' value=''></td>
 		  <td>
 		  <select class='form_field_select' name='form_field_1[field_type][type]' id='field_type_1'>
-		    <option value='select'>Select Field Type</option>
-		    <option value='name'>Name</option>		    
-		    <option value='email'>Email</option>
-		    <option value='message'>Message</option>
-            <option value='dob'>DOB</option>
-		    <option value='date'>Date</option>	    
-		    <option value='text'>Text (Single Line Text)</option>
-        <option value='textarea'>Textarea (Multiple Line Text)</option>
-		    <option value='htmlfield'>Content Area (Read only Text)</option>
-            <option value='url'>Url (Website url)</option>
-            <option value='number'>Number (Only Numeric 0-9 )</option>
-            <option value='radio'>Radio (Choose Single Option)</option>    
-            <option value='option'>Option (Choose Single Option)</option>  
-            <option value='checkbox'>Checkbox (Choose Multiple Option)</option>
-            <option value='terms'>Checkbox (Terms & condition)</option>
+		    <option value='select'>".esc_html__('Select Field Type','lead-form-builder')."</option>
+		    <option value='name'>".esc_html__('Name','lead-form-builder')."</option>		    
+		    <option value='email'>".esc_html__('Email','lead-form-builder')."</option>
+		    <option value='message'>".esc_html__('Message','lead-form-builder')."</option>
+            <option value='dob'>".esc_html__('DOB','lead-form-builder')."</option>
+		    <option value='date'>".esc_html__('Date','lead-form-builder')." </option>	    
+		    <option value='text'>".esc_html__('Text (Single Line Text)','lead-form-builder')."</option>
+        <option value='textarea'>".esc_html__('Textarea (Multiple Line Text)','lead-form-builder')." </option>
+		    <option value='htmlfield'>".esc_html__('Content Area (Read only Text)','lead-form-builder')."</option>
+            <option value='url'>".esc_html__('Url (Website url)','lead-form-builder')."</option>
+            <option value='number'>".esc_html__('Number (Only Numeric 0-9 )','lead-form-builder')." </option>
+            <option value='radio'>".esc_html__('Radio (Choose Single Option)','lead-form-builder')."</option>    
+            <option value='option'>".esc_html__('Option (Choose Single Option)','lead-form-builder')."</option>  
+            <option value='checkbox'>".esc_html__('Checkbox (Choose Multiple Option)','lead-form-builder')."</option>
+            <option value='terms'>".esc_html__('Checkbox (Terms & condition)','lead-form-builder')." </option>
 			</select>
 			<div class='add_radio_checkbox_1' id='add_radio_checkbox'>
 			<div class='' id='add_radio'></div>
@@ -177,7 +177,7 @@ function lfb_form_last_fields(){
           <td>
           <input type='hidden' name='form_field_0[field_name]' id='field_name_0' value='submit'>
           <select class='form_field_select' name='form_field_0[field_type][type]' id='field_type_0'>        
-            <option value='submit'>Submit Button</option>
+            <option value='submit'>".esc_html__('Submit Button','lead-form-builder')." </option>
             </select>
         </td>
         <td><input type='text' class='default_value' name='form_field_0[default_value]' id='default_value_0' value='SUBMIT'>
