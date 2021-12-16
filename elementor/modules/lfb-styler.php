@@ -9,9 +9,8 @@ use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
-use Elementor\Scheme_Typography;
-use Elementor\Scheme_Color;
-
+use Elementor\Core\Schemes\Typography as Scheme_Typography;
+use Elementor\Core\Schemes\Color as Scheme_Color;
 
 
 /**
@@ -161,15 +160,15 @@ class Lead_Form_Styler extends Widget_Base {
 	        'options'      => [
 	          'flex-start'   => [
 	            'title' => __( 'Left', 'lead-form-builder' ),
-	            'icon'  => 'fa fa-align-left',
+	            'icon'  => 'eicon-h-align-left',
 	          ],
 	          'center' => [
 	            'title' => __( 'Center', 'lead-form-builder' ),
-	            'icon'  => 'fa fa-align-center',
+	            'icon'  => 'eicon-h-align-center',
 	          ],
 	          'flex-end'  => [
 	            'title' => __( 'Right', 'lead-form-builder' ),
-	            'icon'  => 'fa fa-align-right',
+	            'icon'  => 'eicon-h-align-right',
 	          ],
 	        ],
 	        'selectors'    => [
@@ -492,15 +491,15 @@ protected function lf_field_style_controls() {
 					'options'   => [
 						'left'   => [
 							'title' => __( 'Left', 'lead-form-builder' ),
-							'icon'  => 'fa fa-align-left',
+							'icon'  => 'eicon-h-align-left',
 						],
 						'center' => [
 							'title' => __( 'Center', 'lead-form-builder' ),
-							'icon'  => 'fa fa-align-center',
+							'icon'  => 'eicon-h-align-center',
 						],
 						'right'  => [
 							'title' => __( 'Right', 'lead-form-builder' ),
-							'icon'  => 'fa fa-align-right',
+							'icon'  => 'eicon-h-align-right',
 						],
 					],
 					'selectors' => [
@@ -927,15 +926,15 @@ protected function lf_field_style_controls() {
 			'options'      => [
 	          'left'   => [
 	            'title' => __( 'Left', 'lead-form-builder' ),
-	            'icon'  => 'fa fa-align-left',
+	            'icon'  => 'eicon-h-align-left',
 	          ],
 	          'center' => [
 	            'title' => __( 'Center', 'lead-form-builder' ),
-	            'icon'  => 'fa fa-align-center',
+	            'icon'  => 'eicon-h-align-center',
 	          ],
 	          'right'  => [
 	            'title' => __( 'Right', 'lead-form-builder' ),
-	            'icon'  => 'fa fa-align-right',
+	            'icon'  => 'eicon-h-align-right',
 	          ],
 	        ],
 	        'selectors'    => [
@@ -1356,7 +1355,7 @@ protected function lf_field_style_controls() {
 <?php	
 	}
 	
-	protected function _content_template() {}
+	protected function content_template() {}
 }
 
 
