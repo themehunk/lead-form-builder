@@ -13,7 +13,7 @@ class lfb_widget extends WP_Widget {
     function __construct() {
         $widget_ops = array(
             'classname' => 'lfb_widget',
-            'description' => 'Form Builder Widget'
+            'description' => esc_html__('Form Builder Widget','lead-form-builder')
         );
         parent::__construct('lfb-form-builder', 'Lead Form Builder', $widget_ops);
     }
@@ -44,7 +44,7 @@ class lfb_widget extends WP_Widget {
     }
 
     function form($instance) {
-        $title = isset($instance['title']) ? esc_attr($instance['title']) : 'Contact Us Form';
+        $title = isset($instance['title']) ? esc_html__($instance['title']) : esc_html__('Contact Us Form','lead-form-builder');
         $lfb_shortcode = isset($instance['lfb_shortcode']) ? esc_attr($instance['lfb_shortcode']) : '';
         $shortcode = "<a href='".admin_url('admin.php?page=wplf-plugin-menu')."'>Go Shortcode</a>";
 

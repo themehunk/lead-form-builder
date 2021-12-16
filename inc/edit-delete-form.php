@@ -39,9 +39,9 @@ Class LFB_EDIT_DEL_FORM {
         if(isset($_GET['redirect'])){
             $redirect_value= esc_html($_GET['redirect']);
             if($redirect_value=='create'){
-        $form_message='<div id="message" class="updated notice is-dismissible"><p>Form <strong>Saved</strong>.</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+        $form_message='<div id="message" class="updated notice is-dismissible"><p>Form<strong>Saved</strong>.</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">'.esc_html__("Dismiss this notice.","lead-form-builder").'</span></button></div>';
         }if($redirect_value=='update'){
-            $form_message='<div id="message" class="updated notice is-dismissible"><p>Form <strong>Updated</strong>.</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+            $form_message='<div id="message" class="updated notice is-dismissible"><p>Form <strong>Updated</strong>.</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">'.esc_html__("Dismiss this notice.","lead-form-builder").'</span></button></div>';
             }
         }
         $nonce = wp_create_nonce( '_nonce_verify' );
@@ -50,10 +50,10 @@ Class LFB_EDIT_DEL_FORM {
         echo '<div class="wrap">
         <h2> Edit From</h2>'.$form_message.'
         <h2 class="nav-tab-wrapper">
-            <a class="nav-tab nav-tab-active edit-lead-form" href="#">Edit Form</a>
-            <a class="nav-tab lead-form-email-setting" href="#">Email Setting</a>
-            <a class="nav-tab lead-form-captcha-setting" href="#">Captcha Setting</a>
-            <a class="nav-tab lead-form-setting" href="#">Setting</a>
+            <a class="nav-tab nav-tab-active edit-lead-form" href="#">'.esc_html__("Edit Form","lead-form-builder").'</a>
+            <a class="nav-tab lead-form-email-setting" href="#">'.esc_html__("Email Setting","lead-form-builder").'</a>
+            <a class="nav-tab lead-form-captcha-setting" href="#">'.esc_html__("Captcha Setting","lead-form-builder").'</a>
+            <a class="nav-tab lead-form-setting" href="#">'.esc_html__("Setting","lead-form-builder").'</a>
         </h2>
         <div id="sections">
         <span class="back-arrow"><a href="'.admin_url('?page=wplf-plugin-menu').'" ><img width ="18" src="'.LFB_FORM_BACK_SVG.'" ></a></span>
@@ -286,7 +286,7 @@ Class LFB_EDIT_DEL_FORM {
 
      $return .= '<td>
           <select class="form_field_select" name="form_field_' . $fieldID . '[field_type][type]" id="field_type_' . $fieldID . '">
-          <option value="option" selected="selected" >Option (Choose Single Option)</option>
+          <option value="option" selected="selected" >'.esc_html__("Option (Choose Single Option)","lead-form-builder").'</option>
            </select>
             <div class="add_radio_checkbox_' . $fieldID . '" id="add_radio_checkbox">
             <div class="" id="add_option">' . $optionField . '</div>
@@ -342,7 +342,7 @@ Class LFB_EDIT_DEL_FORM {
 
      $return .= '<td>
           <select class="form_field_select" name="form_field_' . $fieldID . '[field_type][type]" id="field_type_' . $fieldID . '" >
-          <option value="radio" selected="selected" >Radio (Choose Single Option)</option>
+          <option value="radio" selected="selected" >'.esc_html__("Radio (Choose Single Option)","lead-form-builder").'</option>
            </select>
             <div class="add_radio_checkbox_' . $fieldID . '" id="add_radio_checkbox">
             <div class="" id="add_radio">' . $optionField . '</div>
@@ -392,7 +392,7 @@ Class LFB_EDIT_DEL_FORM {
 
      $return .= '<td>
           <select class="form_field_select" name="form_field_' . $fieldID . '[field_type][type]" id="field_type_' . $fieldID . '" >
-          <option value="checkbox" selected="selected" >Checkbox (Choose Multiple Option)</option>
+          <option value="checkbox" selected="selected" >'.esc_html__("Checkbox (Choose Multiple Option)","lead-form-builder").'</option>
            </select>
             <div class="add_radio_checkbox_' . $fieldID . '" id="add_radio_checkbox">
             <div class="" id="add_checkbox">' . $checkboxField . '</div>

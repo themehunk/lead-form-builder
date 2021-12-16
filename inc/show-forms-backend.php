@@ -8,7 +8,7 @@ Class LFB_SHOW_FORMS {
     function lfb_show_all_forms($id) {
         $lfb_admin_url = admin_url();
         echo '<div class="wrap show-all-form"> <a class="button_lfb" target="_blank" href="//themehunk.com/product/lead-form-builder-pro/">'.esc_html__('Get Pro Version','lead-form-builder').' </a>
-<h1>'.esc_html__('Lead Forms Builder','lead-form-builder').' <a href="' . $lfb_admin_url . 'admin.php?page=add-new-form&_wpnonce='.$this->lfb_show_form_nonce().'" class="add-new-h2">Add New</a></h1>
+<h1>'.esc_html__('Lead Forms Builder','lead-form-builder').' <a href="' . $lfb_admin_url . 'admin.php?page=add-new-form&_wpnonce='.$this->lfb_show_form_nonce().'" class="add-new-h2">'.esc_html__("Add New","lead-form-builder").'</a></h1>
 <div>
 <table class="wp-list-table widefat fixed striped posts ">
 	<thead>
@@ -123,30 +123,30 @@ if ( get_option('captcha-setting-sitekey') !== false ) {
 Form Color Customize'.LFB_FORM_PRO_FEATURE.'</li>
 <li class="divider"></li>
 
-        <li><a href="#"><img width="18px" src="'.LFB_MCPI_IMAGE.'" title="Mailchimp">
+        <li><a href="#"><img width="18px" src="'.LFB_MCPI_IMAGE.'" title="'.esc_html__("Mailchimp"."lead-form-builder").'">
 Mailchimp Adon Settings'.LFB_FORM_PRO_FEATURE.'</li>
 <li class="divider"></li>
 
-        <li><a href=""><img width="18px" src="'.LFB_SMTP_IMAGE.'" title="SMTP Configure">
+        <li><a href=""><img width="18px" src="'.LFB_SMTP_IMAGE.'" title="'.esc_html__("SMTP Configure","lead-form-builder").'">
 SMTP Adon Settings <span class="pro-feature"><i class="fa fa-lock"></i>
  Pro Feature<span> </a></li>
 <li class="divider"></li>
 
-        <li><a href="#"><img width="18px" src="'.LFB_EXPORT_IMAGE.'" title="Entry Export">
+        <li><a href="#"><img width="18px" src="'.LFB_EXPORT_IMAGE.'" title="'.esc_html__("Entry Export","lead-form-builder").'">
 Export (Form Leads) '.LFB_FORM_PRO_FEATURE.'</a></li>
 <li class="divider"></li>
 
-        <li><a href="#"><img width="18px" src="'.LFB_FORM_EXPORT_IMAGE.'" title="Form Export">
+        <li><a href="#"><img width="18px" src="'.LFB_FORM_EXPORT_IMAGE.'" title="'.esc_html__("Form Export","lead-form-builder").'">
 Form Export '.LFB_FORM_PRO_FEATURE.'</a></li>
     <li class="divider"></li>
-<li><a href="#"><img width="18px" src="'.LFB_FORM_IMPORT_IMAGE.'" title="Form Import">
+<li><a href="#"><img width="18px" src="'.LFB_FORM_IMPORT_IMAGE.'" title="'.esc_html__("Form Import","lead-form-builder").'">
 Form Import '.LFB_FORM_PRO_FEATURE.'</a></li>
 <li class="divider"></li>
 
 
     </ul>
 </div>
-<button data-dropdown="#dropdown-with-adon-'.$form_id.'" class="lfb-dropdown-btn">View Add-Ons</button>
+<button data-dropdown="#dropdown-with-adon-'.$form_id.'" class="lfb-dropdown-btn">'.esc_html__("View Add-Ons","lead-form-builder").'</button>
 
 </td>
 

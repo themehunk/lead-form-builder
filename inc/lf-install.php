@@ -99,12 +99,12 @@ add_action('admin_menu', 'lfb_register_my_custom_menu_page');
 
 function lfb_lead_form_page() {
     if (isset($_GET['action']) && isset($_GET['formid'])) {
-        $form_action = $_GET['action'];
-        $this_form_id = $_GET['formid'];
+        $form_action = sanitize_text_field($_GET['action']);
+        $this_form_id = intval($_GET['formid']);
         if ($form_action == 'delete') {
             $page_id =1;
             if (isset($_GET['page_id'])) {
-            $page_id = $_GET['page_id'];
+            $page_id = intval($_GET['page_id']);
             }
             $th_edit_del_form = new LFB_EDIT_DEL_FORM();
             $th_edit_del_form->lfb_delete_form_content($form_action, $this_form_id,$page_id);
@@ -127,7 +127,7 @@ function lfb_lead_form_page() {
         $th_show_forms = new LFB_SHOW_FORMS();
         $page_id =1;
         if (isset($_GET['page_id'])) {
-        $page_id = $_GET['page_id'];
+        $page_id = intval($_GET['page_id']);
         }
         $th_show_forms->lfb_show_all_forms($page_id);
     }
@@ -164,8 +164,8 @@ function lfb_add_contact_forms() {
   }
 
 if (isset($_GET['action']) && isset($_GET['formid'])) {
-        $form_action = $_GET['action'];
-        $this_form_id = $_GET['formid'];
+        $form_action = sanitize_text_field($_GET['action']);
+        $this_form_id = intval($_GET['formid']);
         if ($form_action == 'edit') {
             $th_edit_del_form = new LFB_EDIT_DEL_FORM();
             $th_edit_del_form->lfb_edit_form_content($form_action, $this_form_id);

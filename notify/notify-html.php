@@ -1,6 +1,6 @@
     <?php 
     if($theme !== 'jot-shop'){ ?>
-  <div class="notice th-notice-slide-wrapper" style="display:<?php echo $display; ?>;">
+  <div class="notice th-notice-slide-wrapper" style="display:<?php echo esc_html($display); ?>;">
  <div class="th-notice-slide-wrap owl-carousel">
 
 

@@ -27,9 +27,7 @@ Class LFB_Show_Leads {
 <label for="select_form_lead">'.esc_html__('Select From','lead-form-builder').'</label></th>
 <td><select name="select_form_lead" id="select_form_lead">' . $option_form . '</select>
 <td><input type="button" value="Remember this form" onclick="remember_this_form_id();" id="remember_this_form_id"></td>
-</tr><tr><td><div id="remember_this_message" ></div></td></tr></tbody></table></div></div></div>';
-$leads = $this->lfb_show_leads_first_form($first_form_id);
-        echo '<div class="wrap" id="form-leads-show">'.$leads.'</div>';
+</tr><tr><td><div id="remember_this_message" ></div></td></tr></tbody></table></div></div></div><div class="wrap" id="form-leads-show">'.$this->lfb_show_leads_first_form($first_form_id).'</div>';
     }
 
 function lfb_show_leads_first_form($form_id){
@@ -141,7 +139,7 @@ function lfb_show_leads_first_form($form_id){
              echo '</div>';
         } else {
              echo '<div class="wrap" id="form-leads-show">';
-             echo "No Leads...!!";
+             esc_html_e("No leads..!","lead-form-builder");
              echo '</div>';
         }
     }
@@ -256,7 +254,7 @@ function lfb_show_leads_first_form($form_id){
 
         } else {
              echo '<div class="wrap" id="form-leads-show">';
-             echo "No leads...!!";
+             esc_html_e("No leads..!","lead-form-builder");
              echo '</div>';
         }
     }

@@ -23,10 +23,10 @@ Class LFB_EmailSettingForm {
 
             $mail_setting_to = get_option('admin_email');
             $mail_setting_from = get_option('admin_email');
-            $mail_setting_subject = "Form Leads"; 
+            $mail_setting_subject = esc_html__("Form Leads","lead-form-builder"); 
             $mail_setting_message = '[lf-new-form-data]';
             $multi_mail = "";
-            $mail_setting_header  = "New Lead Received";
+            $mail_setting_header  = esc_html__("New Lead Received","lead-form-builder");
         if (!empty($mail_setting_result)) {
             $mail_setting_result = maybe_unserialize($mail_setting_result);
             $mail_setting_to = $mail_setting_result['email_setting']['to'];
@@ -85,10 +85,10 @@ Class LFB_EmailSettingForm {
 
 
             $usermail_setting_from      = get_option('admin_email');
-            $usermail_setting_subject   = "Received a lead";
-            $usermail_setting_message   = "Form Submitted Successfully";
-            $usermail_setting_option    = "OFF";
-            $usermail_setting_header    = 'New Lead Received';
+            $usermail_setting_subject   = esc_html('Received a lead');
+            $usermail_setting_message   = esc_html('Form Submitted Successfully');
+            $usermail_setting_option    = esc_html('OFF');
+            $usermail_setting_header    = esc_html('New Lead Received');
         if (!empty($usermail_setting)) {
             $usermail_setting_result = maybe_unserialize($usermail_setting);
             $usermail_setting_from = $usermail_setting_result['user_email_setting']['from'];
@@ -152,7 +152,7 @@ echo "<form id='form-user-email-setting' action='' method='post'>
         if (isset($captcha_option)) {
             $captcha_option_val = $captcha_option;
         } else {
-            $captcha_option_val = "OFF";
+            $captcha_option_val = esc_html('OFF');
         }
         $captcha_sitekey = get_option('captcha-setting-sitekey');
         $captcha_secret = get_option('captcha-setting-secret');

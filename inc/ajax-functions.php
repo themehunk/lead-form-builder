@@ -12,14 +12,15 @@ function lfb_upload_dir( $dirs ) {
 function lfb_fileupload(){
 add_filter( 'upload_dir', 'lfb_upload_dir' );
     $fileErrors = array(
-        0 => "There is no error, the file uploaded with success",
-        1 => "The uploaded file exceeds the upload_max_files in server settings",
-        2 => "The uploaded file exceeds the MAX_FILE_SIZE from html form",
-        3 => "The uploaded file uploaded only partially",
-        4 => "No file was uploaded",
-        6 => "Missing a temporary folder",
-        7 => "Failed to write file to disk",
-        8 => "A PHP extension stoped file to upload" );
+        0 => __("There is no error, the file uploaded with success","lead-form-builder"),
+        1 => __("The uploaded file exceeds the upload_max_files in server settings","lead-form-builder"),
+        2 => __("The uploaded file exceeds the MAX_FILE_SIZE from html form","lead-form-builder"),
+        3 => __("The uploaded file uploaded only partially","lead-form-builder"),
+        4 => __("No file was uploaded","lead-form-builder"),
+        6 => __("Missing a temporary folder","lead-form-builder"),
+        7 => __("Failed to write file to disk","lead-form-builder"),
+        8 => __("A PHP extension stoped file to upload","lead-form-builder") 
+    );
 
     $file_data = isset( $_FILES ) ? $_FILES : array();
     $overrides = array( 'test_form' => false );
@@ -29,7 +30,7 @@ foreach($file_data as $key => $file){
 $uploaded_file = wp_handle_upload( $file, $overrides);
 
     if( $uploaded_file && ! isset( $uploaded_file['error'] ) ) {
-        $response[$key]['response'] = "SUCCESS";
+        $response[$key]['response'] = __('SUCCESS','lead-form-builder');
         $response[$key]['filename'] = basename( $uploaded_file['url'] );
         $response[$key]['url'] = $uploaded_file['url'];
         $response[$key]['type'] = $uploaded_file['type'];
@@ -200,11 +201,11 @@ function lfb_ShowAllLeadThisForm() {
             $sn_counter = 0;
         }
         if (isset($_GET['detailview'])) {
-            $detail_view = isset($_GET['detailview']);
+            $detail_view = sanitize_text_field($_GET['detailview']);
         }
 
         if(isset($_POST['slectleads'])){
-            $slectleads = $_POST['slectleads'];
+            $slectleads = sanitize_text_field($_POST['slectleads']);
         }
 
                 $getArray = $th_save_db->lfb_get_all_view_leads_db($form_id,$start);
@@ -483,7 +484,7 @@ function lfb_ShowAllLeadThisFormDate() {
             $sn_counter = 0;
         }
         if (isset($_GET['detailview'])) {
-            $detail_view = isset($_GET['detailview']);
+            $detail_view = sanitize_text_field($_GET['detailview']);
         }
         $getArray =  $th_save_db->lfb_get_all_view_date_leads_db($form_id,$datewise,$start);
 
@@ -692,13 +693,13 @@ $response = wp_remote_post(
 );
 $reply_obj = json_decode( wp_remote_retrieve_body( $response ) );
        if(isset($reply_obj->success) && $reply_obj->success==1){
-         echo "Yes";
+         esc_html_e('Yes','lead-form-builder');
         }
         else{
-         echo "No";
+         esc_html_e('No','lead-form-builder');
         }
     }else{
-         echo "Invalid";
+         esc_html_e('Invalid','lead-form-builder');
     }
     die();
     }
@@ -728,7 +729,7 @@ add_action('wp_ajax_RememberMeThisForm', 'lfb_RememberMeThisForm');
 function lfb_SaveUserEmailSettings() {
     unset($_POST['action']);
     $email_setting = maybe_serialize($_POST);
-    $this_form_id = $_POST['user_email_setting']['form-id'];
+    $this_form_id = intval($_POST['user_email_setting']['form-id']);
     global $wpdb;
     $table_name = LFB_FORM_FIELD_TBL;
     $update_query = "update " . LFB_FORM_FIELD_TBL . " set usermail_setting='" . esc_sql($email_setting) . "' where id='" . esc_sql($this_form_id) . "'";
