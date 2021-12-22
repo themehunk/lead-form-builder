@@ -60,7 +60,7 @@ function lfb_save_lead_settings() {
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
-        echo "updated";
+        echo esc_html('updated');
     }
 
     die();
@@ -81,7 +81,7 @@ function lfb_save_email_settings() {
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
-        echo "updated";
+        echo esc_html('updated');
     }
     die();
 }
@@ -101,7 +101,7 @@ function lfb_savesuccessmsg() {
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
-        echo "updated";
+        echo esc_html('updated');
     }
     }
     die();
@@ -134,10 +134,14 @@ add_action('wp_ajax_SaveCaptchaSettings', 'lfb_save_captcha_settings');
  */
 function lfb_delete_leads_backend() {
 $user = get_userdata( get_current_user_id() );
+
+$user = wp_get_current_user();
+$allowed_roles = array( 'editor', 'administrator', 'lfb_role' );
+ $nonce = $_REQUEST['_lfbnonce'];
 // Get all the user roles as an array.
-$user_roles = $user->roles;
+
     $check = false;
-if (isset($_POST['lead_id'])  && ( in_array( 'administrator', $user_roles, true ) || in_array( 'lfb_role', $user_roles, true ))) {
+if (isset($_POST['lead_id'])  && array_intersect( $allowed_roles, $user->roles ) && wp_verify_nonce( $nonce, 'lfb-nonce-rm' )) {
         $check = true;
 
         $this_lead_id = intval($_POST['lead_id']);
@@ -148,7 +152,7 @@ if (isset($_POST['lead_id'])  && ( in_array( 'administrator', $user_roles, true 
 
         $th_save_db = new LFB_SAVE_DB($wpdb);
         $update_leads = $th_save_db->lfb_delete_form($update_query);
-        echo $update_leads;
+        echo esc_html($update_leads);
     }
 
     echo $check;
@@ -169,7 +173,7 @@ function lfb_save_captcha_option() {
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
-        echo "updated";
+        echo esc_html("updated");
     }
     die();
 }
@@ -182,9 +186,11 @@ add_action('wp_ajax_SaveCaptchaOption', 'lfb_save_captcha_option');
 
 function lfb_ShowAllLeadThisForm() {
     if ((isset($_POST['form_id']) && ($_POST['form_id'] != '')) || (isset($_GET['form_id']) && ($_GET['form_id'] != ''))) {
+
         global $wpdb;
         $table_name = LFB_FORM_DATA_TBL;
         $th_save_db = new LFB_SAVE_DB($wpdb);
+        $nonce = wp_create_nonce( 'lfb-nonce-rm' );
         $start = 0;
         $limit = 10;
         $detail_view  = '';
@@ -289,28 +295,28 @@ function lfb_ShowAllLeadThisForm() {
 
                 $table_body .= '<tbody id="lead-id-' . $lead_id . '">';
                
-               $table_body  .='<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row .'</tr>';
+               $table_body  .='<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\''.$nonce.'\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row .'</tr>';
             }
 
             $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" ><thead><tr><th>Action</th>'.$tableHead.'<th>Date</th>'.$table_head.'</tr></thead>';  
 
-            echo $thHead. $table_body.'</tbody></table>'.$popupTab;
+            echo wp_kses_post($thHead. $table_body.'</tbody></table>'.$popupTab);
 
             $total = ceil($rows / $limit);
             if($headcount >= 6 && $leadscount == 5){
 
              if ($id > 1) {
-                echo "<a href=''  onclick='lead_pagi_view(" . ($id - 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-right'></i></a>";
+                echo "<a href=''  onclick='lead_pagi_view(" . intval($id - 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-right'></i></a>";
             }
             if ($id != $total) {
-                echo "<a href='' onclick='lead_pagi_view(" . ($id + 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-left'></i></a>";
+                echo "<a href='' onclick='lead_pagi_view(" . intval($id + 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-left'></i></a>";
             }
             echo "<ul class='page'>";
             for ($i = 1; $i <= $total; $i++) {
                 if ($i == $id) {
-                    echo "<li class='lf-current'><a href='#'>" . $i . "</a></li>";
+                    echo "<li class='lf-current'><a href='#'>" . intval($i) . "</a></li>";
                 } else {
-                    echo "<li><a href='' onclick='lead_pagi_view(" . $i . "," . $form_id . ")'>" . $i . "</a></li>";
+                    echo "<li><a href='' onclick='lead_pagi_view(" . intval($i) . "," . intval($form_id) . ")'>" . $i . "</a></li>";
                 }
             }
             echo '</ul>';
@@ -318,24 +324,24 @@ function lfb_ShowAllLeadThisForm() {
 } else {
 
       if ($id > 1) {
-                echo "<a href=''  onclick='lead_pagination(" . ($id - 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-right'></i></a>";
+                echo "<a href=''  onclick='lead_pagination(" . intval($id - 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-right'></i></a>";
             }
             if ($id != $total) {
-                echo "<a href='' onclick='lead_pagination(" . ($id + 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-left'></i></a>";
+                echo "<a href='' onclick='lead_pagination(" . intval($id + 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-left'></i></a>";
             }
             echo "<ul class='page'>";
             for ($i = 1; $i <= $total; $i++) {
                 if ($i == $id) {
-                    echo "<li class='lf-current'><a href='#'>" . $i . "</a></li>";
+                    echo "<li class='lf-current'><a href='#'>" . intval($i) . "</a></li>";
                 } else {
-                    echo "<li><a href='' onclick='lead_pagination(" . $i . "," . $form_id . ")'>" . $i . "</a></li>";
+                    echo "<li><a href='' onclick='lead_pagination(" . intval($i) . "," . intval($form_id) . ")'>" . intval($i) . "</a></li>";
                 }
             }
             echo '</ul>';
 }
 
         } else {
-            echo "Opps No lead...!!";
+            echo esc_html("Opps No lead...!!");
         }
         die();
     }
@@ -350,6 +356,7 @@ function lfb_ShowLeadPagi() {
         global $wpdb;
         $table_name = LFB_FORM_DATA_TBL;
         $th_save_db = new LFB_SAVE_DB($wpdb);
+        $nonce = wp_create_nonce( 'lfb-nonce-rm' );
         $start = 0;
         $limit = 10;
         $detail_view = '';
@@ -428,31 +435,31 @@ function lfb_ShowLeadPagi() {
                           /****/
                 $table_body .= '<tbody id="lead-id-' . $lead_id . '">';
                
-               $table_body  .='<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
+               $table_body  .='<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\''.$nonce.'\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
             }
 
             $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" ><thead><tr><th>Action</th>'.$tableHead.$table_head.'</tr></thead>';  
 
-            echo $thHead. $table_body.'</tbody></table>'.$popupTab;
+            echo wp_kses_post($thHead. $table_body.'</tbody></table>'.$popupTab);
 
             $total = ceil($rows / $limit);
             if ($id > 1) {
-                echo "<a href=''  onclick='lead_pagi_view(" . ($id - 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-right'></i></a>";
+                echo "<a href=''  onclick='lead_pagi_view(" . intval($id - 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-right'></i></a>";
             }
             if ($id != $total) {
-                echo "<a href='' onclick='lead_pagi_view(" . ($id + 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-left'></i></a>";
+                echo "<a href='' onclick='lead_pagi_view(" . intval($id + 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-left'></i></a>";
             }
             echo "<ul class='page'>";
             for ($i = 1; $i <= $total; $i++) {
                 if ($i == $id) {
-                    echo "<li class='lf-current'><a href='#'>" . $i . "</a></li>";
+                    echo "<li class='lf-current'><a href='#'>" . intval($i) . "</a></li>";
                 } else {
-                    echo "<li><a href='' onclick='lead_pagi_view(" . $i . "," . $form_id . ")'>" . $i . "</a></li>";
+                    echo "<li><a href='' onclick='lead_pagi_view(" . intval($i) . "," . intval($form_id) . ")'>" . intval($i) . "</a></li>";
                 }
             }
             echo '</ul>';
         } else {
-            echo "Opps No lead...!!";
+            echo esc_html("Opps No lead...!!");
         }
         die();
     }
@@ -466,6 +473,7 @@ add_action('wp_ajax_ShowLeadPagi', 'lfb_ShowLeadPagi');
 function lfb_ShowAllLeadThisFormDate() {
     if ((isset($_POST['form_id']) && ($_POST['form_id'] != '')) || (isset($_GET['form_id']) && ($_GET['form_id'] != ''))) {
         global $wpdb;
+        $nonce = wp_create_nonce( 'lfb-nonce-rm' );
         $table_name = LFB_FORM_DATA_TBL;
         $th_save_db = new LFB_SAVE_DB($wpdb);
         $start = 0;
@@ -474,7 +482,7 @@ function lfb_ShowAllLeadThisFormDate() {
 
         if (isset($_GET['id'])) {
             $id = intval($_GET['id']);
-            $datewise = $_GET['datewise'];
+            $datewise = esc_html($_GET['datewise']);
             $start = ($id - 1) * $limit;
             $form_id = intval($_GET['form_id']);
             $sn_counter = $start;
@@ -555,32 +563,32 @@ function lfb_ShowAllLeadThisFormDate() {
                           /****/
                 $table_body .= '<tbody id="lead-id-' . $lead_id . '">';
                
-               $table_body  .='<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
+               $table_body  .='<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\''.$nonce.'\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
             }
 
             $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" ><thead><tr><th>Action</th>'.$tableHead.$table_head.'</tr></thead>';  
 
-            echo $thHead. $table_body.'</tbody></table>'.$popupTab;
+            echo wp_kses_post($thHead. $table_body.'</tbody></table>'.$popupTab);
 
             $rows = count($rows);
             $total = ceil($rows / $limit);
             if ($id > 1) {
-                echo "<a href=''  onclick='lead_pagination_datewise(" . ($id - 1) . "," . $form_id . ",\"".$datewise."\");' class='button'><i class='fa fa-chevron-right'></i></a>";
+                echo "<a href=''  onclick='lead_pagination_datewise(" . intval($id - 1) . "," . intval($form_id) . ",\"".$datewise."\");' class='button'><i class='fa fa-chevron-right'></i></a>";
             }
             if ($id != $total) {
-                echo "<a href='' onclick='lead_pagination_datewise(" . ($id + 1) . "," . $form_id . ",\"".$datewise."\");' class='button'><i class='fa fa-chevron-left'></i></a>";
+                echo "<a href='' onclick='lead_pagination_datewise(" . intval($id + 1) . "," . intval($form_id) . ",\"".$datewise."\");' class='button'><i class='fa fa-chevron-left'></i></a>";
             }
             echo "<ul class='page'>";
             for ($i = 1; $i <= $total; $i++) {
                 if ($i == $id) {
                     echo "<li class='lf-current'><a href='#'>" . $i . "</a></li>";
                 } else {
-                    echo "<li><a href='' onclick='lead_pagination_datewise(".$i.",".$form_id.",\"".$datewise."\");'>" . $i . "</a></li>";
+                    echo "<li><a href='' onclick='lead_pagination_datewise(".intval($i).",".intval($form_id).",\"".$datewise."\");'>" . $i . "</a></li>";
                 }
             }
             echo '</ul>';
         } else {
-            echo "Opps No lead...!!";
+            echo esc_html("Opps No lead...!!");
         }
         die();
     }
@@ -715,7 +723,7 @@ if ((isset($_POST['form_id'])) && (!empty($_POST['form_id']))) {
     }else{
     add_option('lf-remember-me-show-lead',$remember_me);
     }
-    echo get_option('lf-remember-me-show-lead');
+    echo esc_html(get_option('lf-remember-me-show-lead'));
     die();
 }
 }
@@ -736,7 +744,7 @@ function lfb_SaveUserEmailSettings() {
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
-        echo "updated";
+        echo esc_html("updated");
     }
     die();
 }

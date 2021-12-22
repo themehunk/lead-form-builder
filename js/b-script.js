@@ -791,10 +791,10 @@ jQuery('#select_form_lead').on('change', function() {
 /*
  *Delete particular Leads
  */
-function delete_this_lead(this_lead_id) {
+function delete_this_lead(this_lead_id,nonce) {
   if (confirm("OK to Delete?")) {
     jQuery('#lead-id-'+this_lead_id).remove();
-    form_data = "&lead_id="+this_lead_id+"&action=delete_leads_backend";
+    form_data = "&lead_id="+this_lead_id+"&action=delete_leads_backend&_lfbnonce="+nonce;
     SaveByAjaxRequest(form_data, 'POST').success(function(response) {
         if(response==false){
         alert("No Permission !");

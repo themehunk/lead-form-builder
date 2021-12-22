@@ -27,7 +27,6 @@ Class LFB_EDIT_DEL_FORM {
         if ($posts){
             $form_title = $posts[0]->form_title;
             $form_data_result = maybe_unserialize($posts[0]->form_data);
-              // echo "<pre>"; PRINT_R($form_data_result); echo "</pr>";
             $mail_setting_result = $posts[0]->mail_setting;
             $usermail_setting_result = $posts[0]->usermail_setting;
             $captcha_option = $posts[0]->captcha_status;

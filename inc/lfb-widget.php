@@ -51,7 +51,7 @@ class lfb_widget extends WP_Widget {
      
         ?>
         <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title','lead_form_builder'); ?></label>
-            <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></p>
+            <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_html($title); ?>" /></p>
     
         <p>
            <label for="<?php echo $this->get_field_id('lfb_shortcode'); ?>"><?php _e('Lead Form Builder ['.$shortcode.']','lead_form_builder'); ?>
@@ -59,7 +59,7 @@ class lfb_widget extends WP_Widget {
         <textarea  name="<?php echo $this->get_field_name('lfb_shortcode'); ?>" id="<?php echo $this->get_field_id('lfb_shortcode'); ?>"  class="widefat" ><?php echo $lfb_shortcode; ?></textarea>
         </p>
         <p>     
-                <input type="hidden" id="<?php echo $this->get_field_id('show_type'); ?>" name="<?php echo $this->get_field_name('show_type'); ?>" value="listing"/>
+                <input type="hidden" id="<?php echo esc_attr($this->get_field_id('show_type')); ?>" name="<?php echo $this->get_field_name('show_type'); ?>" value="listing"/>
         </p>
         <?php
     }

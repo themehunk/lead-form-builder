@@ -188,7 +188,7 @@ function lfb_form_last_fields(){
         <input type='hidden' value='0' name='form_field_0[field_id]'>
         </td>
         </td>
-        <td class='add-field'><span><input type='button' class='button lf_addnew' name='add_new' id='add_new_1' onclick='add_new_form_fields(1)' value='Add New'></span>
+        <td class='add-field'><span><input type='button' class='button lf_addnew' name='add_new' id='add_new_1' onclick='add_new_form_fields(1)' value='".esc_html__('Add New')."'></span>
         </td>
         </tr>";
 }

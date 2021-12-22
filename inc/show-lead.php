@@ -36,6 +36,7 @@ function lfb_show_leads_first_form($form_id){
 
         $th_save_db = new LFB_SAVE_DB();
         $getArray =  $th_save_db->lfb_get_all_view_leads_db($form_id,$start);
+        $nonce = wp_create_nonce( 'lfb-nonce-rm' );
 
         $posts          = $getArray['posts'];
         $rows           = $getArray['rows'];
@@ -110,37 +111,41 @@ function lfb_show_leads_first_form($form_id){
                           </div>';
 
                 $table_body .= '<tbody id="lead-id-' . $lead_id . '">';
-                $table_body .= '<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>'. $table_row .'</tr>';
+                $table_body .= '<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\''.$nonce.'\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>'. $table_row .'</tr>';
             }
 
               $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" >
                 <thead><tr><th>Action</th>'.$tableHead.'<th>Date</th>'.$table_head.'</tr></thead>';
 
-            echo $thHead. $table_body.'</tbody></table>'.$popupTab;
-
-         //   echo '</tbody><table>';
+            echo wp_kses_post($thHead. $table_body.'</tbody></table>'.$popupTab);
     
-            $total = ceil($rows / $limit);//
-            if ($id > 1) {//
-                echo "<a href=''  onclick='lead_pagi_view(" . ($id - 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-left'></i></a>";//
-            }//
-            if ($id != $total) {//
-                echo "<a href='' onclick='lead_pagi_view(" . ($id + 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-right'></i></a>";//
-            }//
-            echo "<ul class='page'>";//
-            for ($i = 1; $i <= $total; $i++) {//
-                if ($i == $id) {//
-                    echo "<li class='lf-current'><a href='#'>" . $i . "</a></li>";//
+            $total = ceil($rows / $limit);
+            if ($id > 1) {
+                echo wp_kses_post("<a href=''  onclick='lead_pagi_view(" . ($id - 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-left'></i></a>");
+            }
+            if ($id != $total) {
+                echo wp_kses_post("<a href='' onclick='lead_pagi_view(" . ($id + 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-right'></i></a>");
+            }
+            ?> <ul class='page'>
+                <?php
+            for ($i = 1; $i <= $total; $i++) {
+                if ($i == $id) {
+                  ?> <li class='lf-current'><a href='#'><?php intval($i); ?></a></li> <?php
                 } else {
-                    echo "<li><a href='' onclick='lead_pagi_view(" . $i . "," . $form_id . ")'>" . $i . "</a></li>";//
-                }//
-            }//
-             echo '</ul>';//
-             echo '</div>';
+                    echo "<li><a href='' onclick='lead_pagi_view(" . intval($i) . "," . intval($form_id) . ")'>" . intval($i) . "</a></li>";
+                }
+            }
+             ?> </ul>
+             </div>
+             <?php
         } else {
-             echo '<div class="wrap" id="form-leads-show">';
-             esc_html_e("No leads..!","lead-form-builder");
-             echo '</div>';
+              ?>
+              <div class="wrap" id="form-leads-show">
+                <?php
+             esc_html_e("No leads..!","lead-form-builder")
+              ?>
+             </div>
+             <?php
         }
     }
 
@@ -150,6 +155,7 @@ function lfb_show_leads_first_form($form_id){
         $th_save_db = new LFB_SAVE_DB();
 
         $getArray =  $th_save_db->lfb_get_all_view_date_leads_db($form_id,$leadtype);
+        $nonce = wp_create_nonce( 'lfb-nonce-rm' );
 
         $posts          = $getArray['posts'];
         $rows           = $getArray['rows'];
@@ -224,38 +230,37 @@ function lfb_show_leads_first_form($form_id){
                           </div>';
                           /** Today Leads Show**/
                 $table_body .= '<tbody id="lead-id-' . $lead_id . '">';
-                $table_body .= '<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>'. $table_row .'</tr>';
+                $table_body .= '<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\''.$nonce.'\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>'. $table_row .'</tr>';
             }
 
 
                 $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" >
                 <thead><tr><th>Action</th>'.$tableHead.'<th>Date</th>'.$table_head.'</tr></thead>';
 
-                echo $thHead. $table_body.'</tbody></table>'.$popupTab;
+                echo wp_kses_post($thHead. $table_body.'</tbody></table>'.$popupTab);
 
             $rows = count($rows);
             $total = ceil($rows / $limit);
             if ($id > 1) {
-                echo "<a href=''  onclick='lead_pagination_datewise(" . ($id - 1) . "," . $form_id . ",\"".$leadtype."\");' class='button'><i class='fa fa-chevron-left'></i></a>";
+                echo wp_kses_post("<a href=''  onclick='lead_pagination_datewise(" . ($id - 1) . "," . $form_id . ",\"".$leadtype."\");' class='button'><i class='fa fa-chevron-left'></i></a>");
             }
             if ($id != $total) {
-                echo "<a href='' onclick='lead_pagination_datewise(" . ($id + 1) . "," . $form_id . ",\"".$leadtype."\");' class='button'><i class='fa fa-chevron-right'></i></a>";
+                echo wp_kses_post("<a href='' onclick='lead_pagination_datewise(" . ($id + 1) . "," . $form_id . ",\"".$leadtype."\");' class='button'><i class='fa fa-chevron-right'></i></a>");
             }
             echo "<ul class='page'>";
             for ($i = 1; $i <= $total; $i++) {
                 if ($i == $id) {
-                    echo "<li class='lf-current'><a href='#'>" . $i . "</a></li>";
+                    ?> <li class='lf-current'><a href='#'><?php echo intval($i); ?></a></li> <?php
                 } else {
-                    echo "<li><a href='' onclick='lead_pagination_datewise(".$i.",".$form_id.",\"".$leadtype."\");'>" . $i . "</a></li>";
+                    echo "<li><a href='' onclick='lead_pagination_datewise(".intval($i).",".intval($form_id).",\"".esc_attr($leadtype)."\");'>" . $i . "</a></li>";
                 }
             }
-             echo '</ul>';
-             echo '</div>';
-
+             ?></ul></div>
+             <?php
         } else {
-             echo '<div class="wrap" id="form-leads-show">';
+            ?> <div class="wrap" id="form-leads-show"><?php
              esc_html_e("No leads..!","lead-form-builder");
-             echo '</div>';
+             ?> </div> <?php
         }
     }
 }
