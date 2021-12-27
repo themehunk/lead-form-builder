@@ -443,18 +443,18 @@ function add_new_form_fields(this_field_id) {
        // jQuery("#wpth_add_form_table_" + this_field_id).append("<input type='button' class='button lf_remove' name='remove_field' id='remove_field_" + this_field_id + "' onclick='remove_form_fields(" + this_field_id + ")' value='Remove'>");
         var field_id = this_field_id + 1;
         var field_sr = "<td>" + field_id + "</td>";
-        var field_name = "<td><input type='text' name='form_field_" + field_id + "[field_name]' id='field_name_" + field_id + "' value=''></td>";
-        var field_type = "<td><select name='form_field_" + field_id + "[field_type][type]' id='field_type_" + field_id + "'><option value='select'>Select Field Type</option><option value='name'>Name</option><option value='email'>Email</option><option value='message'>Message</option><option value='dob'>DOB</option><option value='date'>Date</option><option value='text'>Text (Single Line Text)</option><option value='textarea'>Textarea (Multiple Line Text)</option><option value='htmlfield'>Content Area (Read only Text)</option><option value='url'>Url (Website url)</option><option value='number'>Number (Only Numeric 0-9 )</option><option value='radio'>Radio (Choose Single Option)</option><option value='option'>Option (Choose Single Option)</option><option value='checkbox'>Checkbox (Choose Multiple Option)</option><option value='terms'>Checkbox (Terms & condition)</option></select><div class='add_radio_checkbox_" + field_id + "' id='add_radio_checkbox'><div class='' id='add_radio'></div><div class='' id='add_checkbox'></div><div class='' id='add_option'></div></div></td>";
-        var field_default = "<td><input type='text' class='default_value' name='form_field_" + field_id + "[default_value]' id='default_value_" + field_id + "' value=''><div class='default_htmlfield_" + field_id + "'' id='default_htmlfield'></div><div class='default_terms_" + field_id + "'' id='default_terms'></div><div class='add_default_radio_checkbox_" + field_id + "' id='add_default_radio_checkbox'><div class='' id='default_add_radio'></div><div class='' id='default_add_checkbox'></div><div class='' id='default_add_option'></div></div></td>";
-        var field_placeholder = "<td><input type='checkbox' class='default_placeholder' name='form_field_" + field_id + "[default_placeholder]' id='default_placeholder_" + field_id + "' value='1'></td>";
-        var field_required = "<td><input type='checkbox' class='is_required' name='form_field_" + field_id + "[is_required]' id='is_required_" + field_id + "' value='1'></td>";
+        var field_name = "<td><input type='text' name='lfb_form[form_field_" + field_id + "][field_name]' id='field_name_" + field_id + "' value=''></td>";
+        var field_type = "<td><select name='lfb_form[form_field_" + field_id + "][field_type][type]' id='field_type_" + field_id + "'><option value='select'>Select Field Type</option><option value='name'>Name</option><option value='email'>Email</option><option value='message'>Message</option><option value='dob'>DOB</option><option value='date'>Date</option><option value='text'>Text (Single Line Text)</option><option value='textarea'>Textarea (Multiple Line Text)</option><option value='htmlfield'>Content Area (Read only Text)</option><option value='url'>Url (Website url)</option><option value='number'>Number (Only Numeric 0-9 )</option><option value='radio'>Radio (Choose Single Option)</option><option value='option'>Option (Choose Single Option)</option><option value='checkbox'>Checkbox (Choose Multiple Option)</option><option value='terms'>Checkbox (Terms & condition)</option></select><div class='add_radio_checkbox_" + field_id + "' id='add_radio_checkbox'><div class='' id='add_radio'></div><div class='' id='add_checkbox'></div><div class='' id='add_option'></div></div></td>";
+        var field_default = "<td><input type='text' class='default_value' name='lfb_form[form_field_" + field_id + "][default_value]' id='default_value_" + field_id + "' value=''><div class='default_htmlfield_" + field_id + "'' id='default_htmlfield'></div><div class='default_terms_" + field_id + "'' id='default_terms'></div><div class='add_default_radio_checkbox_" + field_id + "' id='add_default_radio_checkbox'><div class='' id='default_add_radio'></div><div class='' id='default_add_checkbox'></div><div class='' id='default_add_option'></div></div></td>";
+        var field_placeholder = "<td><input type='checkbox' class='default_placeholder' name='lfb_form[form_field_" + field_id + "][default_placeholder]' id='default_placeholder_" + field_id + "' value='1'></td>";
+        var field_required = "<td><input type='checkbox' class='is_required' name='lfb_form[form_field_" + field_id + "][is_required]' id='is_required_" + field_id + "' value='1'></td>";
      
        // var field_add_button = "<td id='wpth_add_form_table_" + field_id + "'><input type='button' class='button lf_addnew' name='save' id='add_new_" + field_id + "' onclick='add_new_form_fields(" + field_id + ")' value='Add New'></td>";
        
         var field_remove_button = "<td><input type='button' class='button lf_remove' name='remove_field' id='remove_field_" + field_id + "' onclick='remove_form_fields(" + field_id + ")' value='Remove'></td>";
      
      
-        var field_hidden_id = "<input type='hidden' value=" + field_id + " name='form_field_" + field_id + "[field_id]'>";
+        var field_hidden_id = "<input type='hidden' value=" + field_id + " name='lfb_form[form_field_" + field_id + "][field_id]'>";
         var new_form_field = "<tr id='form_field_row_" + field_id + "'>" + field_name + field_type + field_default + field_placeholder + field_required  + field_remove_button+ field_hidden_id + "</tr>";
         jQuery(".append_new").append(new_form_field);
 
@@ -508,7 +508,7 @@ function save_new_form() {
 
           var html_text = jQuery(parent_id).find('#default_htmlfield textarea').length;
         if (html_text < 1) {
-            var html_fields = "<textarea class='default_value default_htmlfield' name='form_field_" + this_parent_id + "[default_value]''[default_value]' id='default_value_" + this_parent_id + "'''> </textarea>";
+            var html_fields = "<textarea class='default_value default_htmlfield' name='lfb_form[form_field_" + this_parent_id + "][default_value]''[default_value]' id='default_value_" + this_parent_id + "'''> </textarea>";
             jQuery(parent_id).find('#default_htmlfield').append(html_fields);
             jQuery(parent_id).find('input.default_value').hide();
             jQuery(parent_id).find('input.default_placeholder').hide();
@@ -548,8 +548,8 @@ jQuery("#wpth_add_form").on('change', 'select', function() {
 
         var radio_res = jQuery(parent_id).find('#add_radio input').length;
         if (radio_res < 1) {
-            var radio_fields = "<input type='text' class='input_radio_val' name='form_field_" + this_parent_id + "[field_type][field_1]' id='radio_field_1' placeholder='radio name 1'value=''><p class='button lf_minus' id='delete_radio_1' onclick='delete_radio_fields(" + this_parent_id + ",1)'><i class='fa fa-minus' aria-hidden='true'></i></p><p class='button lf_plus' id='add_new_radio_1' onclick='add_new_radio_fields(" + this_parent_id + ",1)'><i class='fa fa-plus' aria-hidden='true'></i></p>";
-            var default_add_radio = "<p id='default_radio_value_1'>radio name 1 <input type='radio' class='' name='form_field_" + this_parent_id + "[default_value][field]' id='default_radio_value_1' value='1'></p>";
+            var radio_fields = "<input type='text' class='input_radio_val' name='lfb_form[form_field_" + this_parent_id + "][field_type][field_1]' id='radio_field_1' placeholder='radio name 1'value=''><p class='button lf_minus' id='delete_radio_1' onclick='delete_radio_fields(" + this_parent_id + ",1)'><i class='fa fa-minus' aria-hidden='true'></i></p><p class='button lf_plus' id='add_new_radio_1' onclick='add_new_radio_fields(" + this_parent_id + ",1)'><i class='fa fa-plus' aria-hidden='true'></i></p>";
+            var default_add_radio = "<p id='default_radio_value_1'>radio name 1 <input type='radio' class='' name='lfb_form[form_field_" + this_parent_id + "][default_value][field]' id='default_radio_value_1' value='1'></p>";
             jQuery(parent_id).find('#add_radio').append(radio_fields);
             jQuery(parent_id).find('#default_add_radio').append(default_add_radio);
             jQuery(parent_id).find('#delete_radio_1').css("display", "none");
@@ -567,8 +567,8 @@ jQuery("#wpth_add_form").on('change', 'select', function() {
 
         var radio_res = jQuery(parent_id).find('#add_option input').length;
         if (radio_res < 1) {
-            var option_fields = "<input type='text' class='input_option_val' name='form_field_" + this_parent_id + "[field_type][field_1]' id='option_field_1' placeholder='option name 1'value=''><p class='button lf_minus' id='delete_option_1' onclick='delete_option_fields(" + this_parent_id + ",1)'><i class='fa fa-minus' aria-hidden='true'></i></p><p class='button lf_plus' id='add_new_option_1' onclick='add_new_option_fields(" + this_parent_id + ",1)'><i class='fa fa-plus' aria-hidden='true'></i></p>";
-            var default_add_option = "<p id='default_option_value_1'>option name 1 <input type='radio' class='' name='form_field_" + this_parent_id + "[default_value][field]' id='default_option_value_1' value='1'></p>";
+            var option_fields = "<input type='text' class='input_option_val' name='lfb_form[form_field_" + this_parent_id + "][field_type][field_1]' id='option_field_1' placeholder='option name 1'value=''><p class='button lf_minus' id='delete_option_1' onclick='delete_option_fields(" + this_parent_id + ",1)'><i class='fa fa-minus' aria-hidden='true'></i></p><p class='button lf_plus' id='add_new_option_1' onclick='add_new_option_fields(" + this_parent_id + ",1)'><i class='fa fa-plus' aria-hidden='true'></i></p>";
+            var default_add_option = "<p id='default_option_value_1'>option name 1 <input type='radio' class='' name='lfb_form[form_field_" + this_parent_id + "][default_value][field]' id='default_option_value_1' value='1'></p>";
             jQuery(parent_id).find('#add_option').append(option_fields);
             jQuery(parent_id).find('#default_add_option').append(default_add_option);
             jQuery(parent_id).find('#delete_option_1').css("display", "none");
@@ -586,8 +586,8 @@ jQuery("#wpth_add_form").on('change', 'select', function() {
         jQuery(parent_id).find('#default_add_option').css("display", "none");
         var checkbox_res = jQuery(parent_id).find('#add_checkbox input').length;
         if (checkbox_res < 1) {
-            var checkbox_fields = "<input type='text' class='input_checkbox_val' name='form_field_" + this_parent_id + "[field_type][field_1]' id='checkbox_field_1' placeholder='check box name 1'value=''><p class='button lf_minus' id='delete_checkbox_1' onclick='delete_checkbox_fields(" + this_parent_id + ",1)'><i class='fa fa-minus' aria-hidden='true'></i></p><p class='button lf_plus' id='add_new_checkbox_1' onclick='add_new_checkbox_fields(" + this_parent_id + ",1)'><i class='fa fa-plus' aria-hidden='true'></i></p>";
-            var default_add_checkbox = "<p id='default_checkbox_value_1'>checkbox name 1 <input type='checkbox' class='' name='form_field_" + this_parent_id + "[default_value][field_1]' id='default_checkbox_value_1' value='1'></p>";
+            var checkbox_fields = "<input type='text' class='input_checkbox_val' name='lfb_form[form_field_" + this_parent_id + "][field_type][field_1]' id='checkbox_field_1' placeholder='check box name 1'value=''><p class='button lf_minus' id='delete_checkbox_1' onclick='delete_checkbox_fields(" + this_parent_id + ",1)'><i class='fa fa-minus' aria-hidden='true'></i></p><p class='button lf_plus' id='add_new_checkbox_1' onclick='add_new_checkbox_fields(" + this_parent_id + ",1)'><i class='fa fa-plus' aria-hidden='true'></i></p>";
+            var default_add_checkbox = "<p id='default_checkbox_value_1'>checkbox name 1 <input type='checkbox' class='' name='lfb_form[form_field_" + this_parent_id + "][default_value][field_1]' id='default_checkbox_value_1' value='1'></p>";
             jQuery(parent_id).find('#add_checkbox').append(checkbox_fields);
             jQuery(parent_id).find('#default_add_checkbox').append(default_add_checkbox);
             jQuery(parent_id).find('#delete_checkbox_1').css("display", "none");
@@ -626,10 +626,10 @@ function add_new_radio_fields(this_parent_id, radio_id) {
     jQuery(parent_id + ' #delete_radio_' + radio_id).css("display", "inline-block");
     var radio_add = "<p class='button lf_plus' id='add_new_radio_" + new_radio_id + "' onclick='add_new_radio_fields(" + this_parent_id + "," + new_radio_id + ")'><i class='fa fa-plus' aria-hidden='true'></i></p>";
     var radio_del = "<p class='button lf_minus' id='delete_radio_" + new_radio_id + "' onclick='delete_radio_fields(" + this_parent_id + "," + new_radio_id + ")'><i class='fa fa-minus' aria-hidden='true'></i></p>";
-    var radio_field = "<input type='text' class='input_radio_val' name='form_field_" + this_parent_id + "[field_type][field_" + new_radio_id + "]' id='radio_field_" + new_radio_id + "' placeholder='radio name " + new_radio_id + "'value=''>";
+    var radio_field = "<input type='text' class='input_radio_val' name='lfb_form[form_field_" + this_parent_id + "][field_type][field_" + new_radio_id + "]' id='radio_field_" + new_radio_id + "' placeholder='radio name " + new_radio_id + "'value=''>";
     var radio_fields = radio_field + "" + radio_del + "" + radio_add;
     jQuery(parent_id + ' #add_radio').append(radio_fields);
-    var default_add_radio = "<p id='default_radio_value_" + new_radio_id + "'>radio name " + new_radio_id + " <input type='radio' class='' name='form_field_" + this_parent_id + "[default_value][field]' id='default_radio_val_" + new_radio_id + "' value='" + new_radio_id + "'></p>";
+    var default_add_radio = "<p id='default_radio_value_" + new_radio_id + "'>radio name " + new_radio_id + " <input type='radio' class='' name='lfb_form[form_field_" + this_parent_id + "][default_value][field]' id='default_radio_val_" + new_radio_id + "' value='" + new_radio_id + "'></p>";
     jQuery(parent_id + ' #default_add_radio').append(default_add_radio);
     jQuery(parent_id + ' #delete_radio_' + new_radio_id).css("display", "none");
 }
@@ -656,10 +656,10 @@ function add_new_checkbox_fields(this_parent_id, checkbox_id) {
     jQuery(parent_id + ' #delete_checkbox_' + checkbox_id).css("display", "inline-block");
     var checkbox_add = "<p class='button lf_plus' id='add_new_checkbox_" + new_checkbox_id + "' onclick='add_new_checkbox_fields(" + this_parent_id + "," + new_checkbox_id + ")'><i class='fa fa-plus' aria-hidden='true'></i></p>";
     var checkbox_del = "<p class='button lf_minus' id='delete_checkbox_" + new_checkbox_id + "' onclick='delete_checkbox_fields(" + this_parent_id + "," + new_checkbox_id + ")'><i class='fa fa-minus' aria-hidden='true'></i></p>";
-    var checkbox_field = "<input type='text' class='input_checkbox_val' name='form_field_" + this_parent_id + "[field_type][field_" + new_checkbox_id + "]' id='checkbox_field_" + new_checkbox_id + "' placeholder='checkbox name " + new_checkbox_id + "'value=''>";
+    var checkbox_field = "<input type='text' class='input_checkbox_val' name='lfb_form[form_field_" + this_parent_id + "][field_type][field_" + new_checkbox_id + "]' id='checkbox_field_" + new_checkbox_id + "' placeholder='checkbox name " + new_checkbox_id + "'value=''>";
     var checkbox_fields = checkbox_field + "" + checkbox_del + "" + checkbox_add;
     jQuery(parent_id + ' #add_checkbox').append(checkbox_fields);
-    var default_add_checkbox = "<p id='default_checkbox_value_" + new_checkbox_id + "'>checkbox name " + new_checkbox_id + " <input type='checkbox' class='' name='form_field_" + this_parent_id + "[default_value][field_" + new_checkbox_id + "]' id='default_checkbox_val_" + new_checkbox_id + "' value='1'></p>";
+    var default_add_checkbox = "<p id='default_checkbox_value_" + new_checkbox_id + "'>checkbox name " + new_checkbox_id + " <input type='checkbox' class='' name='lfb_form[form_field_" + this_parent_id + "][default_value][field_" + new_checkbox_id + "]' id='default_checkbox_val_" + new_checkbox_id + "' value='1'></p>";
     jQuery(parent_id + ' #default_add_checkbox').append(default_add_checkbox);
     jQuery(parent_id + ' #delete_checkbox_' + new_checkbox_id).css("display", "none");
 }
@@ -686,10 +686,10 @@ function add_new_option_fields(this_parent_id, option_id) {
     jQuery(parent_id + ' #delete_option_' + option_id).css("display", "inline-block");
     var option_add = "<p class='button lf_plus' id='add_new_option_" + new_option_id + "' onclick='add_new_option_fields(" + this_parent_id + "," + new_option_id + ")'><i class='fa fa-plus' aria-hidden='true'></i></p>";
     var option_del = "<p class='button lf_minus' id='delete_option_" + new_option_id + "' onclick='delete_option_fields(" + this_parent_id + "," + new_option_id + ")'><i class='fa fa-minus' aria-hidden='true'></i></p>";
-    var option_field = "<input type='text' class='input_option_val' name='form_field_" + this_parent_id + "[field_type][field_" + new_option_id + "]' id='option_field_" + new_option_id + "' placeholder='option name " + new_option_id + "'value=''>";
+    var option_field = "<input type='text' class='input_option_val' name='lfb_form[form_field_" + this_parent_id + "][field_type][field_" + new_option_id + "]' id='option_field_" + new_option_id + "' placeholder='option name " + new_option_id + "'value=''>";
     var option_fields = option_field + "" + option_del + "" + option_add;
     jQuery(parent_id + ' #add_option').append(option_fields);
-    var default_add_option = "<p id='default_option_value_" + new_option_id + "'>option name " + new_option_id + " <input type='radio' class='' name='form_field_" + this_parent_id + "[default_value][field]' id='default_option_val_" + new_option_id + "' value=" + new_option_id + "></p>";
+    var default_add_option = "<p id='default_option_value_" + new_option_id + "'>option name " + new_option_id + " <input type='radio' class='' name='lfb_form[form_field_" + this_parent_id + "][default_value][field]' id='default_option_val_" + new_option_id + "' value=" + new_option_id + "></p>";
     jQuery(parent_id + ' #default_add_option').append(default_add_option);
     jQuery(parent_id + ' #delete_option_' + new_option_id).css("display", "none");
 }

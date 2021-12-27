@@ -1,6 +1,32 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 Class LFB_Show_Leads {
+
+
+function expanded_alowed_tags() {
+    $my_allowed = wp_kses_allowed_html( 'post' );
+
+    // form fields - input
+    $my_allowed['a'] = array(
+        'href' => array(),
+        'class'    => array(),
+        'onclick'  => array(),
+    );
+// form fields - input
+    $my_allowed['input'] = array(
+        'class' => array(),
+        'id'    => array(),
+        'name'  => array(),
+        'value' => array(),
+        'type'  => array(),
+        'onclick' => array(),
+    );
+
+    return $my_allowed;
+}
+
+
+
     function lfb_show_form_leads() {
         global $wpdb;
         $option_form = '';
@@ -27,7 +53,9 @@ Class LFB_Show_Leads {
 <label for="select_form_lead">'.esc_html__('Select From','lead-form-builder').'</label></th>
 <td><select name="select_form_lead" id="select_form_lead">' . $option_form . '</select>
 <td><input type="button" value="Remember this form" onclick="remember_this_form_id();" id="remember_this_form_id"></td>
-</tr><tr><td><div id="remember_this_message" ></div></td></tr></tbody></table></div></div></div><div class="wrap" id="form-leads-show">'.$this->lfb_show_leads_first_form($first_form_id).'</div>';
+</tr><tr><td><div id="remember_this_message" ></div></td></tr></tbody></table></div></div></div><div class="wrap" id="form-leads-show">';
+$this->lfb_show_leads_first_form($first_form_id);
+echo '</div>';
     }
 
 function lfb_show_leads_first_form($form_id){
@@ -117,20 +145,20 @@ function lfb_show_leads_first_form($form_id){
               $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" >
                 <thead><tr><th>Action</th>'.$tableHead.'<th>Date</th>'.$table_head.'</tr></thead>';
 
-            echo wp_kses_post($thHead. $table_body.'</tbody></table>'.$popupTab);
+            echo wp_kses($thHead. $table_body.'</tbody></table>'.$popupTab,$this->expanded_alowed_tags());
     
             $total = ceil($rows / $limit);
             if ($id > 1) {
-                echo wp_kses_post("<a href=''  onclick='lead_pagi_view(" . ($id - 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-left'></i></a>");
+                echo wp_kses("<a href=''  onclick='lead_pagi_view(" . ($id - 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-left'></i></a>",$this->expanded_alowed_tags());
             }
             if ($id != $total) {
-                echo wp_kses_post("<a href='' onclick='lead_pagi_view(" . ($id + 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-right'></i></a>");
+                echo wp_kses("<a href='' onclick='lead_pagi_view(" . ($id + 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-right'></i></a>",$this->expanded_alowed_tags());
             }
             ?> <ul class='page'>
                 <?php
             for ($i = 1; $i <= $total; $i++) {
                 if ($i == $id) {
-                  ?> <li class='lf-current'><a href='#'><?php intval($i); ?></a></li> <?php
+                  ?> <li class='lf-current'><a href='#'><?php echo intval($i); ?></a></li> <?php
                 } else {
                     echo "<li><a href='' onclick='lead_pagi_view(" . intval($i) . "," . intval($form_id) . ")'>" . intval($i) . "</a></li>";
                 }
@@ -230,22 +258,22 @@ function lfb_show_leads_first_form($form_id){
                           </div>';
                           /** Today Leads Show**/
                 $table_body .= '<tbody id="lead-id-' . $lead_id . '">';
-                $table_body .= '<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\''.$nonce.'\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>'. $table_row .'</tr>';
+                $table_body .= '<tr><td><span class="lead-count">' . $sn_counter . '</span><a lfid = "ss" class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\''.$nonce.'\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>'. $table_row .'</tr>';
             }
 
 
                 $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" >
                 <thead><tr><th>Action</th>'.$tableHead.'<th>Date</th>'.$table_head.'</tr></thead>';
 
-                echo wp_kses_post($thHead. $table_body.'</tbody></table>'.$popupTab);
+                echo wp_kses($thHead. $table_body.'</tbody></table>'.$popupTab,$this->expanded_alowed_tags());
 
             $rows = count($rows);
             $total = ceil($rows / $limit);
             if ($id > 1) {
-                echo wp_kses_post("<a href=''  onclick='lead_pagination_datewise(" . ($id - 1) . "," . $form_id . ",\"".$leadtype."\");' class='button'><i class='fa fa-chevron-left'></i></a>");
+                echo "<a href=''  onclick='lead_pagination_datewise(" . intval($id - 1) . "," . intval($form_id) . ",\"".esc_attr($leadtype)."\");' class='button'><i class='fa fa-chevron-left'></i></a>";
             }
             if ($id != $total) {
-                echo wp_kses_post("<a href='' onclick='lead_pagination_datewise(" . ($id + 1) . "," . $form_id . ",\"".$leadtype."\");' class='button'><i class='fa fa-chevron-right'></i></a>");
+                echo "<a href='' onclick='lead_pagination_datewise(" . intval($id + 1) . "," . intval($form_id) . ",\"".esc_attr($leadtype)."\");' class='button'><i class='fa fa-chevron-right'></i></a>";
             }
             echo "<ul class='page'>";
             for ($i = 1; $i <= $total; $i++) {

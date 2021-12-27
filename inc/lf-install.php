@@ -141,15 +141,15 @@ function lfb_array_stripslash($theArray){
 
 // form builder update nad delete function
 function lfb_add_contact_forms() {
-    if (intval(isset($_POST['update_form']) && wp_verify_nonce($_REQUEST['_wpnonce'],'_nonce_verify')) ) {
-    $form_data=$_POST;
-    $update_form_id = intval(stripslashes($_POST['update_form_id']));
+    if (isset($_POST['update_form']) && wp_verify_nonce($_REQUEST['_wpnonce'],'_nonce_verify') ) {
+    $data_form =isset($_POST['lfb_form'])?$_POST['lfb_form']:'';
+    $update_form_id = intval($_POST['update_form_id']);
     $title = sanitize_text_field($_POST['post_title']);
     unset($_POST['_wpnonce']);
     unset($_POST['post_title']);
     unset($_POST['update_form']);
     unset($_POST['update_form_id']);
-    $form_data= maybe_serialize(lfb_array_stripslash($_POST));
+    $form_data= maybe_serialize($data_form);
     global $wpdb;
     $table_name = LFB_FORM_FIELD_TBL;
     $update_leads = $wpdb->update( 

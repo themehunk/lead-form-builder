@@ -145,12 +145,12 @@ Class LFB_EDIT_DEL_FORM {
     function lfbFieldName($fieldv,$fieldID){
     $fieldName = isset($fieldv['field_name'])?$fieldv['field_name']:'';
 
-    $return = '<td><input type="text" name="form_field_' . $fieldID . '[field_name]" id="field_name_' . $fieldID . '" value="' . $fieldName . '"></td>';
+    $return = '<td><input type="text" name="lfb_form[form_field_' . $fieldID . '][field_name]" id="field_name_' . $fieldID . '" value="' . $fieldName . '"></td>';
         return $return;
     }
 
     function lfbFieldTypeDefault($fieldtype,$name,$fieldID){
-        $return = '<td><select class="form_field_select" name="form_field_' . $fieldID . '[field_type][type]" id="field_type_' . $fieldID . '">
+        $return = '<td><select class="form_field_select" name="lfb_form[form_field_' . $fieldID . '][field_type][type]" id="field_type_' . $fieldID . '">
             <option value="'.$fieldtype.'" selected="selected">'.$name.'</option>
            </select></td>';
            return $return;
@@ -161,7 +161,7 @@ Class LFB_EDIT_DEL_FORM {
     $defaultValue = isset($fieldv['default_value'])?$fieldv['default_value']:'';
           $hide = ($fieldtype=='terms')?'style=display:none;':'';
 
-    $return = '<td><input '.$hide.' type="text" class="default_value" name="form_field_' . $fieldID . '[default_value]" id="default_value_' . $fieldID . '" value="'.$defaultValue.'">';
+    $return = '<td><input '.$hide.' type="text" class="default_value" name="lfb_form[form_field_' . $fieldID . '][default_value]" id="default_value_' . $fieldID . '" value="'.$defaultValue.'">';
 
         return $return;
         
@@ -170,7 +170,7 @@ Class LFB_EDIT_DEL_FORM {
     function lfbHtmlFieldValue($fieldv,$fieldID){
     $defaultValue = isset($fieldv['default_value'])?$fieldv['default_value']:'';
 
-    $return = '<td colspan="3" ><div class="default_htmlfield_' . $fieldID . '" id="default_htmlfield"><textarea class="default_value default_htmlfield" name="form_field_' . $fieldID . '[default_value]" id="default_value_'. $fieldID . '">'.$defaultValue.'</textarea></div>';
+    $return = '<td colspan="3" ><div class="default_htmlfield_' . $fieldID . '" id="default_htmlfield"><textarea class="default_value default_htmlfield" name="lfb_form[form_field_' . $fieldID . '][default_value]" id="default_value_'. $fieldID . '">'.$defaultValue.'</textarea></div>';
         return $return;  
     }
 
@@ -180,7 +180,7 @@ Class LFB_EDIT_DEL_FORM {
         $isRequired = ($fieldPlaceholder == 1 ? 'checked' : "" );
         $hide = ($fieldtype=='terms')?'style=display:none;':'';
 
-        $return = '<td><input '.$hide.' type="checkbox" class="default_placeholder" name="form_field_' . $fieldID . '[default_placeholder]" id="default_placeholder_' . $fieldID . '" value="1" '.$isRequired.'></td>';
+        $return = '<td><input '.$hide.' type="checkbox" class="default_placeholder" name="lfb_form[form_field_' . $fieldID . '][default_placeholder]" id="default_placeholder_' . $fieldID . '" value="1" '.$isRequired.'></td>';
         return $return;
     }
 
@@ -188,7 +188,7 @@ Class LFB_EDIT_DEL_FORM {
     function lfbFieldIsRequired($fieldv,$fieldID){
     $fieldRequired = isset($fieldv['is_required'])?$fieldv['is_required']:'';
     $isRequired = ($fieldRequired == 1 ? 'checked' : "" );
-    $return = '<td><input type="checkbox" name="form_field_' . $fieldID . '[is_required]" id="is_required_'.$fieldID.'" value="1" '.$isRequired.'></td>';
+    $return = '<td><input type="checkbox" name="lfb_form[form_field_' . $fieldID . '][is_required]" id="is_required_'.$fieldID.'" value="1" '.$isRequired.'></td>';
     return $return;
     }
 
@@ -196,21 +196,21 @@ Class LFB_EDIT_DEL_FORM {
     function lfbRemoveField($fieldID){
     $return = '<td id="wpth_add_form_table_' . $fieldID . '">
            <input type="button" class="button lf_remove" name="remove_field" id="remove_field_' . $fieldID . '" onclick="remove_form_fields(' . $fieldID . ')" value="Remove">
-           <input type="hidden" value="' . $fieldID . '" name="form_field_' . $fieldID . '[field_id]">
+           <input type="hidden" value="' . $fieldID . '" name="lfb_form[form_field_' . $fieldID . '][field_id]">
            </td>';
                return $return;
     }
 
     function lfbAddField($fieldv,$fieldID,$lastFieldID){
 
-            $return = '<td></td><td><input type="hidden" name="form_field_'.$fieldID.'[field_name]" id="field_name_'.$fieldID.'" value="submit"><select class="form_field_select" name="form_field_'.$fieldID.'[field_type][type]" id="field_type_'.$fieldID.'">
+            $return = '<td></td><td><input type="hidden" name="lfb_form[form_field_'.$fieldID.'][field_name]" id="field_name_'.$fieldID.'" value="submit"><select class="form_field_select" name="lfb_form[form_field_'.$fieldID.'][field_type][type]" id="field_type_'.$fieldID.'">
                 <option value="submit" selected="selected">Submit Button</option>
                        </select></td>';
 
         $return .=$this->lfbFieldDefaultValue($fieldv,$fieldID);
 
         $fieldButton = '<span><input type="button" class="button lf_addnew" name="add_new" id="add_new_'.$lastFieldID.'" onclick="add_new_form_fields('.$lastFieldID.')" value="Add New"></span>';
-        $return .='<td><input type="hidden" value="' . $fieldID . '" name="form_field_' . $fieldID . '[field_id]"></td>';
+        $return .='<td><input type="hidden" value="' . $fieldID . '" name="lfb_form[form_field_' . $fieldID . '][field_id]"></td>';
         $return .= '<td></td><td class="add-field" id="wpth_add_form_table_' . $fieldID . '">'.$fieldButton.'
         </td>';
 
@@ -273,10 +273,10 @@ Class LFB_EDIT_DEL_FORM {
             $fieldPlus = '<p class="button lf_plus" id="add_new_option_' . $lastFieldID . '" onclick="add_new_option_fields(' . $fieldID . ',' . $lastFieldID . ')"><i class="fa fa-plus" aria-hidden="true"></i></p>';
         }
 
-        $childOption = '<input type="text" class="input_option_val" name="form_field_' . $fieldID . '[field_type][field_' . $checkboxId . ']" id="option_field_' . $checkboxId . '" placeholder="First Choice" value="'.$value.'">';
+        $childOption = '<input type="text" class="input_option_val" name="lfb_form[form_field_' . $fieldID . '][field_type][field_' . $checkboxId . ']" id="option_field_' . $checkboxId . '" placeholder="First Choice" value="'.$value.'">';
 
         // default checked
-        $isChecked .='<p id="default_option_value_' . $checkboxId . '">'.$value.' <input type="radio" class="checked" name="form_field_' . $fieldID . '[default_value][field]" id="default_option_value_' . $checkboxId . '" value="' . $checkboxId . '" '.$checked.'></p>';
+        $isChecked .='<p id="default_option_value_' . $checkboxId . '">'.$value.' <input type="radio" class="checked" name="lfb_form[form_field_' . $fieldID . '][default_value][field]" id="default_option_value_' . $checkboxId . '" value="' . $checkboxId . '" '.$checked.'></p>';
 
         $optionField .= $childOption.$fieldMinus;
     }
@@ -284,14 +284,14 @@ Class LFB_EDIT_DEL_FORM {
      $return .=$this->lfbFieldName($fieldv,$fieldID);
 
      $return .= '<td>
-          <select class="form_field_select" name="form_field_' . $fieldID . '[field_type][type]" id="field_type_' . $fieldID . '">
+          <select class="form_field_select" name="lfb_form[form_field_' . $fieldID . '][field_type][type]" id="field_type_' . $fieldID . '">
           <option value="option" selected="selected" >'.esc_html__("Option (Choose Single Option)","lead-form-builder").'</option>
            </select>
             <div class="add_radio_checkbox_' . $fieldID . '" id="add_radio_checkbox">
             <div class="" id="add_option">' . $optionField . '</div>
             </div>
         </td>
-        <td><input  style="border:none;" type="text" class="default_value" name="form_field_' . $fieldID . '[default_value]" id="default_value_' . $fieldID . '" value="Choose Default Value" disabled="disabled">
+        <td><input  style="border:none;" type="text" class="default_value" name="lfb_form[form_field_' . $fieldID . '][default_value]" id="default_value_' . $fieldID . '" value="Choose Default Value" disabled="disabled">
         <div class="add_default_radio_checkbox_' . $fieldID . '" id="add_default_radio_checkbox">
             <div class="" id="default_add_option">' . $isChecked . '</div>
         </div>
@@ -328,10 +328,10 @@ Class LFB_EDIT_DEL_FORM {
         }
         
 
-        $childOption = '<input type="text" class="input_radio_val" name="form_field_' . $fieldID . '[field_type][field_' . $checkboxId . ']" id="radio_field_' . $checkboxId . '" placeholder="First Choice" value="'.$value.'">';
+        $childOption = '<input type="text" class="input_radio_val" name="lfb_form[form_field_' . $fieldID . '][field_type][field_' . $checkboxId . ']" id="radio_field_' . $checkboxId . '" placeholder="First Choice" value="'.$value.'">';
 
         // default checked
-        $isChecked .='<p id="default_radio_value_' . $checkboxId . '">'.$value.' <input type="radio" class="checked" name="form_field_' . $fieldID . '[default_value][field]" id="default_radio_value_' . $checkboxId . '" value="' . $checkboxId . '" '.$checked.'></p>';
+        $isChecked .='<p id="default_radio_value_' . $checkboxId . '">'.$value.' <input type="radio" class="checked" name="lfb_form[form_field_' . $fieldID . '][default_value][field]" id="default_radio_value_' . $checkboxId . '" value="' . $checkboxId . '" '.$checked.'></p>';
 
         $optionField .= $childOption.$fieldMinus;
     }
@@ -340,14 +340,14 @@ Class LFB_EDIT_DEL_FORM {
      $return .=$this->lfbFieldName($fieldv,$fieldID);
 
      $return .= '<td>
-          <select class="form_field_select" name="form_field_' . $fieldID . '[field_type][type]" id="field_type_' . $fieldID . '" >
+          <select class="form_field_select" name="lfb_form[form_field_' . $fieldID . '][field_type][type]" id="field_type_' . $fieldID . '" >
           <option value="radio" selected="selected" >'.esc_html__("Radio (Choose Single Option)","lead-form-builder").'</option>
            </select>
             <div class="add_radio_checkbox_' . $fieldID . '" id="add_radio_checkbox">
             <div class="" id="add_radio">' . $optionField . '</div>
             </div>
         </td>
-        <td><input type="text" class="default_value" name="form_field_' . $fieldID . '[default_value]" id="default_value_' . $fieldID . '" value="Choose Default Value" disabled="disabled">
+        <td><input type="text" class="default_value" name="lfb_form[form_field_' . $fieldID . '][default_value]" id="default_value_' . $fieldID . '" value="Choose Default Value" disabled="disabled">
         <div class="add_default_radio_checkbox_' . $fieldID . '" id="add_default_radio_checkbox">
             <div class="" id="default_add_radio">' . $isChecked . '</div>
         </div>
@@ -379,10 +379,10 @@ Class LFB_EDIT_DEL_FORM {
             $fieldPlus = '<p class="button lf_plus" id="add_new_checkbox_' . $lastFieldID . '" onclick="add_new_checkbox_fields(' . $fieldID . ',' . $lastFieldID . ')"><i class="fa fa-plus" aria-hidden="true"></i></p>';
         }
 
-        $childCheckbox = '<input type="text" class="input_checkbox_val" name="form_field_' . $fieldID . '[field_type][field_' . $checkboxId . ']" id="checkbox_field_' . $checkboxId . '" placeholder="First Choice" value="'.$value.'">';
+        $childCheckbox = '<input type="text" class="input_checkbox_val" name="lfb_form[form_field_' . $fieldID . '][field_type][field_' . $checkboxId . ']" id="checkbox_field_' . $checkboxId . '" placeholder="First Choice" value="'.$value.'">';
 
         // default checked
-        $isChecked .='<p id="default_checkbox_value_' . $checkboxId . '">'.$value.' <input type="checkbox" class="checked" name="form_field_' . $fieldID . '[default_value][field_' . $checkboxId . ']" id="default_checkbox_val_' . $checkboxId . '" value="1" '.$checked.' ></p>';
+        $isChecked .='<p id="default_checkbox_value_' . $checkboxId . '">'.$value.' <input type="checkbox" class="checked" name="lfb_form[form_field_' . $fieldID . '][default_value][field_' . $checkboxId . ']" id="default_checkbox_val_' . $checkboxId . '" value="1" '.$checked.' ></p>';
 
         $checkboxField .= $childCheckbox.$fieldMinus;
     }
@@ -390,14 +390,14 @@ Class LFB_EDIT_DEL_FORM {
      $return .=$this->lfbFieldName($fieldv,$fieldID);
 
      $return .= '<td>
-          <select class="form_field_select" name="form_field_' . $fieldID . '[field_type][type]" id="field_type_' . $fieldID . '" >
+          <select class="form_field_select" name="lfb_form[form_field_' . $fieldID . '][field_type][type]" id="field_type_' . $fieldID . '" >
           <option value="checkbox" selected="selected" >'.esc_html__("Checkbox (Choose Multiple Option)","lead-form-builder").'</option>
            </select>
             <div class="add_radio_checkbox_' . $fieldID . '" id="add_radio_checkbox">
             <div class="" id="add_checkbox">' . $checkboxField . '</div>
             </div>
         </td>
-        <td><input type="text" class="default_value" name="form_field_' . $fieldID . '[default_value]" id="default_value_' . $fieldID . '" value="Choose Default Value" disabled="disabled">
+        <td><input type="text" class="default_value" name="lfb_form[form_field_' . $fieldID . '][default_value]" id="default_value_' . $fieldID . '" value="Choose Default Value" disabled="disabled">
         <div class="add_default_radio_checkbox_' . $fieldID . '" id="add_default_radio_checkbox">
             <div class="" id="default_add_checkbox">' . $isChecked . '</div>
         </div>

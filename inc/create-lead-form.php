@@ -3,12 +3,12 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 require_once('lf-db.php');
 require_once('edit-delete-form.php');
 if (sanitize_text_field(isset($_POST['save_form'])) && wp_verify_nonce($_REQUEST['_wpnonce'],'_nonce_verify')) {
-    $form_data=$_POST;
+    $form_data=isset($_POST['lfb_form'])?$_POST['lfb_form']:'';
     $title = sanitize_text_field($_POST['post_title']);
     unset($_POST['post_title']);
     unset($_POST['save_form']);
     unset($_POST['_wpnonce']);
-    $form_data= maybe_serialize(lfb_array_stripslash($_POST));
+    $form_data= maybe_serialize($form_data);
     global $wpdb;
     $table_name = LFB_FORM_FIELD_TBL;
 
@@ -127,9 +127,9 @@ function lfb_basic_form() {
 
 function lfb_form_first_fields() {
     echo "<tbody class='append_new' ><tr id='form_field_row_1'>
-	      <td><input type='text' name='form_field_1[field_name]' id='field_name_1' value=''></td>
+	      <td><input type='text' name='lfb_form[form_field_1][field_name]' id='field_name_1' value=''></td>
 		  <td>
-		  <select class='form_field_select' name='form_field_1[field_type][type]' id='field_type_1'>
+		  <select class='form_field_select' name='lfb_form[form_field_1][field_type][type]' id='field_type_1'>
 		    <option value='select'>".esc_html__('Select Field Type','lead-form-builder')."</option>
 		    <option value='name'>".esc_html__('Name','lead-form-builder')."</option>		    
 		    <option value='email'>".esc_html__('Email','lead-form-builder')."</option>
@@ -152,7 +152,7 @@ function lfb_form_first_fields() {
 			<div class='' id='add_option'></div>
 			</div>
 		</td>
-		<td><input type='text' class='default_value' name='form_field_1[default_value]' id='default_value_1' value=''>
+		<td><input type='text' class='default_value' name='lfb_form[form_field_1][default_value]' id='default_value_1' value=''>
     <div class='default_htmlfield_1' id='default_htmlfield'></div>
 		<div class='add_default_radio_checkbox_1' id='add_default_radio_checkbox'>
 			<div class='' id='default_add_radio'></div>
@@ -161,12 +161,12 @@ function lfb_form_first_fields() {
 		</div>
     <div class='default_terms_1' id='default_terms'></div>
 		</td>
-		<td><input type='checkbox' class='default_placeholder' name='form_field_1[default_placeholder]' id='default_placeholder_1' value='1'>
+		<td><input type='checkbox' class='default_placeholder' name='lfb_form[form_field_1][default_placeholder]' id='default_placeholder_1' value='1'>
 		</td>
-		<td><input type='checkbox' name='form_field_1[is_required]' id='is_required_1' value='1'>
+		<td><input type='checkbox' name='lfb_form[form_field_1][is_required]' id='is_required_1' value='1'>
 		</td>
 		<td id='wpth_add_form_table_1'>
-        <input type='hidden' value='1' name='form_field_1[field_id]'>
+        <input type='hidden' value='1' name='lfb_form[form_field_1][field_id]'>
 		</td>
 		</tr></tbody>";
 }
@@ -175,17 +175,17 @@ function lfb_form_last_fields(){
 
        echo "<tr id='form_field_row_0'><td></td>
           <td>
-          <input type='hidden' name='form_field_0[field_name]' id='field_name_0' value='submit'>
-          <select class='form_field_select' name='form_field_0[field_type][type]' id='field_type_0'>        
+          <input type='hidden' name='lfb_form[form_field_0][field_name]' id='field_name_0' value='submit'>
+          <select class='form_field_select' name='lfb_form[form_field_0][field_type][type]' id='field_type_0'>        
             <option value='submit'>".esc_html__('Submit Button','lead-form-builder')." </option>
             </select>
         </td>
-        <td><input type='text' class='default_value' name='form_field_0[default_value]' id='default_value_0' value='SUBMIT'>
+        <td><input type='text' class='default_value' name='lfb_form[form_field_0][default_value]' id='default_value_0' value='SUBMIT'>
         </td>
-        <td><input type='hidden' class='default_placeholder' name='form_field_0[default_placeholder]' id='default_placeholder_0' value='0'>
+        <td><input type='hidden' class='default_placeholder' name='lfb_form[form_field_0][default_placeholder]' id='default_placeholder_0' value='0'>
         </td>
-        <td><input type='hidden' name='form_field_0[is_required]' checked id='is_required_0' value='1'>
-        <input type='hidden' value='0' name='form_field_0[field_id]'>
+        <td><input type='hidden' name='lfb_form[form_field_0][is_required]' checked id='is_required_0' value='1'>
+        <input type='hidden' value='0' name='lfb_form[form_field_0][field_id]'>
         </td>
         </td>
         <td class='add-field'><span><input type='button' class='button lf_addnew' name='add_new' id='add_new_1' onclick='add_new_form_fields(1)' value='".esc_html__('Add New')."'></span>

@@ -15,7 +15,7 @@ Class LFB_SHOW_FORMS {
 	<tr>
 		<th scope="col" id="title" class="manage-column column-title column-primary sortable asc"><a><span>'.esc_html__('Title','lead-form-builder').'</span><span class="sorting-indicator"></span></a></th>
 		<th scope="col" id="shortcode" class="manage-column column-shortcode">'.esc_html__('Shortcode','lead-form-builder').'</th>
-		<th scope="col" id="today_count" class="manage-column column-form-count sortable desc">'.esc_html__("Today\'s Lead",'lead-form-builder').' </th>
+		<th scope="col" id="today_count" class="manage-column column-form-count sortable desc">'.esc_html__("Today's Lead",'lead-form-builder').' </th>
 		<th scope="col" id="total_count" class="manage-column column-form-count sortable desc">'.esc_html__('Total Lead','lead-form-builder').' </th>
         <th scope="col" id="email-settings" class="manage-column column-form-email sortable desc"><a><span>'.esc_html__('Form Settings','lead-form-builder').' </span><span class="sorting-indicator"></span></a></th>
 

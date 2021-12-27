@@ -4,7 +4,7 @@ Author URI: : https://www.themehunk.com/
 Tags: contact form, responsive form, form builder, contact, email, captcha, registration, lead-form, field ordering, contact form builder, contact forms plugin, easy form, newsletter form, Responsive form, easy contact form, unlimited form, contact us, email send form, drag and drop contact form, form maker, widget contact form, view form simple form
 Requires at least: 5.5
 Tested up to: 5.8.2
-Stable tag: 1.6.8
+Stable tag: 1.6.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,6 +124,9 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 
 == Changelog ==
 
+= Version 1.6.9 =
+* Bug fixed and code optimize.
+
 = Version 1.6.8 =
 * CSRF issue fixed.
 * Escaped issue fixed.
@@ -137,7 +140,7 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 = Version 1.6.5 =
 * Escaping issue fixed.
 * All issue fixed.
-
+r
 = Version 1.6.4 =
 *  Unauthenticated Stored Cross-Site Scripting issue fixed.
 * Subscriber+ Arbitrary Lead Deletion issue fixed.

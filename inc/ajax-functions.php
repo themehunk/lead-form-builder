@@ -73,11 +73,13 @@ add_action('wp_ajax_SaveLeadSettings', 'lfb_save_lead_settings');
  */
 
 function lfb_save_email_settings() {
-    unset($_POST['action']);
+    $email_setting = array();
     $this_form_id = intval($_POST['email_setting']['form-id']);
+    $email_setting ['email_setting']= isset($_POST['email_setting'])?$_POST['email_setting']:'';
+     $serialize = maybe_serialize($email_setting);
     global $wpdb;
     $table_name = LFB_FORM_FIELD_TBL;
-    $update_query = "update " . LFB_FORM_FIELD_TBL . " set mail_setting='" . esc_sql($_POST) . "' where id='" . esc_sql($this_form_id) . "'";
+    $update_query = "update " . LFB_FORM_FIELD_TBL . " set mail_setting='" . $serialize. "' where id='" . $this_form_id. "'";
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
@@ -169,7 +171,7 @@ function lfb_save_captcha_option() {
     $this_form_id = intval($_POST['captcha_on_off_form_id']);
     global $wpdb;
     $table_name = LFB_FORM_FIELD_TBL;
-    $update_query = "update " . LFB_FORM_FIELD_TBL . " set captcha_status='" . esc_sql($captcha_option) . "' where id='" . esc_sql($this_form_id) . "'";
+    $update_query = "update " . LFB_FORM_FIELD_TBL . " set captcha_status='" . $captcha_option . "' where id='" . $this_form_id. "'";
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
@@ -191,6 +193,7 @@ function lfb_ShowAllLeadThisForm() {
         $table_name = LFB_FORM_DATA_TBL;
         $th_save_db = new LFB_SAVE_DB($wpdb);
         $nonce = wp_create_nonce( 'lfb-nonce-rm' );
+        $showLeadsObj = new LFB_Show_Leads();
         $start = 0;
         $limit = 10;
         $detail_view  = '';
@@ -300,7 +303,7 @@ function lfb_ShowAllLeadThisForm() {
 
             $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" ><thead><tr><th>Action</th>'.$tableHead.'<th>Date</th>'.$table_head.'</tr></thead>';  
 
-            echo wp_kses_post($thHead. $table_body.'</tbody></table>'.$popupTab);
+            echo wp_kses($thHead. $table_body.'</tbody></table>'.$popupTab,$showLeadsObj->expanded_alowed_tags());
 
             $total = ceil($rows / $limit);
             if($headcount >= 6 && $leadscount == 5){
@@ -356,6 +359,7 @@ function lfb_ShowLeadPagi() {
         global $wpdb;
         $table_name = LFB_FORM_DATA_TBL;
         $th_save_db = new LFB_SAVE_DB($wpdb);
+        $showLeadsObj = new LFB_Show_Leads();
         $nonce = wp_create_nonce( 'lfb-nonce-rm' );
         $start = 0;
         $limit = 10;
@@ -440,7 +444,7 @@ function lfb_ShowLeadPagi() {
 
             $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" ><thead><tr><th>Action</th>'.$tableHead.$table_head.'</tr></thead>';  
 
-            echo wp_kses_post($thHead. $table_body.'</tbody></table>'.$popupTab);
+            echo wp_kses($thHead. $table_body.'</tbody></table>'.$popupTab, $showLeadsObj->expanded_alowed_tags());
 
             $total = ceil($rows / $limit);
             if ($id > 1) {
@@ -476,6 +480,7 @@ function lfb_ShowAllLeadThisFormDate() {
         $nonce = wp_create_nonce( 'lfb-nonce-rm' );
         $table_name = LFB_FORM_DATA_TBL;
         $th_save_db = new LFB_SAVE_DB($wpdb);
+        $showLeadsObj = new LFB_Show_Leads();
         $start = 0;
         $limit = 10;
         $detail_view = '';
@@ -568,7 +573,7 @@ function lfb_ShowAllLeadThisFormDate() {
 
             $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" ><thead><tr><th>Action</th>'.$tableHead.$table_head.'</tr></thead>';  
 
-            echo wp_kses_post($thHead. $table_body.'</tbody></table>'.$popupTab);
+            echo wp_kses($thHead. $table_body.'</tbody></table>'.$popupTab,$showLeadsObj->expanded_alowed_tags());
 
             $rows = count($rows);
             $total = ceil($rows / $limit);
