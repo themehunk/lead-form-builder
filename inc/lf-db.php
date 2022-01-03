@@ -30,11 +30,6 @@ if (!function_exists('lfb_plugin_activate')) {
         $default_form = 1;
    }
 
-// $column = $wpdb->get_row("SELECT * FROM $lead_form");
-//     //Add column if not present.
-//     if(!isset($column->multiData)){
-//       $wpdb->query("ALTER TABLE $lead_form ADD multiData text NOT NULL");
-//     }
    
    if ($wpdb->get_var("SHOW TABLES LIKE '$lead_form_data'") != $lead_form_data) {
        $sql = "CREATE TABLE $lead_form_data(

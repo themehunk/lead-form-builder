@@ -4,7 +4,6 @@
 global $wpdb;
 define('LFB_FORM_FIELD_TBL', $wpdb->prefix . 'lead_form');
 define('LFB_FORM_DATA_TBL', $wpdb->prefix . 'lead_form_data');
-include_once( plugin_dir_path(__FILE__) . 'lfb-color-settings.php' );
 include_once( plugin_dir_path(__FILE__) . 'lf-install.php' );
 include_once( plugin_dir_path(__FILE__) . 'lf-shortcode.php' );
 if ( is_admin() ) {

@@ -12,7 +12,9 @@ jQuery(function() {
             dateFormat : "dd MM yy"
         });
     }
-
+    if(jQuery('.nav-tab-active').length){
+    jQuery(".nav-tab-wrapper a.nav-tab-active").click();
+}
  /** Form Color option start **/    
     //open the lateral panel
   
@@ -884,24 +886,6 @@ jQuery(function(){
     });
 });
 
-   /*
-     *Save success msg , form submit
-     */
-    jQuery("form#lfb-form-success-msg").submit(function(event) {
-        var form_data = jQuery("form#lfb-form-success-msg").serialize();
-        event.preventDefault();
-        //alert(form_data);
-        form_data = form_data + "&action=lfbsavesuccessmsg";
-        jQuery("#lfb-error-message-form-success").find("div").remove();
-        SaveByAjaxRequest(form_data, 'POST').success(function(response) {
-           // alert(response);
-             if(jQuery.trim(response)=='updated'|| jQuery.trim(response)==''){
-            jQuery("#lfb-error-message-form-success").append("<div class='success'><p>Updated Succesfully..!!</p></div>");
-            }else{
-             jQuery("#lfb-error-message-form-success").append("<div class='error'><p>Something Went Wrong..!!</p></div>");   
-            }
-        });
-    })
 
 function SaveByAjaxRequest(data, method) {
     return jQuery.ajax({

@@ -22,7 +22,7 @@ $wpdb->query( $wpdb->prepare(
 Class LFB_AddNewForm {
 function lfb_add_new_form(){
 	echo '<div class="wrap">
-        <h2>Add New From</h2>
+        <h2>'.esc_html__('Add New From','lead-form-builder').'</h2>
         <h2 class="nav-tab-wrapper">
             <a class="nav-tab nav-tab-active lead-form-create-form" href="#">'.esc_html__('Create Form','lead-form-builder').'</a>
             <a class="nav-tab lead-form-email-setting" href="#">'.esc_html__('Email Setting','lead-form-builder').'</a>
@@ -39,7 +39,7 @@ function lfb_add_new_form(){
                 if (is_admin()) {
                     echo '<div class="wrap">
 <div class="infobox">
-<h1>Email Setting</h1></div>
+<h1>'.esc_html__('Email Setting','lead-form-builder').'</h1></div>
 <br class="clear"><div class="inside setting_section">
            <div class="card">
                 <form name="" id="new-lead-email-setting" method="post" action="">
@@ -53,7 +53,7 @@ function lfb_add_new_form(){
            if (is_admin()) {
                     echo '<div class="wrap">
 <div class="infobox">
-<h1>Captcha Setting</h1></div>
+<h1>'.esc_html__('Captcha Setting','lead-form-builder').'</h1></div>
 <br class="clear"><div class="inside setting_section">
            <div class="card">
                 <form name="" id="new-captcha-setting" method="post" action="">
@@ -66,7 +66,7 @@ function lfb_add_new_form(){
            if (is_admin()) {
                     echo '<div class="wrap">
 <div class="infobox">
-<h1>Lead Receiving Method</h1></div>
+<h1>'.esc_html__('Lead Receiving Method','lead-form-builder').'</h1></div>
 <br class="clear"><div class="inside setting_section">
            <div class="card">
                 <form name="" id="new-lead-form-setting" method="post" action="">
@@ -84,8 +84,8 @@ $nonce = wp_create_nonce( '_nonce_verify' );
         $create_url ="admin.php?page=add-new-form&action=edit&redirect=create&_wpnonce=".$nonce;
 
     echo "<div class='wrap'>
-        <h1>Lead Form Settings</h1>
-        <form method='post' action='".$create_url."' id='new_lead_form'>
+        <h1>".esc_html__('Lead Form Settings','lead-form-builder')."</h1>
+        <form method='post' action='".esc_url($create_url)."' id='new_lead_form'>
             <div id='poststuff'>
                 <div id='post-body'>
                     <div id='post-body-content'>
@@ -105,7 +105,7 @@ $nonce = wp_create_nonce( '_nonce_verify' );
             $this->lfb_form_last_fields();
             echo "</table>
     </div>
-    <p class='submit'><input type='submit' class='save_form button-primary' name='save_form' id='save_form' value='Save Form'> ".LFB_FORM_PRO_FIELD_TYPE."</p></td>
+    <p class='submit'><input type='submit' class='save_form button-primary' name='save_form' id='save_form' value='".esc_html__('Save Form','lead-form-builder')."'> ".LFB_FORM_PRO_FIELD_TYPE."</p></td>
     </form><div id='message-box-error' class='message-box-error' ></div>
     </div>";
 }
@@ -180,7 +180,7 @@ function lfb_form_last_fields(){
             <option value='submit'>".esc_html__('Submit Button','lead-form-builder')." </option>
             </select>
         </td>
-        <td><input type='text' class='default_value' name='lfb_form[form_field_0][default_value]' id='default_value_0' value='SUBMIT'>
+        <td><input type='text' class='default_value' name='lfb_form[form_field_0][default_value]' id='default_value_0' value='".esc_html__('SUBMIT','lead-form-builder')."'>
         </td>
         <td><input type='hidden' class='default_placeholder' name='lfb_form[form_field_0][default_placeholder]' id='default_placeholder_0' value='0'>
         </td>

@@ -35,7 +35,7 @@ $uploaded_file = wp_handle_upload( $file, $overrides);
         $response[$key]['url'] = $uploaded_file['url'];
         $response[$key]['type'] = $uploaded_file['type'];
     } else {
-        $response[$key]['response'] = "ERROR";
+        $response[$key]['response'] = esc_html__("ERROR",'lead-form-builder');
         $response[$key]['error'] = $uploaded_file['error'];
     }
 }
@@ -56,11 +56,11 @@ function lfb_save_lead_settings() {
     $this_form_id = intval($_POST['action-lead-setting']);
     global $wpdb;
     $table_name = LFB_FORM_FIELD_TBL;
-    $update_query = "update " . LFB_FORM_FIELD_TBL . " set storeType='" . esc_sql($data_recieve_method) . "' where id='" . esc_sql($this_form_id) . "'";
+    $update_query = "update " . LFB_FORM_FIELD_TBL . " set storeType='" . $data_recieve_method . "' where id='" . $this_form_id. "'";
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
-        echo esc_html('updated');
+     esc_html_e('updated','lead-form-builder');
     }
 
     die();
@@ -73,51 +73,30 @@ add_action('wp_ajax_SaveLeadSettings', 'lfb_save_lead_settings');
  */
 
 function lfb_save_email_settings() {
+    global $wpdb;
     $email_setting = array();
     $this_form_id = intval($_POST['email_setting']['form-id']);
     $email_setting ['email_setting']= isset($_POST['email_setting'])?$_POST['email_setting']:'';
      $serialize = maybe_serialize($email_setting);
-    global $wpdb;
     $table_name = LFB_FORM_FIELD_TBL;
     $update_query = "update " . LFB_FORM_FIELD_TBL . " set mail_setting='" . $serialize. "' where id='" . $this_form_id. "'";
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
-        echo esc_html('updated');
+         esc_html_e('updated','lead-form-builder');
     }
     die();
 }
 
 add_action('wp_ajax_SaveEmailSettings', 'lfb_save_email_settings');
-/*
- * Save Form Skin
- */
-
-function lfb_savesuccessmsg() {
-    global $wpdb;
-    if(isset($_POST['lfb-form-id'])){
-    unset($_POST['action']);
-    $this_form_id = intval($_POST['lfb-form-id']);
-    $table_name = LFB_FORM_FIELD_TBL;
-    $update_query = "update " . LFB_FORM_FIELD_TBL . " set multiData='" . esc_sql($_POST) . "' where id='" . esc_sql($this_form_id) . "'";
-    $th_save_db = new LFB_SAVE_DB($wpdb);
-    $update_leads = $th_save_db->lfb_update_form_data($update_query);
-    if ($update_leads) {
-        echo esc_html('updated');
-    }
-    }
-    die();
-}
-
-add_action('wp_ajax_lfbsavesuccessmsg', 'lfb_savesuccessmsg');
 
 /*
  * Save captcha Keys
  */
 
 function lfb_save_captcha_settings() {
-$captcha_setting_sitekey = esc_attr($_POST['captcha-setting-sitekey']);
-$captcha_setting_secret = esc_attr($_POST['captcha-setting-secret']);
+$captcha_setting_sitekey = sanitize_key($_POST['captcha-setting-sitekey']);
+$captcha_setting_secret = sanitize_key($_POST['captcha-setting-secret']);
 
 if ( get_option('captcha-setting-sitekey') !== false ) {
     update_option('captcha-setting-sitekey', $captcha_setting_sitekey);
@@ -175,7 +154,7 @@ function lfb_save_captcha_option() {
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
-        echo esc_html("updated");
+     esc_html_e('updated','lead-form-builder');
     }
     die();
 }
@@ -344,7 +323,7 @@ function lfb_ShowAllLeadThisForm() {
 }
 
         } else {
-            echo esc_html("Opps No lead...!!");
+            esc_html_e('Opps No lead...!!','lead-form-builder');
         }
         die();
     }
@@ -463,7 +442,7 @@ function lfb_ShowLeadPagi() {
             }
             echo '</ul>';
         } else {
-            echo esc_html("Opps No lead...!!");
+             esc_html_e('Opps No lead...!!','lead-form-builder');
         }
         die();
     }
@@ -487,7 +466,7 @@ function lfb_ShowAllLeadThisFormDate() {
 
         if (isset($_GET['id'])) {
             $id = intval($_GET['id']);
-            $datewise = esc_html($_GET['datewise']);
+            $datewise = sanitize_text_field($_GET['datewise']);
             $start = ($id - 1) * $limit;
             $form_id = intval($_GET['form_id']);
             $sn_counter = $start;
@@ -593,7 +572,7 @@ function lfb_ShowAllLeadThisFormDate() {
             }
             echo '</ul>';
         } else {
-            echo esc_html("Opps No lead...!!");
+            esc_html_e('Opps No lead...!!','lead-form-builder');
         }
         die();
     }
@@ -664,26 +643,30 @@ add_action('wp_ajax_ShowAllLeadThisFormDate', 'lfb_ShowAllLeadThisFormDate');
     }
 
 function lfb_Save_Form_Data() {
-    $form_id = intval($_POST['hidden_field']);
-    unset($_POST['g-recaptcha-response']);
-    unset($_POST['action']);
-    unset($_POST['hidden_field']);
-    
-    $en = lfb_form_name_email_filter($_POST);
+    if(isset($_POST['fdata'])){
+        wp_parse_str($_POST['fdata'],$fromData);
+
+    $form_id = intval($fromData['hidden_field']);
+    unset($fromData['g-recaptcha-response']);
+    unset($fromData['action']);
+    unset($fromData['hidden_field']);
+
+    $en = lfb_form_name_email_filter($fromData);
+
 
     if((isset($en['email']))&&($en['email']!='')){
     $user_emailid =sanitize_email($en['email']);
     }else{
-    $user_emailid ='invalid_email';
+    $user_emailid = esc_html__('invalid_email','lead-form-builder');
     }          
-    $sanitize_leads =  lfb_lead_sanitize($_POST);
+    $sanitize_leads =  lfb_lead_sanitize($fromData);
     $form_data = maybe_serialize($sanitize_leads);
 
     $lf_store   = new LFB_LeadStoreType();
     $th_save_db = new LFB_SAVE_DB();
 
     $lf_store->lfb_mail_type($form_id,$form_data,$th_save_db,$user_emailid);
-    
+}
     die();
 }
 
@@ -741,15 +724,20 @@ add_action('wp_ajax_RememberMeThisForm', 'lfb_RememberMeThisForm');
 
 function lfb_SaveUserEmailSettings() {
     unset($_POST['action']);
-    $email_setting = maybe_serialize($_POST);
+        $mailArr = array();
+        if(isset($_POST['user_email_setting'])){
+    $mailArr['user_email_setting'] =$_POST['user_email_setting'];
+    $email_setting = maybe_serialize($mailArr);
     $this_form_id = intval($_POST['user_email_setting']['form-id']);
     global $wpdb;
     $table_name = LFB_FORM_FIELD_TBL;
-    $update_query = "update " . LFB_FORM_FIELD_TBL . " set usermail_setting='" . esc_sql($email_setting) . "' where id='" . esc_sql($this_form_id) . "'";
+    $update_query = "update " . LFB_FORM_FIELD_TBL . " set usermail_setting='" . $email_setting . "' where id='" . $this_form_id. "'";
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
         echo esc_html("updated");
+    }
+
     }
     die();
 }
@@ -772,20 +760,4 @@ function lfb_save_extension_onoff() {
     die();
 }
 add_action('wp_ajax_SaveExtensionOption', 'lfb_save_extension_onoff');
-/*
- * Save captcha status for form ON/OFF
- */
 
-function lfb_save_colors_settings() {
-
-    if(isset($_POST['colorid'])):
-    $lfbDb = new LFB_SAVE_DB();
-        $fid = intval($_POST['colorid']);
-        unset($_POST['action']);
-     $serialize = maybe_serialize(array_map('stripslashes_deep', $_POST));
-   echo $lfbDb->lfb_colors_insert_update($fid,$serialize);
-
-  endif;
-    die();
-}
-add_action('wp_ajax_SaveColorsSettings', 'lfb_save_colors_settings');

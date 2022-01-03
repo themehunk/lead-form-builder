@@ -45,22 +45,13 @@ function lfb_admin_assets($hook) {
         wp_enqueue_style('lfb-option-css', LFB_PLUGIN_URL . 'css/option-style.css');
         wp_enqueue_style('sweet-dropdown.min', LFB_PLUGIN_URL . 'css/jquery.sweet-dropdown.min.css');
         wp_enqueue_style('wpth_b_css', LFB_PLUGIN_URL . 'css/b-style.css');
-        wp_enqueue_style('wpth_color_picker_css', LFB_PLUGIN_URL . 'inc/color-picker/color-picker.css',array( 'wp-color-picker' ));
         wp_enqueue_script('lfb_modernizr_js', LFB_PLUGIN_URL . 'js/modernizr.js', '', LFB_VER, true);
-        if(function_exists( 'wp_enqueue_media' )){
-            wp_enqueue_media();
-        }else{
-            wp_enqueue_style('thickbox');
-            wp_enqueue_script('media-upload');
-            wp_enqueue_script('thickbox');
-        }
         wp_enqueue_script('jquery-ui-datepicker');
         wp_enqueue_script("jquery-ui-sortable");
         wp_enqueue_script("jquery-ui-draggable");
         wp_enqueue_script("jquery-ui-droppable"); 
         wp_enqueue_script("jquery-ui-accordion");
         wp_enqueue_style( 'jquery-ui' );  
-        wp_enqueue_script('lfb_color_picker_js', LFB_PLUGIN_URL . 'inc/color-picker/color-picker.js', array( 'jquery', 'wp-color-picker' ), LFB_VER, true);
         wp_enqueue_script('lfb_upload', LFB_PLUGIN_URL . 'js/upload.js', '', LFB_VER, true);
         wp_enqueue_script('sweet-dropdown.min', LFB_PLUGIN_URL . 'js/jquery.sweet-dropdown.min.js', '', LFB_VER, true);
         wp_enqueue_script('lfb_b_js', LFB_PLUGIN_URL . 'js/b-script.js', array('jquery'), LFB_VER, true);
@@ -109,11 +100,12 @@ function lfb_lead_form_page() {
             $th_edit_del_form = new LFB_EDIT_DEL_FORM();
             $th_edit_del_form->lfb_delete_form_content($form_action, $this_form_id,$page_id);
         }
-        if ($form_action == 'show') {
-            $lfbColors = new LFB_COLORS();
-            echo $lfbColors->change_color();
-            $lfbColors->lfb_color_form($this_form_id); 
-            echo do_shortcode('[lead-form form-id="'.$this_form_id.'" title=Contact Us]');
+        if ($form_action == 'show' && isset($_GET['formid'])) {
+                $fid = intval($_GET['formid']); 
+                echo "<div class='lfb-show'><h1>". esc_html('Lead Form Preview Page')."</h1>";
+            echo do_shortcode('[lead-form form-id="'.$fid.'" title=Contact Us]');
+
+            echo "<div>";
         }
         if ($form_action == 'today_leads') {
             $th_show_today_leads = new LFB_Show_Leads();
@@ -149,14 +141,13 @@ function lfb_add_contact_forms() {
     unset($_POST['post_title']);
     unset($_POST['update_form']);
     unset($_POST['update_form_id']);
-    $form_data= maybe_serialize($data_form);
     global $wpdb;
     $table_name = LFB_FORM_FIELD_TBL;
     $update_leads = $wpdb->update( 
     $table_name,
     array( 
         'form_title' => $title,
-      'form_data' => $form_data
+      'form_data' => maybe_serialize($data_form)
     ), 
     array( 'id' => $update_form_id ));
     $rd_url = admin_url().'admin.php?page=add-new-form&action=edit&redirect=update&formid='.$update_form_id;

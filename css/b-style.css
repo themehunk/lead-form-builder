@@ -773,12 +773,7 @@ border-right: 1px solid rgba(173, 175, 173, 0.19);
     max-width: 100%;
     overflow:hidden;
 }
-.lead-head{
-    min-height:auto;
-    padding:5% 0%;
-    max-width:100%;
-    background-size: 100%!important;
-}
+
 .leadform-show-form textarea,
 .leadform-show-form input:not([type]),
 .leadform-show-form input[type="email"], 
@@ -2220,4 +2215,12 @@ div.dropdown-opened {
    -moz-box-shadow: none !important;
    -webkit-box-shadow: none !important;
    box-shadow: none !important;
+}
+
+.lfb-show {
+    width: 400px;
+    margin-left: 35%;
+}
+.lfb-show h1{
+text-align: center;
 }

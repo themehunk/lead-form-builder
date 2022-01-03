@@ -157,7 +157,7 @@ Class LFB_Front_end_FORMS {
             if($submit_field_type < 1){
                     $captcha_field = '';
                     if ($captcha_option == 'ON') {
-                        $captcha_field = '<div class="g-recaptcha" data-sitekey="' . get_option('captcha-setting-sitekey') . '"></div><br/>';
+                        $captcha_field = '<div class="g-recaptcha" data-sitekey="' . esc_html(get_option('captcha-setting-sitekey')) . '"></div><br/>';
                         }
             $submit_button .='<label><span></span></label><span>' . $captcha_field . '</span><label><span></span></label>
                 <span><input id="default-submit" class="lf-form-submit" type="submit" name="submit-form" value="submit"/></span>
@@ -334,7 +334,7 @@ Class LFB_Front_end_FORMS {
         $submit = '';
         //captch on/off
         if ($captcha_option == 'ON') {
-            $captcha_field = '<div class="g-recaptcha" data-sitekey="' . get_option('captcha-setting-sitekey') . '"></div><br/>';
+            $captcha_field = '<div class="g-recaptcha" data-sitekey="' . esc_html(get_option('captcha-setting-sitekey')) . '"></div><br/>';
             $submit ='<div class="captcha-type lf-field"><label>' . $captcha_field . '</label></div>';
         }
         // submit button

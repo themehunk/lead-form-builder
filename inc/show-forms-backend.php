@@ -84,7 +84,7 @@ Class LFB_SHOW_FORMS {
  '.esc_html__('Email Notification (Auto-responders).','lead-form-builder').' </a></li>
                 <li class="divider"></li>
         <li><a href="#"><i class="fa fa-repeat" aria-hidden="true"></i>
- Form Redirction Option'.LFB_FORM_PRO_FEATURE.'</li>
+'.esc_html__('Form Redirction Option','lead-form-builder').LFB_FORM_PRO_FEATURE.'</li>
         <li class="divider"></li>
         <li><a href="'.$edit_url_nonce.'&form-setting"> <i class="fa fa-bullhorn" aria-hidden="true"></i> '.esc_html__('Lead Receiving Method (Email, Database, Both).','lead-form-builder').' </a></li>
                 <li class="divider"></li>
@@ -92,9 +92,9 @@ Class LFB_SHOW_FORMS {
         <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>
  '.esc_html__('Form Submit (Thank You Message)','lead-form-builder').' <span class="pro-feature"><i class="fa fa-lock"></i>
 
- Pro Feature<span></a></li>
+ '.esc_html__('Pro Feature','lead-form-builder').'<span></a></li>
  <li><a href="'.$edit_url_nonce.'&captcha-setting"><img width="18px" src="'.LFB_FORM_CAPTCHA_SVG.'" title="Form Import">
-Spam Protection (Google Captcha)</a>';
+'.esc_html__('Spam Protection (Google Captcha)','lead-form-builder').'</a>';
 
 if ( get_option('captcha-setting-sitekey') !== false ) {
 
@@ -107,7 +107,7 @@ if ( get_option('captcha-setting-sitekey') !== false ) {
                     </label>
             </div>';
 }else{
-       echo '<span title="' . $captcha_status . '">Missing Keys</span>';
+       echo '<span title="' . $captcha_status . '">'.esc_html__('Missing Keys','lead-form-builder').'</span>';
 }
         
         echo '</li>
@@ -124,12 +124,12 @@ Form Color Customize'.LFB_FORM_PRO_FEATURE.'</li>
 <li class="divider"></li>
 
         <li><a href="#"><img width="18px" src="'.LFB_MCPI_IMAGE.'" title="'.esc_html__("Mailchimp"."lead-form-builder").'">
-Mailchimp Adon Settings'.LFB_FORM_PRO_FEATURE.'</li>
+'.esc_html__('Mailchimp Adon Settings','lead-form-builder').LFB_FORM_PRO_FEATURE.'</li>
 <li class="divider"></li>
 
         <li><a href=""><img width="18px" src="'.LFB_SMTP_IMAGE.'" title="'.esc_html__("SMTP Configure","lead-form-builder").'">
 SMTP Adon Settings <span class="pro-feature"><i class="fa fa-lock"></i>
- Pro Feature<span> </a></li>
+ '.esc_html__('Pro Feature','lead-form-builder').'<span> </a></li>
 <li class="divider"></li>
 
         <li><a href="#"><img width="18px" src="'.LFB_EXPORT_IMAGE.'" title="'.esc_html__("Entry Export","lead-form-builder").'">

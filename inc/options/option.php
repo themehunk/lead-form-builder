@@ -13,18 +13,14 @@
             <h2><?php esc_html_e('Recommended Themes','lead-form-builder');?></h2>
             <ul class="lfb-recommended-themes">
 
-              <li><div class="thmk-ribbon"><span><?php esc_html_e('FREE', 'lead-form-builder'); ?></span></div><a class="rec-product-img" target="_blank" href="<?php echo esc_url('https://themehunk.com/product/big-store/','lead-form-builder');?>"><img src="<?php echo esc_url('https://themehunk.com/wp-content/uploads/2021/01/big-store-1.png','lead-form-builder');?>"></a>
+              <li><div class="thmk-ribbon"><span><?php esc_html_e('FREE', 'lead-form-builder'); ?></span></div><a class="rec-product-img" target="_blank" href="<?php echo esc_url('https://themehunk.com/product/big-store/','lead-form-builder');?>"><img src="<?php echo esc_url(LFB_PLUGIN_URL.'images/big-store-1.png','lead-form-builder');?>"></a>
                 <a class="rec-product-link lfb-about-btn" target="_blank" href="<?php echo esc_url('https://themehunk.com/product/big-store/','lead-form-builder');?>"><?php esc_html_e('Live Demo', 'lead-form-builder'); ?> </a></li>
 
-                <li><div class="thmk-ribbon"><span><?php esc_html_e('FREE', 'lead-form-builder'); ?></span></div><a class="rec-product-img" target="_blank" href="<?php echo esc_url('https://themehunk.com/product/big-store/','lead-form-builder');?>"><img src="<?php echo esc_url('https://themehunk.com/wp-content/uploads/2015/07/open-shop-theme.png','lead-form-builder');?>"></a>
+                <li><div class="thmk-ribbon"><span><?php esc_html_e('FREE', 'lead-form-builder'); ?></span></div><a class="rec-product-img" target="_blank" href="<?php echo esc_url('https://themehunk.com/product/big-store/','lead-form-builder');?>"><img src="<?php echo esc_url(LFB_PLUGIN_URL.'images/open-shop-theme.png','lead-form-builder');?>"></a>
                 <a class="rec-product-link lfb-about-btn" target="_blank" href="<?php echo esc_url('https://themehunk.com/product/open-shop-ecommerce-theme/','lead-form-builder');?>"><?php esc_html_e('Live Demo', 'lead-form-builder'); ?></a></li>
 
-               <li><div class="thmk-ribbon"><span><?php esc_html_e('FREE', 'lead-form-builder'); ?></span></div><a class="rec-product-img" target="_blank" href="<?php echo esc_url('https://themehunk.com/product/gogo-amazing-wordpress-theme/','lead-form-builder');?>"><img src="<?php echo esc_url('https://themehunk.com/wp-content/uploads/2015/07/gogo-image.png','lead-form-builder');?>"></a>
+               <li><div class="thmk-ribbon"><span><?php esc_html_e('FREE', 'lead-form-builder'); ?></span></div><a class="rec-product-img" target="_blank" href="<?php echo esc_url('https://themehunk.com/product/gogo-amazing-wordpress-theme/','lead-form-builder');?>"><img src="<?php echo esc_url(LFB_PLUGIN_URL.'images/gogo-image.png','lead-form-builder');?>"></a>
                 <a class="rec-product-link lfb-about-btn" target="_blank" href="<?php echo esc_url('https://themehunk.com/product/gogo-amazing-wordpress-theme/','lead-form-builder');?>"><?php esc_html_e('Live Demo', 'lead-form-builder'); ?></a></li>
-
-
-                <li><div class="thmk-ribbon"><span><?php esc_html_e('FREE', 'lead-form-builder'); ?></span></div><a class="rec-product-img" target="_blank" href="<?php echo esc_url('https://www.themehunk.com/product/oneline-lite-theme/','lead-form-builder');?>"><img src="<?php echo esc_url('https://www.themehunk.com/wp-content/uploads/2015/07/Cover-page-oneline-lite.png','lead-form-builder');?>"></a>
-                <a class="rec-product-link lfb-about-btn" target="_blank" href="<?php echo esc_url('https://www.themehunk.com/product/oneline-lite-theme','lead-form-builder');?>"> <?php esc_html_e('Live Demo', 'lead-form-builder'); ?> </a></li>
             </ul></div>
         </div>
 <div id="freetopro" class="tabcontent">
@@ -34,7 +30,7 @@
           <h2><?php esc_html_e('Build Best Forms With Lead Form Builder Pro !', 'lead-form-builder'); ?> </h2>
           <a class="lead-buy-btn" target="_blank" href="<?php echo esc_url('https://themehunk.com/product/lead-form-builder-pro/','lead-form-builder');?>"><?php esc_html_e('Buy Now - $29', 'lead-form-builder'); ?> </a>
           <div class="small-border-lead"></div>
-          <div class="sale-img"><img src="<?php echo esc_url('http://www.themehunk.com/wp-content/uploads/2016/12/Contact-from-leadfomr-builder.png','lead-form-builder');?>"></div>
+          <div class="sale-img"><img src="<?php echo esc_url(LFB_PLUGIN_URL.'images/Contact-from-leadfomr-builder.png','lead-form-builder');?>"></div>
           <p><?php esc_html_e('Generate more leads means more clients, just take your forms to next level', 'lead-form-builder'); ?></p>
           <h3 class="star"><?php esc_html_e('Join our over 5,000+ users!', 'lead-form-builder'); ?> </h3>
         </div>

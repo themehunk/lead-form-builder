@@ -3,21 +3,50 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 require_once('lf-db.php');
 Class LFB_EDIT_DEL_FORM {
 
-    function lfb_active_form_tab(){
-         if(isset($_GET['email-setting'])){
-                    echo '<script>jQuery(function() {
-                    jQuery(".nav-tab-wrapper a.lead-form-email-setting").click(); });</script>';
-                }elseif(isset($_GET['captcha-setting'])){
-                    echo '<script>jQuery(function() {
-                    jQuery(".nav-tab-wrapper a.lead-form-captcha-setting").click(); });</script>';
-                }elseif(isset($_GET['form-setting'])){
-                    echo '<script>jQuery(function() {
-                    jQuery(".nav-tab-wrapper a.lead-form-setting").click(); });</script>';
-                }else{
-                   echo '<script>jQuery(function() {
-                    jQuery(".nav-tab-wrapper a.edit-lead-form").click(); });</script>';
-                }
+
+    function _alowed_tags() {
+        $allowed = wp_kses_allowed_html( 'post' );
+    
+        // form fields - input
+        $allowed['a'] = array(
+            'href' => array(),
+            'class'    => array(),
+            'onclick'  => array(),
+        );
+    // form fields - input
+        $allowed['input'] = array(
+            'class' => array(),
+            'id'    => array(),
+            'name'  => array(),
+            'value' => array(),
+            'type'  => array(),
+            'disabled'  => array(),
+            'onclick' => array(),
+            'placeholder'  => array(),
+            'checked'  => array(),
+        );
+        $allowed['p'] = array(
+            'class'    => array(),
+            'onclick'  => array(),
+            'id'   => array(),
+        );
+
+        $allowed['select'] = array(
+            'class'    => array(),
+            'onclick'  => array(),
+            'id'   => array(),
+            'name'  => array(),
+
+        );
+
+        $allowed['option'] = array(
+            'value'    => array(),
+            'selected'   => array(),
+        );
+
+        return $allowed;
     }
+
     function lfb_edit_form_content($form_action, $this_form_id) {
         global $wpdb;
         $th_save_db = new LFB_SAVE_DB($wpdb);
@@ -25,12 +54,12 @@ Class LFB_EDIT_DEL_FORM {
             $prepare_8 =  $wpdb->prepare( "SELECT * FROM $table_name WHERE id = %d LIMIT 1", $this_form_id  );
         $posts = $th_save_db->lfb_get_form_content($prepare_8);
         if ($posts){
-            $form_title = $posts[0]->form_title;
+            $form_title = esc_html($posts[0]->form_title);
             $form_data_result = maybe_unserialize($posts[0]->form_data);
             $mail_setting_result = $posts[0]->mail_setting;
             $usermail_setting_result = $posts[0]->usermail_setting;
             $captcha_option = $posts[0]->captcha_status;
-            $lead_store_option = $posts[0]->storeType;
+            $lead_store_option = esc_html($posts[0]->storeType);
 
             $all_form_fields = $this->lfb_create_form_fields_for_edit($form_title, $form_data_result);
         }
@@ -45,14 +74,28 @@ Class LFB_EDIT_DEL_FORM {
         }
         $nonce = wp_create_nonce( '_nonce_verify' );
         $update_url ="admin.php?page=add-new-form&action=edit&redirect=update&formid=".$this_form_id.'&_wpnonce='.$nonce;
-       $this->lfb_active_form_tab();
+        
+       $email_active = $captcha_active = $form_active = $_active = '';
+           if(isset($_GET['email-setting'])){
+                        $email_active = 'nav-tab-active';
+                }elseif(isset($_GET['captcha-setting'])){
+                    $captcha_active = 'nav-tab-active';
+
+                }elseif(isset($_GET['form-setting'])){
+                 $form_active = 'nav-tab-active';
+                }else{
+                $_active = 'nav-tab-active';
+
+                }
+
+
         echo '<div class="wrap">
         <h2> Edit From</h2>'.$form_message.'
         <h2 class="nav-tab-wrapper">
-            <a class="nav-tab nav-tab-active edit-lead-form" href="#">'.esc_html__("Edit Form","lead-form-builder").'</a>
-            <a class="nav-tab lead-form-email-setting" href="#">'.esc_html__("Email Setting","lead-form-builder").'</a>
-            <a class="nav-tab lead-form-captcha-setting" href="#">'.esc_html__("Captcha Setting","lead-form-builder").'</a>
-            <a class="nav-tab lead-form-setting" href="#">'.esc_html__("Setting","lead-form-builder").'</a>
+            <a class="nav-tab edit-lead-form '.esc_attr($_active).'" href="#">'.esc_html__("Edit Form","lead-form-builder").'</a>
+            <a class="nav-tab lead-form-email-setting  '.esc_attr($email_active).'" href="#">'.esc_html__("Email Setting","lead-form-builder").'</a>
+            <a class="nav-tab lead-form-captcha-setting  '.esc_attr($captcha_active).'" href="#">'.esc_html__("Captcha Setting","lead-form-builder").'</a>
+            <a class="nav-tab lead-form-setting  '.esc_attr($form_active).'" href="#">'.esc_html__("Setting","lead-form-builder").'</a>
         </h2>
         <div id="sections">
         <span class="back-arrow"><a href="'.admin_url('?page=wplf-plugin-menu').'" ><img width ="18" src="'.LFB_FORM_BACK_SVG.'" ></a></span>
@@ -72,10 +115,10 @@ Class LFB_EDIT_DEL_FORM {
                 </div>
             </div>';
         $this->lfb_basic_form();
-        echo $all_form_fields;
+        echo wp_kses($all_form_fields,$this->_alowed_tags());
         echo '<div id="append_new_field"></div>
             </table>
-            <p class="submit"><input type="submit" class="update_form button-primary" name="update_form" id="update_form" value="Update Form">'.LFB_FORM_PRO_FIELD_TYPE.'<input type="hidden" class="update_form_id button-primary" name="update_form_id" id="update_form_id" value="'.$this_form_id.'"></p>
+            <p class="submit"><input type="submit" class="update_form button-primary" name="update_form" id="update_form" value="Update Form">'.LFB_FORM_PRO_FIELD_TYPE.'<input type="hidden" class="update_form_id button-primary" name="update_form_id" id="update_form_id" value="'.intval($this_form_id).'"></p>
                 <input type="hidden" name = "_wpnonce" value="'.$nonce.'" />
             </td>
     </form> 
@@ -108,7 +151,7 @@ Class LFB_EDIT_DEL_FORM {
     $update_leads = $wpdb->update( 
     $table_name,
     array( 
-        'form_status' => 'Disable'
+        'form_status' => esc_html('Disable')
     ), 
     array( 'id' =>$this_form_id));
     if($update_leads){    
@@ -204,7 +247,7 @@ Class LFB_EDIT_DEL_FORM {
     function lfbAddField($fieldv,$fieldID,$lastFieldID){
 
             $return = '<td></td><td><input type="hidden" name="lfb_form[form_field_'.$fieldID.'][field_name]" id="field_name_'.$fieldID.'" value="submit"><select class="form_field_select" name="lfb_form[form_field_'.$fieldID.'][field_type][type]" id="field_type_'.$fieldID.'">
-                <option value="submit" selected="selected">Submit Button</option>
+                <option value="submit" selected="selected">'.esc_html("Submit Button").'</option>
                        </select></td>';
 
         $return .=$this->lfbFieldDefaultValue($fieldv,$fieldID);
@@ -247,7 +290,7 @@ Class LFB_EDIT_DEL_FORM {
         $return ='';
         
          $return .= $this->lfbFieldName($fieldv,$fieldID);
-         $return .= $this->lfbFieldTypeDefault('htmlfield','Content Area (Read only Text)',$fieldID);
+         $return .= $this->lfbFieldTypeDefault('htmlfield',esc_html__('Content Area (Read only Text)','lead-form-builder'),$fieldID);
          $return .= $this->lfbHtmlFieldValue($fieldv,$fieldID);
         // $return .= $this->lfbFieldPlaceholder($fieldv,$fieldID);
         // $return .= $this->lfbFieldIsRequired($fieldv,$fieldID);
@@ -328,7 +371,7 @@ Class LFB_EDIT_DEL_FORM {
         }
         
 
-        $childOption = '<input type="text" class="input_radio_val" name="lfb_form[form_field_' . $fieldID . '][field_type][field_' . $checkboxId . ']" id="radio_field_' . $checkboxId . '" placeholder="First Choice" value="'.$value.'">';
+        $childOption = '<input type="text" class="input_radio_val" name="lfb_form[form_field_' . $fieldID . '][field_type][field_' . $checkboxId . ']" id="radio_field_' . $checkboxId . '" placeholder="'.esc_html__("First Choice","lead-form-builder").'" value="'.$value.'">';
 
         // default checked
         $isChecked .='<p id="default_radio_value_' . $checkboxId . '">'.$value.' <input type="radio" class="checked" name="lfb_form[form_field_' . $fieldID . '][default_value][field]" id="default_radio_value_' . $checkboxId . '" value="' . $checkboxId . '" '.$checked.'></p>';
@@ -347,7 +390,7 @@ Class LFB_EDIT_DEL_FORM {
             <div class="" id="add_radio">' . $optionField . '</div>
             </div>
         </td>
-        <td><input type="text" class="default_value" name="lfb_form[form_field_' . $fieldID . '][default_value]" id="default_value_' . $fieldID . '" value="Choose Default Value" disabled="disabled">
+        <td><input type="text" class="default_value" name="lfb_form[form_field_' . $fieldID . '][default_value]" id="default_value_' . $fieldID . '" value="'.esc_html__("Choose Default Value","lead-form-builder").'" disabled="disabled">
         <div class="add_default_radio_checkbox_' . $fieldID . '" id="add_default_radio_checkbox">
             <div class="" id="default_add_radio">' . $isChecked . '</div>
         </div>
@@ -397,7 +440,7 @@ Class LFB_EDIT_DEL_FORM {
             <div class="" id="add_checkbox">' . $checkboxField . '</div>
             </div>
         </td>
-        <td><input type="text" class="default_value" name="lfb_form[form_field_' . $fieldID . '][default_value]" id="default_value_' . $fieldID . '" value="Choose Default Value" disabled="disabled">
+        <td><input type="text" class="default_value" name="lfb_form[form_field_' . $fieldID . '][default_value]" id="default_value_' . $fieldID . '" value="'.esc_html__("Choose Default Value","lead-form-builder").'" disabled="disabled">
         <div class="add_default_radio_checkbox_' . $fieldID . '" id="add_default_radio_checkbox">
             <div class="" id="default_add_checkbox">' . $isChecked . '</div>
         </div>

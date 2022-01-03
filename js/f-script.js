@@ -73,10 +73,10 @@ function lfbInserForm(element,form_id,uploaddata=''){
             if(uploaddata!=''){
             this_form_data = this_form_data + '&' + uploaddata;
             } 
-
-            form_data = this_form_data + "&action=Save_Form_Data";
-
-        SavedataByAjaxRequest(form_data, 'POST').success(function(response) {
+           var  lfbFormData = { fdata : this_form_data,
+                                 action :  'Save_Form_Data'  
+                                };
+        SavedataByAjaxRequest(lfbFormData, 'POST').success(function(response) {
             element.find('#loading_image').hide();;
             if (jQuery.trim(response) == 'invalidcaptcha') {
 

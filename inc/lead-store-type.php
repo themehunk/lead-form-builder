@@ -48,7 +48,7 @@ function lfb_phpmailer_send($phpmailer){
          VALUES ( %d, %s, %s, %s, %s )",
           $form_id, $form_data, $ip_address, $server_request, date('Y/m/d g:i:s') ) );
         if ($update_leads) {
-            return "inserted";
+            return esc_html__('inserted','lead-form-builder');
         }
     }
 
@@ -88,8 +88,8 @@ function lfb_phpmailer_send($phpmailer){
       $user_email['leads'] = $form_entry_data;
       $reply_to = $user_email['emailid'];
       $to = get_option('admin_email');
-      $subject ='New Lead Recieved';
-      $new_message = 'Recieved New Leads';
+      $subject = esc_html__('New Lead Recieved','lead-form-builder');
+      $new_message = esc_html__('Recieved New Leads','lead-form-builder');
 
     	 $form_entry_data .=	"<br/>";
        $headers[] = 'Content-Type: text/html; charset=UTF-8';
@@ -173,7 +173,7 @@ function lfb_useremail_send($user_email){
 
       if ($storeType == 1) {
          $this->lfb_send_data_email($form_id, $form_data, $admin_mail_setting,$user_email);
-         $return = "inserted";
+         $return = esc_html__('inserted','lead-form-builder');
       }
       if ($storeType == 2) {
          $return =  $this->lfb_save_data($form_id, $form_data);
@@ -200,7 +200,7 @@ function lfb_get_user_ip_addres(){
           else if(getenv('REMOTE_ADDR'))
               $ipaddress = getenv('REMOTE_ADDR');
           else
-              $ipaddress = 'UNKNOWN';
+              $ipaddress = esc_html__('UNKNOWN','lead-form-builder');
           return $ipaddress;
     }
 

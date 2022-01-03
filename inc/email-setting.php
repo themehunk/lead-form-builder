@@ -94,7 +94,7 @@ Class LFB_EmailSettingForm {
             $usermail_setting_from = $usermail_setting_result['user_email_setting']['from'];
             $usermail_setting_subject = $usermail_setting_result['user_email_setting']['subject'];
             $usermail_setting_message = $usermail_setting_result['user_email_setting']['message'];
-            $usermail_setting_option = $usermail_setting_result['user-email-setting-option'];
+            $usermail_setting_option = $usermail_setting_result['user_email_setting']['user-email-setting-option'];
             $usermail_setting_header = (isset($usermail_setting_result['user_email_setting']['header']))?$usermail_setting_result['user_email_setting']['header']:$usermail_setting_header;
 
             
@@ -133,12 +133,12 @@ echo "<form id='form-user-email-setting' action='' method='post'>
                 <tr>
                 <th scope='row'><label for='user-email-setting'></th>
                 <td>
-                <p><input type='radio' name='user-email-setting-option' " . ($usermail_setting_option == 'ON' ? 'checked' : '' ) . " value='ON'><span>".esc_html__('Send email to user when submit form.','lead-form-builder')." </span></p>
-                <p><input type='radio' name='user-email-setting-option' " . ($usermail_setting_option == 'OFF' ? 'checked' : '' ) . " value='OFF'><span>".esc_html__("Don't Send.",'lead-form-builder')." </span></p>
+                <p><input type='radio' name='user_email_setting[user-email-setting-option]' " . ($usermail_setting_option == 'ON' ? 'checked' : '' ) . " value='".esc_html__('ON','lead-form-builder')."'><span>".esc_html__('Send email to user when submit form.','lead-form-builder')." </span></p>
+                <p><input type='radio' name='user_email_setting[user-email-setting-option]' " . ($usermail_setting_option == 'OFF' ? 'checked' : '' ) . " value='".esc_html__('OFF','lead-form-builder')."'><span>".esc_html__("Don't Send.",'lead-form-builder')." </span></p>
                 </td></tr>
                 <tr>
                     <td><input type='hidden' name='user_email_setting[form-id]' required value='" . $this_form_id . "'> 
-                    <input type='submit' class='button-primary' id='button' value='Save'></p>
+                    <input type='submit' class='button-primary' id='button' value='".esc_html__('Save','lead-form-builder')."'></p>
                     </td>
                 </tr>
             </tbody></table> </div>
@@ -160,7 +160,7 @@ echo "<form id='form-user-email-setting' action='' method='post'>
 <div class="card" id="recaptcha">
 <div class="infobox">
 <h2>'.esc_html__('Setup Captcha','lead-form-builder').'</h2><br>
-<a href="https://www.google.com/recaptcha/intro/index.html" target="_blank">Get your Keys</a></div>
+<a href="https://www.google.com/recaptcha/intro/index.html" target="_blank">'.esc_html__('Get your Keys','lead-form-builder').'</a></div>
 <br class="clear">
 <div class="inside">
 <p>'.esc_html__('reCAPTCHA is a free service to protect your website from spam and abuse.','lead-form-builder').'</p>
@@ -178,7 +178,7 @@ echo "<form id='form-user-email-setting' action='' method='post'>
 </tbody>
 </table>
 <input type="hidden" name="captcha-keys" required value="' . $this_form_id . '">
-<p class="submit"><input type="submit" class="button button-primary" id="captcha_save_settings" value="Save" name="submit"></p>
+<p class="submit"><input type="submit" class="button button-primary" id="captcha_save_settings" value="'.esc_html('Save','lead-form-builder').'" name="submit"></p>
 </form><br/>
 <div id="error-message-captcha-key"></div>
 </div>
@@ -189,7 +189,7 @@ echo "<form id='form-user-email-setting' action='' method='post'>
            <div class="card">
                 <form name="" id="captcha-on-off-setting" method="post" action="">
                 <h2>'.esc_html__(' Captcha On/Off Option','lead-form-builder').'</h2>
-                <p><input type="radio" name="captcha-on-off-setting" ' . ($captcha_option_val == "ON" ? 'checked' : "" ) . ' value="ON"><span>'.esc_html__('Enable','lead-form-builder').' </span></p>
+                <p><input type="radio" name="captcha-on-off-setting" ' . ($captcha_option_val == "ON" ? 'checked' : "" ) . ' value="'.esc_html('ON').'"><span>'.esc_html__('Enable','lead-form-builder').' </span></p>
                 <p><input type="radio" name="captcha-on-off-setting" ' . ($captcha_option_val == "OFF" ? 'checked' : "" ) . ' value="OFF"><span>'.esc_html__('Disable','lead-form-builder').' </span></p>
                 <p><input type="submit" class="button button-primary" id="captcha_on_off_form_id" value="Save"></p>
                 <input type="hidden" name="captcha_on_off_form_id" required value="' . $this_form_id . '">
@@ -209,11 +209,11 @@ echo "<form id='form-user-email-setting' action='' method='post'>
         echo '<div class="inside setting_section lead-receiving">
            <div class="card">
                 <form name="" id="lead-email-setting" method="post" action="">
-                <h2>Lead Receiving Method</h2>
+                <h2>'.esc_html__('Lead Receiving Method','lead-form-builder').'</h2>
                 <p><input type="radio" name="data-recieve-method" ' . ($lead_store_option == 1 ? 'checked' : "" ) . ' value="1"><span>'.esc_html__('Receive Leads in Email','lead-form-builder').' </span></p>
                 <p><input type="radio" name="data-recieve-method" ' . ($lead_store_option == 2 ? 'checked' : "" ) . ' value="2"><span>'.esc_html__('Save Leads in database (you can see all leads in the lead option)','lead-form-builder').' </span></p>
                 <p><input type="radio" name="data-recieve-method" ' . ($lead_store_option == 3 ? 'checked' : "" ) . ' value="3"><span>'.esc_html__('Receive Leads in Email and Save in database','lead-form-builder').'</span><br><span id="data-rec-met-err"></span></p>
-                <p><input type="submit" class="button button-primary" id="advance_lead_setting" value="Update"></p>
+                <p><input type="submit" class="button button-primary" id="advance_lead_setting" value="'.esc_html('Update').'"></p>
                 <input type="hidden" name="action-lead-setting" value="' . $this_form_id . '">    
                 </form><br/>
 <div id="error-message-lead-store"></div>          
@@ -230,7 +230,7 @@ echo "<form id='form-user-email-setting' action='' method='post'>
             $successMsg = isset($multidata['lfb_success_msg'])?$multidata['lfb_success_msg']:'';
             $redirectUrl = isset($multidata['lfb_redirect_url'])?$multidata['lfb_redirect_url']:'';
         }else{
-            $successMsg =__("Thank You ...",'lead-form-builder');
+            $successMsg =esc_html__("Thank You ...",'lead-form-builder');
             $redirectUrl = '';
         }
             echo '<div class="inside setting_section lead-form-setting">
