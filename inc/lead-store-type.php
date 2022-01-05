@@ -66,7 +66,7 @@ function lfb_phpmailer_send($phpmailer){
 
                         $upload_filename = isset($form_data[$key]['filename'])?$form_data[$key]['filename']:$form_data[$key]['error'];
 
-                      $upload = isset($form_data[$key]['url'])?'<a target="_blank" href="'.$form_data[$key]["url"].'">'.$upload_filename.'</a>':$upload_filename;
+                      $upload = isset($form_data[$key]['url'])?'<a target="_blank" href="'.esc_url($form_data[$key]["url"]).'">'.$upload_filename.'</a>':$upload_filename;
 
                         $table .='<tr style="'.$trnth.'" ><td style="padding:8px;" ><strong>'.$value.'</strong></td><td style="padding:8px;" >'.$upload.'</td></tr>';
 
@@ -105,7 +105,7 @@ function lfb_phpmailer_send($phpmailer){
          $shortcodes_a =  '[lf-new-form-data]';
          $shortcodes_b =  $form_entry_data;               
          $new_message = '';
-         $new_message = ($message=='')?'New Leads':str_replace($shortcodes_a, $shortcodes_b, $message);
+         $new_message = ($message=='')?esc_html('New Leads'):str_replace($shortcodes_a, $shortcodes_b, $message);
 
          $headers[] = "From:".$header." <".$mail_setting['email_setting']['from'].">";
           $headers[] = "Reply-To:".$header." <".$reply_to.">";

@@ -91,7 +91,7 @@ $nonce = wp_create_nonce( '_nonce_verify' );
                     <div id='post-body-content'>
                         <div id='titlediv'>
                             <div id='titlewrap'>
-                                <input type='text' class='new_form_heading' name='post_title' placeholder='Enter title here' value='' size='30' id='title' spellcheck='true' autocomplete='off'></div><!-- #titlewrap -->
+                                <input type='text' class='new_form_heading' name='post_title' placeholder='".esc_html__('Enter title here','lead-form-builder')."' value='' size='30' id='title' spellcheck='true' autocomplete='off'></div><!-- #titlewrap -->
                                 <input type='hidden' name = '_wpnonce' value='".$nonce."' />
                             <div class='inside'>
                             </div>

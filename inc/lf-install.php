@@ -150,7 +150,7 @@ function lfb_add_contact_forms() {
       'form_data' => maybe_serialize($data_form)
     ), 
     array( 'id' => $update_form_id ));
-    $rd_url = admin_url().'admin.php?page=add-new-form&action=edit&redirect=update&formid='.$update_form_id;
+    $rd_url = esc_url(admin_url().'admin.php?page=add-new-form&action=edit&redirect=update&formid='.$update_form_id);
     $complete_url = wp_nonce_url($rd_url);
   }
 

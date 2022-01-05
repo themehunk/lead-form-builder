@@ -252,7 +252,7 @@ function lfb_lead_form_value($form_data,$fieldIdNew,$fieldData,$leadscount){
 
                     $upload_filename = isset($form_data[$value]['filename'])?$form_data[$value]['filename']:$form_data[$value]['error'];
 
-                  $upload = isset($form_data[$value]['url'])?'<a target="_blank" href="'.$form_data[$value]["url"].'">'.$upload_filename.'</a>':$upload_filename;
+                  $upload = isset($form_data[$value]['url'])?'<a target="_blank" href="'.esc_url($form_data[$value]["url"]).'">'.$upload_filename.'</a>':$upload_filename;
 
                   if($leadscount >= $count){
                     $table_row  .= '<td>'.$upload.'</td>';

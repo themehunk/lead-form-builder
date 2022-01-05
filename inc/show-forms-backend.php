@@ -7,8 +7,8 @@ Class LFB_SHOW_FORMS {
     }
     function lfb_show_all_forms($id) {
         $lfb_admin_url = admin_url();
-        echo '<div class="wrap show-all-form"> <a class="button_lfb" target="_blank" href="//themehunk.com/product/lead-form-builder-pro/">'.esc_html__('Get Pro Version','lead-form-builder').' </a>
-<h1>'.esc_html__('Lead Forms Builder','lead-form-builder').' <a href="' . $lfb_admin_url . 'admin.php?page=add-new-form&_wpnonce='.$this->lfb_show_form_nonce().'" class="add-new-h2">'.esc_html__("Add New","lead-form-builder").'</a></h1>
+        echo '<div class="wrap show-all-form"> <a class="button_lfb" target="_blank" href="'.esc_url('//themehunk.com/product/lead-form-builder-pro/').'">'.esc_html__('Get Pro Version','lead-form-builder').' </a>
+<h1>'.esc_html__('Lead Forms Builder','lead-form-builder').' <a href="' . esc_url($lfb_admin_url . 'admin.php?page=add-new-form&_wpnonce='.$this->lfb_show_form_nonce()).'" class="add-new-h2">'.esc_html__("Add New","lead-form-builder").'</a></h1>
 <div>
 <table class="wp-list-table widefat fixed striped posts ">
 	<thead>
@@ -59,29 +59,29 @@ Class LFB_SHOW_FORMS {
         $advance_adons =$lfb_admin_url . 'admin.php?page=lfb-form-extension&fname=' . $form_title.'&fid=' . $form_id.'&_wpnonce='.$this->lfb_show_form_nonce();
         $form_color = $lfb_admin_url . 'admin.php?page=wplf-plugin-menu&action=show&formid=' . $form_id;
 
-        echo '<tr><td class="title column-title has-row-actions column-primary" data-colname="Title"><strong>' . $form_count . '.  <a class="row-title" href="'.$edit_url_nonce. '" title="Edit “' . $form_title . '”">' . $form_title . '</a></strong>
-		<div class="row-actions"><span class="edit"><a href="' . $edit_url_nonce. '">Edit</a></span>|<span class="edit"><a href="' . $lfb_admin_url . 'admin.php?page=wplf-plugin-menu&action=delete&page_id='.$id.'&formid=' . $form_id . '">Delete</a></span>|<span class="edit"><a href="'.$form_color.'" target="_blank" >View Form</a></span>
+        echo '<tr><td class="title column-title has-row-actions column-primary" data-colname="Title"><strong>' . $form_count . '.  <a class="row-title" href="'.esc_url($edit_url_nonce).'" title="Edit “' . esc_html($form_title) . '”">' . esc_html($form_title) . '</a></strong>
+		<div class="row-actions"><span class="edit"><a href="' . esc_url($edit_url_nonce). '">Edit</a></span>|<span class="edit"><a href="' . esc_url($lfb_admin_url) . 'admin.php?page=wplf-plugin-menu&action=delete&page_id='.$id.'&formid=' . $form_id . '">Delete</a></span>|<span class="edit"><a href="'.esc_url($form_color).'" target="_blank" >View Form</a></span>
 		</div>
 		<button type="button" class="toggle-row"><span class="screen-reader-text">'.esc_html__('Show more details','lead-form-builder').' </span></button>
 		<button type="button" class="toggle-row"><span class="screen-reader-text">'.esc_html__('Show more details','lead-form-builder').' </span></button>
 		</td>
 		<td class="shortcode column-shortcode" data-colname="Shortcode"><span class="shortcode">
-		<input type="text" onfocus="this.select();" readonly="readonly" value="[lead-form form-id=' . $form_id . ' title=' . $form_title . ']" class="large-text code"></span>
+		<input type="text" onfocus="this.select();" readonly="readonly" value="[lead-form form-id=' . intval($form_id) . ' title=' . esc_html($form_title) . ']" class="large-text code"></span>
 		</td>
 
 		<td class="form-date column-form-date" data-colname="Form-date">
-		<abbr><a href="' . $lfb_admin_url . 'admin.php?page=wplf-plugin-menu&action=today_leads&formid=' . $form_id . '" target="_blank"><div class="lfb-counter">' . $lead_count . '</div></a></abbr>
+		<abbr><a href="' . esc_url($lfb_admin_url)  . 'admin.php?page=wplf-plugin-menu&action=today_leads&formid=' . $form_id . '" target="_blank"><div class="lfb-counter">' . intval($lead_count) . '</div></a></abbr>
 		</td>
 		<td class="form-date column-form-date" data-colname="Form-date">
-		<abbr><a href="' . $lfb_admin_url . 'admin.php?page=wplf-plugin-menu&action=total_leads&formid=' . $form_id . '" target="_blank"><div class="lfb-counter">' . $total_lead_result . '</div></a></abbr>
+		<abbr><a href="' . esc_url($lfb_admin_url)  . 'admin.php?page=wplf-plugin-menu&action=total_leads&formid=' . intval($form_id) . '" target="_blank"><div class="lfb-counter">' . intval($total_lead_result) . '</div></a></abbr>
 		</td>
         <td class="form-config column-form-date" data-colname="Form-date">
-        <abbr title="Configure"><button data-dropdown="#lfb-dropdown-with-'.$form_id.'" class="lfb-dropdown-btn">Form Settings</button>
+        <abbr title="Configure"><button data-dropdown="#lfb-dropdown-with-'.intval($form_id).'" class="lfb-dropdown-btn">Form Settings</button>
 </abbr>
-        <div class="dropdown-menu dropdown-anchor-top-left dropdown-has-anchor" id="lfb-dropdown-with-'.$form_id.'">
+        <div class="dropdown-menu dropdown-anchor-top-left dropdown-has-anchor" id="lfb-dropdown-with-'.intval($form_id).'">
     <ul>
-        <li><a href="'.$edit_url_nonce.'&email-setting"><i class="fa fa-envelope-o" aria-hidden="true"></i>
- '.esc_html__('Email Notification (Auto-responders).','lead-form-builder').' </a></li>
+        <li><a href="'.esc_url($edit_url_nonce).'&email-setting"><i class="fa fa-envelope-o" aria-hidden="true"></i>
+ '.esc_html__('Email Notification (Auto-responders)','lead-form-builder').' </a></li>
                 <li class="divider"></li>
         <li><a href="#"><i class="fa fa-repeat" aria-hidden="true"></i>
 '.esc_html__('Form Redirction Option','lead-form-builder').LFB_FORM_PRO_FEATURE.'</li>
@@ -90,9 +90,7 @@ Class LFB_SHOW_FORMS {
                 <li class="divider"></li>
 
         <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>
- '.esc_html__('Form Submit (Thank You Message)','lead-form-builder').' <span class="pro-feature"><i class="fa fa-lock"></i>
-
- '.esc_html__('Pro Feature','lead-form-builder').'<span></a></li>
+ '.esc_html__('Form Submit (Thank You Message)','lead-form-builder').' <span class="pro-feature"><i class="fa fa-lock"></i>'.esc_html__('Pro Feature','lead-form-builder').'<span></a></li>
  <li><a href="'.$edit_url_nonce.'&captcha-setting"><img width="18px" src="'.LFB_FORM_CAPTCHA_SVG.'" title="Form Import">
 '.esc_html__('Spam Protection (Google Captcha)','lead-form-builder').'</a>';
 
@@ -100,14 +98,14 @@ if ( get_option('captcha-setting-sitekey') !== false ) {
 
        $on_status = ($captcha_status=='OFF')?'value="ON"': 'checked value="OFF"';
         echo '<div class="onoffswitch">
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id ="lf-column-captcha-'.$form_id.'"  '.$on_status.'>
-                    <label class="onoffswitch-label" for="lf-column-captcha-'.$form_id.'">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id ="lf-column-captcha-'.intval($form_id).'"  '.$on_status.'>
+                    <label class="onoffswitch-label" for="lf-column-captcha-'.intval($form_id).'">
                     <span class="onoffswitch-inner"></span>
                     <span class="onoffswitch-switch"></span>
                     </label>
             </div>';
 }else{
-       echo '<span title="' . $captcha_status . '">'.esc_html__('Missing Keys','lead-form-builder').'</span>';
+       echo '<span title="' . esc_html($captcha_status) . '">'.esc_html__('Missing Keys','lead-form-builder').'</span>';
 }
         
         echo '</li>
@@ -116,7 +114,7 @@ if ( get_option('captcha-setting-sitekey') !== false ) {
         </td>
 
         <td class="form-config column-form-date" data-colname="Form-date">
-         <div class="dropdown-menu dropdown-anchor-top-left dropdown-has-anchor" id="dropdown-with-adon-'.$form_id.'">
+         <div class="dropdown-menu dropdown-anchor-top-left dropdown-has-anchor" id="dropdown-with-adon-'.intval($form_id).'">
     <ul>
         
 <li><a href="#"><img width="18" src="'.LFB_FORM_COLOR_IMAGE.'" />
@@ -128,7 +126,7 @@ Form Color Customize'.LFB_FORM_PRO_FEATURE.'</li>
 <li class="divider"></li>
 
         <li><a href=""><img width="18px" src="'.LFB_SMTP_IMAGE.'" title="'.esc_html__("SMTP Configure","lead-form-builder").'">
-SMTP Adon Settings <span class="pro-feature"><i class="fa fa-lock"></i>
+'.esc_html__('SMTP Adon Settings','lead-form-builder').'<span class="pro-feature"><i class="fa fa-lock"></i>
  '.esc_html__('Pro Feature','lead-form-builder').'<span> </a></li>
 <li class="divider"></li>
 
@@ -146,7 +144,7 @@ Form Import '.LFB_FORM_PRO_FEATURE.'</a></li>
 
     </ul>
 </div>
-<button data-dropdown="#dropdown-with-adon-'.$form_id.'" class="lfb-dropdown-btn">'.esc_html__("View Add-Ons","lead-form-builder").'</button>
+<button data-dropdown="#dropdown-with-adon-'.intval($form_id).'" class="lfb-dropdown-btn">'.esc_html__("View Add-Ons","lead-form-builder").'</button>
 
 </td>
 

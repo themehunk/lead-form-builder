@@ -88,9 +88,8 @@ Class LFB_EDIT_DEL_FORM {
 
                 }
 
-
         echo '<div class="wrap">
-        <h2> Edit From</h2>'.$form_message.'
+        <h2> Edit From</h2>'.wp_kses($form_message,$this->_alowed_tags()).'
         <h2 class="nav-tab-wrapper">
             <a class="nav-tab edit-lead-form '.esc_attr($_active).'" href="#">'.esc_html__("Edit Form","lead-form-builder").'</a>
             <a class="nav-tab lead-form-email-setting  '.esc_attr($email_active).'" href="#">'.esc_html__("Email Setting","lead-form-builder").'</a>
@@ -101,7 +100,7 @@ Class LFB_EDIT_DEL_FORM {
         <span class="back-arrow"><a href="'.admin_url('?page=wplf-plugin-menu').'" ><img width ="18" src="'.LFB_FORM_BACK_SVG.'" ></a></span>
             <section><div class="wrap">
         <h1>Heading</h1>
-        <form method="post" action="'.$update_url.'" id="new_lead_form">
+        <form method="post" action="'.esc_url($update_url).'" id="new_lead_form">
             <div id="poststuff">
                 <div id="post-body">
                     <div id="post-body-content">

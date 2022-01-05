@@ -45,37 +45,37 @@ Class LFB_EmailSettingForm {
         <table class='form-table'>
             <tbody>
                 <tr><th scope='row'><label for='email_setting_to'>To".LFB_REQUIRED_SIGN."</label></th>
-                    <td><input name='email_setting[to]' required type='email' id='email_setting_to' value='" . $mail_setting_to . "' class='regular-text'>
+                    <td><input name='email_setting[to]' required type='email' id='email_setting_to' value='" . esc_html($mail_setting_to) . "' class='regular-text'>
                         <p class='description' id='from-description'>".esc_html__('To address for emails.','lead-form-builder')."</p></td>
                 </tr>
                 <tr><th scope='row'><label for='multiemail_setting_from'>".esc_html__('Multiple Email Recieved','lead-form-builder')."</label></th>
                     <td>
-                    <textarea name='email_setting[multiple]' id='email_setting_message' rows='2' cols='46'>" . $multi_mail . "</textarea></label>
+                    <textarea name='email_setting[multiple]' id='email_setting_message' rows='2' cols='46'>" . esc_html($multi_mail) . "</textarea></label>
                         <p class='description' id='message-description'>".esc_html__('Multiple Email: Comma separated emails. ','lead-form-builder')."<b> ".esc_html__('like: abc@gmail.com,xyz@yahoo.com,abc@yahoo.com','lead-form-builder')."</b></p></td>
                 </tr>
                 <tr><th scope='row'><label for='email_setting_from'>From".LFB_REQUIRED_SIGN."</label></th>
-                    <td><input name='email_setting[from]' required type='email' id='email_setting_from' value='" . $mail_setting_from . "' class='regular-text'>
+                    <td><input name='email_setting[from]' required type='email' id='email_setting_from' value='" . esc_html($mail_setting_from) . "' class='regular-text'>
                         <p class='description' id='from-description'>".esc_html__('From address for emails.','lead-form-builder')."</p></td>
                 </tr>
                 <tr>
                     <th scope='row'><label for='email_setting_header'>Header".LFB_REQUIRED_SIGN."</label></th>
-                    <td><input name='email_setting[header]' type='text' id='email_setting_header' value='" . $mail_setting_header . "' class='regular-text' required>
+                    <td><input name='email_setting[header]' type='text' id='email_setting_header' value='" . esc_html($mail_setting_header) . "' class='regular-text' required>
                         <p class='description' id='header-description'>".esc_html__('Your emails header line.','lead-form-builder')."</p></td>
                 </tr>
                 <tr>
                     <th scope='row'><label for='email_setting_subject'>Subject".LFB_REQUIRED_SIGN."</label></th>
-                    <td><input name='email_setting[subject]' type='text' id='email_setting_subject' value='" . $mail_setting_subject . "' class='regular-text' required>
+                    <td><input name='email_setting[subject]' type='text' id='email_setting_subject' value='" . esc_html($mail_setting_subject) . "' class='regular-text' required>
                         <p class='description' id='subject-description'>".esc_html__('Your emails subject line.','lead-form-builder')." </p></td>
                 </tr>
                 <tr>
                     <th scope='row'><label for='email_setting_message'>Message".LFB_REQUIRED_SIGN."</th>
                     <td>
-                        <textarea name='email_setting[message]' id='email_setting_message' rows='5' cols='46' required>" . $mail_setting_message . "</textarea></label>
+                        <textarea name='email_setting[message]' id='email_setting_message' rows='5' cols='46' required>" . esc_html($mail_setting_message) . "</textarea></label>
                         <p class='description' id='message-description'>".esc_html__('Type your message here.','lead-form-builder')."<br/> ".esc_html__('Use This code','lead-form-builder')." </i><b> [lf-new-form-data] </b></i> ".esc_html__('in your message box to get all form entries in email.','lead-form-builder')." </p></td>
                     </td>
                 </tr>
                 <tr>
-                    <td><input type='hidden' name='email_setting[form-id]' required value='" . $this_form_id . "'> 
+                    <td><input type='hidden' name='email_setting[form-id]' required value='" . intval($this_form_id) . "'> 
                     <input type='submit' class='button-primary' id='button' value='Save'></p>
                     </td>
                 </tr>
@@ -109,24 +109,24 @@ echo "<form id='form-user-email-setting' action='' method='post'>
         <table class='form-table'>
             <tbody>
                 <tr><th scope='row'><label for='user_email_setting_from'>From".LFB_REQUIRED_SIGN."</label></th>
-                    <td><input name='user_email_setting[from]' required type='email' id='user_email_setting_from' value='" . $usermail_setting_from . "' class='regular-text'>
+                    <td><input name='user_email_setting[from]' required type='email' id='user_email_setting_from' value='" . esc_html($usermail_setting_from) . "' class='regular-text'>
                         <p class='description' id='from-description'>".esc_html__('From address for emails.','lead-form-builder')." </p></td>
                 </tr>
 
                 <tr>
                     <th scope='row'><label for='user_email_setting_header'>Header".LFB_REQUIRED_SIGN."</label></th>
-                    <td><input name='user_email_setting[header]' required type='text' id='user_email_setting_header' value='" . $usermail_setting_header . "' class='regular-text'>
+                    <td><input name='user_email_setting[header]' required type='text' id='user_email_setting_header' value='" . esc_html($usermail_setting_header) . "' class='regular-text'>
                         <p class='description' id='header-description'>".esc_html__('Your emails header line.','lead-form-builder')."</p></td>
                 </tr>
                 <tr>
                     <th scope='row'><label for='user_email_setting_subject'>Subject".LFB_REQUIRED_SIGN."</label></th>
-                    <td><input name='user_email_setting[subject]' required type='text' id='user_email_setting_subject' value='" . $usermail_setting_subject . "' class='regular-text'>
+                    <td><input name='user_email_setting[subject]' required type='text' id='user_email_setting_subject' value='" . esc_html($usermail_setting_subject) . "' class='regular-text'>
                         <p class='description' id='subject-description'>".esc_html__('Your emails subject line.','lead-form-builder')." </p></td>
                 </tr>
                 <tr>
                     <th scope='row'><label for='user_email_setting_message'>Message".LFB_REQUIRED_SIGN."</th>
                     <td>
-                        <textarea name='user_email_setting[message]' id='user_email_setting_message' rows='5' cols='46' required>" . $usermail_setting_message . "</textarea></label>
+                        <textarea name='user_email_setting[message]' id='user_email_setting_message' rows='5' cols='46' required>" . esc_html($usermail_setting_message) . "</textarea></label>
                         <p class='description' id='message-description'>".esc_html__('Type Your message here.','lead-form-builder')." <br/> ".esc_html__('Use This code.','lead-form-builder')."  </i><b> [lf-new-form-data] </b></i> ".esc_html__('in your message box to get all form entries in user email.','lead-form-builder')."  </i></p></td>
                     </td>
                 </tr>
@@ -169,15 +169,15 @@ echo "<form id='form-user-email-setting' action='' method='post'>
 <tbody>
 <tr>
     <th scope="row"><label for="sitekey">'.esc_html__('Site Key','lead-form-builder').' </label></th>
-    <td><input type="text" required value="' . $captcha_sitekey . '" id="sitekey" name="captcha-setting-sitekey" class="regular-text code"></td>
+    <td><input type="text" required value="' . esc_html($captcha_sitekey) . '" id="sitekey" name="captcha-setting-sitekey" class="regular-text code"></td>
 </tr>
 <tr>
     <th scope="row"><label for="secret">'.esc_html__('Secret Key','lead-form-builder').' </label></th>
-    <td><input type="text" required value="' . $captcha_secret . '" id="secret" name="captcha-setting-secret" class="regular-text code"></td>
+    <td><input type="text" required value="' . esc_html($captcha_secret) . '" id="secret" name="captcha-setting-secret" class="regular-text code"></td>
 </tr>
 </tbody>
 </table>
-<input type="hidden" name="captcha-keys" required value="' . $this_form_id . '">
+<input type="hidden" name="captcha-keys" required value="' . intval($this_form_id) . '">
 <p class="submit"><input type="submit" class="button button-primary" id="captcha_save_settings" value="'.esc_html('Save','lead-form-builder').'" name="submit"></p>
 </form><br/>
 <div id="error-message-captcha-key"></div>
@@ -192,7 +192,7 @@ echo "<form id='form-user-email-setting' action='' method='post'>
                 <p><input type="radio" name="captcha-on-off-setting" ' . ($captcha_option_val == "ON" ? 'checked' : "" ) . ' value="'.esc_html('ON').'"><span>'.esc_html__('Enable','lead-form-builder').' </span></p>
                 <p><input type="radio" name="captcha-on-off-setting" ' . ($captcha_option_val == "OFF" ? 'checked' : "" ) . ' value="OFF"><span>'.esc_html__('Disable','lead-form-builder').' </span></p>
                 <p><input type="submit" class="button button-primary" id="captcha_on_off_form_id" value="Save"></p>
-                <input type="hidden" name="captcha_on_off_form_id" required value="' . $this_form_id . '">
+                <input type="hidden" name="captcha_on_off_form_id" required value="' . intval($this_form_id) . '">
                 </form><br/>
 <div id="error-message-captcha-option"></div>            
             </div>
@@ -214,7 +214,7 @@ echo "<form id='form-user-email-setting' action='' method='post'>
                 <p><input type="radio" name="data-recieve-method" ' . ($lead_store_option == 2 ? 'checked' : "" ) . ' value="2"><span>'.esc_html__('Save Leads in database (you can see all leads in the lead option)','lead-form-builder').' </span></p>
                 <p><input type="radio" name="data-recieve-method" ' . ($lead_store_option == 3 ? 'checked' : "" ) . ' value="3"><span>'.esc_html__('Receive Leads in Email and Save in database','lead-form-builder').'</span><br><span id="data-rec-met-err"></span></p>
                 <p><input type="submit" class="button button-primary" id="advance_lead_setting" value="'.esc_html('Update').'"></p>
-                <input type="hidden" name="action-lead-setting" value="' . $this_form_id . '">    
+                <input type="hidden" name="action-lead-setting" value="' . intval($this_form_id) . '">    
                 </form><br/>
 <div id="error-message-lead-store"></div>          
             </div>
@@ -239,14 +239,14 @@ echo "<form id='form-user-email-setting' action='' method='post'>
                 <h2>'.esc_html__('Form submitting Message (Thankyou Message)','lead-form-builder').'</h2>
                 <div class="tablenav top">
                 <p>
-                 <textarea name="lfb_success_msg" id="lfb_success_msg">'.$successMsg.'</textarea> 
+                 <textarea name="lfb_success_msg" id="lfb_success_msg">'.esc_html($successMsg).'</textarea> 
                  <br/>                
                  <i>'.esc_html__('This message will display to the visitor at your site. After submitting form.','lead-form-builder').' </i>
 
                 </p>
                 <h2>Redirect Url</h2>
                 <p>
-                 <input name="lfb_redirect_url" id="lfb_redirect_url" value="'.$redirectUrl.'">
+                 <input name="lfb_redirect_url" id="lfb_redirect_url" value="'.esc_url($redirectUrl).'">
                  <p><i>'.esc_html__('Visitor will be redirected to this URL after submitting form.','lead-form-builder').' </i></p>
                  <i> '.esc_html__('Enter full url like : http://themehunk.com/thankyou','lead-form-builder').' </i>
                 </p>

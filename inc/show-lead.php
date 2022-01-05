@@ -4,16 +4,16 @@ Class LFB_Show_Leads {
 
 
 function expanded_alowed_tags() {
-    $my_allowed = wp_kses_allowed_html( 'post' );
+    $allowed = wp_kses_allowed_html( 'post' );
 
     // form fields - input
-    $my_allowed['a'] = array(
+    $allowed['a'] = array(
         'href' => array(),
         'class'    => array(),
         'onclick'  => array(),
     );
 // form fields - input
-    $my_allowed['input'] = array(
+    $allowed['input'] = array(
         'class' => array(),
         'id'    => array(),
         'name'  => array(),
@@ -22,7 +22,13 @@ function expanded_alowed_tags() {
         'onclick' => array(),
     );
 
-    return $my_allowed;
+
+        $allowed['option'] = array(
+            'value'    => array(),
+            'selected'   => array(),
+        );
+
+    return $allowed;
 }
 
 
@@ -51,8 +57,8 @@ function expanded_alowed_tags() {
         }
         echo '<div class="wrap"><div class="inside"><div class="card"><table class="form-table"><tbody><tr><th scope="row">
 <label for="select_form_lead">'.esc_html__('Select From','lead-form-builder').'</label></th>
-<td><select name="select_form_lead" id="select_form_lead">' . $option_form . '</select>
-<td><input type="button" value="Remember this form" onclick="remember_this_form_id();" id="remember_this_form_id"></td>
+<td><select name="select_form_lead" id="select_form_lead">' . wp_kses($option_form,$this->expanded_alowed_tags()) . '</select>
+<td><input type="button" value="'.esc_html__('Remember this form','lead-form-builder').'" onclick="remember_this_form_id();" id="remember_this_form_id"></td>
 </tr><tr><td><div id="remember_this_message" ></div></td></tr></tbody></table></div></div></div><div class="wrap" id="form-leads-show">';
 $this->lfb_show_leads_first_form($first_form_id);
 echo '</div>';
@@ -219,7 +225,7 @@ function lfb_show_leads_first_form($form_id){
             $popupTab   = '';
            
             if($headcount >= 6){
-                     $table_head .='<th> . . . </th><th><input type="button" onclick="show_all_leads(' . $id . ',' . $form_id . ')" value="Show all Columns"></th>';
+                     $table_head .='<th> . . . </th><th><input type="button" onclick="show_all_leads(' . $id . ',' . $form_id . ')" value="'.esc_html__('Show all Columns','lead-form-builder').'"></th>';
                 }
             foreach ($posts as $results) {
                 $table_row = '';

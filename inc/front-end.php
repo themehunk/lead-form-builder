@@ -178,7 +178,7 @@ Class LFB_Front_end_FORMS {
                         <div class="bounce3"></div>
                     </div>
                 </div>
-                </form><p style="display:none" redirect="'.$redirect_url.'" class="successmsg_'.$this_form_id.' successmsg">'.$success_msg.'</p></div>';
+                </form><p style="display:none" redirect="'.esc_url($redirect_url).'" class="successmsg_'.intval($this_form_id).' successmsg">'.esc_html($success_msg).'</p></div>';
                 
                 return $return;
 
