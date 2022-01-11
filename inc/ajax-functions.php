@@ -233,7 +233,7 @@ function lfb_ShowAllLeadThisForm() {
             $popupTab   = '';
 
             if($headcount >= 6 && $leadscount == 5){
-                     $table_head .='<th></th><th> . . . </th><th><input type="button" onclick="show_all_leads(' . $id . ',' . $form_id . ')" value="Show all Columns"></th>';
+                     $table_head .='<th></th><th> . . . </th><th><input type="button" onclick="show_all_leads(' . intval($id) . ',' . intval($form_id) . ')" value="Show all Columns"></th>';
                 }
             
         foreach ($posts as $results) {
@@ -298,7 +298,7 @@ function lfb_ShowAllLeadThisForm() {
                 if ($i == $id) {
                     echo "<li class='lf-current'><a href='#'>" . intval($i) . "</a></li>";
                 } else {
-                    echo "<li><a href='' onclick='lead_pagi_view(" . intval($i) . "," . intval($form_id) . ")'>" . $i . "</a></li>";
+                    echo "<li><a href='' onclick='lead_pagi_view(" . intval($i) . "," . intval($form_id) . ")'>" . intval($i) . "</a></li>";
                 }
             }
             echo '</ul>';
@@ -565,9 +565,9 @@ function lfb_ShowAllLeadThisFormDate() {
             echo "<ul class='page'>";
             for ($i = 1; $i <= $total; $i++) {
                 if ($i == $id) {
-                    echo "<li class='lf-current'><a href='#'>" . $i . "</a></li>";
+                    echo "<li class='lf-current'><a>" . intval($i) . "</a></li>";
                 } else {
-                    echo "<li><a href='' onclick='lead_pagination_datewise(".intval($i).",".intval($form_id).",\"".$datewise."\");'>" . $i . "</a></li>";
+                    echo "<li><a href='' onclick='lead_pagination_datewise(".intval($i).",".intval($form_id).",\"".$datewise."\");'>" . intval($i) . "</a></li>";
                 }
             }
             echo '</ul>';

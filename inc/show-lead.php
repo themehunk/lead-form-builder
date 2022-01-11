@@ -155,10 +155,10 @@ function lfb_show_leads_first_form($form_id){
     
             $total = ceil($rows / $limit);
             if ($id > 1) {
-                echo wp_kses("<a href=''  onclick='lead_pagi_view(" . ($id - 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-left'></i></a>",$this->expanded_alowed_tags());
+                echo "<a href=''  onclick='lead_pagi_view(" . intval($id - 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-left'></i></a>";
             }
             if ($id != $total) {
-                echo wp_kses("<a href='' onclick='lead_pagi_view(" . ($id + 1) . "," . $form_id . ")' class='button'><i class='fa fa-chevron-right'></i></a>",$this->expanded_alowed_tags());
+                "<a href='' onclick='lead_pagi_view(" . intval($id + 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-right'></i></a>";
             }
             ?> <ul class='page'>
                 <?php
@@ -286,7 +286,7 @@ function lfb_show_leads_first_form($form_id){
                 if ($i == $id) {
                     ?> <li class='lf-current'><a href='#'><?php echo intval($i); ?></a></li> <?php
                 } else {
-                    echo "<li><a href='' onclick='lead_pagination_datewise(".intval($i).",".intval($form_id).",\"".esc_attr($leadtype)."\");'>" . $i . "</a></li>";
+                    echo "<li><a href='' onclick='lead_pagination_datewise(".intval($i).",".intval($form_id).",\"".esc_attr($leadtype)."\");'>" . intval($i) . "</a></li>";
                 }
             }
              ?></ul></div>

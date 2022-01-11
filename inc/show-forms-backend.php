@@ -80,18 +80,18 @@ Class LFB_SHOW_FORMS {
 </abbr>
         <div class="dropdown-menu dropdown-anchor-top-left dropdown-has-anchor" id="lfb-dropdown-with-'.intval($form_id).'">
     <ul>
-        <li><a href="'.esc_url($edit_url_nonce).'&email-setting"><i class="fa fa-envelope-o" aria-hidden="true"></i>
+        <li><a href="'.esc_url($edit_url_nonce.'&email-setting').'"><i class="fa fa-envelope-o" aria-hidden="true"></i>
  '.esc_html__('Email Notification (Auto-responders)','lead-form-builder').' </a></li>
                 <li class="divider"></li>
         <li><a href="#"><i class="fa fa-repeat" aria-hidden="true"></i>
 '.esc_html__('Form Redirction Option','lead-form-builder').LFB_FORM_PRO_FEATURE.'</li>
         <li class="divider"></li>
-        <li><a href="'.$edit_url_nonce.'&form-setting"> <i class="fa fa-bullhorn" aria-hidden="true"></i> '.esc_html__('Lead Receiving Method (Email, Database, Both).','lead-form-builder').' </a></li>
+        <li><a href="'.esc_url($edit_url_nonce.'&form-setting').'"> <i class="fa fa-bullhorn" aria-hidden="true"></i> '.esc_html__('Lead Receiving Method (Email, Database, Both).','lead-form-builder').' </a></li>
                 <li class="divider"></li>
 
         <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>
  '.esc_html__('Form Submit (Thank You Message)','lead-form-builder').' <span class="pro-feature"><i class="fa fa-lock"></i>'.esc_html__('Pro Feature','lead-form-builder').'<span></a></li>
- <li><a href="'.$edit_url_nonce.'&captcha-setting"><img width="18px" src="'.LFB_FORM_CAPTCHA_SVG.'" title="Form Import">
+ <li><a href="'.esc_url($edit_url_nonce.'&captcha-setting').'"><img width="18px" src="'.LFB_FORM_CAPTCHA_SVG.'" title="Form Import">
 '.esc_html__('Spam Protection (Google Captcha)','lead-form-builder').'</a>';
 
 if ( get_option('captcha-setting-sitekey') !== false ) {
@@ -121,7 +121,7 @@ if ( get_option('captcha-setting-sitekey') !== false ) {
 Form Color Customize'.LFB_FORM_PRO_FEATURE.'</li>
 <li class="divider"></li>
 
-        <li><a href="#"><img width="18px" src="'.LFB_MCPI_IMAGE.'" title="'.esc_html__("Mailchimp"."lead-form-builder").'">
+        <li><a><img width="18px" src="'.LFB_MCPI_IMAGE.'" title="'.esc_html__("Mailchimp"."lead-form-builder").'">
 '.esc_html__('Mailchimp Adon Settings','lead-form-builder').LFB_FORM_PRO_FEATURE.'</li>
 <li class="divider"></li>
 
@@ -172,7 +172,7 @@ Form Import '.LFB_FORM_PRO_FEATURE.'</a></li>
                 if ($i == $id) {
                     echo "<li class='lf-current'><a href='#'>" . intval($i) . "</a></li>";
                 } else {
-                    echo "<li><a href='". esc_url($lfb_admin_url . "admin.php?page=wplf-plugin-menu&page_id=" .$i ). "'>" . $i . "</a></li>";
+                    echo "<li><a href='". esc_url($lfb_admin_url . "admin.php?page=wplf-plugin-menu&page_id=" .intval($i) ). "'>" . intval($i) . "</a></li>";
                 }
             }
              echo '</ul>';
