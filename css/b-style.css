@@ -506,10 +506,9 @@ content:"\f067";
 #add_radio .button.lf_minus, 
 #add_option .button.lf_minus, 
 #add_checkbox .button.lf_minus {
-background: none;
-padding: 0 8px 1px;
-color:#bf2626;
-box-shadow:none;
+     color: #ffffff;
+    background: #ff4545;
+    box-shadow: none;
 }
 /*#add_radio .button.lf_minus, 
 #add_option .button.lf_minus, 
@@ -527,10 +526,9 @@ box-shadow:none;
 #add_radio .button.lf_plus, 
 #add_option .button.lf_plus, 
 #add_checkbox .button.lf_plus {
- color: #13A9F1;
-background:none;
-box-shadow:none;
-float: right;
+    color: #ffffff;
+    background: #08b52d;
+    box-shadow: none
 }
 @media screen and (-webkit-min-device-pixel-ratio:0)
   and (min-resolution:.001dpcm) {
@@ -565,8 +563,8 @@ margin-right: 5px\0/;
     color:#fff;
 }
 .inside.spth_setting_section .button.lf_remove{
-    background: #bf2626;
-    border:1px solid #bf2626;
+    background: #ff4545;
+    border:1px solid #ff4545;
     color:#fff;
     font-weight:bold;
 }

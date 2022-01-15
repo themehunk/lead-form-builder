@@ -2,13 +2,80 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 require_once('lf-db.php');
 require_once('edit-delete-form.php');
+
+function lfb_create_form_sanitize($form_data){
+
+        $fieldArr =array('name','email','message','dob','date','url','text','textarea','number','submit');
+        $field_rco =array('option','checkbox','radio');
+        foreach($form_data as $key=>$value){
+
+            if(in_array($value['field_type']['type'], $fieldArr)){
+                $form_data[$key]['field_name'] = sanitize_text_field($value['field_name']);
+                $form_data[$key]['default_value'] = sanitize_text_field($value['default_value']);
+                $form_data[$key]['field_id'] = intval($value['field_id']);
+
+                if(isset($value['default_placeholder'])){
+                $form_data[$key]['default_placeholder'] = intval($value['default_placeholder']);
+                }
+                 if(isset($value['is_required'])){
+                $form_data[$key]['is_required'] = intval($value['is_required']);
+
+                }
+
+            }elseif($value['field_type']['type']=='htmlfield'){
+                  $form_data[$key]['field_name'] = wp_kses_post($value['field_name']);
+                $form_data[$key]['default_value'] = wp_kses_post($value['default_value']);
+                $form_data[$key]['field_id'] = intval($value['field_id']);
+
+                 if(isset($value['is_required'])){
+                $form_data[$key]['is_required'] = intval($value['is_required']);
+
+                }
+            }elseif(in_array($value['field_type']['type'], $field_rco)){
+
+                        foreach ($value['field_type'] as $fkey => $fvalue) {
+
+                             $form_data[$key]['field_type'][$fkey] = sanitize_text_field($fvalue);
+                        }
+
+
+                 $form_data[$key]['field_name'] = sanitize_text_field($value['field_name']);
+                $form_data[$key]['field_id'] = intval($value['field_id']);
+
+
+                 if(isset($value['is_required'])){
+                $form_data[$key]['is_required'] = intval($value['is_required']);
+
+                }
+
+                // default value check radio , checkbox, option
+                     if(isset($form_data[$key]['default_value']['field']) && ($value['field_type']['type'] =='radio' || $value['field_type']['type'] =='option')){
+
+                    $form_data[$key]['default_value']['field'] = intval($value['default_value']['field']);
+
+                     } elseif(isset($form_data[$key]['default_value']['field']) && ($value['field_type']['type'] =='checkbox') ){
+                        foreach ($form_data[$key]['default_value'] as $ckey => $cvalue) {
+
+                             $form_data[$key]['default_value'][$ckey] = intval($cvalue);
+                        }
+
+                     }
+
+            }
+        }
+
+        return $form_data;
+}
+
+
 if (sanitize_text_field(isset($_POST['save_form'])) && wp_verify_nonce($_REQUEST['_wpnonce'],'_nonce_verify')) {
     $form_data=isset($_POST['lfb_form'])?$_POST['lfb_form']:'';
+
     $title = sanitize_text_field($_POST['post_title']);
     unset($_POST['post_title']);
     unset($_POST['save_form']);
     unset($_POST['_wpnonce']);
-    $form_data= maybe_serialize($form_data);
+    $form_data= maybe_serialize(lfb_create_form_sanitize($form_data));
     global $wpdb;
     $table_name = LFB_FORM_FIELD_TBL;
 
@@ -17,7 +84,7 @@ $wpdb->query( $wpdb->prepare(
    $title, $form_data, date('Y/m/d g:i:s') ) );
 
     $rd_url = admin_url().'admin.php?page=add-new-form&action=edit&redirect=create&formid='.$wpdb->insert_id.'&_wpnonce='.$_REQUEST['_wpnonce'];
-    wp_redirect($rd_url);
+  //  wp_redirect($rd_url);
 }
 Class LFB_AddNewForm {
 function lfb_add_new_form(){

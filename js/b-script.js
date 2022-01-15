@@ -721,6 +721,7 @@ jQuery("form#form-user-email-setting").submit(function(event) {
         event.preventDefault();
         jQuery("#error-message-user-email-setting").find("div").remove();
         SaveByAjaxRequest(form_data, 'POST').success(function(response) {
+
          if(jQuery.trim(response)=='updated'|| jQuery.trim(response) ==''){
             jQuery("#error-message-user-email-setting").append("<div class='success'><p>Updated Succesfully..!!</p></div>");
             }else{

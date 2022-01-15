@@ -722,11 +722,25 @@ add_action('wp_ajax_RememberMeThisForm', 'lfb_RememberMeThisForm');
  * Save Email Settings
  */
 
+
+
+    function lfb_emailsettings_sanitize($email_settings){
+
+        $email_settings['from'] = sanitize_email($email_settings['from']);
+        $email_settings['header'] = sanitize_text_field($email_settings['header']);
+        $email_settings['subject'] = sanitize_text_field($email_settings['subject']);
+        $email_settings['message'] = sanitize_textarea_field($email_settings['message']);
+        $email_settings['user-email-setting-option'] = sanitize_text_field($email_settings['user-email-setting-option']);
+        $email_settings['form-id'] = intval($email_settings['form-id']);
+        return $email_settings;
+    }
+
 function lfb_SaveUserEmailSettings() {
     unset($_POST['action']);
         $mailArr = array();
         if(isset($_POST['user_email_setting'])){
-    $mailArr['user_email_setting'] =$_POST['user_email_setting'];
+    $mailArr['user_email_setting'] =lfb_emailsettings_sanitize($_POST['user_email_setting']);
+    
     $email_setting = maybe_serialize($mailArr);
     $this_form_id = intval($_POST['user_email_setting']['form-id']);
     global $wpdb;
