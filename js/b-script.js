@@ -753,7 +753,7 @@ jQuery("form#form-user-email-setting").submit(function(event) {
         form_data = form_data + "&action=SaveLeadSettings";
         jQuery("#error-message-lead-store").find("div").remove();
         SaveByAjaxRequest(form_data, 'POST').success(function(response) {
-            //alert(response);
+           // console.log(response);
              if(jQuery.trim(response)=='updated'||jQuery.trim(response)==''){
             jQuery("#error-message-lead-store").append("<div class='success'><p>Updated Succesfully..!!</p></div>");
             }else{

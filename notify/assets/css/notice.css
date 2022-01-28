@@ -15,7 +15,7 @@
     display: flex;
 }
 .th-notice-slide-wrap .thunk-review-thumbnail img{
-    width:500px;
+    width:100%;
     vertical-align: middle;
 }
 .th-notice-slide-wrap .thunk-review-thumbnail {

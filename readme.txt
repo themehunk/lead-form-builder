@@ -3,8 +3,8 @@ Contributors: ThemeHunk
 Author URI: : https://www.themehunk.com/
 Tags: contact form, responsive form, form builder, contact, email, captcha, registration, lead-form, field ordering, contact form builder, contact forms plugin, easy form, newsletter form, Responsive form, easy contact form, unlimited form, contact us, email send form, drag and drop contact form, form maker, widget contact form, view form simple form
 Requires at least: 5.5
-Tested up to: 5.8.3
-Stable tag: 1.7.2
+Tested up to: 5.9
+Stable tag: 1.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -123,6 +123,9 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 9. screenshot-6.png
 
 == Changelog ==
+= Version 1.7.3 =
+* Data save user permission and nonce bug fixed.
+* TH shop mania banner added.
 
 = Version 1.7.2 =
 * Sanitized issue fixed.

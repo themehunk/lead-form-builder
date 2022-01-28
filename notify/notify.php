@@ -13,9 +13,7 @@ class ThemeHunk_Notify{
 		if(isset($_GET['notice-disable']) && $_GET['notice-disable'] == true){
 		add_action('admin_init', array($this,'set_cookie'));
 		}
-
-
-		if(!isset($_COOKIE['thc_time'])) {
+		if(!isset($_COOKIE['thc_time']) && (isset($_GET['page']) && $_GET['page'] == 'wplf-plugin-menu')) {
 			 add_action( 'admin_notices', array($this,'notify'));
     	    add_action( 'admin_enqueue_scripts', array($this,'enqueue') );
 
