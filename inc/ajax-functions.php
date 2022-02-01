@@ -120,6 +120,10 @@ add_action('wp_ajax_SaveEmailSettings', 'lfb_save_email_settings');
 
 function lfb_save_captcha_settings()
 {
+    $nonce = $_POST['captcha_nonce'];
+
+    if (isset($_POST['captcha-keys'])  && lfb_user_permission_check() && wp_verify_nonce($nonce, 'captcha-nonce')) {
+
     $captcha_setting_sitekey = sanitize_key($_POST['captcha-setting-sitekey']);
     $captcha_setting_secret = sanitize_key($_POST['captcha-setting-secret']);
 
@@ -130,6 +134,7 @@ function lfb_save_captcha_settings()
         add_option('captcha-setting-sitekey', $captcha_setting_sitekey);
         add_option('captcha-setting-secret', $captcha_setting_secret);
     }
+}
     die();
 }
 
@@ -170,6 +175,9 @@ add_action('wp_ajax_delete_leads_backend', 'lfb_delete_leads_backend');
 
 function lfb_save_captcha_option()
 {
+    $nonce = $_POST['captcha_nonce'];
+if (isset($_POST['captcha_on_off_form_id'])  && lfb_user_permission_check() && wp_verify_nonce($nonce, 'captcha-nonce')) {
+
     $captcha_option = sanitize_text_field($_POST['captcha-on-off-setting']);
     $this_form_id = intval($_POST['captcha_on_off_form_id']);
     global $wpdb;
@@ -180,6 +188,7 @@ function lfb_save_captcha_option()
     if ($update_leads) {
         esc_html_e('updated', 'lead-form-builder');
     }
+}
     die();
 }
 
@@ -723,7 +732,9 @@ add_action('wp_ajax_nopriv_verifyFormCaptcha', 'lfb_verifyFormCaptcha');
 
 function lfb_RememberMeThisForm()
 {
-    if ((isset($_POST['form_id'])) && (!empty($_POST['form_id']))) {
+    $nonce = $_POST['rem_nonce'];
+
+    if (isset($_POST['form_id'])  && lfb_user_permission_check() && wp_verify_nonce($nonce, 'rem-nonce')) {
 
         $remember_me = intval($_POST['form_id']);
         if (get_option('lf-remember-me-show-lead') !== false) {
@@ -781,22 +792,3 @@ function lfb_SaveUserEmailSettings()
     die();
 }
 add_action('wp_ajax_SaveUserEmailSettings', 'lfb_SaveUserEmailSettings');
-
-/*
- * Save captcha status for form ON/OFF
- */
-
-function lfb_save_extension_onoff()
-{
-
-    if (isset($_POST['extension_onoff_value'])) :
-        $esxtname = intval($_POST['ext_name']);
-        $extonoff = ($_POST['extension_onoff_value'] == 'ON') ? 0 : 1;
-        $formid   = intval($_POST['extension_on_off_form_id']);
-        $lfbDb = new LFB_SAVE_DB();
-        $lfbDb->lfb_mcpi_update_onoff($formid, $esxtname, $extonoff);
-    endif;
-
-    die();
-}
-add_action('wp_ajax_SaveExtensionOption', 'lfb_save_extension_onoff');

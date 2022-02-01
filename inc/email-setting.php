@@ -158,6 +158,8 @@ class LFB_EmailSettingForm
 
     function lfb_captcha_setting_form($this_form_id, $captcha_option)
     {
+        $captcha_nonce = wp_create_nonce( 'captcha-nonce' );
+
         if (isset($captcha_option)) {
             $captcha_option_val = $captcha_option;
         } else {
@@ -187,6 +189,8 @@ class LFB_EmailSettingForm
 </tbody>
 </table>
 <input type="hidden" name="captcha-keys" required value="' . intval($this_form_id) . '">
+<input type="hidden" name="captcha_nonce" value="'.$captcha_nonce.'">
+
 <p class="submit"><input type="submit" class="button button-primary" id="captcha_save_settings" value="' . esc_html('Save', 'lead-form-builder') . '" name="submit"></p>
 </form><br/>
 <div id="error-message-captcha-key"></div>
@@ -202,6 +206,8 @@ class LFB_EmailSettingForm
                 <p><input type="radio" name="captcha-on-off-setting" ' . ($captcha_option_val == "OFF" ? 'checked' : "") . ' value="OFF"><span>' . esc_html__('Disable', 'lead-form-builder') . ' </span></p>
                 <p><input type="submit" class="button button-primary" id="captcha_on_off_form_id" value="Save"></p>
                 <input type="hidden" name="captcha_on_off_form_id" required value="' . intval($this_form_id) . '">
+                <input type="hidden" name="captcha_nonce" value="'.$captcha_nonce.'">
+
                 </form><br/>
 <div id="error-message-captcha-option"></div>            
             </div>

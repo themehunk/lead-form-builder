@@ -55,10 +55,12 @@ function expanded_alowed_tags() {
                 $option_form .= '<option ' . ($first_form_id == $form_id ? 'selected="selected"' : "" ) . ' value=' . $form_id . '>' . $form_title . '</option>';
             }
         }
+        $rem_nonce = wp_create_nonce( 'rem-nonce' );
+
         echo '<div class="wrap"><div class="inside"><div class="card"><table class="form-table"><tbody><tr><th scope="row">
 <label for="select_form_lead">'.esc_html__('Select From','lead-form-builder').'</label></th>
 <td><select name="select_form_lead" id="select_form_lead">' . wp_kses($option_form,$this->expanded_alowed_tags()) . '</select>
-<td><input type="button" value="'.esc_html__('Remember this form','lead-form-builder').'" onclick="remember_this_form_id();" id="remember_this_form_id"></td>
+<td><input rem_nonce = "'.$rem_nonce.'" type="button" value="'.esc_html__('Remember this form','lead-form-builder').'" onclick="remember_this_form_id();" id="remember_this_form_id"></td>
 </tr><tr><td><div id="remember_this_message" ></div></td></tr></tbody></table></div></div></div><div class="wrap" id="form-leads-show">';
 $this->lfb_show_leads_first_form($first_form_id);
 echo '</div>';

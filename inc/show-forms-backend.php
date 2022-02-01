@@ -93,21 +93,6 @@ Class LFB_SHOW_FORMS {
  '.esc_html__('Form Submit (Thank You Message)','lead-form-builder').' <span class="pro-feature"><i class="fa fa-lock"></i>'.esc_html__('Pro Feature','lead-form-builder').'<span></a></li>
  <li><a href="'.esc_url($edit_url_nonce.'&captcha-setting').'"><img width="18px" src="'.LFB_FORM_CAPTCHA_SVG.'" title="Form Import">
 '.esc_html__('Spam Protection (Google Captcha)','lead-form-builder').'</a>';
-
-if ( get_option('captcha-setting-sitekey') !== false ) {
-
-       $on_status = ($captcha_status=='OFF')?'value="ON"': 'checked value="OFF"';
-        echo '<div class="onoffswitch">
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id ="lf-column-captcha-'.intval($form_id).'"  '.$on_status.'>
-                    <label class="onoffswitch-label" for="lf-column-captcha-'.intval($form_id).'">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                    </label>
-            </div>';
-}else{
-       echo '<span title="' . esc_html($captcha_status) . '">'.esc_html__('Missing Keys','lead-form-builder').'</span>';
-}
-        
         echo '</li>
     </ul>
 </div>

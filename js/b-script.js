@@ -847,47 +847,16 @@ function show_all_leads(page_id,form_id){
 function remember_this_form_id(){
 if (confirm("OK to Remember?")) {
 var form_id = jQuery('#select_form_lead').val();
+var rem_nonce = jQuery('#remember_this_form_id').attr('rem_nonce');
 jQuery('#remember_this_message').find('div').remove();
-var form_data = "form_id=" + form_id + "&action=RememberMeThisForm";
+var form_data = "rem_nonce="+rem_nonce+"&form_id=" + form_id + "&action=RememberMeThisForm";
     SaveByAjaxRequest(form_data, 'POST').success(function(response) {
         if(jQuery.trim(form_id)==jQuery.trim(response)){
-       jQuery('#remember_this_message').append("<div><i>Saved Succesfully...!!</i></div>");
+       jQuery('#remember_this_message').append("<div><i>Saved</i></div>");
         }
     });
     }
 }
-
-// extension on off
-jQuery(function(){
-    jQuery(".onoffswitch-checkbox").click(function(){
-   // if (confirm("OK to Change?")) {
-        var this_catcha_status = jQuery(this).val();
-        jQuery(this).val('OFF');
-        if(jQuery.trim(this_catcha_status) == 'OFF'){
-        jQuery(this).val('ON');
-        }
-        var this_catcha_id = jQuery(this).attr("id"); 
-        var this_catcha_name = jQuery(this).attr("name"); 
-
-        if(jQuery.trim(this_catcha_name)=='onoffswitch'){
-        var this_catcha_id = this_catcha_id.substr(18);
-
-        var form_data = "captcha-on-off-setting=" + this_catcha_status + "&captcha_on_off_form_id=" + this_catcha_id + "&action=SaveCaptchaOption";
-            SaveByAjaxRequest(form_data, 'POST').success(function(response) {
-            });
-        }else if(jQuery.trim(this_catcha_name)=='extonoffswitch'){
-        var this_ext_name = jQuery(this).attr("extension"); 
-        var ext_data = "ext_name="+this_ext_name+"&extension_onoff_value=" + this_catcha_status + "&extension_on_off_form_id=" + this_catcha_id + "&action=SaveExtensionOption";
-        SaveByAjaxRequest(ext_data, 'POST').success(function(response) {
-            //alert(response);
-            });
-
-        }
-   // }
-    });
-});
-
-
 function SaveByAjaxRequest(data, method) {
     return jQuery.ajax({
         url: backendajax.ajaxurl,
