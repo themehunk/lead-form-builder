@@ -13,10 +13,10 @@ function get_plugin(){
 function tab_constant(){
     $theme_data = wp_get_theme();
     $tab_array = array();
-    $tab_array['header'] = array('theme_brand' => __('ThemeHunk','th-product-compare'),
+    $tab_array['header'] = array('theme_brand' => __('ThemeHunk','lead-form-builder'),
     'theme_brand_url' => esc_url($theme_data->get( 'AuthorURI' )),
-    'welcome'=>esc_html__('ThemeHunk Marketplace', 'th-product-compare' ),
-    'welcome_desc' => esc_html__('Grow your business with ThemeHunk free/pro themes & plugins.', 'th-product-compare' ),
+    'welcome'=>esc_html__('ThemeHunk Marketplace', 'lead-form-builder' ),
+    'welcome_desc' => esc_html__('Grow your business with ThemeHunk free/pro themes & plugins.', 'lead-form-builder' ),
     'v'=> 'Version '.$theme_data->get( 'Version' )
     );
     return $tab_array;
@@ -39,7 +39,7 @@ function tab_page() {
         wp_send_json_error(
           array(
             'success' => false,
-            'message' => __( 'No plugin specified', 'th-product-compare' ),
+            'message' => __( 'No plugin specified', 'lead-form-builder' ),
           )
         );
       }
@@ -60,7 +60,7 @@ function tab_page() {
       wp_send_json_success(
         array(
           'success' => true,
-          'message' => __( 'Plugin Successfully Activated', 'th-product-compare' ),
+          'message' => __( 'Plugin Successfully Activated', 'lead-form-builder' ),
         )
       );
 
@@ -105,14 +105,14 @@ function tab_page() {
 
              if ( is_plugin_active( $plugin_init ) ) {
                    $button_class = 'button disabled '.$slug;
-                   $button_txt = esc_html__( 'Activated', 'th-product-compare' );
+                   $button_txt = esc_html__( 'Activated', 'lead-form-builder' );
                    $detail_link = $install_url = '';
                    $pro_active = 1; 
 
                 }
 
             if ( ! is_plugin_active( $plugin_init ) ){
-                    $button_txt = esc_html__( 'Install Now', 'th-product-compare' );
+                    $button_txt = esc_html__( 'Install Now', 'lead-form-builder' );
                     if ( ! $status ) {
                         $install_url = wp_nonce_url(
                             add_query_arg(
@@ -134,7 +134,7 @@ function tab_page() {
                             '_wpnonce' => wp_create_nonce('activate-plugin_' . $plugin_init ),
                         ), network_admin_url('plugins.php'));
                         $button_class = 'activate-now button-primary '.$slug;
-                        $button_txt = esc_html__( 'Activate Now', 'th-product-compare' );
+                        $button_txt = esc_html__( 'Activate Now', 'lead-form-builder' );
                     }
                 }
                 $detail_link = add_query_arg(
@@ -173,12 +173,12 @@ function plugin_install_button($plugin){
   $admin_link=$plugin['admin_link'];
  $pro_active=$plugin['plugin_active'];
 
-  $deatil_link = '<a class="plugin-detail" target="_blank" href="'.esc_url( $plugin['detail_pro'] ).'">'.esc_html__( 'View details', 'th-product-compare' ).'</a>
+  $deatil_link = '<a class="plugin-detail" target="_blank" href="'.esc_url( $plugin['detail_pro'] ).'">'.esc_html__( 'View details', 'lead-form-builder' ).'</a>
    <span class="setting-link'.$pro_active.' setting-'.$slug.'">|</span><a class="setting-link'.$pro_active.' setting-'.$slug.'" href="'.admin_url('admin.php?page='.$admin_link).'">Settings</a>';
 
   if($plugin['free_pro']=='Free' && $slug !='themehunk-megamenu-plus'){
   $upgrade_button ='<a class="upgrade-to-pro button" target="_blank" href="'.$plugin['detail_pro'].'">Upgrade To Pro</a>';
-  $deatil_link = '<a class="plugin-detail" target="_blank" href="'.esc_url( 'https://wordpress.org/plugins/'.$slug ).'">'.esc_html__( 'View details', 'th-product-compare' ).'</a>
+  $deatil_link = '<a class="plugin-detail" target="_blank" href="'.esc_url( 'https://wordpress.org/plugins/'.$slug ).'">'.esc_html__( 'View details', 'lead-form-builder' ).'</a>
   <span class="setting-link'.$pro_active.' setting-'.$slug.'">|</span><a class="setting-link'.$pro_active.' setting-'.$slug.'" href="'.admin_url('admin.php?page='.$admin_link).'">Settings</a>';
 }
 

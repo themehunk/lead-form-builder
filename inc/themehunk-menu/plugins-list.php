@@ -1,7 +1,7 @@
 <?php
  return array(
     'th-advance-product-search' => array(
-        'name' => esc_html__('TH Advance Product Search', 'wp-popup-builder'),
+        'name' => esc_html__('TH Advance Product Search', 'lead-form-builder'),
         'img' => 'icon-128x128.gif',
         'admin_link' =>   'th-advance-product-search',
         'details' => esc_url('https://themehunk.com/th-product-compare-plugin/'),
@@ -14,7 +14,7 @@
     ),
 
     'th-all-in-one-woo-cart' => array(
-        'name' => esc_html__('Th All In One Woo Cart', 'wp-popup-builder'),
+        'name' => esc_html__('Th All In One Woo Cart', 'lead-form-builder'),
         'img' => 'icon-128x128.png',
         'details' => esc_url('https://themehunk.com/th-all-in-one-woo-cart/'),
         'admin_link' =>   'taiowc',
@@ -27,7 +27,7 @@
     ),
 
     'th-product-compare' => array(
-        'name' => esc_html__('Th Product Compare', 'wp-popup-builder'),
+        'name' => esc_html__('Th Product Compare', 'lead-form-builder'),
         'img' => 'icon-128x128.png',
         'details' => esc_url('https://themehunk.com/th-product-compare-plugin/'),
         'active_filename' => 'th-product-compare/th-product-compare.php',
@@ -40,7 +40,7 @@
     ),
 
     'th-variation-swatches' => array(
-        'name' => esc_html__('TH Variation Swatches', 'wp-popup-builder'),
+        'name' => esc_html__('TH Variation Swatches', 'lead-form-builder'),
         'img' => 'icon-128x128.gif',
         'details' => esc_url('https://themehunk.com/th-variation-swatches/'),
         'active_filename' => 'th-variation-swatches/th-variation-swatches.php',
@@ -52,7 +52,7 @@
         )
     ),
     'lead-form-builder' => array(
-        'name' => esc_html__('Lead Form Builder', 'wp-popup-builder'),
+        'name' => esc_html__('Lead Form Builder', 'lead-form-builder'),
         'img' => 'icon-128x128.png',
         'details' => esc_url('https://themehunk.com/product/lead-form-builder-pro/'),
         'active_filename' => 'lead-form-builder/lead-form-builder.php',
@@ -64,7 +64,7 @@
         )
     ),
     'wp-popup-builder' => array(
-        'name' => esc_html__('WP Popup Builder – Popup Forms & Newsletter', 'wp-popup-builder'),
+        'name' => esc_html__('WP Popup Builder – Popup Forms & Newsletter', 'lead-form-builder'),
         'img' => 'icon-128x128.png',
         'details' => esc_url('https://themehunk.com/wp-popup-builder-pro/'),
         'active_filename' => 'wp-popup-builder/wp-popup-builder.php',
@@ -76,7 +76,7 @@
         )
     ),
     'themehunk-megamenu-plus' => array(
-        'name' => esc_html__('ThemeHunk Megamenu – Menu builder', 'wp-popup-builder'),
+        'name' => esc_html__('ThemeHunk Megamenu – Menu builder', 'lead-form-builder'),
         'img' => 'icon-128x128.png',
         'admin_link' =>   'themehunkmegamenu',
         'details' => esc_url('https://themehunk.com/product/themehunk-megamenu/'),
