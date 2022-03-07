@@ -6,7 +6,7 @@
 
                 <div class="thunk-notice">
                     <div class="thunk-review-thumbnail">
-                        <a href="https://themehunk.com/th-shop-mania/"
+                        <a href="<?php echo esc_url('https://themehunk.com/th-shop-mania/');?>"
                            target="_blank">
                             <img src="<?php echo LFB_PLUGIN_URL; ?>notify/assets/images/th-shop-mania.png"
                                  alt="<?php _e('TH Shop Mania: Free WooCommerce WordPress theme','lead-form-builder'); ?>"/>
@@ -19,14 +19,14 @@
                         </p>
                         <ul class="thunk-review-ul">
                             <li class="show-mor-message">
-                                <a href="https://themehunk.com/th-shop-mania/#mania-demo"
+                                <a href="<?php echo esc_url('https://themehunk.com/th-shop-mania/#mania-demo');?>"
                                    target="_blank">
                                     <span class="dashicons dashicons-desktop"></span>
                                    <?php _e('Live Demo','lead-form-builder');?>
                                 </a>
                             </li>
                             <li class="free-download-message">
-                                <a href="https://themehunk.com/th-shop-mania/"
+                                <a href="<?php echo esc_url('https://themehunk.com/th-shop-mania/');?>"
                                    target="_blank">
                                     <span class="dashicons dashicons-external"></span>
                               <?php _e('Check Detail','lead-form-builder'); ?>

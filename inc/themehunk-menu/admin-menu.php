@@ -7,7 +7,7 @@ if (!function_exists('themehunk_admin_menu')) {
     add_action( 'admin_enqueue_scripts', 'admin_scripts');
 
     function themehunk_admin_menu(){
-            add_menu_page(__('ThemeHunk', 'th-product-compare'), __('ThemeHunk', 'th-product-compare'), 'manage_options', 'themehunk-plugins', 'themehunk_plugins',  THEMEHUNK_PURL . '/th-option/assets/images/ico.png', 59);
+            add_menu_page(__('ThemeHunk', 'lead-form-builder'), __('ThemeHunk', 'lead-form-builder'), 'manage_options', 'themehunk-plugins', 'themehunk_plugins',  THEMEHUNK_PURL . '/th-option/assets/images/ico.png', 59);
         }
     function themehunk_plugins(){
 
