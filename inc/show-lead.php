@@ -57,6 +57,8 @@ function expanded_alowed_tags() {
         }
         $rem_nonce = wp_create_nonce( 'rem-nonce' );
 
+        include_once( plugin_dir_path(__FILE__) . 'header.php' );
+
         echo '<div class="wrap"><div class="inside"><div class="card"><table class="form-table"><tbody><tr><th scope="row">
 <label for="select_form_lead">'.esc_html__('Select From','lead-form-builder').'</label></th>
 <td><select name="select_form_lead" id="select_form_lead">' . wp_kses($option_form,$this->expanded_alowed_tags()) . '</select>

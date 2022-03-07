@@ -88,9 +88,10 @@ $wpdb->query( $wpdb->prepare(
 }
 Class LFB_AddNewForm {
 function lfb_add_new_form(){
-	echo '<div class="wrap">
-        <h2>'.esc_html__('Add New From','lead-form-builder').'</h2>
-        <h2 class="nav-tab-wrapper">
+	echo '<div class="wrap">';
+        include_once( plugin_dir_path(__FILE__) . 'header.php' );
+
+       echo '<h2 class="nav-tab-wrapper">
             <a class="nav-tab nav-tab-active lead-form-create-form" href="#">'.esc_html__('Create Form','lead-form-builder').'</a>
             <a class="nav-tab lead-form-email-setting" href="#">'.esc_html__('Email Setting','lead-form-builder').'</a>
             <a class="nav-tab lead-form-captcha-setting" href="#">'.esc_html__('Captcha Setting','lead-form-builder').'</a>
@@ -150,9 +151,9 @@ $nonce = wp_create_nonce( '_nonce_verify' );
 
         $create_url ="admin.php?page=add-new-form&action=edit&redirect=create&_wpnonce=".$nonce;
 
-    echo "<div class='wrap'>
-        <h1>".esc_html__('Lead Form Settings','lead-form-builder')."</h1>
-        <form method='post' action='".esc_url($create_url)."' id='new_lead_form'>
+    echo "<div>
+        <h2>".esc_html__('Add New From','lead-form-builder')."</h2>";
+        echo "<form method='post' action='".esc_url($create_url)."' id='new_lead_form'>
             <div id='poststuff'>
                 <div id='post-body'>
                     <div id='post-body-content'>

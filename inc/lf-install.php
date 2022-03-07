@@ -1,45 +1,10 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
-    /*
-     * Create roles and capabilities.
-     */
- class lfb_roles {
-        public static function init(){
-            add_action( 'admin_init', array( __CLASS__, 'lfb_create_roles' ) );
-        }
-
-     public static function lfb_create_roles() {
-        global $wp_roles;
-
-        if ( ! class_exists( 'WP_Roles' ) ) {
-            return;
-        }
-
-        if ( ! isset( $wp_roles ) ) {
-            $wp_roles = new WP_Roles();
-        }
-
-        // Shop manager role
-        add_role( 'lfb_role', __( 'LFB Role', 'lead-form-builder' ), array(
-            'level_9'        => true,
-            'read'          => true,
-        ) );
-
-        $wp_roles->add_cap( 'lfb_role', 'lfb_manager' );
-        $wp_roles->add_cap( 'administrator', 'lfb_manager' );
-
-
-    }
-}
-lfb_roles::init();
-
-
 /*
  * Include assets
  */
 function lfb_admin_assets($hook) {
-    $pageSearch = array('toplevel_page_wplf-plugin-menu','lead-form_page_add-new-form','lead-form_page_all-form-leads','lead-form_page_pro-form-leads');
+    $pageSearch = array('admin_page_add-new-form','admin_page_all-form-leads','themehunk_page_wplf-plugin-menu','admin_page_pro-form-leads');
     if(in_array($hook, $pageSearch)){
         wp_enqueue_style('wpth_fa_css', LFB_PLUGIN_URL . 'font-awesome/css/font-awesome.css');
         wp_enqueue_style('lfb-option-css', LFB_PLUGIN_URL . 'css/option-style.css');
@@ -77,13 +42,14 @@ function lfb_register_my_custom_menu_page() {
 $user = get_userdata( get_current_user_id() );
 // Get all the user roles as an array.
 $user_roles = $user->roles;
+add_submenu_page( 'themehunk-plugins', __('Lead Form Builder', 'wppb'), __('Lead Form Builder', 'wppb'), 'manage_options', 'wplf-plugin-menu','lfb_lead_form_page');
 
-       add_menu_page(__('Lead Form', 'lead-form-builder'), __('Lead Form', 'lead-form-builder'), 'lfb_manager', 'wplf-plugin-menu', 'lfb_lead_form_page', plugins_url('../images/icon.png', __FILE__ ));
-    add_submenu_page('wplf-plugin-menu', __('Add Forms', 'lead-form-builder'), __('Add Forms', 'lead-form-builder'), 'lfb_manager', 'add-new-form', 'lfb_add_contact_forms');
+   // add_menu_page(__('Lead Form', 'lead-form-builder'), __('Lead Form', 'lead-form-builder'), 'lfb_manager', 'wplf-plugin-menu', 'lfb_lead_form_page', plugins_url('../images/icon.png', __FILE__ ));
+    add_submenu_page(false, __('Add Forms', 'lead-form-builder'), __('Add Forms', 'lead-form-builder'), 'lfb_manager', 'add-new-form', 'lfb_add_contact_forms');
     if( in_array( 'administrator', $user_roles, true )) {
-    add_submenu_page('wplf-plugin-menu', __('View Leads', 'lead-form-builder'), __('View Leads', 'lead-form-builder'), 'lfb_manager', 'all-form-leads', 'lfb_all_forms_lead');
+    add_submenu_page(false, __('View Leads', 'lead-form-builder'), __('View Leads', 'lead-form-builder'), 'lfb_manager', 'all-form-leads', 'lfb_all_forms_lead');
     }
-    add_submenu_page('wplf-plugin-menu', __('Premium Version', 'th-lead-form'), __('Premium Version', 'th-lead-form'), 'delete_others_posts', 'pro-form-leads', 'lfb_pro_feature');
+    add_submenu_page(false, __('Premium Version', 'th-lead-form'), __('Premium Version', 'th-lead-form'), 'delete_others_posts', 'pro-form-leads', 'lfb_pro_feature');
 
 }
 add_action('admin_menu', 'lfb_register_my_custom_menu_page');

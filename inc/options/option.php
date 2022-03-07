@@ -1,5 +1,7 @@
-<button class="tablink" onclick="openCity('freetopro', this, '#01bfca')" id="defaultOpen"><?php esc_html_e('Free to Pro Plugins'); ?></button>
-<button class="tablink" onclick="openCity('aboutus', this, '#84dee2')"><?php esc_html_e('About Us'); ?></button>
+<?php include_once( plugin_dir_path(__FILE__) . '../header.php' ); ?>
+
+<button class="tablink" onclick="openCity('freetopro', this, '#e5ecff')" id="defaultOpen"><?php esc_html_e('Free to Pro Plugins'); ?></button>
+<button class="tablink" onclick="openCity('aboutus', this, '#e5ecff')"><?php esc_html_e('About Us'); ?></button>
 
 <div id="aboutus" class="tabcontent">
     <div class="about-lfb">
@@ -28,7 +30,7 @@
       <div class="thmk-section1">
         <div class="thmk-lead-block">
           <h2><?php esc_html_e('Build Best Forms With Lead Form Builder Pro !', 'lead-form-builder'); ?> </h2>
-          <a class="lead-buy-btn" target="_blank" href="<?php echo esc_url('https://themehunk.com/product/lead-form-builder-pro/','lead-form-builder');?>"><?php esc_html_e('Buy Now - $29', 'lead-form-builder'); ?> </a>
+          <a class="lead-buy-btn" target="_blank" href="<?php echo esc_url('https://themehunk.com/product/lead-form-builder-pro/','lead-form-builder');?>"><?php esc_html_e('Buy Now - $49', 'lead-form-builder'); ?> </a>
           <div class="small-border-lead"></div>
           <div class="sale-img"><img src="<?php echo esc_url(LFB_PLUGIN_URL.'images/Contact-from-leadfomr-builder.png','lead-form-builder');?>"></div>
           <p><?php esc_html_e('Generate more leads means more clients, just take your forms to next level', 'lead-form-builder'); ?></p>
@@ -65,7 +67,7 @@
             <li class="lead-list-row"><i class="fa fa-file-text" aria-hidden="true"></i><h3>
               <?php esc_html_e('Premade layouts ', 'lead-form-builder'); ?> </h3></li>
           </ul>
-          <a class="lead-buy-btn" target="_blank" href="<?php echo esc_url('https://themehunk.com/product/lead-form-builder-pro/','lead-form-builder');?>"><?php esc_html_e('Buy Now - $29', 'lead-form-builder'); ?></a>
+          <a class="lead-buy-btn" target="_blank" href="<?php echo esc_url('https://themehunk.com/product/lead-form-builder-pro/','lead-form-builder');?>"><?php esc_html_e('Buy Now - $49', 'lead-form-builder'); ?></a>
         </div>
       </div>
     </div>

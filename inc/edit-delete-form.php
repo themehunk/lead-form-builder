@@ -88,18 +88,19 @@ Class LFB_EDIT_DEL_FORM {
 
                 }
 
-        echo '<div class="wrap">
-        <h2> Edit From</h2>'.wp_kses($form_message,$this->_alowed_tags()).'
-        <h2 class="nav-tab-wrapper">
+        echo '<div class="wrap">';
+        include_once( plugin_dir_path(__FILE__) . 'header.php' );
+                   echo wp_kses($form_message,$this->_alowed_tags());
+        echo '<div class="nav-tab-wrapper">
             <a class="nav-tab edit-lead-form '.esc_attr($_active).'" href="#">'.esc_html__("Edit Form","lead-form-builder").'</a>
             <a class="nav-tab lead-form-email-setting  '.esc_attr($email_active).'" href="#">'.esc_html__("Email Setting","lead-form-builder").'</a>
             <a class="nav-tab lead-form-captcha-setting  '.esc_attr($captcha_active).'" href="#">'.esc_html__("Captcha Setting","lead-form-builder").'</a>
             <a class="nav-tab lead-form-setting  '.esc_attr($form_active).'" href="#">'.esc_html__("Setting","lead-form-builder").'</a>
-        </h2>
+        </div>
         <div id="sections">
-        <span class="back-arrow"><a href="'.admin_url('?page=wplf-plugin-menu').'" ><img width ="18" src="'.LFB_FORM_BACK_SVG.'" ></a></span>
+        <span class="back-arrow"><a href="'.admin_url('admin.php?page=wplf-plugin-menu').'" ><img width ="18" src="'.LFB_FORM_BACK_SVG.'" ></a></span>
             <section><div class="wrap">
-        <h1>Heading</h1>
+        <h2>Heading</h2>
         <form method="post" action="'.esc_url($update_url).'" id="new_lead_form">
             <div id="poststuff">
                 <div id="post-body">
