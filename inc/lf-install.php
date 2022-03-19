@@ -44,12 +44,12 @@ $user = get_userdata( get_current_user_id() );
 $user_roles = $user->roles;
 add_submenu_page( 'themehunk-plugins', __('Lead Form Builder', 'wppb'), __('Lead Form Builder', 'wppb'), 'manage_options', 'wplf-plugin-menu','lfb_lead_form_page');
 
-   // add_menu_page(__('Lead Form', 'lead-form-builder'), __('Lead Form', 'lead-form-builder'), 'lfb_manager', 'wplf-plugin-menu', 'lfb_lead_form_page', plugins_url('../images/icon.png', __FILE__ ));
-    add_submenu_page(false, __('Add Forms', 'lead-form-builder'), __('Add Forms', 'lead-form-builder'), 'lfb_manager', 'add-new-form', 'lfb_add_contact_forms');
+   // add_menu_page(__('Lead Form', 'lead-form-builder'), __('Lead Form', 'lead-form-builder'), 'manage_options', 'wplf-plugin-menu', 'lfb_lead_form_page', plugins_url('../images/icon.png', __FILE__ ));
+    add_submenu_page(false, __('Add Forms', 'lead-form-builder'), __('Add Forms', 'lead-form-builder'), 'manage_options', 'add-new-form', 'lfb_add_contact_forms');
     if( in_array( 'administrator', $user_roles, true )) {
-    add_submenu_page(false, __('View Leads', 'lead-form-builder'), __('View Leads', 'lead-form-builder'), 'lfb_manager', 'all-form-leads', 'lfb_all_forms_lead');
+    add_submenu_page(false, __('View Leads', 'lead-form-builder'), __('View Leads', 'lead-form-builder'), 'manage_options', 'all-form-leads', 'lfb_all_forms_lead');
     }
-    add_submenu_page(false, __('Premium Version', 'th-lead-form'), __('Premium Version', 'th-lead-form'), 'delete_others_posts', 'pro-form-leads', 'lfb_pro_feature');
+    add_submenu_page(false, __('Premium Version', 'th-lead-form'), __('Premium Version', 'th-lead-form'), 'manage_options', 'pro-form-leads', 'lfb_pro_feature');
 
 }
 add_action('admin_menu', 'lfb_register_my_custom_menu_page');
