@@ -4,7 +4,7 @@ Author URI: : https://www.themehunk.com/
 Tags: contact form, responsive form, form builder, contact, email, captcha, registration, lead-form, field ordering, contact form builder, contact forms plugin, easy form, newsletter form, Responsive form, easy contact form, unlimited form, contact us, email send form, drag and drop contact form, form maker, widget contact form, view form simple form
 Requires at least: 5.5
 Tested up to: 5.9
-Stable tag: 1.7.6
+Stable tag: 1.7.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Creating a contact form has never been so easy. Integrate forms anywhere at your
 
 == Description ==
 
-Lead Form Builder Plugin is a contact form builder as well as lead generator. Contact Form plugin is compatible with all page builders like Elementor, Brizy, SiteOrigin, Gutenburg etc. Lead Form Builder allows you to create beautiful contact forms. Plugin comes with nearly all field options required to create Contact form, Registration form, News letter and contain Ajax based drag & drop field ordering. 
+ThemeHunk : Lead Form Builder Plugin is a contact form builder as well as lead generator. Contact Form plugin is compatible with all page builders like Elementor, Brizy, SiteOrigin, Gutenburg etc. Lead Form Builder allows you to create beautiful contact forms. Plugin comes with nearly all field options required to create Contact form, Registration form, News letter and contain Ajax based drag & drop field ordering. 
 
 [Check Documentation](http://www.themehunk.com/docs/lead-form/) |  [Demo](https://wpthemes.themehunk.com/lead-form-builder-pro/) | [Support](https://themehunk.com/contact-us/)
 
@@ -123,6 +123,9 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 9. screenshot-6.png
 
 == Changelog ==
+
+= Version 1.7.7 =
+* Widget error fixd.
 
 = Version 1.7.6 =
 * manag_option access issue fixd.

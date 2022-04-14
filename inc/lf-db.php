@@ -24,6 +24,7 @@ if (!function_exists('lfb_plugin_activate')) {
          form_status VARCHAR(50) DEFAULT 'ACTIVE' NOT NULL,       
          captcha_status VARCHAR(255) DEFAULT 'OFF' NOT NULL,
          storeType ENUM('1','2','3') DEFAULT '2' NOT NULL,
+         track_path varchar(255) NOT NULL,
        PRIMARY KEY (id)
        ) $charset_collate;";
        $wpdb->query($sql);
@@ -87,6 +88,13 @@ if (!function_exists('lfb_plugin_activate')) {
        ) $charset_collate;";
        $wpdb->query($sql);
    }
+
+   $column = $wpdb->get_col("SHOW COLUMNS FROM $lead_form_data");
+   if (!in_array("track_path", $column)) {
+     $wpdb->query("ALTER TABLE $lead_form_data ADD track_path varchar(200) NOT NULL");
+   }
+
+
 }
  add_action( 'admin_init', 'lfb_plugin_activate' );
 

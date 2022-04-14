@@ -23,12 +23,12 @@ class lfb_widget extends WP_Widget {
         echo $before_widget;
         // Widget title
         $lfb_shortcode = isset($instance['lfb_shortcode'])?$instance['lfb_shortcode']:'';
-
+        $title = isset($instance['title'])?$instance['title']:'';
         ?>
         <!--Start Review Thumb-->
         <div class="lfb-widget-title">
             <h4 class="widgettitle">
-            <span><?php echo apply_filters('widget_title', $instance['title'] ); ?></span>
+            <span><?php echo apply_filters('widget_title', $title ); ?></span>
            </h4>  
 
            <?php do_shortcode($lfb_shortcode); ?>   
