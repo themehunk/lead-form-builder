@@ -75,6 +75,14 @@
             'docs' => esc_url('https://themehunk.com/docs/wp-popup-builder-pro/'),
         )
     ),
+    'unlimited-blocks' => array(
+        'name' => esc_html__('Unlimited blocks For Gutenberg', 'lead-form-builder'),
+        'img' => 'icon-128x128.png',
+        'admin_link' =>   'unlimited-blocks',
+        'details' => esc_url('https://themehunk.com/docs/unlimited-blocks-for-gutenberg/'),
+        'active_filename' => 'unlimited-blocks/unlimited-blocks.php',
+    ),
+
     'themehunk-megamenu-plus' => array(
         'name' => esc_html__('ThemeHunk Megamenu – Menu builder', 'lead-form-builder'),
         'img' => 'icon-128x128.png',
