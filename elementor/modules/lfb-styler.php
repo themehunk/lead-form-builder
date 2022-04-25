@@ -79,7 +79,7 @@ class Lead_Form_Styler extends Widget_Base {
 	 *
 	 * @access protected
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 
   	$this->lf_styler_general_controls();    
   	
