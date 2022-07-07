@@ -124,8 +124,8 @@ function lfb_save_captcha_settings()
 
     if (isset($_POST['captcha-keys'])  && lfb_user_permission_check() && wp_verify_nonce($nonce, 'captcha-nonce')) {
 
-    $captcha_setting_sitekey = sanitize_key($_POST['captcha-setting-sitekey']);
-    $captcha_setting_secret = sanitize_key($_POST['captcha-setting-secret']);
+    $captcha_setting_sitekey = sanitize_text_field($_POST['captcha-setting-sitekey']);
+    $captcha_setting_secret = sanitize_text_field($_POST['captcha-setting-secret']);
 
     if (get_option('captcha-setting-sitekey') !== false) {
         update_option('captcha-setting-sitekey', $captcha_setting_sitekey);
