@@ -23,7 +23,7 @@ Class LFB_Front_end_FORMS {
     }      
 
     function lfb_captcha_on(){
-        wp_enqueue_script('lfb-captcha','https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit&hl=en');
+        wp_enqueue_script('lfb-captcha','https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit');
     }
     function lfb_show_front_end_forms($this_form_id) {
         $form_elemets ='';
