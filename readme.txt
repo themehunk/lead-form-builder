@@ -1,16 +1,18 @@
-====== Contact Form & Lead Form Elementor Builder ========
+====== Responsive Contact Form & Lead Form Builder - ThemeHunk ========
 Contributors: ThemeHunk
 Author URI: : https://www.themehunk.com/
 Tags: contact form, responsive form, form builder, contact, email, captcha, registration, lead-form, field ordering, contact form builder, contact forms plugin, easy form, newsletter form, Responsive form, easy contact form, unlimited form, contact us, email send form, drag and drop contact form, form maker, widget contact form, view form simple form
 Requires at least: 5.5
 Tested up to: 6.0
-Stable tag: 1.9.0
+Stable tag: 1.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Creating a contact form has never been so easy. Integrate forms anywhere at your website using easy shortcode and widget.
+Best WordPress Drag & Drop contact form builder plugin. Create Professional & Responsive contact forms in minutes.
 
 == Description ==
+
+**Best WordPress Contact Form Plugin to create beautiful contact froms.**
 
 ThemeHunk : Lead Form Builder Plugin is a contact form builder as well as lead generator. Contact Form plugin is compatible with all page builders like Elementor, Brizy, SiteOrigin, Gutenburg etc. Lead Form Builder allows you to create beautiful contact forms. Plugin comes with nearly all field options required to create Contact form, Registration form, News letter and contain Ajax based drag & drop field ordering. 
 
@@ -112,17 +114,22 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 
 == Screenshots ==
 
-1. form-create.gif
-2. elementor-addon.png
-3. select-form.png
+
+1. main.png
+2. screenshot-2.png
+3. screenshot-3.png
 4. form.png
-5. screenshot-2.png
-6. screenshot-3.png
-7. screenshot-4.png
-8. screenshot-5.png
-9. screenshot-6.png
+5. screenshot-5.png
+6. screenshot-6.png
+7. form-create.gif
+8. elementor-addon.png
+9. select-form.png
 
 == Changelog ==
+
+= Version 1.8.1 =
+* Fix: Setting issue fxed.
+* Add: Style attribute add (wp-popup-builder).
 
 = Version 1.8.0 =
 * Captcha issue fixd.

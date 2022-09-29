@@ -172,13 +172,13 @@ Class LFB_Front_end_FORMS {
                 <div class="leadform-show-loading front-loading leadform-show-message-form-'.$this_form_id.'" >
                 </div>
                 <div class="lf-loading">
-                    <div class="spinner" id="loading_image" style="display: none;">
+                    <div class="spinner" id="loading_image" style="display: none;" wppb-add-style="display:none;">
                         <div class="bounce1"></div>
                         <div class="bounce2"></div>
                         <div class="bounce3"></div>
                     </div>
                 </div>
-                </form><p style="display:none" redirect="'.esc_url($redirect_url).'" class="successmsg_'.intval($this_form_id).' successmsg">'.esc_html($success_msg).'</p></div>';
+                </form><p wppb-add-style="display:none;" style="display:none;" redirect="'.esc_url($redirect_url).'" class="successmsg_'.intval($this_form_id).' successmsg">'.esc_html($success_msg).'</p></div>';
                 
                 return $return;
 
