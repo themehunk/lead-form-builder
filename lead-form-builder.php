@@ -85,3 +85,77 @@ include_once( plugin_dir_path(__FILE__) . 'elementor/lfb-addon-elementor.php' );
 // show notify
 include_once( plugin_dir_path(__FILE__) . 'notify/notify.php' );
 }
+
+
+
+//$current_user = wp_get_current_user();
+
+
+ print_r(ABSPATH );
+
+
+ //Array ( [path] => C:\xampp\htdocs\wp572/wp-content/uploads/2022/09 [url] => http://localhost/wp572/wp-content/uploads/2022/09 [subdir] => /2022/09 [basedir] => C:\xampp\htdocs\wp572/wp-content/uploads [baseurl] => http://localhost/wp572/wp-content/uploads [error] => )
+
+
+// if ( isset( $current_user->user_login ) && ! empty( $upload_dir['basedir'] ) ) {
+//     // $user_dirname = $upload_dir['basedir'].'/'.$current_user->user_login;
+//     //     if ( ! file_exists( $user_dirname ) ) {
+// 	  //   wp_mkdir_p( $user_dirname );
+//     // }
+// }
+
+
+//plugin_slug_download('https://github.com/themehunk/th-shop-mania/archive/refs/heads/main.zip');
+include_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
+
+$slug = 'https://github.com/themehunk/th-shop-mania/archive/refs/heads/main.zip';
+
+$install_url = add_query_arg(array(
+  'action' => 'activate',
+  'plugin' => rawurlencode( $slug ),
+  'plugin_status' => 'all',
+  'paged' => '1',
+ // '_wpnonce' => wp_create_nonce('activate-plugin_' ),
+), network_admin_url('plugins.php'));
+
+print_r($install_url);
+
+
+function plugin_slug_download($remote_file_url){
+  $upload_dir   = wp_upload_dir();
+  $local_dir = $upload_dir['basedir'];
+  $copy = copy( $remote_file_url, $local_dir );
+  
+  $sucess = ( !$copy )?false:true;
+    return $sucess;
+  }
+  
+  
+  function plugin_slug_unzip($filepath){
+  
+    $path = pathinfo( realpath( $filepath ), PATHINFO_DIRNAME );
+  
+        $sucess = false;
+        $zip = new ZipArchive;
+        $res = $zip->open($filepath);
+        if ($res === TRUE) {
+            $zip->extractTo( $path );
+            $zip->close();
+            $sucess = true;
+        }
+        else {
+            $sucess = false;
+        }
+  
+      return $sucess;
+  
+  }
+  
+  function plugin_slug_rename($old_path,$newfile,$name){
+     rename( $old_path."/".$newfile, $name) ;
+  }
+  
+  function plugin_slug_unlink($unlink){
+      unlink($unlink);
+  }
+  
