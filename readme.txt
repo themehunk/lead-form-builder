@@ -1,14 +1,14 @@
-====== Responsive Contact Form & Lead Form Builder - ThemeHunk ========
+====== Responsive Contact Form Builder & Lead Generation Plugin ========
 Contributors: ThemeHunk
 Author URI: : https://www.themehunk.com/
 Tags: contact form, responsive form, form builder, contact, email, captcha, registration, lead-form, field ordering, contact form builder, contact forms plugin, easy form, newsletter form, Responsive form, easy contact form, unlimited form, contact us, email send form, drag and drop contact form, form maker, widget contact form, view form simple form
 Requires at least: 5.5
-Tested up to: 6.0
-Stable tag: 1.8.1
+Tested up to: 6.1
+Stable tag: 1.8.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Best WordPress Drag & Drop contact form builder plugin. Create Professional & Responsive contact forms in minutes.
+Fast Drag & Drop Contact From Builder and Lead Generation Tool With Google One Tap Login. Supports Block Editor.
 
 == Description ==
 
@@ -45,17 +45,20 @@ ThemeHunk : Lead Form Builder Plugin is a contact form builder as well as lead g
 Premium version of our plugin Lead form Builder is released now having all the advanced functionality needed for creating a Wonderful form and collecting leads too.  It is a powerful plugin which is designed in such a way that can be used by a novice. Build online forms in minutes by using Pre-built form templates.
 
 = LIVE  DEMO =
-[Lead Form Builder Pro](http://themehunk.com/wp-themes/lead-form-builder-pro/ "Lead Form Builder Pro")
+[Lead Form Builder Pro](http://www.themehunk.com/product/lead-form-builder-pro "Lead Form Builder Pro")
 
 = Premium Features =
 
-⭐	Unlimited forms per site. 
-⭐	Lead Form Styler Elementor addon available.
+⭐	Unlimited Form Creations
+⭐   Google One Tap Login Feature
+⭐   Leads Tracing like: IP Address, Country, OS & Browser etc.
+⭐	Google reCaptcha v2 & v3 for spam protection.
+⭐	WordPress Block Editor Support
 ⭐	Auto Responder Feature Available.
 ⭐	Fully responsive.
 ⭐	Leads export feature. 
 ⭐	Import/Export form. 
-⭐	Google reCaptcha for spam protection.
+⭐	Lead Form Styler Elementor addon available.
 ⭐	MailChimp integrated. 
 ⭐	SMTP Mail configure. 
 ⭐	Amazing Multiple Pre-Built form templates.
@@ -114,18 +117,24 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 
 == Screenshots ==
 
-
-1. main.png
-2. screenshot-2.png
-3. screenshot-3.png
-4. form.png
-5. screenshot-5.png
-6. screenshot-6.png
-7. form-create.gif
-8. elementor-addon.png
-9. select-form.png
+1. Drag and Drop field ordering. 
+2. Form Field Create.
+3. Form Leads
+4. Google One Tap Login Feature
+5. Leads Tracing like: IP Address, Country, OS & Browser etc.
+6. Elementor Form
+7. Contact form
+8. Google Captcha
+9. Google Lead Store Data
 
 == Changelog ==
+
+= Version 1.8.4 =
+* Add: Ajax nonce issue fixed.
+
+= Version 1.8.3 =
+* Add: Loaction feature added.
+* lead tracking
 
 = Version 1.8.1 =
 * Fix: Setting issue fxed.

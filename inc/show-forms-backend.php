@@ -84,13 +84,13 @@ Class LFB_SHOW_FORMS {
  '.esc_html__('Email Notification (Auto-responders)','lead-form-builder').' </a></li>
                 <li class="divider"></li>
         <li><a href="#"><i class="fa fa-repeat" aria-hidden="true"></i>
-'.esc_html__('Form Redirction Option','lead-form-builder').LFB_FORM_PRO_FEATURE.'</li>
+'.esc_html__('Form Redirction Option','lead-form-builder').LFB_FORM_PRO_LOCK.'</li>
         <li class="divider"></li>
         <li><a href="'.esc_url($edit_url_nonce.'&form-setting').'"> <i class="fa fa-bullhorn" aria-hidden="true"></i> '.esc_html__('Lead Receiving Method (Email, Database, Both).','lead-form-builder').' </a></li>
                 <li class="divider"></li>
 
         <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>
- '.esc_html__('Form Submit (Thank You Message)','lead-form-builder').' <span class="pro-feature"><i class="fa fa-lock"></i>'.esc_html__('Pro Feature','lead-form-builder').'<span></a></li>
+ '.esc_html__('Form Submit (Thank You Message)','lead-form-builder').LFB_FORM_PRO_LOCK.'<span></a></li>
  <li><a href="'.esc_url($edit_url_nonce.'&captcha-setting').'"><img width="18px" src="'.LFB_FORM_CAPTCHA_SVG.'" title="Form Import">
 '.esc_html__('Spam Protection (Google Captcha)','lead-form-builder').'</a>';
         echo '</li>
@@ -101,29 +101,29 @@ Class LFB_SHOW_FORMS {
         <td class="form-config column-form-date" data-colname="Form-date">
          <div class="dropdown-menu dropdown-anchor-top-left dropdown-has-anchor" id="dropdown-with-adon-'.intval($form_id).'">
     <ul>
-        
-<li><a href="#"><img width="18" src="'.LFB_FORM_COLOR_IMAGE.'" />
-Form Color Customize'.LFB_FORM_PRO_FEATURE.'</li>
+    <li><a href="https://themehunk.com/product/lead-form-builder-pro/" target="_blank"><img width="18" src="'.LFB_GOOGLE_IMAGE.'" />
+    One TapGoogle Auto Signin'.LFB_FORM_PRO_FEATURE.'</a></li>
+    <li class="divider"></li>
+
+<li><a><img width="18" src="'.LFB_FORM_COLOR_IMAGE.'" />
+Form Color Customize'.LFB_FORM_PRO_LOCK.'</a></li>
 <li class="divider"></li>
 
         <li><a><img width="18px" src="'.LFB_MCPI_IMAGE.'" title="'.esc_html__("Mailchimp"."lead-form-builder").'">
-'.esc_html__('Mailchimp Adon Settings','lead-form-builder').LFB_FORM_PRO_FEATURE.'</li>
-<li class="divider"></li>
-
+'.esc_html__('Mailchimp Adon Settings','lead-form-builder').LFB_FORM_PRO_LOCK.'</li>
         <li><a href=""><img width="18px" src="'.LFB_SMTP_IMAGE.'" title="'.esc_html__("SMTP Configure","lead-form-builder").'">
-'.esc_html__('SMTP Adon Settings','lead-form-builder').'<span class="pro-feature"><i class="fa fa-lock"></i>
- '.esc_html__('Pro Feature','lead-form-builder').'<span> </a></li>
+'.esc_html__('SMTP Adon Settings','lead-form-builder').LFB_FORM_PRO_LOCK.'<span> </a></li>
 <li class="divider"></li>
 
         <li><a href="#"><img width="18px" src="'.LFB_EXPORT_IMAGE.'" title="'.esc_html__("Entry Export","lead-form-builder").'">
-Export (Form Leads) '.LFB_FORM_PRO_FEATURE.'</a></li>
+Export (Form Leads) '.LFB_FORM_PRO_LOCK.'</a></li>
 <li class="divider"></li>
 
         <li><a href="#"><img width="18px" src="'.LFB_FORM_EXPORT_IMAGE.'" title="'.esc_html__("Form Export","lead-form-builder").'">
-Form Export '.LFB_FORM_PRO_FEATURE.'</a></li>
+Form Export '.LFB_FORM_PRO_LOCK.'</a></li>
     <li class="divider"></li>
 <li><a href="#"><img width="18px" src="'.LFB_FORM_IMPORT_IMAGE.'" title="'.esc_html__("Form Import","lead-form-builder").'">
-Form Import '.LFB_FORM_PRO_FEATURE.'</a></li>
+Form Import '.LFB_FORM_PRO_LOCK.'</a></li>
 <li class="divider"></li>
 
 

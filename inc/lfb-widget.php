@@ -13,7 +13,8 @@ class lfb_widget extends WP_Widget {
     function __construct() {
         $widget_ops = array(
             'classname' => 'lfb_widget',
-            'description' => esc_html__('Form Builder Widget','lead-form-builder')
+            'description' => esc_html__('Form Builder Widget','lead-form-builder'),
+            'show_instance_in_rest' => true
         );
         parent::__construct('lfb-form-builder', 'Lead Form Builder', $widget_ops);
     }

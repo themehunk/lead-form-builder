@@ -124,13 +124,12 @@ function openTab(evt, tabName) {
                 $message.removeClass( 'install-now button-primary installed button-disabled updated-message' )
                 .addClass('updating-message')
                 .html($message.data('msg'));
-
             $.ajax({
-                url  : ajaxurl,
+                url  : bajax.ajaxurl,
                 type : 'POST',
-
                 data : {
                     action : 'th_activeplugin',
+                    requestNonce    : bajax.requestNonce, 
                     init   :  $init,
                     slug   :  $slug
                 }

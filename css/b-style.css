@@ -1197,12 +1197,11 @@ a.button_lfb {
 
 .pro-feature {
   font-size: 12px;
-  padding: 5px;
-  border-radius: 2px;
+  padding: 5px 4px 5px 8px;
+  border-radius: 3px;
   color: white;
-  background: #838383;
+  background: #ff4c4c;
   float: right;
-  margin-top: -5px;
 }
 .show-all-form .wp-list-table .row-actions span {
   padding: 0 2px;

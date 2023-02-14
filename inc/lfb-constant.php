@@ -15,6 +15,7 @@ define('LFB_EXT_MCPI', 		__('MailChimp','lead-form-builder'));
 // leads export
 define('LFB_EXT_EXPORT', 		__('Leads Export','lead-form-builder'));
 define('LFB_EXPORT_HEADING', 		__('Lead Export','lead-form-builder'));
+define('LFB_GOOGLE_IMAGE', LFB_PLUGIN_URL.'images/google.svg');
 define('LFB_EXT_START_DATE', 		__('Leads Start Date','lead-form-builder'));
 define('LFB_EXT_END_DATE', 		__('Leads End Date','lead-form-builder'));
 define('LFB_EXPORT_BUTTON', 		__('Export Leads','lead-form-builder'));
@@ -66,6 +67,6 @@ define('LFB_FORM_PRO_TEXT','<p class="pro-text">'.__('These features available w
 define('LFB_FORM_PRO_FIELD_TYPE',   __('Upload field option available with pro version of plugin.','lead-form-builder'));
 define('LFB_FORM_PRO_FEATURE', '<span class="pro-feature"><i class="fa fa-lock"></i>
  '.__('Pro Feature','lead-form-builder').'<span>');
-
-
+ define('LFB_FORM_PRO_LOCK', '<span class="pro-lock pro-feature"><i class="fa fa-lock"></i><span>');
+ 
 ?>
