@@ -39,8 +39,18 @@ function admin_scripts( $hook ) {
 if (!function_exists('th_activeplugin')) {
 
       add_action( 'wp_ajax_th_activeplugin','th_activeplugin' );
+
       function th_activeplugin(){
+
       $nonce = $_POST['requestNonce'];
+
+      if (!is_user_logged_in() || ! current_user_can( 'administrator' ) ) {
+
+        wp_die( - 1, 403 );
+
+        }
+
+
       if (!current_user_can('manage_options') && !wp_verify_nonce($nonce, 'vrifyth-nonce')) {
         exit;
       }
