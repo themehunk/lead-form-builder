@@ -31,7 +31,19 @@ function lfbErrorCheck(){
 jQuery(document).ready(function(){
 var dateToday = new Date();
 
-    jQuery('.lf-jquery-datepicker').datepicker({
+
+jQuery('input*[name^="date_"]').datepicker({
+    dateFormat: "mm/dd/yy",
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    autoclose: true,
+    changeMonth: true,
+    changeYear: true,
+    gotoCurrent: true,
+    yearRange:  (dateToday.getFullYear()-200) +":" + (dateToday.getFullYear()+50),
+});
+
+    jQuery('input*[name^="dob_"]').datepicker({
             dateFormat: "mm/dd/yy",
             showOtherMonths: true,
             selectOtherMonths: true,
@@ -39,7 +51,7 @@ var dateToday = new Date();
             changeMonth: true,
             changeYear: true,
             gotoCurrent: true,
-            yearRange:  (dateToday.getFullYear()-200) +":" + (dateToday.getFullYear()),
+            yearRange:  (dateToday.getFullYear()-100) +":" + (dateToday.getFullYear()),
         });
 });
 
