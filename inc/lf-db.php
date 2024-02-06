@@ -103,17 +103,20 @@ if (!function_exists('lfb_plugin_activate')) {
 // database classs
 Class LFB_SAVE_DB{
   private $thdb;
-  private  $leadform = 'lead_form';
-  private  $lf_ext = 'lead_form_extension';
-  private  $lfb_options = 'lead_form_options';
+  private  string $leadform = 'lead_form';
+  private  string $lf_ext = 'lead_form_extension';
+  private  string $lfb_options = 'lead_form_options';
+  protected string $tbl_leadform;
+  protected string $tbl_extension;
+  protected string $tbl_options;
 
 
  function __construct($nwpdb=''){
   global $wpdb;
  $this->thdb = $wpdb;
- $this->tbl_leadform =  $this->thdb->prefix.$this->leadform; 
- $this->tbl_extension =  $this->thdb->prefix.$this->lf_ext; 
- $this->tbl_options =  $this->thdb->prefix.$this->lfb_options; 
+  $this->tbl_leadform =  $wpdb->prefix.$this->leadform; 
+ $this->tbl_extension =  $wpdb->prefix.$this->lf_ext; 
+ $this->tbl_options =  $wpdb->prefix.$this->lfb_options; 
     }
  function lfb_get_form_content($get_form_query){
   return $this->thdb->get_results($get_form_query);

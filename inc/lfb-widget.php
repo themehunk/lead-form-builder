@@ -39,7 +39,7 @@ class lfb_widget extends WP_Widget {
 
     function update($new_instance, $old_instance) {
         $instance = $old_instance;
-        $instance['title'] = strip_tags($new_instance['title']);
+        $instance['title'] = wp_strip_tags($new_instance['title']);
         $instance['lfb_shortcode'] = esc_attr($new_instance['lfb_shortcode']);
         return $instance;
     }
