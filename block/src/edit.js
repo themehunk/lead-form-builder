@@ -4,7 +4,9 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
-import { useEffect,useState } from '@wordpress/element';
+import { useEffect,useState,RawHTML  } from '@wordpress/element';
+
+import { Panel, PanelBody,TextControl,SelectControl,Button  } from '@wordpress/components';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -12,7 +14,7 @@ import { useEffect,useState } from '@wordpress/element';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps,RichText,InspectorControls  } from '@wordpress/block-editor';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -30,20 +32,105 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
 
-	const [data, setData] = useState({
-        email: object.email,
-    })
 
+export default function Edit({ attributes, setAttributes,isSelected  }) {
+    const [url,setUrl] = useState(false);
+    const [isform,seIsForm] = useState(false);
+    const useSelect = wp.data.select( 'core' ).getSite();
+    url===false && useSelect && setUrl(useSelect.url);
+
+	const {
+        formid,
+        title,
+        randerForm,
+        formList
+      } = attributes;
+
+
+    const el = wp.element.createElement;
+    const htmlToElem = (html) => wp.element.RawHTML({ children: html });
+  
+	const lfbData = async () =>{
+        try {
+      
+          const dataToSend = { data: formid,title:title }; // Customize the data to send
+
+          const response = await fetch(ajaxurl, {
+            method: 'POST',
+            body: new URLSearchParams({
+                action: 'lead_form_builderr_data', // Specify the WordPress AJAX action
+                data: JSON.stringify(dataToSend), // Convert the data to JSON and send it
+            }),
+        }).then(response => response.json())
+            .then(data => {
+              data.data.lfb_form && data.data.lfb_form.length && (seIsForm(true));
+				    setAttributes(  { formList:data.data.lfb_form,randerForm: data.data.lfb_rander } );
+
+            })
+            .catch(error => {
+                // Handle errors
+                console.error('Error in AJAX request:', error);
+            });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+          }          
+      }
+
+
+	  useEffect(() => {
+
+        lfbData(); 
+      }, [formid,title]); // 👈️ empty dependencies array
+
+     const slectFormLIst = () =>{
+
+      let defaultar = [{
+        disabled: true,
+        label: 'Select Form',
+        value: ''
+      }];
+
+       const flsit =  formList && formList.map(function(form, i){
+        const Optionformlist = { label: form.form_title, value: form.id };
+
+         return Optionformlist;
+        });
+     const arr = [...defaultar,...flsit];        
+        return arr;
+
+      }
+
+      const handleClick = (link)=>{
+       window.open(`${url}/wp-admin/admin.php?page=${link}`, "_blank")
+      }
 	return (
-		<p { ...useBlockProps() }>
+		<div { ...useBlockProps() }>
+  { isSelected && <InspectorControls key="setting">
+             <Panel header="lfb">
 
-			
-			{ __(
-				'Example Static – hello from the editor!',
-				'example-static'
-			) }
-		</p>
+             <PanelBody title="Lead Form Builder"  initialOpen={ true }>
+
+             {isform && <SelectControl
+              label="Slect Lead Form"
+              value={ formid }
+              options={ slectFormLIst() }
+              onChange={  ( value ) => setAttributes(  { formid: value } ) }
+               />}
+
+                    <TextControl
+                    label="Form Title"
+                    value={ title }
+                    onChange={ ( value ) => setAttributes(  { title: value } ) }
+                />
+
+        <Button variant="secondary" onClick={ ()=>handleClick('wplf-plugin-menu') }>Customize Lead Form</Button>
+				</PanelBody>
+				</Panel>
+			</InspectorControls>}
+
+      {isform && htmlToElem(randerForm)}
+      {isform===false && <Button variant="primary" onClick={()=>handleClick('add-new-form') }>Create New Form</Button>}
+		</div>
 	);
 }

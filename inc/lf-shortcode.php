@@ -4,11 +4,13 @@ function lfb_lead_form_shortcode($atts) {
     $output = '';
     $pull_quote_atts = shortcode_atts(array(
         'form-id' => 1,
-        'title' => esc_html__('Lead Form','lead-form-builder'),
+        'title' => '',
+        'new_title'=>'',
             ), $atts);
     $this_form_id = wp_kses_post($pull_quote_atts['form-id']);
+    $new_title = ($pull_quote_atts['new_title']);
     $th_front_end_froms = new LFB_Front_end_FORMS();
-    $output = $th_front_end_froms->lfb_show_front_end_forms($this_form_id);
+    $output = $th_front_end_froms->lfb_show_front_end_forms($this_form_id,$new_title);
     return $output;
 }
 add_shortcode('lead-form', 'lfb_lead_form_shortcode');

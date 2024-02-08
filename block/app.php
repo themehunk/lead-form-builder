@@ -3,43 +3,47 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-/**
- * Registers the block using the metadata loaded from the `block.json` file.
- * Behind the scenes, it registers also all assets so they can be enqueued
- * through the block editor in the corresponding context.
- *
- * @see https://developer.wordpress.org/reference/functions/register_block_type/
- */
-function example_static_example_static_block_init() {
+// Exit if accessed directly.
+if ( ! class_exists( 'Lead_Form_Builder_Blocks' ) ) {
+			class Lead_Form_Builder_Blocks {
+
+
+				function __construct()
+				{
+
+					add_action( 'wp_ajax_lead_form_builderr_data', array( $this, 'lead_form_builder') );
+
+				}
+
+				public function lead_form_builder() {
+					
+					$lfb = New LFB_SAVE_DB;
+					if(isset( $_POST['data'] )){
+					$formid = intval(json_decode( wp_unslash( $_POST['data'] ))->data);
+					$rander_form = do_shortcode('[lead-form form-id='.$formid.' new_title="'.$title.'"]');
+					$title = sanitize_text_field(  json_decode( wp_unslash( $_POST['data'] ))->title );
+
+					$fid_new = $lfb->get_single_lead_form($formid);
+
+					if($rander_form==='' && $fid_new){
+						$rander_form = do_shortcode('[lead-form form-id='.$fid_new.' new_title="'.$title.'"]');
+						$formid = $fid_new;
+					}
+
+
+							wp_send_json_success( array('fid'=>$formid,'lfb_form' => $lfb->lfb_get_all_form_title(),'lfb_rander' => $rander_form));
+					} else{
+					wp_send_json_success( array('status'=>false) );
+
+					}
+				}
+		}
+}
+
+function lead_form_builder_block_init() {
+	New Lead_Form_Builder_Blocks;
 	register_block_type( __DIR__ . '/build' );
 }
-add_action( 'init', 'example_static_example_static_block_init' );
+add_action( 'init', 'lead_form_builder_block_init' );
 
 
-
-
-function displayReactApp() { 
-	$current_user = (array) wp_get_current_user()->roles;
-	ob_start();
-	?>
-    <div id="my-react-app"></div>
-	<?php return ob_get_clean();
-}
-// register shortcode
-add_shortcode('displayReactApp', 'displayReactApp'); 
-
-add_action('wp_enqueue_scripts', 'enq_react');
-function enq_react(){
-
-    wp_register_script('display-react',
-	plugin_dir_url( __FILE__ ) . '/build/index.js',
-	['wp-element'],
-	rand(), // Change this to null for production
-	true);
-    $current_user = wp_get_current_user();
-    $data = array( 
-     'email' => $current_user->user_email,
-     );
-  wp_localize_script( 'display-react', 'object', $data ); //localize script to pass PHP data to JS
-  wp_enqueue_script( 'display-react' );    
-}

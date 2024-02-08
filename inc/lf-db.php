@@ -143,7 +143,7 @@ function lfb_get_form_data($formid){
 }
 
 public function lfb_get_all_form_title(){
-  $return = $this->thdb->prepare("SELECT id,form_title FROM $this->tbl_leadform WHERE form_status = %s ",'ACTIVE');
+  $return = $this->thdb->prepare("SELECT id,form_title FROM $this->tbl_leadform WHERE form_status = %s",'ACTIVE');
   return $this->thdb->get_results($return);
 }
 
@@ -159,6 +159,14 @@ function get_lead_form(){
     $return = $this->lfb_get_form_content($query);
 
     return $return;
+}
+
+function get_single_lead_form(){  
+  $query = $this->thdb->prepare("SELECT id FROM $this->tbl_leadform WHERE form_status = %s  LIMIT 1",'ACTIVE' );
+
+  $result =  $this->thdb->get_results($query);
+  $formid = 	isset($result[0]->id) && $result[0]->id !==''?$result[0]->id:false;
+  return $formid;
 }
 /*
  * Mailchimp api update

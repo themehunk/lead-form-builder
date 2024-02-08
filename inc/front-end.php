@@ -25,7 +25,7 @@ Class LFB_Front_end_FORMS {
     function lfb_captcha_on(){
         wp_enqueue_script('lfb-captcha','https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit');
     }
-    function lfb_show_front_end_forms($this_form_id) {
+    function lfb_show_front_end_forms($this_form_id,$ftitle='') {
         $form_elemets ='';
         $submit_button='';
 
@@ -34,7 +34,7 @@ Class LFB_Front_end_FORMS {
         $posts = $th_save_db->lfb_get_form_data($this_form_id);
 
         if (!empty($posts)) {
-            $form_title = $posts[0]->form_title;
+            $form_title = ($ftitle ==='')?$posts[0]->form_title:$ftitle;
             $form_data_result = maybe_unserialize($posts[0]->form_data);
            
 
