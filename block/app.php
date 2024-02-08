@@ -20,8 +20,8 @@ if ( ! class_exists( 'Lead_Form_Builder_Blocks' ) ) {
 					$lfb = New LFB_SAVE_DB;
 					if(isset( $_POST['data'] )){
 					$formid = intval(json_decode( wp_unslash( $_POST['data'] ))->data);
-					$rander_form = do_shortcode('[lead-form form-id='.$formid.' new_title="'.$title.'"]');
 					$title = sanitize_text_field(  json_decode( wp_unslash( $_POST['data'] ))->title );
+					$rander_form = do_shortcode('[lead-form form-id='.$formid.' new_title="'.$title.'"]');
 
 					$fid_new = $lfb->get_single_lead_form($formid);
 

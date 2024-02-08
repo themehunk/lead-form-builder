@@ -4,9 +4,9 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
-import { useEffect,useState,RawHTML  } from '@wordpress/element';
+import { useEffect,useState  } from '@wordpress/element';
 
-import { Panel, PanelBody,TextControl,SelectControl,Button  } from '@wordpress/components';
+import { Panel, PanelBody,TextControl,SelectControl,Button,Spinner  } from '@wordpress/components';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -37,6 +37,7 @@ import './editor.scss';
 export default function Edit({ attributes, setAttributes,isSelected  }) {
     const [url,setUrl] = useState(false);
     const [isform,seIsForm] = useState(false);
+    const [loader,setLoader] = useState(true);
     const useSelect = wp.data.select( 'core' ).getSite();
     url===false && useSelect && setUrl(useSelect.url);
 
@@ -52,6 +53,7 @@ export default function Edit({ attributes, setAttributes,isSelected  }) {
     const htmlToElem = (html) => wp.element.RawHTML({ children: html });
   
 	const lfbData = async () =>{
+
         try {
       
           const dataToSend = { data: formid,title:title }; // Customize the data to send
@@ -66,6 +68,7 @@ export default function Edit({ attributes, setAttributes,isSelected  }) {
             .then(data => {
               data.data.lfb_form && data.data.lfb_form.length && (seIsForm(true));
 				    setAttributes(  { formList:data.data.lfb_form,randerForm: data.data.lfb_rander } );
+            setLoader(false);
 
             })
             .catch(error => {
@@ -77,11 +80,15 @@ export default function Edit({ attributes, setAttributes,isSelected  }) {
           }          
       }
 
-
-	  useEffect(() => {
+      useEffect(() => {
+        setLoader(true);
 
         lfbData(); 
-      }, [formid,title]); // 👈️ empty dependencies array
+     }, [formid]); // 👈️ empty dependencies array
+
+	  useEffect(() => {
+         lfbData(); 
+      }, [title]); // 👈️ empty dependencies array
 
      const slectFormLIst = () =>{
 
@@ -129,8 +136,9 @@ export default function Edit({ attributes, setAttributes,isSelected  }) {
 				</Panel>
 			</InspectorControls>}
 
+      {loader && <Spinner />}
       {isform && htmlToElem(randerForm)}
-      {isform===false && <Button variant="primary" onClick={()=>handleClick('add-new-form') }>Create New Form</Button>}
+      {isform===false && loader ===false && <Button variant="primary" onClick={()=>handleClick('add-new-form') }>Create New Form</Button>}
 		</div>
 	);
 }
