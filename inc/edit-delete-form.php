@@ -145,19 +145,29 @@ Class LFB_EDIT_DEL_FORM {
     }
     
     function lfb_delete_form_content($form_action, $this_form_id, $page_id) {
-        global $wpdb;
-        $th_save_db = new LFB_SAVE_DB($wpdb);
-        $table_name = LFB_FORM_FIELD_TBL;
-    $update_leads = $wpdb->update( 
-    $table_name,
-    array( 
-        'form_status' => esc_html('Disable')
-    ), 
-    array( 'id' =>$this_form_id));
-    if($update_leads){    
-        $th_show_forms = new LFB_SHOW_FORMS();
-        $th_show_forms->lfb_show_all_forms($page_id);
-    }
+
+       
+        $nonce = isset($_REQUEST['_wpnonce'])?$_REQUEST['_wpnonce']:false;
+    
+        if (wp_verify_nonce($nonce, '_nonce_verify')) {
+                    
+                global $wpdb;
+                $th_save_db = new LFB_SAVE_DB($wpdb);
+                $table_name = LFB_FORM_FIELD_TBL;
+            $update_leads = $wpdb->update( 
+            $table_name,
+            array( 
+                'form_status' => esc_html('Disable')
+            ), 
+            array( 'id' =>$this_form_id));
+                if($update_leads){    
+                    $th_show_forms = new LFB_SHOW_FORMS();
+                    $th_show_forms->lfb_show_all_forms($page_id);
+                }
+
+        }else{
+            echo "Invalid URL";
+        }
     }
 
     function lfb_basic_form() {

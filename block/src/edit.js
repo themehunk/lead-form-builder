@@ -125,11 +125,11 @@ export default function Edit({ attributes, setAttributes,isSelected  }) {
               onChange={  ( value ) => setAttributes(  { formid: value } ) }
                />}
 
-                    <TextControl
+                    {/* <TextControl
                     label="Form Title"
                     value={ title }
                     onChange={ ( value ) => setAttributes(  { title: value } ) }
-                />
+                /> */}
 
         <Button variant="secondary" onClick={ ()=>handleClick('wplf-plugin-menu') }>Customize Lead Form</Button>
 				</PanelBody>
