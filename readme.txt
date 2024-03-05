@@ -1,7 +1,7 @@
 ====== Responsive Contact Form Builder & Lead Generation Plugin ========
 Contributors: ThemeHunk
 Author URI: : https://www.themehunk.com/
-Tags: contact form, responsive form, form builder, contact, email, captcha, registration, lead-form, field ordering, contact form builder, contact forms plugin, easy form, newsletter form, Responsive form, easy contact form, unlimited form, contact us, email send form, drag and drop contact form, form maker, widget contact form, view form simple form
+Tags: contact form, responsive form, lead form builder, contact form builder, newsletter form
 Requires at least: 5.5
 Tested up to: 6.4
 Stable tag: 1.8.9
