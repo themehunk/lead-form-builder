@@ -64,7 +64,7 @@ define('LFB_FORM_CAPTCHA_SVG', LFB_PLUGIN_URL.'images/captcha.svg');
 define('LFB_FORM_GEAR_SVG', LFB_PLUGIN_URL.'images/gear.svg');
 define('LFB_FORM_BACK_SVG', LFB_PLUGIN_URL.'images/back.svg');
 define('LFB_FORM_PRO_TEXT','<p class="pro-text">'.__('These features available with the pro version of plugin.','lead-form-builder').'</p>');
-define('LFB_FORM_PRO_FIELD_TYPE',   __('Upload field option available with pro version of plugin.','lead-form-builder'));
+define('LFB_FORM_PRO_FIELD_TYPE',   __('<b>Upload field option available with pro version of plugin.</b>','lead-form-builder'));
 define('LFB_FORM_PRO_FEATURE', '<span class="pro-feature"><i class="fa fa-lock"></i>
  '.__('Pro Feature','lead-form-builder').'<span>');
  define('LFB_FORM_PRO_LOCK', '<span class="pro-lock pro-feature"><i class="fa fa-lock"></i><span>');

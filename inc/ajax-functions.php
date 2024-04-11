@@ -8,56 +8,6 @@ function lfb_user_permission_check(){
     $allowed_roles = array('editor', 'administrator', 'lfb_role');
     return array_intersect($allowed_roles, $user->roles);
 }
-
-// File Upload functions
-function lfb_upload_dir($dirs)
-{
-    $dirs['subdir'] = '/lfb_uploads';
-    $dirs['path'] = $dirs['basedir'] . '/lfb_uploads';
-    $dirs['url'] = $dirs['baseurl'] . '/lfb_uploads';
-    return $dirs;
-}
-
-function lfb_fileupload()
-{
-    add_filter('upload_dir', 'lfb_upload_dir');
-    $fileErrors = array(
-        0 => __("There is no error, the file uploaded with success", "lead-form-builder"),
-        1 => __("The uploaded file exceeds the upload_max_files in server settings", "lead-form-builder"),
-        2 => __("The uploaded file exceeds the MAX_FILE_SIZE from html form", "lead-form-builder"),
-        3 => __("The uploaded file uploaded only partially", "lead-form-builder"),
-        4 => __("No file was uploaded", "lead-form-builder"),
-        6 => __("Missing a temporary folder", "lead-form-builder"),
-        7 => __("Failed to write file to disk", "lead-form-builder"),
-        8 => __("A PHP extension stoped file to upload", "lead-form-builder")
-    );
-
-    $file_data = isset($_FILES) ? $_FILES : array();
-    $overrides = array('test_form' => false);
-    $response = array();
-
-    foreach ($file_data as $key => $file) {
-        $uploaded_file = wp_handle_upload($file, $overrides);
-
-        if ($uploaded_file && !isset($uploaded_file['error'])) {
-            $response[$key]['response'] = __('SUCCESS', 'lead-form-builder');
-            $response[$key]['filename'] = basename($uploaded_file['url']);
-            $response[$key]['url'] = $uploaded_file['url'];
-            $response[$key]['type'] = $uploaded_file['type'];
-        } else {
-            $response[$key]['response'] = esc_html__("ERROR", 'lead-form-builder');
-            $response[$key]['error'] = $uploaded_file['error'];
-        }
-    }
-
-    $parse = http_build_query($response);
-
-    print_r($parse);
-    remove_filter('upload_dir', 'lfb_upload_dir');
-    die();
-}
-add_action('wp_ajax_fileupload', 'lfb_fileupload');
-add_action('wp_ajax_nopriv_fileupload', 'lfb_fileupload');
 /*
  * Save Lead collecting method
  */
@@ -671,7 +621,8 @@ function lfb_lead_sanitize($leads)
 
 function lfb_Save_Form_Data()
 {
-    if (isset($_POST['fdata'])) {
+  
+    if (isset($_POST['fdata']) && wp_verify_nonce($_POST['_wpnonce'], 'lfb_front_nonce' )) {
         wp_parse_str($_POST['fdata'], $fromData);
 
         $form_id = intval($fromData['hidden_field']);
@@ -694,6 +645,8 @@ function lfb_Save_Form_Data()
         $th_save_db = new LFB_SAVE_DB();
 
         $lf_store->lfb_mail_type($form_id, $form_data, $th_save_db, $user_emailid);
+    }else{
+        echo esc_html__('INVAILD','lead-form-builder');
     }
     die();
 }

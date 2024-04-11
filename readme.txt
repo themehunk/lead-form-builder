@@ -3,8 +3,8 @@ Contributors: ThemeHunk
 Author URI: : https://www.themehunk.com/
 Tags: contact form, responsive form, lead form builder, contact form builder, newsletter form
 Requires at least: 5.5
-Tested up to: 6.4
-Stable tag: 1.8.9
+Tested up to: 6.5
+Stable tag: 1.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,6 +128,13 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 9. Google Lead Store Data
 
 == Changelog ==
+
+= Version 1.9.0 =
+* Update: Text color change.
+* Fix: nonce and Security save form data fixed.
+* Fix: nonce and Security delete form fixed.
+* Delete: lfb_fileupload function delete not in use.
+
 
 = Version 1.8.9 =
 * Fix: nonce issue fixed.
@@ -452,5 +459,8 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.8.8 =
-* Add: Gutenberg block lead form.
+= 1.9.0 =
+* Update: Text color change.
+* Fix: nonce and Security save form data fixed.
+* Fix: nonce and Security delete form fixed.
+* Delete: lfb_fileupload function delete not in use.

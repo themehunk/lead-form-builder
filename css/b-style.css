@@ -73,6 +73,9 @@ input[name=post_title]:focus{
 .lf-column-captcha ul li p {
   font-family: "Open Sans", sans-serif;
 }
+#new_lead_form .submit b{
+  color: #a94def;
+}
 #lfb_formColor .alpha-color-picker-wrap {
   padding-top: 5px;
   padding-bottom: 10px;

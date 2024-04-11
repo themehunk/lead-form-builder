@@ -168,6 +168,8 @@ Class LFB_Front_end_FORMS {
                 <h2 class="lfb-heading">' . $form_title . '</h2>' . $form_elemets . '<div class="lf-form-panel">' . $submit_button . '</div>
                 <div class="captcha-field-area" id="captcha-field-area"></div>
                 <input type="hidden" class="hidden_field" name="hidden_field" value="' . $this_form_id . '"/>
+
+                <input type="hidden" class="hidden_field" name="_wpnonce_form" value="' . wp_create_nonce( 'lfb_front_nonce_'.$this_form_id ) . '"/>
                 <input type="hidden" class="this_form_captcha_status" value="' . $captcha_status . '"/>
                 <div class="leadform-show-loading front-loading leadform-show-message-form-'.$this_form_id.'" >
                 </div>

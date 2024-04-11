@@ -86,7 +86,8 @@ function lfbInserForm(element,form_id,uploaddata=''){
             this_form_data = this_form_data + '&' + uploaddata;
             } 
            var  lfbFormData = { fdata : this_form_data,
-                                 action :  'Save_Form_Data'  
+                                 action :  'Save_Form_Data',
+                                 _wpnonce: frontendajax._wpnonce
                                 };
         SavedataByAjaxRequest(lfbFormData, 'POST').success(function(response) {
             element.find('#loading_image').hide();;
@@ -106,34 +107,12 @@ function lfbInserForm(element,form_id,uploaddata=''){
                 if(jQuery.trim(redirect)!=''){
                     window.location.href = redirect;
                 }
+            }  else if (jQuery.trim(response) === 'INVAILD') {
+                element.find(".leadform-show-message-form-"+form_id).append("<div class='error'><p>Invalid Data!</p></div>");
+
             }
         });
     }
-
-function lfbfileUpload(element,form_id){
-    var fd = new FormData();
-    var file = element.find('input[type="file"]');
-        for (var i = 0, len = file.length; i < len; i++) {
-            if(file[i].files[0]!=undefined){
-                //console.log(file[i].name);
-                //console.log(file[i].files[0].name);
-                fd.append(file[i].name, file[i].files[0]);
-            }
-        }
-    fd.append('action', 'fileupload');  
-    fd.append('fid', form_id);  
-    jQuery.ajax({
-        type: 'POST',
-        url: frontendajax.ajaxurl,
-        data: fd,
-        contentType: false,
-        processData: false,
-        success: function(response){
-           var uploaddata  = jQuery.trim(response);
-            lfbInserForm(element,form_id,uploaddata);
-        }
-    });
-}
 
 //captcha validation check
 function lfbCaptchaCheck(element,form_id){
@@ -142,11 +121,11 @@ function lfbCaptchaCheck(element,form_id){
     SavedataByAjaxRequest(form_data, 'POST').success(function(response) {
     element.find('#loading_image').hide();
         if (jQuery.trim(response) == 'Yes') {
-        if(element.find('.upload-type').length){
-         lfbfileUpload(element,form_id);
-        }else{
+        // if(element.find('.upload-type').length){
+        //  lfbfileUpload(element,form_id);
+        // }else{
          lfbInserForm(element,form_id);
-        }
+        //}
          } else {
           element.find(".leadform-show-message-form-"+form_id).append("<div class='error'><p>Invalid Captcha</p></div>");
           grecaptcha.reset();
@@ -171,11 +150,11 @@ jQuery(document).on('submit', "form.lead-form-front", function(event) {
     element.find(".leadform-show-message-form-"+form_id).empty();
 
     if(captcha_status=='disable'){
-        if(element.find('.upload-type').length){
-            lfbfileUpload(element,form_id);
-        } else{
+        // if(element.find('.upload-type').length){
+        //     lfbfileUpload(element,form_id);
+        // } else{
             lfbInserForm(element,form_id);
-        }
+       // }
      } else {
             lfbCaptchaCheck(element,form_id);
     }

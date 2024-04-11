@@ -30,7 +30,7 @@ function lfb_wp_assets() {
     wp_enqueue_style('lfb_f_css', LFB_PLUGIN_URL . 'css/f-style.css');
     wp_enqueue_script('jquery-ui-datepicker');        
     wp_enqueue_script('lfb_f_js', LFB_PLUGIN_URL . 'js/f-script.js', array('jquery'), LFB_VER, true);
-    wp_localize_script('lfb_f_js', 'frontendajax', array('ajaxurl' => admin_url('admin-ajax.php')));
+    wp_localize_script('lfb_f_js', 'frontendajax', array('ajaxurl' => admin_url('admin-ajax.php'),'_wpnonce' => wp_create_nonce( 'lfb_front_nonce' )));
     wp_enqueue_style('font-awesome', LFB_PLUGIN_URL . 'font-awesome/css/font-awesome.css');
 }
 add_action('wp_enqueue_scripts', 'lfb_wp_assets', 15);
@@ -56,7 +56,10 @@ function lfb_lead_form_page() {
     if (isset($_GET['action']) && isset($_GET['formid'])) {
         $form_action = sanitize_text_field($_GET['action']);
         $this_form_id = intval($_GET['formid']);
-        if ($form_action == 'delete') {
+        $nonce = isset($_REQUEST['_wpnonce'])?$_REQUEST['_wpnonce']:false;
+
+
+        if ($form_action == 'delete' && wp_verify_nonce($nonce, '_nonce_verify')) {
             $page_id =1;
             if (isset($_GET['page_id'])) {
             $page_id = intval($_GET['page_id']);
