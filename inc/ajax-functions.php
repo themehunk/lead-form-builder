@@ -1,13 +1,6 @@
 <?php
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
-function lfb_user_permission_check(){
-    $user = get_userdata(get_current_user_id());
-
-    $user = wp_get_current_user();
-    $allowed_roles = array('editor', 'administrator', 'lfb_role');
-    return array_intersect($allowed_roles, $user->roles);
-}
 /*
  * Save Lead collecting method
  */
@@ -15,7 +8,7 @@ function lfb_save_lead_settings()
 {
     $nonce = $_REQUEST['lrv_nonce_verify'];
     // Get all the user roles as an array.
-    if (isset($_POST['action-lead-setting'])  && lfb_user_permission_check() && wp_verify_nonce($nonce, 'lrv-nonce')) {
+    if (isset($_POST['action-lead-setting'])  && current_user_can('edit_posts') && wp_verify_nonce($nonce, 'lrv-nonce')) {
 
     $data_recieve_method = intval($_POST['data-recieve-method']);
     $this_form_id = intval($_POST['action-lead-setting']);
@@ -44,7 +37,7 @@ function lfb_save_email_settings()
 
     $nonce = $_REQUEST['aes_nonce'];
     // Get all the user roles as an array.
-    if (isset($_POST['email_setting']['form-id'])  && lfb_user_permission_check() && wp_verify_nonce($nonce, 'aes-nonce')) {
+    if (isset($_POST['email_setting']['form-id'])  && current_user_can('edit_posts') && wp_verify_nonce($nonce, 'aes-nonce')) {
 
     global $wpdb;
     $email_setting = array();
@@ -72,7 +65,7 @@ function lfb_save_captcha_settings()
 {
     $nonce = $_POST['captcha_nonce'];
 
-    if (isset($_POST['captcha-keys'])  && lfb_user_permission_check() && wp_verify_nonce($nonce, 'captcha-nonce')) {
+    if (isset($_POST['captcha-keys'])  && current_user_can('edit_posts') && wp_verify_nonce($nonce, 'captcha-nonce')) {
 
     $captcha_setting_sitekey = sanitize_text_field($_POST['captcha-setting-sitekey']);
     $captcha_setting_secret = sanitize_text_field($_POST['captcha-setting-secret']);
@@ -100,7 +93,7 @@ function lfb_delete_leads_backend()
     // Get all the user roles as an array.
 
     $check = false;
-    if (isset($_POST['lead_id'])  && lfb_user_permission_check() && wp_verify_nonce($nonce, 'lfb-nonce-rm')) {
+    if (isset($_POST['lead_id'])  && current_user_can('edit_posts') && wp_verify_nonce($nonce, 'lfb-nonce-rm')) {
         $check = true;
 
         $this_lead_id = intval($_POST['lead_id']);
@@ -126,7 +119,7 @@ add_action('wp_ajax_delete_leads_backend', 'lfb_delete_leads_backend');
 function lfb_save_captcha_option()
 {
     $nonce = $_POST['captcha_nonce'];
-if (isset($_POST['captcha_on_off_form_id'])  && lfb_user_permission_check() && wp_verify_nonce($nonce, 'captcha-nonce')) {
+if (isset($_POST['captcha_on_off_form_id'])  && current_user_can('edit_posts') && wp_verify_nonce($nonce, 'captcha-nonce')) {
 
     $captcha_option = sanitize_text_field($_POST['captcha-on-off-setting']);
     $this_form_id = intval($_POST['captcha_on_off_form_id']);
@@ -687,7 +680,7 @@ function lfb_RememberMeThisForm()
 {
     $nonce = $_POST['rem_nonce'];
 
-    if (isset($_POST['form_id'])  && lfb_user_permission_check() && wp_verify_nonce($nonce, 'rem-nonce')) {
+    if (isset($_POST['form_id'])  && current_user_can('edit_posts') && wp_verify_nonce($nonce, 'rem-nonce')) {
 
         $remember_me = intval($_POST['form_id']);
         if (get_option('lf-remember-me-show-lead') !== false) {
@@ -727,7 +720,7 @@ function lfb_SaveUserEmailSettings()
 
     $nonce = $_REQUEST['ues_nonce'];
     // Get all the user roles as an array.
-    if (isset($_POST['user_email_setting'])  && lfb_user_permission_check() && wp_verify_nonce($nonce, 'ues-nonce')) {
+    if (isset($_POST['user_email_setting'])  && current_user_can('edit_posts') && wp_verify_nonce($nonce, 'ues-nonce')) {
 
         $mailArr['user_email_setting'] = lfb_emailsettings_sanitize($_POST['user_email_setting']);
 
