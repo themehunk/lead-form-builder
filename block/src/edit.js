@@ -4,7 +4,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
-import { useEffect,useState  } from '@wordpress/element';
+import { useEffect,useState,RawHTML  } from '@wordpress/element';
 
 import { Panel, PanelBody,TextControl,SelectControl,Button,Spinner  } from '@wordpress/components';
 
@@ -49,19 +49,23 @@ export default function Edit({ attributes, setAttributes,isSelected  }) {
       } = attributes;
 
 
-    const el = wp.element.createElement;
-    const htmlToElem = (html) => wp.element.RawHTML({ children: html });
+    // const el = wp.element.createElement;
+    // const htmlToElem = (html) => wp.element.RawHTML({ children: html });
   
 	const lfbData = async () =>{
 
         try {
       
-          const dataToSend = { data: formid,title:title }; // Customize the data to send
+          const dataToSend = { data: formid,title:title}; // Customize the data to send
 
-          const response = await fetch(ajaxurl, {
+          const response = await fetch(lfbScriptData.ajax_url, {
             method: 'POST',
+            headers: {
+              'X-WP-Nonce': lfbScriptData.security,
+          },
             body: new URLSearchParams({
                 action: 'lead_form_builderr_data', // Specify the WordPress AJAX action
+                security: lfbScriptData.security,
                 data: JSON.stringify(dataToSend), // Convert the data to JSON and send it
             }),
         }).then(response => response.json())
@@ -82,7 +86,6 @@ export default function Edit({ attributes, setAttributes,isSelected  }) {
 
       useEffect(() => {
         setLoader(true);
-
         lfbData(); 
      }, [formid]); // 👈️ empty dependencies array
 
@@ -137,7 +140,7 @@ export default function Edit({ attributes, setAttributes,isSelected  }) {
 			</InspectorControls>}
 
       {loader && <Spinner />}
-      {isform && htmlToElem(randerForm)}
+      {isform && <RawHTML>{randerForm}</RawHTML>}
       {isform===false && loader ===false && <Button variant="primary" onClick={()=>handleClick('add-new-form') }>Create New Form</Button>}
 		</div>
 	);
