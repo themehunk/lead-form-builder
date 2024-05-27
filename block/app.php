@@ -24,7 +24,7 @@ if ( ! class_exists( 'Lead_Form_Builder_Blocks' ) ) {
 					}
 
 					
-					if(isset( $_POST['data'] ) && current_user_can('manage_options')){
+					if(isset( $_POST['data'] ) && current_user_can('manage_options') && current_user_can('edit_posts')){
 
 
 						$postData = json_decode( wp_unslash( $_POST['data'] ), true );
@@ -34,18 +34,18 @@ if ( ! class_exists( 'Lead_Form_Builder_Blocks' ) ) {
 						}
 						$lfb = New LFB_SAVE_DB;
 
-						// Validate and sanitize the data
-						$formid = intval( $postData['data'] );
-						$title = sanitize_text_field( $postData['title'] );
+					
+							// Sanitize and validate input
+							$formid = isset( $postData['data'] ) ? absint( $postData['data'] ) : 0;
 
 						    // Use the sanitized data in the shortcode
-						$rander_form = do_shortcode( '[lead-form form-id=' . $formid . ' new_title="' . $title . '"]' );
+						$rander_form = do_shortcode( '[lead-form form-id=' . esc_attr($formid) . ']' );
 
 						// Retrieve the lead form and check if rendering was successful
 						$fid_new = $lfb->get_single_lead_form( $formid );
 
 					if($rander_form==='' && $fid_new){
-						$rander_form = do_shortcode('[lead-form form-id='.$fid_new.' new_title="'.$title.'"]');
+						$rander_form = do_shortcode( '[lead-form form-id=' . esc_attr($formid) . ']' );
 						$formid = $fid_new;
 					}
 

@@ -7,8 +7,8 @@ function lfb_lead_form_shortcode($atts) {
         'title' => '',
         'new_title'=>'',
             ), $atts);
-    $this_form_id = wp_kses_post($pull_quote_atts['form-id']);
-    $new_title = ($pull_quote_atts['new_title']);
+    $this_form_id = absint($pull_quote_atts['form-id']);
+    $new_title = esc_html($pull_quote_atts['new_title']);
     $th_front_end_froms = new LFB_Front_end_FORMS();
     $output = $th_front_end_froms->lfb_show_front_end_forms($this_form_id,$new_title);
     return $output;
