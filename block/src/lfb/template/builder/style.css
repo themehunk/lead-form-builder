@@ -1,0 +1,25 @@
+.lfb-dragable div[draggable] {
+    cursor: move;
+    background-color: lightblue;
+    padding: 8px;
+    margin-bottom: 8px;
+    width: 75px;
+  }
+  
+ .lfb-dragable div[draggable]:hover {
+    background-color: skyblue;
+  }
+
+
+  .lfb-dragable ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .lfb-dragable li {
+    background-color: lightgray;
+    padding: 8px;
+    margin-bottom: 8px;
+    width: 75px;
+
+  }

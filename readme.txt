@@ -3,8 +3,8 @@ Contributors: ThemeHunk
 Author URI: : https://www.themehunk.com/
 Tags: contact form, responsive form, lead form builder, contact form builder, newsletter form
 Requires at least: 5.5
-Tested up to: 6.5
-Stable tag: 1.9.3
+Tested up to: 6.6
+Stable tag: 1.9.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,36 @@ Premium version of our plugin Lead form Builder is released now having all the a
 ⭐	24x7 supports available with updates. 
 
 
+
+== Supported Themes ==
+These themes have been tested and are compatible with search plugin without significant issues. Also you can use this plugin to your Block, Elementor, WooCommerce Pages:
+
+* [TH Shop Mania](https://wordpress.org/themes/th-shop-mania/) - by ThemeHunk
+* [Top Store](https://wordpress.org/themes/top-store/) - by ThemeHunk
+* [Open Shop](https://wordpress.org/themes/open-shop/) - by ThemeHunk
+* [Zita](https://wordpress.org/themes/zita/) - by ThemeHunk
+* [Big Store](https://wordpress.org/themes/big-store/) - by ThemeHunk
+* [M Shop](https://wordpress.org/themes/m-shop/) - by ThemeHunk
+* [Royal Shop](https://wordpress.org/themes/royal-shop/) - by ThemeHunk
+* [Open Mart](https://wordpress.org/themes/open-mart/) - by ThemeHunk
+* [GoGo](https://wordpress.org/themes/gogo/) - by ThemeHunk
+* [Twenty Twenty-Two](https://wordpress.org/themes/twentytwentytwo/) - by WordPress
+* [Hello Elementor](https://wordpress.org/themes/hello-elementor/) - by Elementor
+* [OceanWP](https://wordpress.org/themes/oceanwp/) - by oceanwp
+* [Neve](https://wordpress.org/themes/neve/) - by Themeisle
+* [Go](https://wordpress.org/themes/go/) - by GoDaddy
+* [GeneratePress](https://wordpress.org/themes/generatepress/) - by Tom
+* [Hestia](https://wordpress.org/themes/hestia/) - by Themeisle
+* [Colibri WP](https://wordpress.org/themes/colibri-wp/) - by Extend Themes
+* [Kadence](https://wordpress.org/themes/kadence/) - by Ben Ritner – Kadence WP
+* [Astra](https://wordpress.org/themes/astra/) - by Brainstorm Force
+* [Kubio](https://wordpress.org/themes/kubio/) - by Extend Themes
+* [Zakra](https://wordpress.org/themes/zakra/) - by ThemeGrill
+* [Storefront](https://wordpress.org/themes/storefront/) - by Automattic
+* [OnePress](https://wordpress.org/themes/onepress/) - by FameThemes
+* [Blocksy](https://wordpress.org/themes/blocksy/) - by creativethemeshq
+
+
 == Installation ==
 
 1. Upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory
@@ -128,6 +158,12 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 9. Google Lead Store Data
 
 == Changelog ==
+
+= 1.9.4 =
+* Update: New plugin added to the dashboard.
+* Update: readme file updated.
+* Update: Plugin updated to latest version.
+* Update: Plugin tested to astra,generatepress,neve,storefront.
 
 = Version 1.9.3 =
 * Fix: Fix shortcode injection issue.
@@ -468,8 +504,6 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.9.0 =
-* Update: Text color change.
-* Fix: nonce and Security save form data fixed.
-* Fix: nonce and Security delete form fixed.
-* Delete: lfb_fileupload function delete not in use.
+= 1.9.4 =
+* Update: New plugin added to the dashboard.
+* Update: readme file updated.

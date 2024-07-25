@@ -1,5 +1,17 @@
 <?php
  return array(
+    'vayu-blocks' => array(
+        'name' => esc_html__('Vayu Blocks For Gutenberg Blocks', 'lead-form-builder'),
+        'img' => 'icon-128x128.png',
+        'admin_link' =>   'vayu-blocks',
+        'details' => esc_url('https://themehunk.com/vayu-blocks/'),
+        'active_filename' => 'vayu-blocks/vayu-blocks.php',
+        'pro-plugin' => array(
+            'init' => 'vayu-block-pro/vayu-block-pro.php',
+            'admin_link' => 'vayu-block-pro',
+            'docs' => esc_url('https://themehunk.com/vayu-blocks/'),
+        )
+    ),
     'th-advance-product-search' => array(
         'name' => esc_html__('TH Advance Product Search', 'lead-form-builder'),
         'img' => 'icon-128x128.gif',
@@ -74,13 +86,6 @@
             'admin_link' => 'wppb',
             'docs' => esc_url('https://themehunk.com/docs/wp-popup-builder-pro/'),
         )
-    ),
-    'unlimited-blocks' => array(
-        'name' => esc_html__('Unlimited blocks For Gutenberg', 'lead-form-builder'),
-        'img' => 'icon-128x128.png',
-        'admin_link' =>   'unlimited-blocks',
-        'details' => esc_url('https://themehunk.com/docs/unlimited-blocks-for-gutenberg/'),
-        'active_filename' => 'unlimited-blocks/unlimited-blocks.php',
     ),
 
     'themehunk-megamenu-plus' => array(

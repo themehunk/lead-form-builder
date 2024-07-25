@@ -28,7 +28,7 @@
             <div class="section">
                 <h3><?php _e('Video Tutorials','lead-form-builder'); ?></h3>
                 <p><?php _e('Want a guide? We have video tutorials to walk you through getting started.','lead-form-builder'); ?> </p>
-                <a href="<?php echo esc_url('https://www.youtube.com/channel/UCfgrZG0WxbPn707NumiWxUg?sub_confirmation=1')?>" target="_blank" class="sidebar-link"><?php _e('Watch Videos','lead-form-builder'); ?></a>
+                <a href="<?php echo esc_url('https://www.youtube.com/watch?v=qRFmFGV5Etw')?>" target="_blank" class="sidebar-link"><?php _e('Watch Videos','lead-form-builder'); ?></a>
             </div>
             <hr>
 
