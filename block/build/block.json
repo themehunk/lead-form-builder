@@ -4,7 +4,7 @@
   "name": "create-block/lead-form-builder",
   "version": "0.1.0",
   "title": "Lead Form Builder",
-  "category": "text",
+  "category": "vayu-blocks",
   "icon": "feedback",
   "keywords": [
     "contact form",

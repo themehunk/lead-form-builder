@@ -4,7 +4,7 @@ Author URI: : https://www.themehunk.com/
 Tags: contact form, responsive form, lead form builder, contact form builder, newsletter form
 Requires at least: 5.5
 Tested up to: 6.6
-Stable tag: 1.9.4
+Stable tag: 1.9.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,24 +21,24 @@ ThemeHunk : Lead Form Builder Plugin is a contact form builder as well as lead g
 **Key Features:-**
 
 
-⭐ Create unlimited contact forms for unlimited sites.
-⭐ Lead Form Styler Elementor addon available.
-⭐ Create contact forms with 9 field types: text(name), email, url, number, textarea(message), radio, checkbox, date, and dropdown.
-⭐ Use prebuild forms or add your own. A contact form template is included.
-⭐ Three form sizing options available (small, medium, large). 
-⭐ Send unlimited email notifications, including autoresponders to the form submitter.
-⭐ View created contact form from the back-end before publishing it live.
-⭐ Three lead receiving methods (Receive Leads in Email, Save Leads in database(you can see all leads in the lead option), Receive Leads in Email and Save in database).
-⭐ Send forms to the trash.
-⭐ Generate easy to use shortcode.
-⭐ Drag and drop field ordering available.
-⭐ reCAPTCHA integrate to secure you site.
-⭐ Option to set default value as a placeholder(which disappear when clicked). 
-⭐ Separate "from", "to" mail settings available for "Admin" and "User".
-⭐ Name your form according to it's use or location.
-⭐ Insert your forms on a page, post, or widget using a shortcode [lead-form form-id=X title=form name]
-⭐ Separate lead management available. View leads separately for each form.
-⭐ 24x7 support available for free product too. 
+* Create unlimited contact forms for unlimited sites.
+* Lead Form Styler Elementor addon available.
+* Create contact forms with 9 field types: text(name), email, url, number, textarea(message), radio, checkbox, date, and dropdown.
+* Use prebuild forms or add your own. A contact form template is included.
+* Three form sizing options available (small, medium, large). 
+* Send unlimited email notifications, including autoresponders to the form submitter.
+* View created contact form from the back-end before publishing it live.
+* Three lead receiving methods (Receive Leads in Email, Save Leads in database(you can see all leads in the lead option), Receive Leads in Email and Save in database).
+* Send forms to the trash.
+* Generate easy to use shortcode.
+* Drag and drop field ordering available.
+* reCAPTCHA integrate to secure you site.
+* Option to set default value as a placeholder(which disappear when clicked). 
+* Separate "from", "to" mail settings available for "Admin" and "User".
+* Name your form according to it's use or location.
+* Insert your forms on a page, post, or widget using a shortcode [lead-form form-id=X title=form name]
+* Separate lead management available. View leads separately for each form.
+* 24x7 support available for free product too. 
 
 = Lead Form Builder Pro:- =  [Pro Version](http://www.themehunk.com/product/lead-form-builder-pro/?utm_source=lfb-wp-readme&utm_campaign=lfb-product-link&utm_medium=lfb-lite "Lead Form Builder Pro")
 
@@ -49,36 +49,36 @@ Premium version of our plugin Lead form Builder is released now having all the a
 
 = Premium Features =
 
-⭐	Unlimited Form Creations
-⭐   Google One Tap Login Feature
-⭐   Leads Tracing like: IP Address, Country, OS & Browser etc.
-⭐	Google reCaptcha v2 & v3 for spam protection.
-⭐	WordPress Block Editor Support
-⭐	Auto Responder Feature Available.
-⭐	Fully responsive.
-⭐	Leads export feature. 
-⭐	Import/Export form. 
-⭐	Lead Form Styler Elementor addon available.
-⭐	MailChimp integrated. 
-⭐	SMTP Mail configure. 
-⭐	Amazing Multiple Pre-Built form templates.
-⭐	Drag and Drop field ordering. 
-⭐	Upload field option.
-⭐	Admin and User email Setting (Set desired ID for receiving and sending emails). 
-⭐	Easily embed your form in post/page editor,  widget using shortcode. 
-⭐	Live Customizer.
-⭐	Form resize option.
-⭐	Background image/color option for header and form background.
-⭐	Color option for fields, heading and button.
-⭐	Custom CSS for extra modifications.
-⭐	Form reset option.
-⭐	Create forms with 9 field types: upload file,  text(name), email, url, number, textarea (message), radio, checkbox, date, and dropdown.
-⭐	Custom Thank You message.
-⭐	Thank You page redirection.
-⭐	Generate easy to use shortcode.
-⭐	Wonderful packages for different type of users.
-⭐	Complete documentation with video tutorials. 
-⭐	24x7 supports available with updates. 
+*	Unlimited Form Creations
+*   Google One Tap Login Feature
+*   Leads Tracing like: IP Address, Country, OS & Browser etc.
+*	Google reCaptcha v2 & v3 for spam protection.
+*	WordPress Block Editor Support
+*	Auto Responder Feature Available.
+*	Fully responsive.
+*	Leads export feature. 
+*	Import/Export form. 
+*	Lead Form Styler Elementor addon available.
+*	MailChimp integrated. 
+*	SMTP Mail configure. 
+*	Amazing Multiple Pre-Built form templates.
+*	Drag and Drop field ordering. 
+*	Upload field option.
+*	Admin and User email Setting (Set desired ID for receiving and sending emails). 
+*	Easily embed your form in post/page editor,  widget using shortcode. 
+*	Live Customizer.
+*	Form resize option.
+*	Background image/color option for header and form background.
+*	Color option for fields, heading and button.
+*	Custom CSS for extra modifications.
+*	Form reset option.
+*	Create forms with 9 field types: upload file,  text(name), email, url, number, textarea (message), radio, checkbox, date, and dropdown.
+*	Custom Thank You message.
+*	Thank You page redirection.
+*	Generate easy to use shortcode.
+*	Wonderful packages for different type of users.
+*	Complete documentation with video tutorials. 
+*	24x7 supports available with updates. 
 
 
 
@@ -158,6 +158,9 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 9. Google Lead Store Data
 
 == Changelog ==
+
+= 1.9.5 =
+* Update: Blocks category updated.
 
 = 1.9.4 =
 * Update: New plugin added to the dashboard.

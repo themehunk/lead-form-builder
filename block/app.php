@@ -13,6 +13,25 @@ if ( ! class_exists( 'Lead_Form_Builder_Blocks' ) ) {
 
 					add_action( 'wp_ajax_lead_form_builderr_data', array( $this, 'lead_form_builder') );
 
+					if ( !is_plugin_active( 'vayu-blocks/vayu-blocks.php' ) ) {
+						add_filter( 'block_categories_all', array($this,'blocks_categories'), 11, 2);
+
+					}
+
+
+				}
+
+
+				function blocks_categories( $categories ) {
+					return array_merge(
+						[
+							[
+								'slug'  => 'vayu-blocks',
+								'title' => __( 'ThemeHunk', 'lead-form-buulder' ),
+							],
+						],
+						$categories
+					);
 				}
 
 				public function lead_form_builder() {
