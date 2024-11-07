@@ -10,8 +10,9 @@ function lfb_create_form_sanitize($form_data){
         foreach($form_data as $key=>$value){
 
             if(in_array($value['field_type']['type'], $fieldArr)){
-                $form_data[$key]['field_name'] = sanitize_text_field($value['field_name']);
-                $form_data[$key]['default_value'] = sanitize_text_field($value['default_value']);
+                $form_data[$key]['field_name'] = sanitize_title($value['field_name']);
+                $form_data[$key]['default_value'] = sanitize_title($value['default_value']);
+
                 $form_data[$key]['field_id'] = intval($value['field_id']);
 
                 if(isset($value['default_placeholder'])){
@@ -35,11 +36,11 @@ function lfb_create_form_sanitize($form_data){
 
                         foreach ($value['field_type'] as $fkey => $fvalue) {
 
-                             $form_data[$key]['field_type'][$fkey] = sanitize_text_field($fvalue);
+                             $form_data[$key]['field_type'][$fkey] = sanitize_title($fvalue);
                         }
 
 
-                 $form_data[$key]['field_name'] = sanitize_text_field($value['field_name']);
+                 $form_data[$key]['field_name'] = sanitize_title($value['field_name']);
                 $form_data[$key]['field_id'] = intval($value['field_id']);
 
 

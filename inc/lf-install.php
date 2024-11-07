@@ -114,7 +114,7 @@ function lfb_add_contact_forms() {
     $table_name,
     array( 
         'form_title' => $title,
-      'form_data' => maybe_serialize($data_form)
+      'form_data' => maybe_serialize(lfb_create_form_sanitize($data_form))
     ), 
     array( 'id' => $update_form_id ));
     $rd_url = esc_url(admin_url().'admin.php?page=add-new-form&action=edit&redirect=update&formid='.$update_form_id);
