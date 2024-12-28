@@ -8,10 +8,9 @@ use Elementor\Controls_Manager;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Border;
-use Elementor\Group_Control_Typography;
-use Elementor\Core\Schemes\Typography as Scheme_Typography;
-use Elementor\Core\Schemes\Color as Scheme_Color;
-
+// use Elementor\Group_Control_Typography;
+// use Elementor\Core\Schemes\Typography as Scheme_Typography;
+// use Elementor\Core\Schemes\Color as Scheme_Color;
 
 /**
  * Lead Form Styler Widget Class
@@ -195,22 +194,19 @@ class Lead_Form_Styler extends Widget_Base {
 				'lf_form_label_color',
 				[
 					'label' => __( 'Label Color', 'lead-form-builder' ),
-					'type' => Controls_Manager::COLOR,
-					'scheme' => [
-						'type' => Scheme_Color::get_type(),
-						'value' => Scheme_Color::COLOR_2,
-					],
+					'type' => \Elementor\Controls_Manager::COLOR,
+					'global' => ['default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_SECONDARY,],
 				'selectors' => [
 					'{{WRAPPER}} .lf-field label' => 'color: {{VALUE}};',
 				],
 				]
 			);
 			$this->add_group_control(
-				Group_Control_Typography::get_type(),
+				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'lf_form_labels_typography',
 					'label'=> __( 'Label Typography', 'lead-form-builder' ),
-					'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+					'global' => [ 'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,],
 					'default' => [
 						'font_weight' => [
 				// Inner control settings
@@ -265,11 +261,8 @@ class Lead_Form_Styler extends Widget_Base {
 				'lf_form_title_color',
 				[
 					'label' => __( 'Form Title Color', 'lead-form-builder' ),
-					'type' => Controls_Manager::COLOR,
-					'scheme' => [
-						'type' => Scheme_Color::get_type(),
-						'value' => Scheme_Color::COLOR_2,
-					],
+					'type' => \Elementor\Controls_Manager::COLOR,
+					'global' => ['default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_SECONDARY,],
 				'condition' => [
 						'lf_hide_form_title!' => 'yes'
 				],
@@ -279,11 +272,11 @@ class Lead_Form_Styler extends Widget_Base {
 				]
 			);
 			$this->add_group_control(
-				Group_Control_Typography::get_type(),
+				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'lf_form_title_typography',
 					'label'=> __( 'Form Title Typography', 'lead-form-builder' ),
-					'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+					'global' => [ 'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,],
 					'default' => [
 						'font_weight' => [
 				// Inner control settings
@@ -337,12 +330,9 @@ protected function lf_field_style_controls() {
 				'form_inputs_bg',
 				[
 					'label' => __( 'Field Background', 'lead-form-builder' ),
-					'type' => Controls_Manager::COLOR,
+					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '#f9f9f9',
-					'scheme' => [
-						'type' => Scheme_Color::get_type(),
-						'value' => Scheme_Color::COLOR_3,
-					],
+					'global' => ['default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_TEXT,],
 					'selectors' => [
 						'{{WRAPPER}} .lf-field input:not([type=submit]), {{WRAPPER}} .lf-field textarea' => 'background-color: {{VALUE}};',
 					],
@@ -353,11 +343,8 @@ protected function lf_field_style_controls() {
 				'form_inputs_txt_color',
 				[
 					'label' => __( 'Input Text', 'lead-form-builder' ),
-					'type' => Controls_Manager::COLOR,
-					'scheme' => [
-						'type' => Scheme_Color::get_type(),
-						'value' => Scheme_Color::COLOR_2,
-					],
+					'type' => \Elementor\Controls_Manager::COLOR,
+					'global' => ['default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_SECONDARY,],
 					'selectors' => [
 						'{{WRAPPER}} .lf-field input:not([type=submit]), 
 						{{WRAPPER}} .lf-field textarea' => 'color: {{VALUE}};',
@@ -370,11 +357,8 @@ protected function lf_field_style_controls() {
 				'form_inputs_placeholder_color',
 				[
 					'label' => __( 'Placeholder Text', 'lead-form-builder' ),
-					'type' => Controls_Manager::COLOR,
-					'scheme' => [
-						'type' => Scheme_Color::get_type(),
-						'value' => Scheme_Color::COLOR_2,
-					],
+					'type' => \Elementor\Controls_Manager::COLOR,
+					'global' => ['default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_SECONDARY,],
 					'selectors' => [
 						'{{WRAPPER}} .lf-field ::placeholder' => 'color: {{VALUE}};',
 
@@ -386,11 +370,8 @@ protected function lf_field_style_controls() {
 				'form_select_input_text_color',
 				[
 					'label' => __( 'Select Drop Down Text', 'lead-form-builder' ),
-					'type' => Controls_Manager::COLOR,
-					'scheme' => [
-						'type' => Scheme_Color::get_type(),
-						'value' => Scheme_Color::COLOR_2,
-					],
+					'type' => \Elementor\Controls_Manager::COLOR,
+					'global' => ['default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_SECONDARY,],
 					'selectors' => [
 						'{{WRAPPER}} .lf-field select' => 'color: {{VALUE}};',
 					],
@@ -401,12 +382,9 @@ protected function lf_field_style_controls() {
 				'form_select_inputs_bg',
 				[
 					'label' => __( 'Select Drop Down Background', 'lead-form-builder' ),
-					'type' => Controls_Manager::COLOR,
+					'type' => \Elementor\Controls_Manager::COLOR,
 					'default' => '#fff',
-					'scheme' => [
-						'type' => Scheme_Color::get_type(),
-						'value' => Scheme_Color::COLOR_3,
-					],
+					'global' => ['default' => \Elementor\Core\Kits\Documents\Tabs\Global_Colors::COLOR_TEXT,],
 					'selectors' => [
 						'{{WRAPPER}} .lf-field select' => 'background: {{VALUE}};',
 					],
@@ -423,31 +401,31 @@ protected function lf_field_style_controls() {
 			);
 
 			$this->add_group_control(
-				Group_Control_Typography::get_type(),
+				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'label' => __( 'Field Text', 'lead-form-builder' ),
 					'name' => 'form_field_typography',
-					'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+					'global' => [ 'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,],
 					'selector' => '{{WRAPPER}} .lf-field input:not([type=submit]), {{WRAPPER}} .lf-field textarea'
 				]
 			);
 
 			$this->add_group_control(
-				Group_Control_Typography::get_type(),
+				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'label' => __( 'Field Placeholder Text', 'lead-form-builder' ),
 					'name' => 'form_field_placeholder_typography',
-					'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+					'global' => [ 'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,],
 					'selector' => '{{WRAPPER}} .lf-field ::placeholder'
 				]
 			);
 
 			$this->add_group_control(
-				Group_Control_Typography::get_type(),
+				\Elementor\Group_Control_Typography::get_type(),
 				[	
 					'label' => __( 'Select Drop Down Text', 'lead-form-builder' ),
 					'name' => 'form_drop_down_typography',
-					'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+					'global' => [ 'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,],
 					'selector' => '{{WRAPPER}} .lf-field select',
 				]
 
@@ -839,10 +817,10 @@ protected function lf_field_style_controls() {
 			);
 
 			$this->add_group_control(
-				Group_Control_Typography::get_type(),
+				\Elementor\Group_Control_Typography::get_type(),
 				[
 					'name' => 'form_btn_typography',
-					'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+					'global' => [ 'default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_PRIMARY,],
 					'selector' => '{{WRAPPER}} .lf-field input[type="submit"]',
 				]
 			);
@@ -966,7 +944,7 @@ protected function lf_field_style_controls() {
 					'button_text_color',
 					[
 						'label'     => __( 'Text Color', 'lead-form-builder' ),
-						'type'      => Controls_Manager::COLOR,
+						'type'      => \Elementor\Controls_Manager::COLOR,
 						'default'   => '',
 						'selectors' => [
 							'{{WRAPPER}} .lf-field input[type="submit"]' => 'color: {{VALUE}};',
@@ -974,6 +952,7 @@ protected function lf_field_style_controls() {
 					]
 				);
 
+				
 				$this->add_group_control(
 					Group_Control_Background::get_type(),
 					[
@@ -982,10 +961,7 @@ protected function lf_field_style_controls() {
 						'types'          => [ 'classic', 'gradient' ],
 						'fields_options' => [
 							'color' => [
-								'scheme' => [
-									'type'  => Scheme_Color::get_type(),
-									'value' => Scheme_Color::COLOR_4,
-								],
+								'global' => ['default' => \Elementor\Core\Kits\Documents\Tabs\Global_Typography::TYPOGRAPHY_ACCENT,],
 								'default' => '#000',
 							],
 						],
@@ -1052,7 +1028,7 @@ protected function lf_field_style_controls() {
 					'btn_hover_color',
 					[
 						'label'     => __( 'Text Color', 'lead-form-builder' ),
-						'type'      => Controls_Manager::COLOR,
+						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .lf-field input[type="submit"]:hover' => 'color: {{VALUE}};',
 						],
@@ -1063,7 +1039,7 @@ protected function lf_field_style_controls() {
 					'button_hover_border_color',
 					[
 						'label'     => __( 'Border Hover Color', 'lead-form-builder' ),
-						'type'      => Controls_Manager::COLOR,
+						'type'      => \Elementor\Controls_Manager::COLOR,
 						'selectors' => [
 							'{{WRAPPER}} .lf-field input[type="submit"]:hover' => 'border-color: {{VALUE}};',
 						],
