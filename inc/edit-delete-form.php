@@ -214,7 +214,7 @@ Class LFB_EDIT_DEL_FORM {
     $defaultValue = isset($fieldv['default_value'])?$fieldv['default_value']:'';
           $hide = ($fieldtype=='terms')?'style=display:none;':'';
 
-    $return = '<td><input '.$hide.' type="text" class="default_value" name="lfb_form[form_field_' . $fieldID . '][default_value]" id="default_value_' . $fieldID . '" value="'.$defaultValue.'">';
+    $return = '<td><input '.$hide.' type="text" class="default_value" name="lfb_form[form_field_' . $fieldID . '][default_value]" id="default_value_' . $fieldID . '" value="'.esc_html($defaultValue).'">';
 
         return $return;
         
