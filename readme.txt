@@ -3,8 +3,8 @@ Contributors: ThemeHunk
 Author URI: : https://www.themehunk.com/
 Tags: contact form, responsive form, lead form builder, contact form builder, newsletter form
 Requires at least: 5.5
-Tested up to: 6.7
-Stable tag: 1.9.9
+Tested up to: 6.8
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,9 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 9. Google Lead Store Data
 
 == Changelog ==
+
+= 2.0.0 =
+* Update: _load_textdomain_just_in_time was called incorrectly issue resolved.
 
 = 1.9.9 =
 * Fix: Elementor compatible issues fixd.
@@ -519,6 +522,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.9.4 =
-* Update: New plugin added to the dashboard.
-* Update: readme file updated.
+= 2.0.0 =
+* Update: _load_textdomain_just_in_time was called incorrectly issue resolved.
