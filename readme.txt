@@ -159,8 +159,9 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 
 == Changelog ==
 
-= 2.0.0 =
+= 1.9.10 =
 * Update: _load_textdomain_just_in_time was called incorrectly issue resolved.
+* Update: Tested with WordPress 6.8.
 
 = 1.9.9 =
 * Fix: Elementor compatible issues fixd.
