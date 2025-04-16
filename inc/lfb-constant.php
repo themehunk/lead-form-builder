@@ -1,4 +1,5 @@
 <?php
+function lfb_constants(){
 define('LFB_REQUIRED_SIGN', 	__('<b class="lfb-required">*</b>','lead-form-builder'));
 define('LFB_COL_FORM_TITLE', 	__('Form Name','lead-form-builder'));
 define('LFB_COL_EXT_SETUP', 	__('Extension Setup','lead-form-builder'));
@@ -68,5 +69,5 @@ define('LFB_FORM_PRO_FIELD_TYPE',   __('<b>Upload field option available with pr
 define('LFB_FORM_PRO_FEATURE', '<span class="pro-feature"><i class="fa fa-lock"></i>
  '.__('Pro Feature','lead-form-builder').'<span>');
  define('LFB_FORM_PRO_LOCK', '<span class="pro-lock pro-feature"><i class="fa fa-lock"></i><span>');
- 
-?>
+}
+add_action('init','lfb_constants');
