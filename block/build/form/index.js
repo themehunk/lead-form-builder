@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/edit.js":
-/*!*********************!*\
-  !*** ./src/edit.js ***!
-  \*********************/
+/***/ "./src/form/edit.js":
+/*!**************************!*\
+  !*** ./src/form/edit.js ***!
+  \**************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -16,19 +16,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _wordpress_dataviews__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/dataviews */ "@wordpress/dataviews");
+/* harmony import */ var _wordpress_dataviews__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_dataviews__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./editor.scss */ "./src/form/editor.scss");
 
 /**
  * Retrieves the translation of text.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
+
 
 
 
@@ -63,122 +66,167 @@ function Edit({
   setAttributes,
   isSelected
 }) {
-  const [url, setUrl] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
-  const [isform, seIsForm] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
-  const [loader, setLoader] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)(true);
+  const [url, setUrl] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
+  const [isform, seIsForm] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
+  const [loader, setLoader] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(true);
   const useSelect = wp.data.select('core').getSite();
   url === false && useSelect && setUrl(useSelect.url);
+  const [inputValue, setInputValue] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)('hello');
   const {
     formid,
     title,
     randerForm,
-    formList
-  } = attributes;
-
-  // const el = wp.element.createElement;
-  // const htmlToElem = (html) => wp.element.RawHTML({ children: html });
-
-  const lfbData = async () => {
-    try {
-      const dataToSend = {
-        data: formid,
-        title: title
-      }; // Customize the data to send
-
-      const response = await fetch(lfbScriptData.ajax_url, {
-        method: 'POST',
-        headers: {
-          'X-WP-Nonce': lfbScriptData.security
-        },
-        body: new URLSearchParams({
-          action: 'lead_form_builderr_data',
-          // Specify the WordPress AJAX action
-          security: lfbScriptData.security,
-          data: JSON.stringify(dataToSend) // Convert the data to JSON and send it
-        })
-      }).then(response => response.json()).then(data => {
-        data.data.lfb_form && data.data.lfb_form.length && seIsForm(true);
-        setAttributes({
-          formList: data.data.lfb_form,
-          randerForm: data.data.lfb_rander
-        });
-        setLoader(false);
-      }).catch(error => {
-        // Handle errors
-        console.error('Error in AJAX request:', error);
-      });
-    } catch (error) {
-      console.error('Error fetching data:', error);
+    formList,
+    data = {
+      id: 1,
+      title: 'Title',
+      placeholder: 'Admin',
+      date: '2012-04-23T18:25:43.511Z'
     }
-  };
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
-    setLoader(true);
-    lfbData();
-  }, [formid]); // 👈️ empty dependencies array
-
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
-    lfbData();
-  }, [title]); // 👈️ empty dependencies array
-
-  const slectFormLIst = () => {
-    let defaultar = [{
-      disabled: true,
-      label: 'Select Form',
-      value: ''
-    }];
-    const flsit = formList && formList.map(function (form, i) {
-      const Optionformlist = {
-        label: form.form_title,
-        value: form.id
-      };
-      return Optionformlist;
+  } = attributes;
+  const onChange = edits => {
+    /*
+     * edits will contain user edits.
+     * For example, if the user edited the title
+     * edits will be:
+     *
+     * {
+     *   title: 'New title'
+     * }
+     *
+     */
+    console.log(edits, attributes);
+    setAttributes({
+      data: {
+        ...attributes.data,
+        // Preserve old data
+        ...edits // Add or update new data
+      }
     });
-    const arr = [...defaultar, ...flsit];
-    return arr;
   };
-  const handleClick = link => {
-    window.open(`${url}/wp-admin/admin.php?page=${link}`, "_blank");
-  };
+
+  console.log('Data', data);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.useBlockProps)()
-  }, isSelected && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.InspectorControls, {
-    key: "setting"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Panel, {
-    header: "lfb"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
-    title: "Lead Form Builder",
-    initialOpen: true
-  }, isform && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
-    label: "Slect Lead Form",
-    value: formid,
-    options: slectFormLIst(),
-    onChange: value => setAttributes({
-      formid: value
-    })
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
-    variant: "secondary",
-    onClick: () => handleClick('wplf-plugin-menu')
-  }, "Customize Lead Form")))), loader && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Spinner, null), isform && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.RawHTML, null, randerForm), isform === false && loader === false && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
-    variant: "primary",
-    onClick: () => handleClick('add-new-form')
-  }, "Create New Form"));
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__.useBlockProps)()
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_dataviews__WEBPACK_IMPORTED_MODULE_2__.DataForm, {
+    data: {
+      title: data.title,
+      placeholder: data.placeholder,
+      author: 1,
+      birthdate: '1950-02-23T12:00:00',
+      date: data.date,
+      order: 2,
+      reviewer: 'fulano',
+      status: 'draft',
+      sticky: false,
+      title: data.title
+    },
+    fields: [{
+      id: 'title',
+      label: 'Title',
+      type: 'text'
+    }, {
+      id: 'placeholder',
+      label: 'Placeholder',
+      type: 'text'
+    }, {
+      id: 'order',
+      label: 'Order',
+      type: 'integer'
+    }, {
+      id: 'date',
+      label: 'Date',
+      type: 'datetime'
+    }, {
+      elements: [{
+        label: 'Jane\'s birth date',
+        value: '1970-02-23T12:00:00'
+      }, {
+        label: 'John\'s birth date',
+        value: '1950-02-23T12:00:00'
+      }],
+      id: 'birthdate',
+      label: 'Date as options',
+      type: 'datetime'
+    }, {
+      elements: [{
+        label: 'Jane',
+        value: 1
+      }, {
+        label: 'John',
+        value: 2
+      }],
+      id: 'author',
+      label: 'Author',
+      type: 'integer'
+    }, {
+      Edit: 'radio',
+      elements: [{
+        label: 'Fulano',
+        value: 'fulano'
+      }, {
+        label: 'Mengano',
+        value: 'mengano'
+      }, {
+        label: 'Zutano',
+        value: 'zutano'
+      }],
+      id: 'reviewer',
+      label: 'Reviewer',
+      type: 'text'
+    }, {
+      elements: [{
+        label: 'Draft',
+        value: 'draft'
+      }, {
+        label: 'Published',
+        value: 'published'
+      }, {
+        label: 'Private',
+        value: 'private'
+      }],
+      id: 'status',
+      label: 'Status',
+      type: 'text'
+    }, {
+      id: 'password',
+      isVisible: () => {},
+      label: 'Password',
+      type: 'text'
+    }, {
+      Edit: () => {},
+      id: 'sticky',
+      label: 'Sticky',
+      type: 'integer'
+    }],
+    form: {
+      fields: ['title', 'placeholder', 'order', {
+        id: 'sticky',
+        labelPosition: 'side',
+        layout: 'regular'
+      }, 'author', 'reviewer', 'password', 'date', 'birthdate'],
+      labelPosition: 'side',
+      type: undefined
+    },
+    onChange: onChange
+  }));
 }
 
 /***/ }),
 
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
+/***/ "./src/form/index.js":
+/*!***************************!*\
+  !*** ./src/form/index.js ***!
+  \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
-/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./save */ "./src/save.js");
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/form/style.scss");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/form/edit.js");
+/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./save */ "./src/form/save.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/form/block.json");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -227,10 +275,10 @@ const {
 
 /***/ }),
 
-/***/ "./src/save.js":
-/*!*********************!*\
-  !*** ./src/save.js ***!
-  \*********************/
+/***/ "./src/form/save.js":
+/*!**************************!*\
+  !*** ./src/form/save.js ***!
+  \**************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -265,10 +313,10 @@ function save({
 
 /***/ }),
 
-/***/ "./src/editor.scss":
-/*!*************************!*\
-  !*** ./src/editor.scss ***!
-  \*************************/
+/***/ "./src/form/editor.scss":
+/*!******************************!*\
+  !*** ./src/form/editor.scss ***!
+  \******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -277,10 +325,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/style.scss":
-/*!************************!*\
-  !*** ./src/style.scss ***!
-  \************************/
+/***/ "./src/form/style.scss":
+/*!*****************************!*\
+  !*** ./src/form/style.scss ***!
+  \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -329,6 +377,16 @@ module.exports = window["wp"]["components"];
 
 /***/ }),
 
+/***/ "@wordpress/dataviews":
+/*!***********************************!*\
+  !*** external ["wp","dataviews"] ***!
+  \***********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["dataviews"];
+
+/***/ }),
+
 /***/ "@wordpress/element":
 /*!*********************************!*\
   !*** external ["wp","element"] ***!
@@ -349,13 +407,13 @@ module.exports = window["wp"]["i18n"];
 
 /***/ }),
 
-/***/ "./src/block.json":
-/*!************************!*\
-  !*** ./src/block.json ***!
-  \************************/
+/***/ "./src/form/block.json":
+/*!*****************************!*\
+  !*** ./src/form/block.json ***!
+  \*****************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/lead-form-builder","version":"0.1.0","title":"Lead Form Builder","category":"vayu-blocks","icon":"feedback","keywords":["contact form","lead form builder","themehunk"],"description":"Lead Form Builder is a contact form builder as well as lead generator.","example":{},"supports":{"html":false},"textdomain":"lead-form-builder","attributes":{"formid":{"type":"string","default":1},"title":{"type":"string"},"formList":{"type":"object"},"randerForm":{"type":"string","default":"[lead-form form-id=1 title=Contact Us]"}},"editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/lead-form-builder-blocks","version":"0.1.0","title":"Advance Lead Form","category":"vayu-blocks","icon":"feedback","keywords":["contact form","lead form builder","themehunk"],"description":"Lead Form Builder is a contact form builder as well as lead generator.","example":{},"supports":{"html":false},"textdomain":"lead-form-builder","attributes":{"formid":{"type":"string","default":1},"title":{"type":"string"},"formList":{"type":"object"},"data":{"type":"object"},"randerForm":{"type":"string","default":"[lead-form form-id=1 title=Contact Us]"}},"editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
 
 /***/ })
 
@@ -469,8 +527,8 @@ module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"index": 0,
-/******/ 			"./style-index": 0
+/******/ 			"form/index": 0,
+/******/ 			"form/style-index": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -520,7 +578,7 @@ module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["./style-index"], () => (__webpack_require__("./src/index.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["form/style-index"], () => (__webpack_require__("./src/form/index.js")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

@@ -4,6 +4,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
+
+include_once( plugin_dir_path(__FILE__) . 'admin/custom-post.php' );
+
+
+
 // Exit if accessed directly.
 if ( ! class_exists( 'Lead_Form_Builder_Blocks' ) ) {
 			class Lead_Form_Builder_Blocks {
@@ -108,6 +113,25 @@ function lead_form_builder_block_init() {
 	  register_block_type( __DIR__ . '/build', array(
         'editor_script' => 'create-block-lead-form-builder-editor-script',
     ) );
+
+
+
+	// register_block_type( __DIR__ . '/build/form', array(
+    //     'editor_script' => 'create-block-lead-form-builder-blocks-editor-script',
+    // ) );
+
+
+	register_block_type( 'create-block/lead-form-builder-blocks', array(
+        'editor_script' => 'create-block-lead-form-builder-blocks-script'
+    ) );
+
+	wp_register_script(
+        'create-block-lead-form-builder-blocks-script',
+        plugins_url( 'build/form/index.js', __FILE__ ), // Adjust the path to your built JavaScript file
+        array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n', 'wp-api-fetch' ), // Ensure the necessary dependencies are included
+        filemtime( plugin_dir_path( __FILE__ ) . 'build/form/index.js' )
+    );
+
 
 }
 add_action( 'init', 'lead_form_builder_block_init' );
