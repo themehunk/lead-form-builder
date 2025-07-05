@@ -7,7 +7,7 @@ echo '<h2>'.esc_html__('Lead Forms Builder','lead-form-builder').' <a href="' . 
   <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2"></line>
 </svg>
 
-'.esc_html__("Add New","lead-form-builder").'</a></h2>';
+'.esc_html__("Add New Form","lead-form-builder").'</a></h2>';
 $pm = 'active';
 }elseif(isset($_GET['page']) && $_GET['page'] == 'all-form-leads'){
     echo '<h2>'.esc_html__('Form Leads','lead-form-builder').'</h2>';
