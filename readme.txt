@@ -4,7 +4,7 @@ Author URI: : https://www.themehunk.com/
 Tags: contact form, responsive form, lead form builder, contact form builder, newsletter form
 Requires at least: 5.5
 Tested up to: 6.8
-Stable tag: 1.9.11
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,11 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 9. Google Lead Store Data
 
 == Changelog ==
+
+=2.0.0=
+* New: Redesigned dashboard style.
+* Update: Improved default AJAX handling.
+* Fix: Replaced deprecated success function with done() in AJAX for better compatibility and modern standards.
 
 =1.9.11=
 Fix: Resolved the issue where dashes were automatically added or removed when creating a form.

@@ -16,7 +16,7 @@
     color:#5B160F;
     }
     .small-border-lead {
-    border-top: 2px solid #0edbe6;
+    border-top: 2px solid var(--global-count-bg-color);
     width: 140px;
     margin: 30px auto;
     }
@@ -63,7 +63,7 @@
     background-image: none;
     color: #fff;
     text-shadow: none;
-    background:#0EDBE6;
+    background:var(--global-count-bg-color);
     font-size: 21px;
     padding: 15px 35px;
     margin-top:20px;
@@ -78,9 +78,10 @@
     transition: 0.5s;
     }
     .lead-buy-btn:hover {
-    -webkit-box-shadow: 0px 4px 0px 0px rgba(1,191,202,1);
-    -moz-box-shadow: 0px 4px 0px 0px rgba(1,191,202,1);
-    box-shadow: 0px 4px 0px 0px rgba(1,191,202,1);
+        color: #fff;
+    -webkit-box-shadow: 0px 4px 0px 0px var(--global-count-bg-color);
+    -moz-box-shadow: 0px 4px 0px 0px var(--global-count-bg-color);
+    box-shadow: 0px 4px 0px 0px var(--global-count-bg-color);
     }
 
 .about-lfb{

@@ -19,9 +19,19 @@
   font-weight: 700;
   font-style: normal;
 }
+
 :root {
-    --sub-sub-menu-color: #a24de3;
-  }
+  --sub-sub-menu-color: #000000;
+  --global-button-color: #3c40e7;
+  --global-button-hover-color: #0c12ff;
+  --global-bg-color: #8487ff;
+  --global-bg-active-color: #3c40e7;
+  --global-bg-light-color: #f8faff;
+  --global-text-light-color: #000000;
+  --global-count-bg-color: #ff7528;
+
+}
+
 a:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -30,16 +40,17 @@ a:focus {
   outline: 0;
 }
 .lfb-counter {
-  color: #fff;
   display: table-cell;
-  margin: 1.5%;
+  color: #fff;
   font-size: 12px;
-  background-color: #ff6f6f;
-  width: 30px;
+  background-color: var(--global-count-bg-color);
   border-radius: 50%;
-  height: 30px;
   vertical-align: middle;
   text-align: center;
+  padding: 10px 10px;
+  margin: 1.5%;
+  width: 20px;
+  height: 20px;
 }
 #wpfooter {
   z-index: -1;
@@ -47,8 +58,13 @@ a:focus {
 .lfb-header h2 {
   font-size: 1.6em;
   margin: 1.5em 0 !important;
+  display: flex;
+    align-items: center;
 }
-
+.lfb-header a.add-new-h2,.wrap .add-new-h2:active {
+  display: flex;
+  align-items: center;
+}
 .show-all-form .notice,
 .wp-core-ui .notice.is-dismissible {
   display: none;
@@ -60,7 +76,7 @@ input.new_form_heading {
 }
 input[name=post_title]:focus{
 
-    border-color: #a24de3 !important;
+    border-color: var(--global-bg-color) !important;
     box-shadow: none !important;
     outline: 2px solid transparent;
 
@@ -74,7 +90,7 @@ input[name=post_title]:focus{
   font-family: "Open Sans", sans-serif;
 }
 #new_lead_form .submit b{
-  color: #a94def;
+  color: var(--global-count-bg-color);
 }
 #lfb_formColor .alpha-color-picker-wrap {
   padding-top: 5px;
@@ -118,23 +134,23 @@ span.back-arrow a:hover {
 
 /** all adon dropdown **/
 
-.lfb-dropdown-btn:after {
+.lfb-dropdown-btn:after,#select_form_lead:after {
   font-family: FontAwesome;
   content: "\f0d7";
   display: inline-block;
   padding-left: 5px;
 }
-.lfb-dropdown-btn {
-  background: transparent;
-  color: #56b8b6;
-  border: solid 1px #56b8b6;
+.lfb-dropdown-btn,#select_form_lead {
+  background: var(--global-bg-light-color);
+  color: var(--global-text-light-color);
+  border: solid 1px var(--global-text-light-color);
   padding: 5px 10px;
   border-radius: 2px;
 }
 
-.lfb-dropdown-btn:hover {
-  color: #22dcd5;
-  border: solid 1px #63d1cd;
+.lfb-dropdown-btn:hover,#select_form_lead:hover {
+  color: var(--global-bg-active-color);
+  border: solid 1px var(--global-bg-active-color);
   padding: 5px 10px;
   border-radius: 2px;
 }
@@ -171,7 +187,7 @@ section:first-child {
   border: 0px;
 }
 .form_field_error {
-  border: 1px solid red !important;
+  border: 1px solid var(--global-count-bg-color) !important;
 }
 new_lead_form select.form_field_select {
   width: 230px !important;
@@ -199,7 +215,7 @@ table#show-leads-table th {
   vertical-align: middle;
 }
 table#show-leads-table th {
-  background-color: #a24de3;
+  background-color: var(--global-bg-color);
   color: white;
   font-size: 1.3em;
   padding: 14px 6px;
@@ -210,14 +226,14 @@ table#show-leads-table th {
   display: inline-block;
 }
 #show-leads-table a i.fa {
-  color: #ba0000;
+  color: var(--global-count-bg-color);
   cursor: pointer;
 }
 #show-leads-table a i.fa:hover {
-  color: #d20c0c;
+  color: var(--global-count-bg-color);
 }
 a.lead-remove i {
-  color: rgb(249, 109, 109);
+  color: var(--global-count-bg-color);
   font-size: 18px;
   padding-left: 15px;
 }
@@ -255,8 +271,8 @@ a.lead-remove i {
 #form-leads-show .lf-current a {
   font-weight: initial;
   color: #fff !important;
-  background: #4db9b6 !important;
-  border: 0.1px solid #4db9b6 !important;
+  background: var(--global-bg-color) !important;
+  border: 0.1px solid var(--global-bg-color) !important;
 }
 .show-all-form .button {
   color: #fff;
@@ -282,19 +298,19 @@ a.lead-remove i {
   background: #0073aa !important;
 }
 #form-leads-show .button {
-  color: #fff;
-  font-size: 11px;
+  color: #8487ff;
+  font-size: 12px;
   margin: 0 0px;
   display: block;
   float: right;
   border: none;
   margin-top: 10px;
-  background: #0073aa;
+  background: #ffffff;
   border-radius: 0px;
-  height: 26px;
+  height: 21px;
   line-height: 26px;
   text-align: center;
-  margin-left: 5px;
+  margin-left: 8px;
 }
 #form-leads-show ul.page {
   margin-left: 10px;
@@ -534,8 +550,7 @@ a.lead-remove i {
 .inside.spth_setting_section#wpth_add_form table.widefat tr:nth-child(2n) {
   background: #fbfbfb;
 }
-.inside.spth_setting_section#wpth_add_form table.widefat tr {
-  background: #fff;
+.inside.spth_setting_section#wpth_add_form table.widefat td {
   cursor: move;
 }
 #add_radio input[type="text"],
@@ -555,7 +570,8 @@ a.lead-remove i {
 #add_option .button.lf_minus,
 #add_checkbox .button.lf_minus {
   color: #ffffff;
-  background: #ff4545;
+  background-color: var(--global-count-bg-color);
+  border: 1px solid var(--global-count-bg-color);
   box-shadow: none;
 }
 /*#add_radio .button.lf_minus, 
@@ -609,13 +625,13 @@ margin-right: 5px\0/;
   color: #fff;
 }
 .inside.spth_setting_section .button.lf_remove {
-  background: #ff4545;
-  border: 1px solid #ff4545;
+  background-color: var(--global-count-bg-color);
+  border: 1px solid var(--global-count-bg-color);
   color: #fff;
   font-weight: bold;
 }
 .inside.spth_setting_section .button.lf_addnew {
-  background: #13a9f1;
+  background: var(--global-bg-color);
 }
 input.disabled,
 input:disabled,
@@ -630,7 +646,7 @@ textarea:disabled {
  .inside .card input[type="button"],
 table#show-leads-table thead th input[type="button"],
 .wrap.add-thpopup form#thpopup_add input[type="submit"].button {
-  background: #4fd1cd;
+  background: var(--global-bg-active-color);
   height: 40px;
   padding: 0 30px;
   margin-right: 20px;
@@ -649,7 +665,7 @@ table#show-leads-table thead th input[type="button"],
  .inside .card input[type="button"]:hover,
 table#show-leads-table thead th input[type="button"]:hover,
 .wrap.add-thpopup form#thpopup_add input[type="submit"].button:hover {
-  background: #4db9b6;
+  background: var(--global-button-color);
   border: none;
 }
 #new_lead_form #sortable select {
@@ -1203,7 +1219,7 @@ a.button_lfb {
   padding: 5px 4px 5px 8px;
   border-radius: 3px;
   color: white;
-  background: #ff4c4c;
+  background: var(--global-count-bg-color);
   float: right;
 }
 .show-all-form .wp-list-table .row-actions span {
@@ -1213,7 +1229,7 @@ p.pro-text {
   display: table;
   padding: 1px 5px;
   border-radius: 2px;
-  color: red;
+  color: var(--global-count-bg-color);
 }
 
 .cd-panel {
@@ -1861,7 +1877,7 @@ div#form-leads-show .lfb-popup-leads table {
   width: 100%;
 }
 div#form-leads-show .lfb-popup-leads table th {
-  background-color: #4fd1cd;
+  background-color: var(--global-bg-color);
   padding: 5px 10px;
   color: #fff;
 }
@@ -1922,7 +1938,7 @@ div#form-leads-show .lf-close {
 }
 /** header Design **/
 .lfb-cmn-nav {
-  background: #a24de3;
+  background: var(--global-bg-color);
   padding: 12px 0px;
 }
 .lfb-cmn-nav a {
@@ -1934,7 +1950,7 @@ div#form-leads-show .lf-close {
 }
 
 .lfb-cmn-nav a.active {
-  background: #7a10cb;
+  background: var(--global-bg-active-color);
 }
 
 /** Table Design **/
@@ -2054,7 +2070,7 @@ table.widefat {
 .wrap .add-new-h2:active,
 .wrap .page-title-action,
 .wrap .page-title-action:active {
-  background: #4fd1cd;
+  background: var(--global-button-color);
   font-weight: bold;
   letter-spacing: 1px;
   font-size: 16px;
@@ -2068,13 +2084,14 @@ table.widefat {
   cursor: pointer;
   border: none;
   color: #fff;
-  padding: 8px 12px;
+  padding: 3px 12px;
   height: 40px;
   margin-left: 15px;
+
 }
 .wrap .add-new-h2:hover,
 .wrap .page-title-action:hover {
-  background: #4db9b6;
+  background: var(--global-button-hover-color);
   border: none;
   color: #fff;
 }
@@ -2082,12 +2099,16 @@ table.widefat {
   display: flex;
 }
 /*new form style*/
+
+#new_lead_form #sortable thead tr {
+  background: var(--global-bg-light-color);
+  border-color: var(--global-bg-light-color);
+}
+
 #new_lead_form #sortable thead tr th {
-  background: #4fd1cd;
-  color: #fff;
+  color: var(--global-text-light-color);
   font-size: 1.3em;
   padding: 10px 14px;
-  border-color: #4fd1cd;
 }
 #wpcontent {
   height: 100%;

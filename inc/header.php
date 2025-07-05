@@ -1,7 +1,13 @@
 <div class=" lfb-header"> 
 	<?php $pm = $fl = $pro = $anf = ""; ?>
 <?php if(isset($_GET['page']) && $_GET['page'] == 'wplf-plugin-menu'){
-echo '<h2>'.esc_html__('Lead Forms Builder','lead-form-builder').' <a href="' . esc_url($lfb_admin_url . 'admin.php?page=add-new-form&_wpnonce='.$this->lfb_show_form_nonce()).'" class="add-new-h2">'.esc_html__("Add New","lead-form-builder").'</a></h2>';
+echo '<h2>'.esc_html__('Lead Forms Builder','lead-form-builder').' <a href="' . esc_url($lfb_admin_url . 'admin.php?page=add-new-form&_wpnonce='.$this->lfb_show_form_nonce()).'" class="add-new-h2">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+  <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2"></line>
+  <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2"></line>
+</svg>
+
+'.esc_html__("Add New","lead-form-builder").'</a></h2>';
 $pm = 'active';
 }elseif(isset($_GET['page']) && $_GET['page'] == 'all-form-leads'){
     echo '<h2>'.esc_html__('Form Leads','lead-form-builder').'</h2>';
