@@ -5,7 +5,7 @@ Tags: contact form, responsive form, lead form builder, contact form builder, ne
 Requires at least: 5.5
 Tested up to: 6.8
 Stable tag: 2.0.3
-License: GPL v2 or later
+License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Fast Drag & Drop Contact From Builder and Lead Generation Tool With Google One Tap Login. Supports Block Editor.
@@ -159,7 +159,7 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 
 == Changelog ==
 
-=2.0.2=
+=2.0.3=
 * Fix: Security issue resolved.
 * Update: dashboard style update.
 
