@@ -140,25 +140,30 @@ function plugin_install_button($plugin){
    <span class="setting-link'.$pro_active.' setting-'.$slug.'">|</span><a class="setting-link'.$pro_active.' setting-'.$slug.'" href="'.admin_url('admin.php?page='.$admin_link).'">Settings</a>';
 
   if($plugin['free_pro']=='Free' && $slug !='themehunk-megamenu-plus'){
-  $upgrade_button ='<a class="upgrade-to-pro button" target="_blank" href="'.$plugin['detail_pro'].'">Upgrade To Pro</a>';
+  $upgrade_button ='<a class="upgrade-to-pro button" target="_blank" href="'.$plugin['detail_pro'].'" title="Upgrade"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-up w-5 h-5" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m16 12-4-4-4 4"></path><path d="M12 16V8"></path></svg></a>';
   $deatil_link = '<a class="plugin-detail" target="_blank" href="'.esc_url( 'https://wordpress.org/plugins/'.$slug ).'">'.esc_html__( 'View details', 'lead-form-builder' ).'</a>
   <span class="setting-link'.$pro_active.' setting-'.$slug.'">|</span><a class="setting-link'.$pro_active.' setting-'.$slug.'" href="'.admin_url('admin.php?page='.$admin_link).'">Settings</a>';
 }
 
 
 
-  $button = '<div class="rcp theme_link th-row">';
-  $button .= ' <div class="th-column '.$plugin['free_pro'].'"><img src="'.esc_url( $plugin['thumb'] ).'" /> </div>';
+  $button = '<div class="rcp theme_link th-row active_'.$pro_active.'"><div class="th-market-section">';
+  $button .= ' <div class="th-column '.$plugin['free_pro'].'"><img class="group-hover:scale-110" src="'.esc_url( $plugin['thumb'] ).'" />
+                <div><b class="th-'.$plugin['free_pro'].'">'.$plugin['free_pro'].'</b></div>
+  </div>';
   $button .= '<div class="th-column two">';
 
   $button .= '<div class="title-plugin">
-  <h4>'.esc_html( $plugin['plugin_name'] ). ' <b class="th-'.$plugin['free_pro'].'">'.$plugin['free_pro'].'</b> </h4>';
+  <h4>'.esc_html( $plugin['plugin_name'] ). '  </h4>';
   $button .= '<div class="plugin-link">'.$deatil_link.'</div>';
   $button .= '</div>';
 
-  $button .='<button data-activated="Activated" data-msg="Activating" data-init="'.esc_attr($plugin['plugin_init']).'" data-slug="'.esc_attr( $plugin['slug'] ).'" class="button '.esc_attr( $plugin['button_class'] ).'">'.esc_html($plugin['button_txt']).'</button>';
-  $button .=  $upgrade_button;
+
   $button .= '</div></div>';
+  $button .= '<div class="th-plugin-footer"><button data-activated="Activated" data-msg="Activating" data-init="'.esc_attr($plugin['plugin_init']).'" data-slug="'.esc_attr( $plugin['slug'] ).'" class="button '.esc_attr( $plugin['button_class'] ).'">'.esc_html($plugin['button_txt']).'</button>
+  '. $upgrade_button.'</div>';
+
+  $button .= '</div>';
 
   echo $button;
 }

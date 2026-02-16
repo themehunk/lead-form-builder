@@ -269,30 +269,30 @@ function lfb_lead_form_value($form_data,$fieldIdNew,$fieldData,$leadscount){
                 if(isset($form_data[$value]) && is_array($form_data[$value])){
                   if(strstr($value, 'upload_')){
 
-                    $upload_filename = isset($form_data[$value]['filename'])?$form_data[$value]['filename']:$form_data[$value]['error'];
+                    $upload_filename = isset($form_data[$value]['filename'])?esc_html($form_data[$value]['filename']):esc_html($form_data[$value]['error']);
 
                   $upload = isset($form_data[$value]['url'])?'<a target="_blank" href="'.esc_url($form_data[$value]["url"]).'">'.$upload_filename.'</a>':$upload_filename;
 
                   if($leadscount >= $count){
                     $table_row  .= '<td>'.$upload.'</td>';
                   }
-                    $table_popup .='<tr><td> '.$fieldData[$value].'</td><td>'.$upload.'</td></tr>';
+                    $table_popup .='<tr><td> '.esc_html($fieldData[$value]).'</td><td>'.$upload.'</td></tr>';
 
                 } else {
-                  $fieldVal = implode(", ",$form_data[$value]);
+                  $fieldVal = esc_html(implode(", ",$form_data[$value]));
 
                  if($leadscount >= $count){
                  $table_row  .= '<td>'.$fieldVal.'</td>';
                   }
-                 $table_popup .='<tr><td> '.$fieldData[$value].'</td><td>'.$fieldVal.'</td></tr>';
+                 $table_popup .='<tr><td> '.esc_html($fieldData[$value]).'</td><td>'.$fieldVal.'</td></tr>';
                }
                 } else {
 
                 if($leadscount >= $count){
-               $table_row  .= (isset($form_data[$value]))?'<td>'.$form_data[$value].'</td>':'<td> - </td>';
+               $table_row  .= (isset($form_data[$value]))?'<td>'.esc_html($form_data[$value]).'</td>':'<td> - </td>';
                 }
 
-               $table_popup .=(isset($form_data[$value]))?'<tr><td> '.$fieldData[$value].'</td><td>'.$form_data[$value].'</td></tr>':'<tr><td> '.$fieldData[$value].'</td><td> - </td></tr>';
+               $table_popup .=(isset($form_data[$value]))?'<tr><td> '.esc_html($fieldData[$value]).'</td><td>'.esc_html($form_data[$value]).'</td></tr>':'<tr><td> '.esc_html($fieldData[$value]).'</td><td> - </td></tr>';
                }
                $count++;
             }

@@ -20,20 +20,32 @@
         </div>
     </div>
 
+   <div class="th-heade th-right-header">
+        <div></div>
+ </div>
+</div> <!-- /header -->
 
-    <div class="th-heade th-right-header">
-        <div class="th-noticetheme">
-        <a target="_blank" href="<?php echo esc_url('https://themehunk.com/th-shop-mania/');?>">
-        <img src="<?php echo THEMEHUNK_PURL; ?>th-option/assets/images/th-shop-mania.png">
-        </a>
-    </div>
+
+   <div class="th-head-2 featured">
+
         <div class="thunk-notice-text">
+                <div class="new-featured"><span class="new-featured-btn">New</span><span class="new-featured-text">Featured Theme</span></div>
             <h3><?php _e('TH Shop Mania Free Theme','lead-form-builder'); ?></h3>
-            <p><?php _e('Elementor + WooCommerce Free WordPress Theme.','lead-form-builder'); ?>
+            <p><?php _e('The fastest Elementor + WooCommerce Free WordPress Theme. Build your dream store in minutes with advanced customization.','lead-form-builder'); ?>
             </p>
-            <a class="button" target="_blank" href="<?php echo esc_url('https://themehunk.com/th-shop-mania/'); ?>"> <?php _e('View Detail','lead-form-builder'); ?></a>
+            <a class="button" target="_blank" href="<?php echo esc_url('https://themehunk.com/th-shop-mania/'); ?>"> 
+                
+            
+            <span><?php _e('View Details','lead-form-builder'); ?></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right w-4 h-4" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+
+        </a>
 
         </div>
-    </div>
 
-</div> <!-- /header -->
+                <div class="th-noticetheme">
+        <a target="_blank" href="<?php echo esc_url('https://themehunk.com/th-shop-mania/?utm_campaign=plugin&utm_source=lead-form-builder&utm_medium=shop-mania');?>">
+        <img src="https://themehunk.com/wp-content/uploads/deal/img/all-plugin-top-shop-mania.png">
+        </a>
+    </div>
+    </div>

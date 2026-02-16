@@ -10,7 +10,8 @@ function expanded_alowed_tags() {
     $allowed['a'] = array(
         'href' => array(),
         'class'    => array(),
-        'onclick'  => array(),
+        'title'    => array(),
+        'target'   => array(),
     );
 // form fields - input
     $allowed['input'] = array(
@@ -19,7 +20,6 @@ function expanded_alowed_tags() {
         'name'  => array(),
         'value' => array(),
         'type'  => array(),
-        'onclick' => array(),
     );
 
 
@@ -52,7 +52,7 @@ function expanded_alowed_tags() {
                 $first_form_id = get_option('lf-remember-me-show-lead');
                 }
                 }
-                $option_form .= '<option ' . ($first_form_id == $form_id ? 'selected="selected"' : "" ) . ' value=' . $form_id . '>' . $form_title . '</option>';
+                $option_form .= '<option ' . ($first_form_id == $form_id ? 'selected="selected"' : "" ) . ' value=' . intval($form_id) . '>' . esc_html($form_title) . '</option>';
             }
         }
         $rem_nonce = wp_create_nonce( 'rem-nonce' );
@@ -94,7 +94,7 @@ function lfb_show_leads_first_form($form_id){
                 }
                 
            if($headcount < 6){
-            $tableHead  .='<th>' . $fieldvalue . '</th>';
+            $tableHead  .='<th>' . esc_html($fieldvalue) . '</th>';
             }
             $fieldIdNew[] = $fieldkey;
            // } else{ break; }
@@ -213,7 +213,7 @@ function lfb_show_leads_first_form($form_id){
                 }
 
            if($headcount < 6){
-            $tableHead  .='<th>' . $fieldvalue . '</th>';
+            $tableHead  .='<th>' . esc_html($fieldvalue) . '</th>';
             }
             $fieldIdNew[] = $fieldkey;
            // } else{ break; }

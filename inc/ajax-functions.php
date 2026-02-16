@@ -145,6 +145,10 @@ add_action('wp_ajax_SaveCaptchaOption', 'lfb_save_captcha_option');
 
 function lfb_ShowAllLeadThisForm()
 {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        return false;
+    }
+
     if ((isset($_POST['form_id']) && ($_POST['form_id'] != '')) || (isset($_GET['form_id']) && ($_GET['form_id'] != ''))) {
 
         global $wpdb;
@@ -192,10 +196,10 @@ function lfb_ShowAllLeadThisForm()
             }
 
             if ($headcount < 6 && $slectleads) {
-                $tableHead  .= '<th>' . $fieldvalue . '</th>';
+                $tableHead  .= '<th>' . esc_html($fieldvalue) . '</th>';
             } elseif (!$slectleads) {
 
-                $tableHead  .= '<th>' . $fieldvalue . '</th>';
+                $tableHead  .= '<th>' . esc_html($fieldvalue) . '</th>';
 
                 $leadscount =  $headcount;
             }
@@ -312,6 +316,10 @@ add_action('wp_ajax_ShowAllLeadThisForm', 'lfb_ShowAllLeadThisForm');
 
 function lfb_ShowLeadPagi()
 {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        return false;
+    }
+
     if ((isset($_POST['form_id']) && ($_POST['form_id'] != '')) || (isset($_GET['form_id']) && ($_GET['form_id'] != ''))) {
         global $wpdb;
         $table_name = LFB_FORM_DATA_TBL;
@@ -346,7 +354,7 @@ function lfb_ShowLeadPagi()
 
         foreach ($fieldData as $fieldkey => $fieldvalue) {
             if ($headcount < 6) {
-                $tableHead  .= '<th>' . $fieldvalue . '</th>';
+                $tableHead  .= '<th>' . esc_html($fieldvalue) . '</th>';
             }
             $fieldIdNew[] = $fieldkey;
             // } else{ break; }
@@ -433,6 +441,13 @@ add_action('wp_ajax_ShowLeadPagi', 'lfb_ShowLeadPagi');
 
 function lfb_ShowAllLeadThisFormDate()
 {
+
+
+    	if ( ! current_user_can( 'manage_options' ) ) {
+		return false;
+	}
+
+
     if ((isset($_POST['form_id']) && ($_POST['form_id'] != '')) || (isset($_GET['form_id']) && ($_GET['form_id'] != ''))) {
         global $wpdb;
         $nonce = wp_create_nonce('lfb-nonce-rm');
@@ -471,7 +486,7 @@ function lfb_ShowAllLeadThisFormDate()
 
         foreach ($fieldData as $fieldkey => $fieldvalue) {
             if ($headcount < 6) {
-                $tableHead  .= '<th>' . $fieldvalue . '</th>';
+                $tableHead  .= '<th>' . esc_html($fieldvalue) . '</th>';
             }
             $fieldIdNew[] = $fieldkey;
             // } else{ break; }
@@ -536,17 +551,17 @@ function lfb_ShowAllLeadThisFormDate()
             $rows = count($rows);
             $total = ceil($rows / $limit);
             if ($id > 1) {
-                echo "<a href=''  onclick='lead_pagination_datewise(" . intval($id - 1) . "," . intval($form_id) . ",\"" . $datewise . "\");' class='button'><i class='fa fa-chevron-right'></i></a>";
+                echo "<a href=''  onclick='lead_pagination_datewise(" . intval($id - 1) . "," . intval($form_id) . ",\"" . esc_attr($datewise) . "\");' class='button'><i class='fa fa-chevron-right'></i></a>";
             }
             if ($id != $total) {
-                echo "<a href='' onclick='lead_pagination_datewise(" . intval($id + 1) . "," . intval($form_id) . ",\"" . $datewise . "\");' class='button'><i class='fa fa-chevron-left'></i></a>";
+                echo "<a href='' onclick='lead_pagination_datewise(" . intval($id + 1) . "," . intval($form_id) . ",\"" . esc_attr($datewise) . "\");' class='button'><i class='fa fa-chevron-left'></i></a>";
             }
             echo "<ul class='page'>";
             for ($i = 1; $i <= $total; $i++) {
                 if ($i == $id) {
                     echo "<li class='lf-current'><a>" . intval($i) . "</a></li>";
                 } else {
-                    echo "<li><a href='' onclick='lead_pagination_datewise(" . intval($i) . "," . intval($form_id) . ",\"" . $datewise . "\");'>" . intval($i) . "</a></li>";
+                    echo "<li><a href='' onclick='lead_pagination_datewise(" . intval($i) . "," . intval($form_id) . ",\"" . esc_attr($datewise) . "\");'>" . intval($i) . "</a></li>";
                 }
             }
             echo '</ul>';
@@ -607,6 +622,16 @@ function lfb_lead_sanitize($leads)
                     $value[$ckey] = sanitize_text_field($cvalue);
                 }
                 $leads[$key] = $value;
+            } else {
+                // Catch-all: sanitize any unrecognized field types (including htmlfield_*)
+                if (is_array($value)) {
+                    foreach ($value as $ckey => $cvalue) {
+                        $value[$ckey] = sanitize_text_field($cvalue);
+                    }
+                    $leads[$key] = $value;
+                } else {
+                    $leads[$key] = sanitize_text_field($value);
+                }
             }
         } // end foreach
 

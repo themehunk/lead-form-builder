@@ -1,11 +1,11 @@
-====== Responsive Contact Form Builder & Lead Generation Plugin ========
+======  Lead Form Builder & Contact Form ========
 Contributors: ThemeHunk
 Author URI: : https://www.themehunk.com/
 Tags: contact form, responsive form, lead form builder, contact form builder, newsletter form
 Requires at least: 5.5
 Tested up to: 6.8
-Stable tag: 2.0.1
-License: GPLv2 or later
+Stable tag: 2.0.3
+License: GPL v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Fast Drag & Drop Contact From Builder and Lead Generation Tool With Google One Tap Login. Supports Block Editor.
@@ -158,6 +158,10 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 9. Google Lead Store Data
 
 == Changelog ==
+
+=2.0.2=
+* Fix: Security issue resolved.
+* Update: dashboard style update.
 
 =2.0.1=
 * New: Improved dashboard styling.
