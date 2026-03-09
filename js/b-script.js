@@ -4,7 +4,11 @@
 jQuery(function() {
 // *Send data to save by Ajax 
     if(jQuery('#sortable').length){
-        jQuery( "#sortable tbody" ).sortable();
+        jQuery( ".append_new" ).sortable({
+            handle: '.lfb-drag-handle',
+            placeholder: 'lfb-sort-placeholder',
+            tolerance: 'pointer'
+        });
     }
 
     if(jQuery('.datepicker').length){
@@ -422,9 +426,41 @@ jQuery(document).on('click', '.nav-tab-wrapper a.nav-tab', function() {
         return false;
 });
 /*
+ *Build a field card HTML string for the card-based form builder
+ */
+function lfb_build_field_card(field_id, field_name_val, field_type_val) {
+    var drag_svg = '<span class="lfb-drag-handle" title="Drag to reorder"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="10" height="2" rx="1" fill="currentColor"/><rect x="2" y="6" width="10" height="2" rx="1" fill="currentColor"/><rect x="2" y="10" width="10" height="2" rx="1" fill="currentColor"/></svg></span>';
+    var trash_svg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+    var dup_svg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+    var field_types = '<option value="select">Select Field Type</option><option value="name">Name</option><option value="email">Email</option><option value="message">Message</option><option value="dob">DOB</option><option value="date">Date</option><option value="text">Text (Single Line Text)</option><option value="textarea">Textarea (Multiple Line Text)</option><option value="htmlfield">Content Area (Read only Text)</option><option value="url">Url (Website url)</option><option value="number">Number (Only Numeric 0-9)</option><option value="radio">Radio (Choose Single Option)</option><option value="option">Option (Choose Single Option)</option><option value="checkbox">Checkbox (Choose Multiple Option)</option><option value="terms">Checkbox (Terms & condition)</option>';
+
+    var card = '<div class="lfb-field-card" id="form_field_row_' + field_id + '">'
+        + drag_svg
+        + '<div class="lfb-field-inner">'
+        + '<div class="lfb-field-col"><label class="lfb-col-label">Field Label</label>'
+        + '<input type="text" name="form_field_' + field_id + '[field_name]" id="field_name_' + field_id + '" value="' + field_name_val + '"></div>'
+        + '<div class="lfb-field-col"><label class="lfb-col-label">Field Type</label>'
+        + '<select class="form_field_select" name="form_field_' + field_id + '[field_type][type]" id="field_type_' + field_id + '">' + field_types + '</select>'
+        + '<div class="add_radio_checkbox_' + field_id + '" id="add_radio_checkbox"><div class="" id="add_radio"></div><div class="" id="add_checkbox"></div><div class="" id="add_option"></div></div></div>'
+        + '<div class="lfb-field-col"><label class="lfb-col-label">Default Value</label>'
+        + '<input type="text" class="default_value" name="form_field_' + field_id + '[default_value]" id="default_value_' + field_id + '" value="">'
+        + '<div class="default_htmlfield_' + field_id + '" id="default_htmlfield"></div>'
+        + '<div class="add_default_radio_checkbox_' + field_id + '" id="add_default_radio_checkbox"><div class="" id="default_add_radio"></div><div class="" id="default_add_checkbox"></div><div class="" id="default_add_option"></div></div>'
+        + '<div class="default_terms_' + field_id + '" id="default_terms"></div></div>'
+        + '<div class="lfb-field-col lfb-toggles"><label class="lfb-col-label">Options</label>'
+        + '<label class="lfb-toggle-wrap"><input type="checkbox" class="default_placeholder" name="form_field_' + field_id + '[default_placeholder]" id="default_placeholder_' + field_id + '" value="1"><span class="lfb-toggle-sl"></span><span class="lfb-toggle-txt">Placeholder</span></label>'
+        + '<label class="lfb-toggle-wrap"><input type="checkbox" name="form_field_' + field_id + '[is_required]" id="is_required_' + field_id + '" value="1"><span class="lfb-toggle-sl"></span><span class="lfb-toggle-txt">Required</span></label></div>'
+        + '<div class="lfb-field-col lfb-field-col-action">'
+        + '<input type="hidden" value="' + field_id + '" name="form_field_' + field_id + '[field_id]">'
+        + '<button type="button" class="lfb-btn-duplicate-field" data-id="' + field_id + '" onclick="duplicate_form_field(' + field_id + ')" title="Duplicate">' + dup_svg + '</button>'
+        + '<button type="button" class="lfb-btn-remove-field" onclick="remove_form_fields(' + field_id + ')" title="Remove">' + trash_svg + '</button>'
+        + '</div>'
+        + '</div></div>';
+    return card;
+}
+/*
  *Add dynamic Form Fields in admin area
  */
-
 function add_new_form_fields(this_field_id) {
     var f_name = jQuery("#field_name_" + this_field_id).val();
     var f_type = jQuery("#field_type_" + this_field_id).val();
@@ -438,30 +474,12 @@ function add_new_form_fields(this_field_id) {
         jQuery("#field_name_" + this_field_id).removeClass('form_field_error');
     } else {
         jQuery("#field_name_" + this_field_id).addClass('form_field_error');
-        jQuery("#field_type_" + this_field_id).focus();
+        jQuery("#field_name_" + this_field_id).focus();
     }
     if ((f_type != "select") && (f_name != '')) {
-        jQuery('#add_new_' + this_field_id).remove();
-       // jQuery("#wpth_add_form_table_" + this_field_id).append("<input type='button' class='button lf_remove' name='remove_field' id='remove_field_" + this_field_id + "' onclick='remove_form_fields(" + this_field_id + ")' value='Remove'>");
         var field_id = this_field_id + 1;
-        var field_sr = "<td>" + field_id + "</td>";
-        var field_name = "<td><input type='text' name='lfb_form[form_field_" + field_id + "][field_name]' id='field_name_" + field_id + "' value=''></td>";
-        var field_type = "<td><select name='lfb_form[form_field_" + field_id + "][field_type][type]' id='field_type_" + field_id + "'><option value='select'>Select Field Type</option><option value='name'>Name</option><option value='email'>Email</option><option value='message'>Message</option><option value='dob'>DOB</option><option value='date'>Date</option><option value='text'>Text (Single Line Text)</option><option value='textarea'>Textarea (Multiple Line Text)</option><option value='htmlfield'>Content Area (Read only Text)</option><option value='url'>Url (Website url)</option><option value='number'>Number (Only Numeric 0-9 )</option><option value='radio'>Radio (Choose Single Option)</option><option value='option'>Option (Choose Single Option)</option><option value='checkbox'>Checkbox (Choose Multiple Option)</option><option value='terms'>Checkbox (Terms & condition)</option></select><div class='add_radio_checkbox_" + field_id + "' id='add_radio_checkbox'><div class='' id='add_radio'></div><div class='' id='add_checkbox'></div><div class='' id='add_option'></div></div></td>";
-        var field_default = "<td><input type='text' class='default_value' name='lfb_form[form_field_" + field_id + "][default_value]' id='default_value_" + field_id + "' value=''><div class='default_htmlfield_" + field_id + "'' id='default_htmlfield'></div><div class='default_terms_" + field_id + "'' id='default_terms'></div><div class='add_default_radio_checkbox_" + field_id + "' id='add_default_radio_checkbox'><div class='' id='default_add_radio'></div><div class='' id='default_add_checkbox'></div><div class='' id='default_add_option'></div></div></td>";
-        var field_placeholder = "<td><input type='checkbox' class='default_placeholder' name='lfb_form[form_field_" + field_id + "][default_placeholder]' id='default_placeholder_" + field_id + "' value='1'></td>";
-        var field_required = "<td><input type='checkbox' class='is_required' name='lfb_form[form_field_" + field_id + "][is_required]' id='is_required_" + field_id + "' value='1'></td>";
-     
-       // var field_add_button = "<td id='wpth_add_form_table_" + field_id + "'><input type='button' class='button lf_addnew' name='save' id='add_new_" + field_id + "' onclick='add_new_form_fields(" + field_id + ")' value='Add New'></td>";
-       
-        var field_remove_button = "<td><input type='button' class='button lf_remove' name='remove_field' id='remove_field_" + field_id + "' onclick='remove_form_fields(" + field_id + ")' value='Remove'></td>";
-     
-     
-        var field_hidden_id = "<input type='hidden' value=" + field_id + " name='lfb_form[form_field_" + field_id + "][field_id]'>";
-        var new_form_field = "<tr id='form_field_row_" + field_id + "'>" + field_name + field_type + field_default + field_placeholder + field_required  + field_remove_button+ field_hidden_id + "</tr>";
-        jQuery(".append_new").append(new_form_field);
-
-        jQuery('.add-field').html("<span><input type='button' class='button lf_addnew' name='save' id='add_new_" + field_id + "' onclick='add_new_form_fields(" + field_id + ")' value='Add New'></span>");
-
+        jQuery(".append_new").append(lfb_build_field_card(field_id, '', ''));
+        jQuery('.add-field').html("<span><input type='button' class='button lf_addnew' name='save' id='add_new_" + field_id + "' onclick='add_new_form_fields(" + field_id + ")' value='+ Add Field'></span>");
     }
 }
 /*
@@ -469,6 +487,37 @@ function add_new_form_fields(this_field_id) {
  */
 function remove_form_fields(field_id) {
     jQuery("#form_field_row_" + field_id).remove();
+}
+/*
+ *Duplicate a Form Field card
+ */
+function duplicate_form_field(old_id) {
+    var max_id = 0;
+    jQuery('.lfb-field-card').each(function() {
+        var card_id = parseInt(jQuery(this).attr('id').replace('form_field_row_', ''));
+        if (!isNaN(card_id) && card_id > max_id) max_id = card_id;
+    });
+    var new_id = max_id + 1;
+    var $source = jQuery('#form_field_row_' + old_id);
+    var $clone  = $source.clone(false);
+    $clone.attr('id', 'form_field_row_' + new_id);
+    $clone.find('[name]').each(function() {
+        var name = jQuery(this).attr('name');
+        name = name.replace(new RegExp('^form_field_' + old_id + '\\['), 'form_field_' + new_id + '[');
+        jQuery(this).attr('name', name);
+    });
+    $clone.find('[id]').each(function() {
+        var id = jQuery(this).attr('id');
+        id = id.replace(new RegExp('_' + old_id + '$'), '_' + new_id);
+        jQuery(this).attr('id', id);
+    });
+    $clone.find('.lfb-btn-duplicate-field').attr('data-id', new_id).attr('onclick', 'duplicate_form_field(' + new_id + ')');
+    $clone.find('.lfb-btn-remove-field').attr('onclick', 'remove_form_fields(' + new_id + ')');
+    $clone.find('input[type="hidden"][name^="form_field_"]').filter(function() {
+        return jQuery(this).attr('name').indexOf('[field_id]') > -1;
+    }).val(new_id);
+    $source.after($clone);
+    jQuery('.add-field').html("<span><input type='button' class='button lf_addnew' name='save' id='add_new_" + new_id + "' onclick='add_new_form_fields(" + new_id + ")' value='+ Add Field'></span>");
 }
 /*
  *Save forms in admin area
@@ -510,7 +559,7 @@ function save_new_form() {
 
           var html_text = jQuery(parent_id).find('#default_htmlfield textarea').length;
         if (html_text < 1) {
-            var html_fields = "<textarea class='default_value default_htmlfield' name='lfb_form[form_field_" + this_parent_id + "][default_value]''[default_value]' id='default_value_" + this_parent_id + "'''> </textarea>";
+            var html_fields = "<textarea class='default_value default_htmlfield' name='form_field_" + this_parent_id + "[default_value]' id='default_value_" + this_parent_id + "'> </textarea>";
             jQuery(parent_id).find('#default_htmlfield').append(html_fields);
             jQuery(parent_id).find('input.default_value').hide();
             jQuery(parent_id).find('input.default_placeholder').hide();
@@ -532,77 +581,74 @@ function save_new_form() {
  }
 
 jQuery("#wpth_add_form").on('change', 'select', function() {
-    var this_parent_id = jQuery(this).parent().parent().attr("id");
+    var $card = jQuery(this).closest('.lfb-field-card');
+    if (!$card.length) return;
+    var this_parent_id = $card.attr("id");
     var parent_id = String("#" + this_parent_id);
-    var this_parent_id = this_parent_id.replace("form_field_row_", "");
+    this_parent_id = this_parent_id.replace("form_field_row_", "");
     var field_id = "1";
     var str = "";
     str = jQuery(parent_id  + " select option:selected").val();
         jQuery(parent_id).find('#default_htmlfield').hide();
 
+    var $phToggle = jQuery(parent_id).find('input.default_placeholder').closest('.lfb-toggle-wrap');
+
     if (str == 'radio') {
         jQuery(parent_id).find('#add_radio').css("display", "block");
-        jQuery(parent_id).find('#add_checkbox').css("display", "none");
-        jQuery(parent_id).find('#add_option').css("display", "none");
+        jQuery(parent_id).find('#add_checkbox, #add_option').css("display", "none");
         jQuery(parent_id).find('#default_add_radio').css("display", "block");
-        jQuery(parent_id).find('#default_add_checkbox').css("display", "none");
-        jQuery(parent_id).find('#default_add_option').css("display", "none");
+        jQuery(parent_id).find('#default_add_checkbox, #default_add_option').css("display", "none");
+        $phToggle.hide();
 
         var radio_res = jQuery(parent_id).find('#add_radio input').length;
         if (radio_res < 1) {
-            var radio_fields = "<input type='text' class='input_radio_val' name='lfb_form[form_field_" + this_parent_id + "][field_type][field_1]' id='radio_field_1' placeholder='radio name 1'value=''><p class='button lf_minus' id='delete_radio_1' onclick='delete_radio_fields(" + this_parent_id + ",1)'><i class='fa fa-minus' aria-hidden='true'></i></p><p class='button lf_plus' id='add_new_radio_1' onclick='add_new_radio_fields(" + this_parent_id + ",1)'><i class='fa fa-plus' aria-hidden='true'></i></p>";
-            var default_add_radio = "<p id='default_radio_value_1'>radio name 1 <input type='radio' class='' name='lfb_form[form_field_" + this_parent_id + "][default_value][field]' id='default_radio_value_1' value='1'></p>";
+            var radio_fields = "<div class='lfb-choice-row'><input type='text' class='input_radio_val' name='form_field_" + this_parent_id + "[field_type][field_1]' id='radio_field_1' placeholder='Choice 1' value=''><button type='button' class='lfb-choice-del lf_minus' id='delete_radio_1' onclick='delete_radio_fields(" + this_parent_id + ",1)'><i class='fa fa-times' aria-hidden='true'></i></button></div><button type='button' class='lfb-add-choice-btn lf_plus' id='add_new_radio_1' onclick='add_new_radio_fields(" + this_parent_id + ",1)'>+ Add Choice</button>";
+            var default_add_radio = "<div class='lfb-default-choice' id='default_radio_value_1'><label><input type='radio' class='' name='form_field_" + this_parent_id + "[default_value][field]' id='default_radio_value_1' value='1'> Choice 1</label></div>";
             jQuery(parent_id).find('#add_radio').append(radio_fields);
             jQuery(parent_id).find('#default_add_radio').append(default_add_radio);
-            jQuery(parent_id).find('#delete_radio_1').css("display", "none");
             jQuery(parent_id).find('input.default_value').attr('disabled', 'disabled');
-            jQuery(parent_id).find('input.default_placeholder').attr('disabled', 'disabled');
-
         }
     } else if (str == 'option') {
         jQuery(parent_id).find('#add_option').css("display", "block");
-        jQuery(parent_id).find('#add_radio').css("display", "none");
-        jQuery(parent_id).find('#add_checkbox').css("display", "none");
+        jQuery(parent_id).find('#add_radio, #add_checkbox').css("display", "none");
         jQuery(parent_id).find('#default_add_option').css("display", "block");
-        jQuery(parent_id).find('#default_add_radio').css("display", "none");
-        jQuery(parent_id).find('#default_add_checkbox').css("display", "none");
+        jQuery(parent_id).find('#default_add_radio, #default_add_checkbox').css("display", "none");
+        $phToggle.hide();
 
         var radio_res = jQuery(parent_id).find('#add_option input').length;
         if (radio_res < 1) {
-            var option_fields = "<input type='text' class='input_option_val' name='lfb_form[form_field_" + this_parent_id + "][field_type][field_1]' id='option_field_1' placeholder='option name 1'value=''><p class='button lf_minus' id='delete_option_1' onclick='delete_option_fields(" + this_parent_id + ",1)'><i class='fa fa-minus' aria-hidden='true'></i></p><p class='button lf_plus' id='add_new_option_1' onclick='add_new_option_fields(" + this_parent_id + ",1)'><i class='fa fa-plus' aria-hidden='true'></i></p>";
-            var default_add_option = "<p id='default_option_value_1'>option name 1 <input type='radio' class='' name='lfb_form[form_field_" + this_parent_id + "][default_value][field]' id='default_option_value_1' value='1'></p>";
+            var option_fields = "<div class='lfb-choice-row'><input type='text' class='input_option_val' name='form_field_" + this_parent_id + "[field_type][field_1]' id='option_field_1' placeholder='Choice 1' value=''><button type='button' class='lfb-choice-del lf_minus' id='delete_option_1' onclick='delete_option_fields(" + this_parent_id + ",1)'><i class='fa fa-times' aria-hidden='true'></i></button></div><button type='button' class='lfb-add-choice-btn lf_plus' id='add_new_option_1' onclick='add_new_option_fields(" + this_parent_id + ",1)'>+ Add Choice</button>";
+            var default_add_option = "<div class='lfb-default-choice' id='default_option_value_1'><label><input type='radio' class='' name='form_field_" + this_parent_id + "[default_value][field]' id='default_option_value_1' value='1'> Choice 1</label></div>";
             jQuery(parent_id).find('#add_option').append(option_fields);
             jQuery(parent_id).find('#default_add_option').append(default_add_option);
-            jQuery(parent_id).find('#delete_option_1').css("display", "none");
             jQuery(parent_id).find('input.default_value').attr('disabled', 'disabled');
-            jQuery(parent_id).find('input.default_placeholder').attr('disabled', 'disabled');
-
-
         }
     } else if (str == 'checkbox') {
-        jQuery(parent_id).find(' #add_checkbox').css("display", "block");
-        jQuery(parent_id).find(' #add_radio').css("display", "none");
-        jQuery(parent_id).find(' #add_option').css("display", "none");
-        jQuery(parent_id).find(' #default_add_checkbox').css("display", "block");
-        jQuery(parent_id).find(' #default_add_radio').css("display", "none");
-        jQuery(parent_id).find('#default_add_option').css("display", "none");
+        jQuery(parent_id).find('#add_checkbox').css("display", "block");
+        jQuery(parent_id).find('#add_radio, #add_option').css("display", "none");
+        jQuery(parent_id).find('#default_add_checkbox').css("display", "block");
+        jQuery(parent_id).find('#default_add_radio, #default_add_option').css("display", "none");
+        $phToggle.hide();
+
         var checkbox_res = jQuery(parent_id).find('#add_checkbox input').length;
         if (checkbox_res < 1) {
-            var checkbox_fields = "<input type='text' class='input_checkbox_val' name='lfb_form[form_field_" + this_parent_id + "][field_type][field_1]' id='checkbox_field_1' placeholder='check box name 1'value=''><p class='button lf_minus' id='delete_checkbox_1' onclick='delete_checkbox_fields(" + this_parent_id + ",1)'><i class='fa fa-minus' aria-hidden='true'></i></p><p class='button lf_plus' id='add_new_checkbox_1' onclick='add_new_checkbox_fields(" + this_parent_id + ",1)'><i class='fa fa-plus' aria-hidden='true'></i></p>";
-            var default_add_checkbox = "<p id='default_checkbox_value_1'>checkbox name 1 <input type='checkbox' class='' name='lfb_form[form_field_" + this_parent_id + "][default_value][field_1]' id='default_checkbox_value_1' value='1'></p>";
+            var checkbox_fields = "<div class='lfb-choice-row'><input type='text' class='input_checkbox_val' name='form_field_" + this_parent_id + "[field_type][field_1]' id='checkbox_field_1' placeholder='Choice 1' value=''><button type='button' class='lfb-choice-del lf_minus' id='delete_checkbox_1' onclick='delete_checkbox_fields(" + this_parent_id + ",1)'><i class='fa fa-times' aria-hidden='true'></i></button></div><button type='button' class='lfb-add-choice-btn lf_plus' id='add_new_checkbox_1' onclick='add_new_checkbox_fields(" + this_parent_id + ",1)'>+ Add Choice</button>";
+            var default_add_checkbox = "<div class='lfb-default-choice' id='default_checkbox_value_1'><label><input type='checkbox' class='' name='form_field_" + this_parent_id + "[default_value][field_1]' id='default_checkbox_value_1' value='1'> Choice 1</label></div>";
             jQuery(parent_id).find('#add_checkbox').append(checkbox_fields);
             jQuery(parent_id).find('#default_add_checkbox').append(default_add_checkbox);
-            jQuery(parent_id).find('#delete_checkbox_1').css("display", "none");
             jQuery(parent_id).find('input.default_value').attr('disabled', 'disabled');
-            jQuery(parent_id).find('input.default_placeholder').attr('disabled', 'disabled');
-
         }
+    } else if (str == 'terms') {
+        multioptionFieldHide(parent_id);
+        $phToggle.hide();
+        jQuery(parent_id).find('input.default_value').hide();
     } else if (str == 'htmlfield') {
-            multioptionFieldHide(parent_id);
-
-         htmlfield(parent_id,this_parent_id);
+        multioptionFieldHide(parent_id);
+        $phToggle.hide();
+        htmlfield(parent_id, this_parent_id);
     } else {
         multioptionFieldHide(parent_id);
+        $phToggle.show();
     }
 });
 /*
@@ -610,11 +656,9 @@ jQuery("#wpth_add_form").on('change', 'select', function() {
  */
 function delete_radio_fields(this_parent_id, radio_id) {
     var parent_id = "#form_field_row_" + this_parent_id;
-    var radio_del_res = jQuery(parent_id + ' #add_radio_checkbox').find('#add_radio input').length;
+    var radio_del_res = jQuery(parent_id + ' #add_radio_checkbox').find('#add_radio input.input_radio_val').length;
     if (radio_del_res > 1) {
-        jQuery(parent_id + " #radio_field_" + radio_id).remove();
-        jQuery(parent_id + " #delete_radio_" + radio_id).remove();
-        //jQuery(parent_id + " #add_new_radio_" + radio_id).remove();
+        jQuery(parent_id + " #delete_radio_" + radio_id).closest('.lfb-choice-row').remove();
         jQuery(parent_id + " #default_radio_value_" + radio_id).remove();
     }
 }
@@ -625,26 +669,22 @@ function add_new_radio_fields(this_parent_id, radio_id) {
     var parent_id = "#form_field_row_" + this_parent_id;
     var new_radio_id = radio_id + 1;
     jQuery(parent_id + " #add_new_radio_" + radio_id).remove();
-    jQuery(parent_id + ' #delete_radio_' + radio_id).css("display", "inline-block");
-    var radio_add = "<p class='button lf_plus' id='add_new_radio_" + new_radio_id + "' onclick='add_new_radio_fields(" + this_parent_id + "," + new_radio_id + ")'><i class='fa fa-plus' aria-hidden='true'></i></p>";
-    var radio_del = "<p class='button lf_minus' id='delete_radio_" + new_radio_id + "' onclick='delete_radio_fields(" + this_parent_id + "," + new_radio_id + ")'><i class='fa fa-minus' aria-hidden='true'></i></p>";
-    var radio_field = "<input type='text' class='input_radio_val' name='lfb_form[form_field_" + this_parent_id + "][field_type][field_" + new_radio_id + "]' id='radio_field_" + new_radio_id + "' placeholder='radio name " + new_radio_id + "'value=''>";
-    var radio_fields = radio_field + "" + radio_del + "" + radio_add;
-    jQuery(parent_id + ' #add_radio').append(radio_fields);
-    var default_add_radio = "<p id='default_radio_value_" + new_radio_id + "'>radio name " + new_radio_id + " <input type='radio' class='' name='lfb_form[form_field_" + this_parent_id + "][default_value][field]' id='default_radio_val_" + new_radio_id + "' value='" + new_radio_id + "'></p>";
+    var radio_add = "<button type='button' class='lfb-add-choice-btn lf_plus' id='add_new_radio_" + new_radio_id + "' onclick='add_new_radio_fields(" + this_parent_id + "," + new_radio_id + ")'>+ Add Choice</button>";
+    var radio_del = "<button type='button' class='lfb-choice-del lf_minus' id='delete_radio_" + new_radio_id + "' onclick='delete_radio_fields(" + this_parent_id + "," + new_radio_id + ")'><i class='fa fa-times' aria-hidden='true'></i></button>";
+    var radio_field = "<input type='text' class='input_radio_val' name='form_field_" + this_parent_id + "[field_type][field_" + new_radio_id + "]' id='radio_field_" + new_radio_id + "' placeholder='Choice " + new_radio_id + "' value=''>";
+    var radio_row = "<div class='lfb-choice-row'>" + radio_field + radio_del + "</div>";
+    jQuery(parent_id + ' #add_radio').append(radio_row + radio_add);
+    var default_add_radio = "<div class='lfb-default-choice' id='default_radio_value_" + new_radio_id + "'><label><input type='radio' class='' name='form_field_" + this_parent_id + "[default_value][field]' id='default_radio_val_" + new_radio_id + "' value='" + new_radio_id + "'> Choice " + new_radio_id + "</label></div>";
     jQuery(parent_id + ' #default_add_radio').append(default_add_radio);
-    jQuery(parent_id + ' #delete_radio_' + new_radio_id).css("display", "none");
 }
 /*
  *Delete dynamic sub-fields of Checkbox
  */
 function delete_checkbox_fields(this_parent_id, checkbox_id) {
     var parent_id = "#form_field_row_" + this_parent_id;
-    var checkbox_del_res = jQuery(parent_id + ' #add_radio_checkbox').find('#add_checkbox input').length;
+    var checkbox_del_res = jQuery(parent_id + ' #add_radio_checkbox').find('#add_checkbox input.input_checkbox_val').length;
     if (checkbox_del_res > 1) {
-        jQuery(parent_id + " #checkbox_field_" + checkbox_id).remove();
-        jQuery(parent_id + " #delete_checkbox_" + checkbox_id).remove();
-        //jQuery(parent_id + " #add_new_checkbox_" + checkbox_id).remove();
+        jQuery(parent_id + " #delete_checkbox_" + checkbox_id).closest('.lfb-choice-row').remove();
         jQuery(parent_id + " #default_checkbox_value_" + checkbox_id).remove();
     }
 }
@@ -655,26 +695,22 @@ function add_new_checkbox_fields(this_parent_id, checkbox_id) {
     var new_checkbox_id = checkbox_id + 1;
     var parent_id = "#form_field_row_" + this_parent_id;
     jQuery(parent_id + " #add_new_checkbox_" + checkbox_id).remove();
-    jQuery(parent_id + ' #delete_checkbox_' + checkbox_id).css("display", "inline-block");
-    var checkbox_add = "<p class='button lf_plus' id='add_new_checkbox_" + new_checkbox_id + "' onclick='add_new_checkbox_fields(" + this_parent_id + "," + new_checkbox_id + ")'><i class='fa fa-plus' aria-hidden='true'></i></p>";
-    var checkbox_del = "<p class='button lf_minus' id='delete_checkbox_" + new_checkbox_id + "' onclick='delete_checkbox_fields(" + this_parent_id + "," + new_checkbox_id + ")'><i class='fa fa-minus' aria-hidden='true'></i></p>";
-    var checkbox_field = "<input type='text' class='input_checkbox_val' name='lfb_form[form_field_" + this_parent_id + "][field_type][field_" + new_checkbox_id + "]' id='checkbox_field_" + new_checkbox_id + "' placeholder='checkbox name " + new_checkbox_id + "'value=''>";
-    var checkbox_fields = checkbox_field + "" + checkbox_del + "" + checkbox_add;
-    jQuery(parent_id + ' #add_checkbox').append(checkbox_fields);
-    var default_add_checkbox = "<p id='default_checkbox_value_" + new_checkbox_id + "'>checkbox name " + new_checkbox_id + " <input type='checkbox' class='' name='lfb_form[form_field_" + this_parent_id + "][default_value][field_" + new_checkbox_id + "]' id='default_checkbox_val_" + new_checkbox_id + "' value='1'></p>";
+    var checkbox_add = "<button type='button' class='lfb-add-choice-btn lf_plus' id='add_new_checkbox_" + new_checkbox_id + "' onclick='add_new_checkbox_fields(" + this_parent_id + "," + new_checkbox_id + ")'>+ Add Choice</button>";
+    var checkbox_del = "<button type='button' class='lfb-choice-del lf_minus' id='delete_checkbox_" + new_checkbox_id + "' onclick='delete_checkbox_fields(" + this_parent_id + "," + new_checkbox_id + ")'><i class='fa fa-times' aria-hidden='true'></i></button>";
+    var checkbox_field = "<input type='text' class='input_checkbox_val' name='form_field_" + this_parent_id + "[field_type][field_" + new_checkbox_id + "]' id='checkbox_field_" + new_checkbox_id + "' placeholder='Choice " + new_checkbox_id + "' value=''>";
+    var checkbox_row = "<div class='lfb-choice-row'>" + checkbox_field + checkbox_del + "</div>";
+    jQuery(parent_id + ' #add_checkbox').append(checkbox_row + checkbox_add);
+    var default_add_checkbox = "<div class='lfb-default-choice' id='default_checkbox_value_" + new_checkbox_id + "'><label><input type='checkbox' class='' name='form_field_" + this_parent_id + "[default_value][field_" + new_checkbox_id + "]' id='default_checkbox_val_" + new_checkbox_id + "' value='1'> Choice " + new_checkbox_id + "</label></div>";
     jQuery(parent_id + ' #default_add_checkbox').append(default_add_checkbox);
-    jQuery(parent_id + ' #delete_checkbox_' + new_checkbox_id).css("display", "none");
 }
 /*
  *Delete dynamic sub-fields of Option
  */
 function delete_option_fields(this_parent_id, option_id) {
     var parent_id = "#form_field_row_" + this_parent_id;
-    var option_del_res = jQuery(parent_id + ' #add_radio_checkbox').find('#add_option input').length;
+    var option_del_res = jQuery(parent_id + ' #add_radio_checkbox').find('#add_option input.input_option_val').length;
     if (option_del_res > 1) {
-        jQuery(parent_id + " #option_field_" + option_id).remove();
-        jQuery(parent_id + " #delete_option_" + option_id).remove();
-       // jQuery(parent_id + " #add_new_option_" + option_id).remove();
+        jQuery(parent_id + " #delete_option_" + option_id).closest('.lfb-choice-row').remove();
         jQuery(parent_id + " #default_option_value_" + option_id).remove();
     }
 }
@@ -685,16 +721,35 @@ function add_new_option_fields(this_parent_id, option_id) {
     var new_option_id = option_id + 1;
     var parent_id = "#form_field_row_" + this_parent_id;
     jQuery(parent_id + " #add_new_option_" + option_id).remove();
-    jQuery(parent_id + ' #delete_option_' + option_id).css("display", "inline-block");
-    var option_add = "<p class='button lf_plus' id='add_new_option_" + new_option_id + "' onclick='add_new_option_fields(" + this_parent_id + "," + new_option_id + ")'><i class='fa fa-plus' aria-hidden='true'></i></p>";
-    var option_del = "<p class='button lf_minus' id='delete_option_" + new_option_id + "' onclick='delete_option_fields(" + this_parent_id + "," + new_option_id + ")'><i class='fa fa-minus' aria-hidden='true'></i></p>";
-    var option_field = "<input type='text' class='input_option_val' name='lfb_form[form_field_" + this_parent_id + "][field_type][field_" + new_option_id + "]' id='option_field_" + new_option_id + "' placeholder='option name " + new_option_id + "'value=''>";
-    var option_fields = option_field + "" + option_del + "" + option_add;
-    jQuery(parent_id + ' #add_option').append(option_fields);
-    var default_add_option = "<p id='default_option_value_" + new_option_id + "'>option name " + new_option_id + " <input type='radio' class='' name='lfb_form[form_field_" + this_parent_id + "][default_value][field]' id='default_option_val_" + new_option_id + "' value=" + new_option_id + "></p>";
+    var option_add = "<button type='button' class='lfb-add-choice-btn lf_plus' id='add_new_option_" + new_option_id + "' onclick='add_new_option_fields(" + this_parent_id + "," + new_option_id + ")'>+ Add Choice</button>";
+    var option_del = "<button type='button' class='lfb-choice-del lf_minus' id='delete_option_" + new_option_id + "' onclick='delete_option_fields(" + this_parent_id + "," + new_option_id + ")'><i class='fa fa-times' aria-hidden='true'></i></button>";
+    var option_field = "<input type='text' class='input_option_val' name='form_field_" + this_parent_id + "[field_type][field_" + new_option_id + "]' id='option_field_" + new_option_id + "' placeholder='Choice " + new_option_id + "' value=''>";
+    var option_row = "<div class='lfb-choice-row'>" + option_field + option_del + "</div>";
+    jQuery(parent_id + ' #add_option').append(option_row + option_add);
+    var default_add_option = "<div class='lfb-default-choice' id='default_option_value_" + new_option_id + "'><label><input type='radio' class='' name='form_field_" + this_parent_id + "[default_value][field]' id='default_option_val_" + new_option_id + "' value='" + new_option_id + "'> Choice " + new_option_id + "</label></div>";
     jQuery(parent_id + ' #default_add_option').append(default_add_option);
-    jQuery(parent_id + ' #delete_option_' + new_option_id).css("display", "none");
 }
+/* Save Thank You Message & Redirect URL */
+jQuery(document).on('submit', 'form#lfb-form-success-msg', function(event) {
+    event.preventDefault();
+    var form_data = jQuery(this).serialize() + '&action=lfb_save_success_msg';
+    jQuery('#error-message-success-msg').empty();
+    SaveByAjaxRequest(form_data, 'POST').success(function(response) {
+        if (jQuery.trim(response) === 'updated') {
+            jQuery('#error-message-success-msg').html("<div class='success'><p>Updated Successfully!</p></div>");
+        } else {
+            jQuery('#error-message-success-msg').html("<div class='error'><p>Something went wrong.</p></div>");
+        }
+    });
+});
+
+/* Radio option card highlight toggle */
+jQuery(document).on('change', '.lfb-es-radio-opt input[type="radio"]', function() {
+    var $form = jQuery(this).closest('form');
+    $form.find('.lfb-es-radio-opt').removeClass('lfb-es-radio-checked');
+    jQuery(this).closest('.lfb-es-radio-opt').addClass('lfb-es-radio-checked');
+});
+
 /*
  *Save email setting for each form
  */
@@ -905,3 +960,161 @@ jQuery('#lfb_formColor').append('<style>#wpbody-content{width:800px;}</style>');
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen").click();
             }
+/* ============================================================
+   Form List — Shortcode copy (new pill style)
+   ============================================================ */
+jQuery(document).on('click', '.lfb-sc-copy', function(e) {
+    e.preventDefault();
+    var $btn    = jQuery(this);
+    var $input  = $btn.prev('.lfb-sc-input');
+    if ($input.length) {
+        $input.select();
+        document.execCommand('Copy');
+    }
+    var origHtml = $btn.html();
+    $btn.html('Copied!');
+    setTimeout(function() { $btn.html(origHtml); }, 2000);
+});
+
+/* ============================================================
+   Form List — Main Tabs (Form List / View Leads / Upgrade)
+   ============================================================ */
+jQuery(document).on('click', '.lfb-main-tab', function() {
+    var href = jQuery(this).data('href');
+    if (href) {
+        window.location.href = href;
+        return;
+    }
+    var tabId = jQuery(this).data('tab');
+    jQuery('.lfb-main-tab').removeClass('active');
+    jQuery(this).addClass('active');
+    jQuery('.lfb-main-tab-content').removeClass('active');
+    jQuery('#' + tabId).addClass('active');
+});
+
+/* ============================================================
+   Form List — Bulk delete bar
+   ============================================================ */
+function lfbUpdateBulkBar() {
+    var count = jQuery('.lfb-form-cb:checked').length;
+    jQuery('.lfb-sel-num').text(count);
+    if (count > 0) {
+        jQuery('.lfb-bulk-actions-bar').addClass('lfb-bar-visible');
+    } else {
+        jQuery('.lfb-bulk-actions-bar').removeClass('lfb-bar-visible');
+        jQuery('.lfb-form-cb, .lfb-select-all').closest('tr').removeClass('lfb-row-checked');
+    }
+}
+
+// Select all
+jQuery(document).on('change', '.lfb-select-all', function() {
+    jQuery('.lfb-form-cb').prop('checked', this.checked);
+    jQuery('.lfb-form-cb').each(function() {
+        jQuery(this).closest('tr').toggleClass('lfb-row-checked', this.checked);
+    });
+    lfbUpdateBulkBar();
+});
+
+// Individual checkbox
+jQuery(document).on('change', '.lfb-form-cb', function() {
+    var total   = jQuery('.lfb-form-cb').length;
+    var checked = jQuery('.lfb-form-cb:checked').length;
+    jQuery('.lfb-select-all').prop('checked', total === checked && total > 0);
+    jQuery(this).closest('tr').toggleClass('lfb-row-checked', this.checked);
+    lfbUpdateBulkBar();
+});
+
+// Cancel bulk selection
+jQuery(document).on('click', '.lfb-bulk-cancel-btn', function() {
+    jQuery('.lfb-form-cb, .lfb-select-all').prop('checked', false);
+    jQuery('.lfb-form-cb').closest('tr').removeClass('lfb-row-checked');
+    lfbUpdateBulkBar();
+});
+
+// Bulk delete — open confirm modal
+jQuery(document).on('click', '.lfb-bulk-delete-btn', function() {
+    var count = jQuery('.lfb-form-cb:checked').length;
+    if (count === 0) return;
+    jQuery('.lfb-delete-modal-overlay').fadeIn(200);
+});
+
+// Modal cancel
+jQuery(document).on('click', '.lfb-modal-cancel-btn, .lfb-delete-modal-overlay', function(e) {
+    if (e.target === this) {
+        jQuery('.lfb-delete-modal-overlay').fadeOut(200);
+    }
+});
+
+// Modal confirm delete
+jQuery(document).on('click', '.lfb-modal-confirm-btn', function() {
+    var ids = [];
+    jQuery('.lfb-form-cb:checked').each(function() {
+        ids.push(jQuery(this).val());
+    });
+    if (ids.length === 0) return;
+
+    var $btn = jQuery(this);
+    $btn.prop('disabled', true);
+
+    jQuery.post(backendajax.ajaxurl, {
+        action   : 'lfb_bulk_delete_forms',
+        security : backendajax.nonce,
+        form_ids : ids
+    }, function(response) {
+        jQuery('.lfb-delete-modal-overlay').fadeOut(200);
+        if (response.success) {
+            jQuery('.lfb-form-cb:checked').each(function() {
+                jQuery(this).closest('tr').addClass('lfb-row-deleting');
+            });
+            setTimeout(function() {
+                jQuery('.lfb-row-deleting').slideUp(300, function() { jQuery(this).remove(); });
+                jQuery('.lfb-select-all').prop('checked', false);
+                lfbUpdateBulkBar();
+            }, 300);
+        } else {
+            alert('Delete failed. Please try again.');
+        }
+        $btn.prop('disabled', false);
+    }, 'json').fail(function() {
+        jQuery('.lfb-delete-modal-overlay').fadeOut(200);
+        alert('Request failed. Please try again.');
+        $btn.prop('disabled', false);
+    });
+});
+
+/* ============================================================
+   Form List — AJAX Pagination
+   ============================================================ */
+function lfbFormPage(page_id) {
+    var $tbody = jQuery('#the-list');
+    var $pagi  = jQuery('#lfb-forms-pagi-wrap');
+    $tbody.css('opacity', '0.4');
+    jQuery.post(backendajax.ajaxurl, { action: 'LFBLoadFormPage', page_id: page_id }, function(res) {
+        if (res && res.tbody !== undefined) {
+            $tbody.html(res.tbody);
+            $tbody.css('opacity', '1');
+            $pagi.html(res.pagi);
+        }
+    }, 'json');
+}
+
+/* ============================================================
+   Duplicate Form
+   ============================================================ */
+jQuery(document).on('click', '.lfb-act-btn--dup', function() {
+    var $btn   = jQuery(this);
+    var formId = $btn.data('form-id');
+    $btn.prop('disabled', true).css('opacity', '0.5');
+    jQuery.post(backendajax.ajaxurl, {
+        action  : 'lfb_duplicate_form',
+        form_id : formId,
+        nonce   : backendajax.nonce
+    }, function(res) {
+        if (res && res.success) {
+            lfbFormPage(1);
+        } else {
+            alert('Could not duplicate form.');
+            $btn.prop('disabled', false).css('opacity', '1');
+        }
+    }, 'json');
+});

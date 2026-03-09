@@ -55,15 +55,150 @@ a:focus {
 #wpfooter {
   z-index: -1;
 }
-.lfb-header h2 {
-  font-size: 1.6em;
-  margin: 1.5em 0 !important;
-  display: flex;
-    align-items: center;
+/** Header Page **/
+.lfb-header {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+  border-bottom: 2px solid var(--global-bg-color, #8487ff);
+  padding: 18px 24px;
+  margin: 0px 0px 30px 0px;
 }
-.lfb-header a.add-new-h2,.wrap .add-new-h2:active {
+.lfb-header-top {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.lfb-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.lfb-header-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, var(--global-bg-active-color, #3c40e7), var(--global-bg-color, #8487ff));
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(60, 64, 231, 0.25);
+}
+.lfb-header-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.lfb-header h2 {
+  font-size: 1.35em;
+  font-weight: 700;
+  margin: 0 !important;
+  color: #1d2327;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+}
+.lfb-breadcrumb {
+  font-size: 12px;
+  color: var(--global-bg-active-color, #3c40e7);
+  font-weight: 500;
+  opacity: 0.8;
+}
+.lfb-back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #f0f0f1;
+  color: #50575e;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.lfb-back-btn:hover {
+  background: var(--global-bg-active-color, #3c40e7);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(60, 64, 231, 0.3);
+}
+.lfb-back-btn svg {
+  display: block;
+}
+.lfb-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* Add New Form Button */
+.lfb-add-new-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--global-bg-active-color, #3c40e7) 0%, var(--global-bg-color, #8487ff) 100%);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  box-shadow: 0 3px 12px rgba(60, 64, 231, 0.3);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.lfb-add-new-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.5s ease;
+}
+.lfb-add-new-btn:hover {
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(60, 64, 231, 0.4);
+}
+.lfb-add-new-btn:hover::before {
+  left: 100%;
+}
+.lfb-add-new-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(60, 64, 231, 0.3);
+}
+.lfb-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 5px;
+}
+.lfb-add-new-btn svg {
+  display: block;
+}
+/* Outline variant for Edit Form button */
+.lfb-add-new-btn--outline {
+  background: transparent;
+  border: 1.5px solid var(--global-bg-active-color, #3c40e7);
+  color: var(--global-bg-active-color, #3c40e7);
+  box-shadow: none;
+}
+.lfb-add-new-btn--outline .lfb-btn-icon {
+  background: rgba(60,64,231,0.1);
+  color: var(--global-bg-active-color, #3c40e7);
+}
+.lfb-add-new-btn--outline:hover {
+  background: var(--global-bg-active-color, #3c40e7);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(60,64,231,0.35);
+}
+.lfb-add-new-btn--outline:hover .lfb-btn-icon {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
 }
 .show-all-form .notice,
 .wp-core-ui .notice.is-dismissible {
@@ -542,7 +677,6 @@ a.lead-remove i {
 /***Edit form Style***/
 .inside.spth_setting_section#wpth_add_form .ui-draggable-handle,
 #wpth_add_form .ui-sortable-handle {
-  border: 1px dashed #0073aa;
   -webkit-box-shadow: 0px 0px 1px 0px rgba(199, 199, 199, 1);
   -moz-box-shadow: 0px 0px 1px 0px rgba(199, 199, 199, 1);
   box-shadow: 0px 0px 1px 0px rgba(199, 199, 199, 1);
@@ -688,7 +822,6 @@ table#show-leads-table thead th input[type="button"]:hover,
   height: auto;
 }
 #lfb-form-success-msg #lfb_success_msg {
-  width: 250px;
   min-height: 100px;
   margin-bottom: 10px;
 }
@@ -2374,4 +2507,1398 @@ div.dropdown-opened {
 }
 .lfb-show h1 {
   text-align: center;
+}
+
+
+/* ============================================================
+   Main Tabs - Form List | View Leads | Upgrade to Pro
+   ============================================================ */
+.lfb-main-tabs-wrapper {
+  margin-top: 15px;
+  position: relative;
+}
+.lfb-main-tabs {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 2px solid var(--global-bg-color);
+}
+.lfb-main-tab {
+  padding: 12px 24px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  background: #f1f1f1;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  margin-right: 4px;
+  transition: all 0.2s;
+  position: relative;
+  top: 2px;
+}
+.lfb-main-tab:hover {
+  background: #e8ecff;
+  color: #333;
+}
+.lfb-main-tab.active {
+  background: #fff;
+  color: var(--global-bg-active-color);
+  border-color: var(--global-bg-color);
+  border-bottom: 2px solid #fff;
+}
+.lfb-main-tab-content {
+  display: none;
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-top: none;
+}
+.lfb-main-tab-content.active {
+  display: block;
+}
+
+/* Form Table */
+.lfb-form-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+  border: 1px solid #e8e8f0;
+  box-shadow: none;
+}
+.lfb-form-table thead th {
+  background: #f5f5fb;
+  border-bottom: 1px solid #e8e8f0;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b6e85;
+  padding: 11px 14px;
+}
+.lfb-form-table tbody tr {
+  border-bottom: 1px solid #f0f0f7;
+  transition: background 0.15s;
+}
+.lfb-form-table tbody tr:last-child {
+  border-bottom: none;
+}
+.lfb-form-table tbody tr:hover {
+  background: var(--global-bg-light-color, #f8faff);
+}
+.lfb-form-table tbody td {
+  padding: 12px 14px;
+  vertical-align: middle;
+}
+.lfb-th-title     { width: auto; }
+.lfb-th-shortcode { width: 200px; }
+.lfb-th-count     { width: 100px; text-align: center; }
+.lfb-th-date      { width: 110px; }
+.lfb-th-actions   { width: 130px; text-align: right; }
+.lfb-col-count    { text-align: center; }
+.lfb-col-actions  { text-align: right; }
+.lfb-col-title    { vertical-align: middle; }
+.lfb-form-title-link {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--global-bg-active-color, #3c40e7);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.lfb-form-title-link:hover {
+  opacity: 0.75;
+  color: var(--global-bg-active-color, #3c40e7);
+  text-decoration: underline;
+}
+
+/* Shortcode pill */
+.lfb-sc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--global-bg-light-color, #f8faff);
+  border: 1px solid #e0e0f5;
+  border-radius: 6px;
+  padding: 4px 8px 4px 10px;
+  max-width: 100%;
+}
+.lfb-sc-label {
+  font-size: 11.5px;
+  font-family: monospace;
+  color: var(--global-bg-active-color, #3c40e7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+.lfb-sc-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  border: none !important;
+  padding: 0 !important;
+}
+.lfb-sc-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background: transparent;
+  color: #999;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+  text-decoration: none;
+}
+.lfb-sc-copy:hover {
+  background: var(--global-bg-active-color, #3c40e7);
+  color: #fff;
+}
+
+/* Lead number */
+.lfb-lead-num {
+  display: inline-block;
+  min-width: 28px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: var(--global-bg-light-color, #f8faff);
+  border: 1px solid #e0e0f5;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--global-bg-active-color, #3c40e7);
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.lfb-lead-num:hover {
+  background: var(--global-bg-active-color, #3c40e7);
+  color: #fff;
+  border-color: var(--global-bg-active-color, #3c40e7);
+}
+
+/* Date */
+.lfb-col-date {
+  font-size: 12.5px;
+  color: #888;
+  white-space: nowrap;
+}
+
+/* Action icon buttons */
+.lfb-row-act {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: flex-end;
+}
+.lfb-act-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: transparent;
+  color: #888;
+  border: 1px solid #e8e8f0;
+  text-decoration: none;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.lfb-act-btn:hover {
+  background: #f0f0f8;
+  color: #555;
+  border-color: #d0d0e8;
+}
+.lfb-act-btn--primary {
+  color: var(--global-bg-active-color, #3c40e7);
+  border-color: rgba(60,64,231,0.2);
+  background: rgba(60,64,231,0.05);
+}
+.lfb-act-btn--primary:hover {
+  background: var(--global-bg-active-color, #3c40e7);
+  color: #fff;
+  border-color: var(--global-bg-active-color, #3c40e7);
+}
+.lfb-act-btn--copy {
+  color: #16a34a;
+  border-color: rgba(22,163,74,0.2);
+  background: rgba(22,163,74,0.05);
+}
+.lfb-act-btn--copy:hover {
+  background: #16a34a;
+  color: #fff;
+  border-color: #16a34a;
+}
+.lfb-act-btn--danger {
+  color: #e05252;
+  border-color: rgba(224,82,82,0.2);
+  background: rgba(224,82,82,0.05);
+}
+.lfb-act-btn--danger:hover {
+  background: #e05252;
+  color: #fff;
+  border-color: #e05252;
+}
+
+/* Custom Checkbox */
+.lfb-col-cb {
+  width: 42px !important;
+  text-align: center;
+  vertical-align: middle;
+  padding: 8px 6px !important;
+}
+.lfb-custom-cb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+.lfb-custom-cb input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.lfb-cb-mark {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #c3c4c7;
+  border-radius: 4px;
+  background: #fff;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.lfb-cb-mark::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 5px;
+  height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.15s ease;
+}
+.lfb-custom-cb input:checked + .lfb-cb-mark {
+  background: var(--global-bg-active-color, #3c40e7);
+  border-color: var(--global-bg-active-color, #3c40e7);
+  box-shadow: 0 2px 6px rgba(60,64,231,0.3);
+}
+.lfb-custom-cb input:checked + .lfb-cb-mark::after {
+  transform: rotate(45deg) scale(1);
+}
+.lfb-custom-cb:hover .lfb-cb-mark {
+  border-color: var(--global-bg-color, #8487ff);
+}
+
+/* Bulk Actions Bar */
+.lfb-bulk-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: linear-gradient(135deg, #1e1e2f 0%, #2d2d44 100%);
+  border-radius: 10px 10px 0 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease, padding 0.35s ease;
+}
+.lfb-bulk-actions-bar.lfb-bar-visible {
+  max-height: 60px;
+  opacity: 1;
+  padding: 12px 20px;
+}
+.lfb-bulk-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lfb-bulk-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(132,135,255,0.15);
+  color: #a5a7ff;
+}
+.lfb-selected-count {
+  font-size: 13px;
+  font-weight: 500;
+  color: #b8bcc8;
+  letter-spacing: 0.2px;
+}
+.lfb-sel-num {
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+}
+.lfb-bulk-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.lfb-bulk-delete-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #e0434b 0%, #d63638 100%) !important;
+  color: #fff !important;
+  border: none !important;
+  font-weight: 600;
+  font-size: 12.5px;
+  padding: 7px 18px !important;
+  border-radius: 8px !important;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(214,54,56,0.3);
+  letter-spacing: 0.3px;
+}
+.lfb-bulk-delete-btn:hover {
+  background: linear-gradient(135deg, #c7282b 0%, #b22426 100%) !important;
+  box-shadow: 0 4px 14px rgba(214,54,56,0.45);
+  transform: translateY(-1px);
+}
+.lfb-bulk-delete-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.lfb-bulk-delete-btn svg { flex-shrink: 0; }
+.lfb-bulk-cancel-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.08) !important;
+  color: #b8bcc8 !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  font-weight: 500;
+  font-size: 12.5px;
+  padding: 6px 16px !important;
+  border-radius: 8px !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.lfb-bulk-cancel-btn:hover {
+  background: rgba(255,255,255,0.15) !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,0.25) !important;
+}
+.lfb-bulk-cancel-btn svg { flex-shrink: 0; }
+
+/* Row States */
+tr.lfb-row-checked { background: #f0f1ff !important; }
+tr.lfb-row-checked td { border-color: #d5d7ff; }
+tr.lfb-row-deleting { opacity: 0.4; pointer-events: none; background: #fff5f5 !important; }
+
+/* Delete Confirmation Modal */
+.lfb-delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lfb-delete-modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 36px 32px 28px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.05);
+  animation: lfbModalIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes lfbModalIn {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.lfb-modal-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #fef0f0;
+  margin-bottom: 16px;
+}
+.lfb-delete-modal h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e1e2f;
+  margin: 0 0 8px;
+}
+.lfb-modal-msg {
+  font-size: 13.5px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+.lfb-modal-actions { display: flex; gap: 10px; justify-content: center; }
+.lfb-modal-cancel-btn {
+  padding: 10px 24px;
+  border-radius: 10px;
+  border: 1px solid #e2e4e9;
+  background: #fff;
+  color: #3c434a;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.lfb-modal-cancel-btn:hover { background: #f4f5f7; border-color: #c3c4c7; }
+.lfb-modal-confirm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 24px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #e0434b 0%, #d63638 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(214,54,56,0.25);
+}
+.lfb-modal-confirm-btn:hover {
+  background: linear-gradient(135deg, #c7282b 0%, #b22426 100%);
+  box-shadow: 0 4px 14px rgba(214,54,56,0.4);
+  transform: translateY(-1px);
+}
+.lfb-modal-confirm-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.lfb-modal-confirm-btn svg { flex-shrink: 0; }
+
+/* Loading Spinner */
+.lfb-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: lfbSpin 0.6s linear infinite;
+  vertical-align: middle;
+}
+@keyframes lfbSpin { to { transform: rotate(360deg); } }
+
+/* AJAX Pagination */
+.lfb-pagination {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  padding: 12px 0 4px;
+}
+.lfb-pagi-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 8px;
+  border: 1.5px solid #e2e4f0;
+  border-radius: 8px;
+  background: #fff;
+  color: #3c40e7;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  line-height: 1;
+}
+.lfb-pagi-btn:hover:not(.lfb-pagi-disabled):not(.lfb-pagi-active) {
+  background: #f4f5ff;
+  border-color: #3c40e7;
+  box-shadow: 0 2px 6px rgba(60,64,231,0.12);
+}
+.lfb-pagi-active {
+  background: linear-gradient(135deg, #3c40e7 0%, #6366f1 100%);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(60,64,231,0.3);
+  font-weight: 700;
+  pointer-events: none;
+}
+.lfb-pagi-disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+.lfb-pagi-nav { color: #3c40e7; }
+.lfb-pagi-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 34px;
+  color: #8487ff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+#lfb-forms-pagi-wrap { padding: 8px 0 4px; }
+
+
+/* ===================================================================
+   FORM BUILDER — Card-based layout
+   =================================================================== */
+
+.lfb-form-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 18px 0;
+    flex-wrap: wrap;
+}
+.lfb-form-title-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3c40e7;
+    white-space: nowrap;
+    min-width: 80px;
+}
+.lfb-form-title-wrap input.new_form_heading {
+    flex: 1;
+    min-width: 200px;
+    padding: 8px 12px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    background: #fff;
+    color: #1e293b;
+    transition: border-color .2s, box-shadow .2s;
+}
+.lfb-form-title-wrap input.new_form_heading:focus {
+    border-color: #8487ff;
+    box-shadow: 0 0 0 3px rgba(132,135,255,.15);
+    outline: none;
+}
+
+/* Wrapper */
+.lfb-form-builder-wrap {
+    margin-top: 10px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+}
+
+/* Header row */
+.lfb-fields-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #f8faff;
+    border-bottom: 1px solid #e2e8f0;
+}
+.lfb-fields-header h2.sec_head {
+    margin: 0 !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+}
+
+/* Column label row */
+.lfb-fields-columns {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 1.5fr 64px;
+    padding: 6px 46px 6px 46px;
+    background: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+    gap: 8px;
+}
+.lfb-fields-columns span {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #94a3b8;
+}
+
+/* Sortable container */
+#sortable.lfb-sortable-cards {
+    border: none;
+    background: #fff;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Individual field card */
+.lfb-field-card {
+    display: flex;
+    align-items: flex-start;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background .15s;
+    min-height: 64px;
+}
+.lfb-field-card:last-child {
+    border-bottom: none;
+}
+.lfb-field-card:hover {
+    background: #fafbff;
+}
+
+/* Drag handle */
+.lfb-drag-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    min-width: 34px;
+    align-self: stretch;
+    cursor: grab;
+    color: #c0c4e0;
+    border-right: 1px solid #f1f5f9;
+    transition: color .15s;
+}
+.lfb-drag-handle:hover {
+    color: #8487ff;
+}
+.lfb-drag-handle:active {
+    cursor: grabbing;
+}
+
+/* Sortable placeholder */
+.lfb-sort-placeholder {
+    height: 60px;
+    background: #f0f4ff;
+    border: 2px dashed #8487ff;
+    border-radius: 4px;
+    margin: 4px 0;
+}
+
+/* Inner grid */
+.lfb-field-inner {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 1.5fr 64px;
+    flex: 1;
+    gap: 8px;
+    padding: 10px 8px;
+    align-items: start;
+}
+
+/* Column */
+.lfb-field-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+.lfb-field-col label.lfb-col-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #9399c4;
+    margin: 0;
+}
+.lfb-field-col input[type="text"],
+.lfb-field-col textarea {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #1e293b;
+    background: #fff;
+    transition: border-color .2s, box-shadow .2s;
+    box-sizing: border-box;
+}
+.lfb-field-col input[type="text"]:focus,
+.lfb-field-col textarea:focus {
+    border-color: #8487ff;
+    box-shadow: 0 0 0 2px rgba(132,135,255,.15);
+    outline: none;
+}
+.lfb-field-col select.form_field_select {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #1e293b;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color .2s;
+}
+.lfb-field-col select.form_field_select:focus {
+    border-color: #8487ff;
+    outline: none;
+}
+.lfb-field-col-html textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Toggle switches */
+.lfb-toggles {
+    justify-content: flex-start;
+    gap: 6px;
+}
+.lfb-toggle-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+    margin: 0;
+}
+.lfb-toggle-wrap input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.lfb-toggle-sl {
+    display: inline-block;
+    width: 30px;
+    min-width: 30px;
+    height: 16px;
+    background: #cbd5e1;
+    border-radius: 8px;
+    position: relative;
+    transition: background .2s;
+}
+.lfb-toggle-sl::after {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform .2s;
+}
+.lfb-toggle-wrap input[type="checkbox"]:checked + .lfb-toggle-sl {
+    background: #8487ff;
+}
+.lfb-toggle-wrap input[type="checkbox"]:checked + .lfb-toggle-sl::after {
+    transform: translateX(14px);
+}
+.lfb-toggle-txt {
+    font-size: 11px;
+    color: #64748b;
+    line-height: 1;
+}
+
+/* Action column */
+.lfb-field-col-action {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 4px;
+    padding-top: 14px;
+}
+.lfb-btn-remove-field,
+.lfb-btn-duplicate-field {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+    color: #94a3b8;
+    transition: color .15s, border-color .15s, background .15s;
+    padding: 0;
+}
+.lfb-btn-remove-field:hover {
+    color: #ef4444;
+    border-color: #fca5a5;
+    background: #fff5f5;
+}
+.lfb-btn-duplicate-field:hover {
+    color: #3c40e7;
+    border-color: #a5b4fc;
+    background: #f0f4ff;
+}
+
+/* Submit card */
+.lfb-submit-card {
+    padding: 10px 8px 10px 34px;
+    border-top: 2px dashed #e2e8f0;
+    background: #fafbff;
+}
+.lfb-submit-card .lfb-field-inner {
+    padding: 0;
+}
+
+/* Add field bar */
+.lfb-add-field-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-top: 1px solid #f1f5f9;
+    background: #fafbff;
+}
+.lfb-add-field-bar input.lf_addnew,
+.lfb-add-field-bar .button.lf_addnew {
+    background: linear-gradient(135deg, var(--global-bg-active-color, #3c40e7), var(--global-bg-color, #8487ff)) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 7px 20px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: opacity .2s !important;
+    height: auto !important;
+}
+.lfb-add-field-bar input.lf_addnew:hover,
+.lfb-add-field-bar .button.lf_addnew:hover {
+    opacity: .88 !important;
+}
+
+/* Choice add/remove buttons (radio, checkbox, option rows) */
+.lfb-choice-del,
+.lfb-choice-add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    cursor: pointer;
+    font-size: 11px;
+    padding: 0;
+    transition: color .15s, border-color .15s;
+    vertical-align: middle;
+}
+.lfb-choice-del:hover {
+    color: #ef4444;
+    border-color: #fca5a5;
+}
+.lfb-choice-add:hover {
+    color: #22c55e;
+    border-color: #86efac;
+}
+
+/* Save / Update form buttons */
+p.submit input.save_form,
+p.submit input.update_form {
+    background: linear-gradient(135deg, var(--global-bg-active-color, #3c40e7), var(--global-bg-color, #8487ff)) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 8px 24px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: opacity .2s !important;
+    height: auto !important;
+}
+p.submit input.save_form:hover,
+p.submit input.update_form:hover {
+    opacity: .88 !important;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .lfb-fields-columns,
+    .lfb-field-inner {
+        grid-template-columns: 1fr 1fr;
+    }
+    .lfb-field-col-action {
+        grid-column: span 2;
+        flex-direction: row;
+        padding-top: 0;
+    }
+}
+@media (max-width: 600px) {
+    .lfb-fields-columns { display: none; }
+    .lfb-field-inner { grid-template-columns: 1fr; }
+    .lfb-field-col-action { grid-column: 1; }
+}
+
+
+/* Choices wrap container */
+.lfb-choices-wrap {
+    margin-top: 8px;
+}
+
+/* Choice row: input + X button */
+.lfb-choice-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 6px;
+    overflow: visible;
+}
+.lfb-choice-row input[type="text"] {
+    flex: 1;
+    min-width: 0;
+    border-radius: 5px 0 0 5px !important;
+    border-right: none !important;
+    height: 34px;
+    padding: 4px 10px;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+.lfb-choice-del {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: #fff0f0;
+    border: 1px solid #f5c6c6;
+    border-radius: 0 5px 5px 0;
+    color: #e53e3e;
+    cursor: pointer;
+    font-size: 12px;
+    flex-shrink: 0;
+    transition: background .15s;
+}
+.lfb-choice-del:hover {
+    background: #ffe0e0;
+    color: #c0392b;
+}
+
+/* Full-width Add Choice button */
+.lfb-add-choice-btn {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    padding: 7px 10px;
+    background: transparent;
+    border: 2px dashed #b0bec5;
+    border-radius: 5px;
+    color: #546e7a;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .15s, color .15s;
+    box-sizing: border-box;
+    height: auto;
+}
+.lfb-add-choice-btn:hover {
+    border-color: #6c63ff;
+    color: #6c63ff;
+}
+
+/* Default choices list */
+.lfb-default-choices-wrap {
+    margin-top: 6px;
+}
+.lfb-default-choice {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.lfb-default-choice label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: normal;
+    margin: 0;
+    font-size: 13px;
+    color: #2d3748;
+}
+.lfb-default-choice input[type="radio"],
+.lfb-default-choice input[type="checkbox"] {
+    margin: 0;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+}
+
+/* ============================================
+   Email Settings Card
+   ============================================ */
+.lfb-es-card {
+    background: #fff;
+    border: 1px solid #e8eaf0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    max-width: 720px;
+    width: 100%;
+}
+
+/* Header */
+.lfb-es-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 24px;
+    background: #f0f4ff;
+    border-bottom: 1px solid #e2e8f7;
+}
+.lfb-es-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    color: #fff;
+}
+.lfb-es-icon-admin { background: #3b82f6; }
+.lfb-es-icon-user  { background: #0ea5a0; }
+.lfb-es-header-text h3 {
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.3;
+}
+.lfb-es-header-text p {
+    margin: 0;
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* Body */
+.lfb-es-body {
+    padding: 28px;
+}
+
+/* Two-column row */
+.lfb-es-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Field */
+.lfb-es-field {
+    margin-bottom: 20px;
+}
+.lfb-es-field:last-child { margin-bottom: 0; }
+
+/* Label */
+.lfb-es-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 7px;
+    letter-spacing: .3px;
+    text-transform: uppercase;
+}
+.lfb-req {
+    color: #ef4444;
+    margin-left: 2px;
+}
+
+/* Input / select / textarea */
+.lfb-es-input {
+    display: block;
+    width: 100%;
+    padding: 10px 14px !important;
+    font-size: 13.5px;
+    color: #111827 !important;
+    background: #fff;
+    border: 1.5px solid #e5e7eb !important;
+    border-radius: 8px !important;
+    box-sizing: border-box;
+    outline: none;
+    line-height: 1.6 !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04) !important;
+    transition: border-color .18s, box-shadow .18s;
+    -webkit-appearance: none !important;
+    appearance: none;
+}
+.lfb-es-input::placeholder {
+    color: #b0b8c4 !important;
+    font-size: 13px !important;
+}
+.lfb-es-input:hover {
+    border-color: #c5cbd3;
+}
+.lfb-es-input:focus {
+    border-color: #0ea5a0;
+    box-shadow: 0 0 0 3.5px rgba(14,165,160,.13);
+    outline: none;
+}
+.lfb-es-input[disabled],
+.lfb-es-input[readonly] {
+    background: #f3f4f6;
+    color: #9ca3af;
+    border-color: #e5e7eb;
+    box-shadow: none;
+    cursor: default;
+}
+select.lfb-es-input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7280'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+}
+textarea.lfb-es-input {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.7;
+}
+
+/* Hint text */
+.lfb-es-hint {
+    display: block;
+    margin-top: 6px;
+    font-size: 11.5px;
+    color: #9ca3af;
+    line-height: 1.5;
+}
+.lfb-es-hint code {
+    background: #f0fdf4;
+    color: #059669;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    border: 1px solid #d1fae5;
+}
+
+/* Radio options (Send / Don't Send) */
+.lfb-es-radio-opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-top: 8px;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+    background: #fff;
+}
+.lfb-es-radio-opt input[type=radio] {
+    margin-top: 3px;
+    flex-shrink: 0;
+    accent-color: #0ea5a0;
+    width: 16px;
+    height: 16px;
+}
+.lfb-es-radio-opt.lfb-es-radio-checked {
+    border-color: #0ea5a0;
+    background: #f0fffe;
+}
+.lfb-es-radio-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.lfb-es-radio-text strong {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+}
+.lfb-es-radio-text span {
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* Footer / Save button */
+.lfb-es-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #f1f5f9;
+}
+.lfb-es-save-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 22px;
+    background: #0ea5a0;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+}
+.lfb-es-save-btn:hover { background: #0b8a86; }
+.lfb-es-save-btn i { font-size: 12px; }
+
+@media (max-width: 600px) {
+    .lfb-es-two-col { grid-template-columns: 1fr; }
+}
+
+/* Captcha icon colors */
+.lfb-es-icon-captcha { background: #f97316; }
+.lfb-es-icon-shield  { background: #10b981; }
+.lfb-es-link {
+    color: #3b82f6;
+    text-decoration: none;
+    font-size: 13px;
+}
+.lfb-es-link:hover { text-decoration: underline; }
+
+/* Lead setting icon colors */
+.lfb-es-icon-lead    { background: #7c3aed; }
+.lfb-es-icon-thankyou { background: #10b981; }
+
+/* Radio option with side icon (lead receiving method) */
+.lfb-setting-opt {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.lfb-setting-opt-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+.lfb-setting-opt.lfb-es-radio-checked .lfb-setting-opt-icon {
+    background: #e0fdf4;
+    color: #0ea5a0;
+}
+
+/* Coloured hint text */
+.lfb-es-hint-info {
+    color: #0ea5a0;
+}
+
+/* Pro field lock overlay */
+.lfb-pro-field {
+    position: relative;
+}
+.lfb-pro-field .lfb-es-input {
+    pointer-events: none;
+    background: #f9fafb;
+    color: #b0b8c4;
+    border-color: #e5e7eb;
+    padding-right: 80px;
+}
+.lfb-pro-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    padding: 3px 8px;
+    border-radius: 0 0 0 6px;
+}
+.lfb-pro-badge i { font-size: 9px; }
+
+/* Pro upgrade button */
+.lfb-pro-btn {
+    background: linear-gradient(135deg, #f59e0b, #ef4444) !important;
+    text-decoration: none;
+    margin-right: 8px;
+}
+.lfb-pro-btn:hover {
+    background: linear-gradient(135deg, #d97706, #dc2626) !important;
+    color: #fff;
+}
+
+/* Setting tab two-column layout */
+.lfb-setting-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+.lfb-setting-two-col .lfb-es-card {
+    max-width: 100%;
+    margin-bottom: 0;
+}
+@media (max-width: 900px) {
+    .lfb-setting-two-col {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── Duplicate (Pro) action button ─────────────────────────────────── */
+.lfb-act-btn--pro {
+    position: relative;
+    color: #9c6f00;
+    background: #fffbeb;
+    border-color: #f59e0b;
+    opacity: 0.92;
+}
+.lfb-act-btn--pro:hover {
+    background: #fef3c7;
+    border-color: #d97706;
+    color: #78350f;
+}
+.lfb-act-pro-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff;
+    line-height: 1;
+}
+.lfb-act-pro-badge svg {
+    width: 8px;
+    height: 8px;
+    stroke: #fff;
+}
+
+/* ── Duplicate action button ────────────────────────────────────────── */
+.lfb-act-btn--dup {
+    color: #0891b2;
+    background: #ecfeff;
+    border-color: #67e8f9;
+    cursor: pointer;
+    font-family: inherit;
+}
+.lfb-act-btn--dup:hover {
+    background: #cffafe;
+    border-color: #0891b2;
+    color: #0e7490;
+}
+.lfb-act-btn--dup:disabled {
+    cursor: not-allowed;
 }

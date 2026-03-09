@@ -65,7 +65,7 @@
     ),
     'lead-form-builder' => array(
         'name' => esc_html__('Lead Form Builder', 'lead-form-builder'),
-        'img' => 'icon-128x128.png',
+        'img' => 'icon-128x128.gif',
         'details' => esc_url('https://themehunk.com/product/lead-form-builder-pro/'),
         'active_filename' => 'lead-form-builder/lead-form-builder.php',
         'admin_link' =>   'wplf-plugin-menu',

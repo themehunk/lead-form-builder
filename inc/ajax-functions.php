@@ -765,3 +765,106 @@ function lfb_SaveUserEmailSettings()
     die();
 }
 add_action('wp_ajax_SaveUserEmailSettings', 'lfb_SaveUserEmailSettings');
+
+/*
+ * Bulk delete forms (set status to Disable)
+ */
+function lfb_bulk_delete_forms() {
+    check_ajax_referer( 'lfb_secure_nonce', 'security' );
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( array( 'message' => 'Permission denied' ) );
+    }
+    if ( isset( $_POST['form_ids'] ) && is_array( $_POST['form_ids'] ) ) {
+        global $wpdb;
+        $table_name = LFB_FORM_FIELD_TBL;
+        $deleted    = 0;
+        foreach ( $_POST['form_ids'] as $fid ) {
+            $fid = intval( $fid );
+            if ( $fid > 0 ) {
+                $result = $wpdb->update( $table_name, array( 'form_status' => 'Disable' ), array( 'id' => $fid ) );
+                if ( $result !== false ) {
+                    $deleted++;
+                }
+            }
+        }
+        wp_send_json_success( array( 'deleted' => $deleted ) );
+    } else {
+        wp_send_json_error( array( 'message' => 'No forms selected' ) );
+    }
+    wp_die();
+}
+add_action( 'wp_ajax_lfb_bulk_delete_forms', 'lfb_bulk_delete_forms' );
+
+/*
+ * AJAX handler for Form List pagination
+ */
+function lfb_ajax_load_form_page() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( 'Unauthorized' );
+    }
+    $page_id = isset( $_POST['page_id'] ) ? max( 1, intval( $_POST['page_id'] ) ) : 1;
+    $show    = new LFB_SHOW_FORMS();
+    wp_send_json( array(
+        'tbody' => $show->lfb_render_form_rows( $page_id ),
+        'pagi'  => $show->lfb_form_pagi_html( $page_id, $show->lfb_form_total_pages() ),
+    ) );
+}
+add_action( 'wp_ajax_LFBLoadFormPage', 'lfb_ajax_load_form_page' );
+
+/*
+ * Save Thank You Message & Redirect URL
+ */
+function lfb_save_success_msg() {
+    $nonce = isset( $_POST['lfb_sm_nonce'] ) ? $_POST['lfb_sm_nonce'] : '';
+    if ( ! current_user_can( 'manage_options' ) || ! wp_verify_nonce( $nonce, 'lfb-sm-nonce' ) ) {
+        die( 'error' );
+    }
+    $form_id     = intval( $_POST['lfb_sm_form_id'] );
+    $success_msg = isset( $_POST['lfb_success_msg'] ) ? sanitize_textarea_field( $_POST['lfb_success_msg'] ) : '';
+    $redirect    = isset( $_POST['lfb_redirect_url'] ) ? esc_url_raw( $_POST['lfb_redirect_url'] ) : '';
+
+    global $wpdb;
+    $table_name = LFB_FORM_FIELD_TBL;
+    $row        = $wpdb->get_row( $wpdb->prepare( "SELECT multiData FROM $table_name WHERE id = %d LIMIT 1", $form_id ) );
+    $multidata  = ( $row && $row->multiData ) ? maybe_unserialize( $row->multiData ) : array();
+    $multidata['lfb_success_msg']  = $success_msg;
+    $multidata['lfb_redirect_url'] = $redirect;
+    $wpdb->update( $table_name, array( 'multiData' => maybe_serialize( $multidata ) ), array( 'id' => $form_id ) );
+    esc_html_e( 'updated', 'lead-form-builder' );
+    die();
+}
+add_action( 'wp_ajax_lfb_save_success_msg', 'lfb_save_success_msg' );
+
+/*
+ * Duplicate Form
+ */
+function lfb_duplicate_form() {
+    if ( ! current_user_can( 'manage_options' ) || ! wp_verify_nonce( isset( $_POST['nonce'] ) ? $_POST['nonce'] : '', 'lfb_secure_nonce' ) ) {
+        wp_send_json_error( 'Unauthorised' );
+    }
+    $form_id = intval( $_POST['form_id'] );
+    global $wpdb;
+    $table = LFB_FORM_FIELD_TBL;
+    $row   = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table WHERE id = %d AND form_status = 'ACTIVE' LIMIT 1", $form_id ) );
+    if ( ! $row ) {
+        wp_send_json_error( 'Form not found' );
+    }
+    $new_title = __( 'Copy of', 'lead-form-builder' ) . ' ' . $row->form_title;
+    $wpdb->insert( $table, array(
+        'form_title'       => $new_title,
+        'form_data'        => $row->form_data,
+        'date'             => current_time( 'Y/m/d g:i:s' ),
+        'mail_setting'     => $row->mail_setting,
+        'usermail_setting' => $row->usermail_setting,
+        'multiData'        => $row->multiData,
+        'form_status'      => 'ACTIVE',
+        'captcha_status'   => $row->captcha_status,
+        'storeType'        => $row->storeType,
+    ) );
+    if ( $wpdb->insert_id ) {
+        wp_send_json_success( array( 'new_id' => $wpdb->insert_id, 'title' => $new_title ) );
+    }
+    wp_send_json_error( 'Insert failed' );
+}
+add_action( 'wp_ajax_lfb_duplicate_form', 'lfb_duplicate_form' );
+

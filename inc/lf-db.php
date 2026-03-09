@@ -118,8 +118,26 @@ Class LFB_SAVE_DB{
  $this->tbl_extension =  $wpdb->prefix.$this->lf_ext; 
  $this->tbl_options =  $wpdb->prefix.$this->lfb_options; 
     }
- function lfb_get_form_content($get_form_query){
-  return $this->thdb->get_results($get_form_query);
+ function lfb_get_form_content( $get_form_query ) {
+     return $this->thdb->get_results( $get_form_query );
+ }
+
+ // Today lead count for a single form
+ function today_lead_count( $form_id ) {
+     $data_table = LFB_FORM_DATA_TBL;
+     $today_date = date( 'Y/m/d' );
+     $newDate    = date( 'Y/m/d H:i:s', strtotime( $today_date ) );
+     $prepare    = $this->thdb->prepare( "SELECT id FROM $data_table WHERE date > %s AND form_id = %d", $newDate, $form_id );
+     $result     = $this->lfb_get_form_content( $prepare );
+     return count( $result );
+ }
+
+ // Total leads count for a single form
+ function total_leads_count( $form_id ) {
+     $data_table = LFB_FORM_DATA_TBL;
+     $prepare    = $this->thdb->prepare( "SELECT id FROM $data_table WHERE form_id = %d", $form_id );
+     $result     = $this->lfb_get_form_content( $prepare );
+     return count( $result );
  }
  function lfb_delete_form($deletequery){
   return $this->thdb->query($deletequery); 

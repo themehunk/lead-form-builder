@@ -20,7 +20,10 @@ function lfb_admin_assets($hook) {
         wp_enqueue_script('lfb_upload', LFB_PLUGIN_URL . 'js/upload.js', '', LFB_VER, true);
         wp_enqueue_script('sweet-dropdown.min', LFB_PLUGIN_URL . 'js/jquery.sweet-dropdown.min.js', '', LFB_VER, true);
         wp_enqueue_script('lfb_b_js', LFB_PLUGIN_URL . 'js/b-script.js', array('jquery'), LFB_VER, true);
-        wp_localize_script('lfb_b_js', 'backendajax', array('ajaxurl' => admin_url('admin-ajax.php')));
+        wp_localize_script( 'lfb_b_js', 'backendajax', array(
+            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'nonce'   => wp_create_nonce( 'lfb_secure_nonce' ),
+        ) );
     }
 
 }
@@ -101,13 +104,15 @@ function lfb_array_stripslash($theArray){
 // form builder update nad delete function
 function lfb_add_contact_forms() {
     if (isset($_POST['update_form']) && wp_verify_nonce($_REQUEST['_wpnonce'],'_nonce_verify') ) {
-    $data_form =isset($_POST['lfb_form'])?$_POST['lfb_form']:'';
     $update_form_id = intval($_POST['update_form_id']);
     $title = sanitize_text_field($_POST['post_title']);
-    unset($_POST['_wpnonce']);
-    unset($_POST['post_title']);
-    unset($_POST['update_form']);
-    unset($_POST['update_form_id']);
+    // Collect form_field_* keys directly (new field naming without lfb_form wrapper)
+    $data_form = array();
+    foreach ( $_POST as $key => $value ) {
+        if ( strpos( $key, 'form_field_' ) === 0 && is_array( $value ) ) {
+            $data_form[ $key ] = $value;
+        }
+    }
     global $wpdb;
     $table_name = LFB_FORM_FIELD_TBL;
     $update_leads = $wpdb->update( 

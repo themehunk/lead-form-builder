@@ -13,12 +13,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if (!function_exists('lfb_plugin_action_links')){
 
-define('LFB_VER', '2.0.3');
+define( 'LFB_VER', '2.0.3' );
+define( 'LFB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'LFB_BASE_DIR_PATH', plugin_dir_path( __FILE__ ) );
 
-define('LFB_PLUGIN_URL', plugin_dir_url(__FILE__));
-include_once(plugin_dir_path(__FILE__) . 'inc/themehunk-menu/admin-menu.php');
-include_once( plugin_dir_path(__FILE__) . 'block/app.php' );
-include_once( plugin_dir_path(__FILE__) . 'inc/lfb-constant.php' );
+include_once( plugin_dir_path( __FILE__ ) . 'inc/lfb-constant.php' );
+include_once( plugin_dir_path( __FILE__ ) . 'inc/themehunk-menu/admin-menu.php' );
+include_once( plugin_dir_path( __FILE__ ) . 'block/app.php' );
 
 /**
  * Add the settings link to the Lead Form Plugin plugin row

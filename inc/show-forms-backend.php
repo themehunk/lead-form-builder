@@ -1,170 +1,218 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 Class LFB_SHOW_FORMS {
-    function lfb_show_form_nonce(){
-    $nonce = wp_create_nonce( '_nonce_verify' );
-    return $nonce;
+
+    function lfb_show_form_nonce() {
+        return wp_create_nonce( '_nonce_verify' );
     }
-    function lfb_show_all_forms($id) {
+
+    function lfb_show_all_forms( $id ) {
         $lfb_admin_url = admin_url();
         echo '<div class="wrap show-all-form">';
-        include_once( plugin_dir_path(__FILE__) . 'header.php' );
-    echo '<div>
-        <table class="wp-list-table widefat fixed striped posts ">
-	<thead>
-	<tr>
-		<th scope="col" id="title" class="manage-column column-title column-primary sortable asc">'.esc_html__('Title','lead-form-builder').'</th>
-		<th scope="col" id="shortcode" class="manage-column column-shortcode">'.esc_html__('Shortcode','lead-form-builder').'</th>
-		<th scope="col" id="today_count" class="manage-column column-form-count sortable desc">'.esc_html__("Today's Lead",'lead-form-builder').' </th>
-		<th scope="col" id="total_count" class="manage-column column-form-count sortable desc">'.esc_html__('Total Lead','lead-form-builder').' </th>
-        <th scope="col" id="email-settings" class="manage-column column-form-email sortable desc">'.esc_html__('Form Settings','lead-form-builder').' </th>
+        lfb_admin_menu_header( 'show-form-backend', $this->lfb_show_form_nonce() );
 
-        <th scope="col" id="email-settings" class="manage-column column-form-adon sortable desc">'.esc_html__('Form Add-Ons','lead-form-builder').'</th>
+        echo '<div class="lfb-main-tabs-wrapper">
+<ul class="lfb-main-tabs">
+<li class="lfb-main-tab active" data-tab="lfb-tab-formlist">' . __( 'Form List', 'lead-form-builder' ) . '</li>
+<li class="lfb-main-tab" data-tab="lfb-tab-viewleads" data-href="' . esc_url( admin_url( 'admin.php?page=all-form-leads' ) ) . '">' . __( 'View Leads', 'lead-form-builder' ) . '</li>
+<li class="lfb-main-tab" data-tab="lfb-tab-upgrade" data-href="' . esc_url( admin_url( 'admin.php?page=pro-form-leads' ) ) . '">' . __( 'Upgrade to Pro', 'lead-form-builder' ) . '</li>
+</ul>
 
-        <th scope="col" id="date" class="manage-column column-form-date sortable desc">'.esc_html__('Date','lead-form-builder').' </th>
-		</tr>
-	</thead>
-	<tbody id="the-list" data-wp-lists="list:post">';
+<div class="lfb-main-tab-content active" id="lfb-tab-formlist">
+<div>
+<div class="lfb-bulk-actions-bar">
+    <div class="lfb-bulk-left">
+        <span class="lfb-bulk-icon">' . lfb_svg( 'select-all' ) . '</span>
+        <span class="lfb-selected-count"><b class="lfb-sel-num">0</b> ' . __( 'forms selected', 'lead-form-builder' ) . '</span>
+    </div>
+    <div class="lfb-bulk-right">
+        <button type="button" class="lfb-bulk-delete-btn">' . lfb_svg( 'trash' ) . ' ' . __( 'Delete', 'lead-form-builder' ) . '</button>
+        <button type="button" class="lfb-bulk-cancel-btn">' . lfb_svg( 'close', 14 ) . ' ' . __( 'Cancel', 'lead-form-builder' ) . '</button>
+    </div>
+</div>
+
+<div class="lfb-delete-modal-overlay" style="display:none;">
+    <div class="lfb-delete-modal">
+        <div class="lfb-modal-icon">' . lfb_svg( 'warning' ) . '</div>
+        <h3>' . __( 'Delete Forms?', 'lead-form-builder' ) . '</h3>
+        <p class="lfb-modal-msg">' . __( 'This will permanently remove the selected forms. This action cannot be undone.', 'lead-form-builder' ) . '</p>
+        <div class="lfb-modal-actions">
+            <button type="button" class="lfb-modal-cancel-btn">' . __( 'Cancel', 'lead-form-builder' ) . '</button>
+            <button type="button" class="lfb-modal-confirm-btn">' . lfb_svg( 'trash' ) . ' ' . __( 'Yes, Delete', 'lead-form-builder' ) . '</button>
+        </div>
+    </div>
+</div>
+
+<table class="wp-list-table widefat fixed striped posts lfb-form-table">
+    <thead>
+    <tr>
+        <th scope="col" class="manage-column column-cb lfb-col-cb"><label class="lfb-custom-cb"><input type="checkbox" class="lfb-select-all" /><span class="lfb-cb-mark"></span></label></th>
+        <th scope="col" class="manage-column lfb-th-title">' . __( 'Title', 'lead-form-builder' ) . '</th>
+        <th scope="col" class="manage-column lfb-th-shortcode">' . __( 'Shortcode', 'lead-form-builder' ) . '</th>
+        <th scope="col" class="manage-column lfb-th-count">' . __( "Today's Lead", 'lead-form-builder' ) . '</th>
+        <th scope="col" class="manage-column lfb-th-count">' . __( 'Total Lead', 'lead-form-builder' ) . '</th>
+        <th scope="col" class="manage-column lfb-th-date">' . __( 'Date', 'lead-form-builder' ) . '</th>
+        <th scope="col" class="manage-column lfb-th-actions">' . __( 'Actions', 'lead-form-builder' ) . '</th>
+    </tr>
+    </thead>
+    <tbody id="the-list" data-wp-lists="list:post">';
 
         global $wpdb;
-        $th_save_db = new LFB_SAVE_DB($wpdb);
+        $th_save_db = new LFB_SAVE_DB( $wpdb );
         $table_name = LFB_FORM_FIELD_TBL;
-		$start = 0;//
-        $limit = 10;//
-        $id = $id; 
-        $start = ($id - 1) * $limit;
-        $form_count = $start;
-              $prepare_12 = $wpdb->prepare("SELECT * FROM $table_name WHERE form_status = %s ORDER BY id DESC LIMIT $start , $limit", 'ACTIVE' );
-		$posts = $th_save_db->lfb_get_form_content($prepare_12);
-        if ($posts){
-            foreach ($posts as $results) {
-            	$form_count++;
-                $form_title = $results->form_title;
-                $form_date = $results->date;
-                $form_id = $results->id;
-                $captcha_status = $results->captcha_status;
-        $data_table = LFB_FORM_DATA_TBL;
-        $today_date= date('Y/m/d');
-        $newDate = date("Y/m/d H:i:s", strtotime($today_date));
-        $th_save_db = new LFB_SAVE_DB($wpdb);
-        $prepare_13 = $wpdb->prepare("SELECT id FROM $data_table WHERE date > %s and form_id = %d ", $newDate, $form_id );
-        $count_result = $th_save_db->lfb_get_form_content($prepare_13);
-        $lead_count = count($count_result);
+        $limit      = 10;
+        $start      = ( $id - 1 ) * $limit;
+        $prepare    = $wpdb->prepare( "SELECT * FROM $table_name WHERE form_status = %s ORDER BY id DESC LIMIT $start, $limit", 'ACTIVE' );
+        $posts      = $th_save_db->lfb_get_form_content( $prepare );
 
-        $prepare_14 = $wpdb->prepare("SELECT id FROM $data_table WHERE form_id = %d ", $form_id );
-        $total_lead_result = $th_save_db->lfb_get_form_content($prepare_14);
-        $total_lead_result = count($total_lead_result);
-        $edit_url_nonce =$lfb_admin_url . 'admin.php?page=add-new-form&action=edit&formid=' . $form_id.'&_wpnonce='.$this->lfb_show_form_nonce();
+        if ( $posts ) {
+            $th_save_db = new LFB_SAVE_DB();
+            foreach ( $posts as $results ) {
+                $form_title        = $results->form_title;
+                $form_date         = $results->date;
+                $form_id           = $results->id;
+                $lead_count        = $th_save_db->today_lead_count( $form_id );
+                $total_lead_result = $th_save_db->total_leads_count( $form_id );
+                $edit_url_nonce    = $lfb_admin_url . 'admin.php?page=add-new-form&action=edit&formid=' . $form_id . '&_wpnonce=' . $this->lfb_show_form_nonce();
+                $form_preview_url  = $lfb_admin_url . 'admin.php?page=wplf-plugin-menu&action=show&hide_elementor_msg=1&formid=' . $form_id;
+                $delete_url        = $lfb_admin_url . 'admin.php?page=wplf-plugin-menu&action=delete&page_id=' . $id . '&formid=' . $form_id . '&_wpnonce=' . $this->lfb_show_form_nonce();
+                $sc_full           = '[lead-form form-id=' . $form_id . ' title=' . esc_attr( $form_title ) . ']';
+                $sc_short          = '[lead-form id=' . $form_id . ']';
 
-        $advance_adons =$lfb_admin_url . 'admin.php?page=lfb-form-extension&fname=' . $form_title.'&fid=' . $form_id.'&_wpnonce='.$this->lfb_show_form_nonce();
-        $delete_form_url = esc_url($lfb_admin_url) . 'admin.php?page=wplf-plugin-menu&action=delete&page_id='.$id.'&formid=' . $form_id . '&_wpnonce='.$this->lfb_show_form_nonce();
-
-        $form_color = $lfb_admin_url . 'admin.php?page=wplf-plugin-menu&action=show&formid=' . $form_id;
-
-        echo '<tr><td class="title column-title has-row-actions column-primary" data-colname="Title"><strong><a class="row-title" href="'.esc_url($edit_url_nonce).'" title="Edit “' . esc_html($form_title) . '”">' . esc_html($form_title) . '</a></strong>
-		<div class="row-actions"><span class="edit"><a href="' . esc_url($edit_url_nonce). '">Edit</a></span>|<span class="edit"><a href="'.$delete_form_url.'">Delete</a></span>|<span class="edit"><a href="'.esc_url($form_color).'" target="_blank" >View Form</a></span>
-		</div>
-		<button type="button" class="toggle-row"><span class="screen-reader-text">'.esc_html__('Show more details','lead-form-builder').' </span></button>
-		<button type="button" class="toggle-row"><span class="screen-reader-text">'.esc_html__('Show more details','lead-form-builder').' </span></button>
-		</td>
-		<td class="shortcode column-shortcode" data-colname="Shortcode"><span class="shortcode">
-		<input type="text" onfocus="this.select();" readonly="readonly" value="[lead-form form-id=' . intval($form_id) . ' title=' . esc_html($form_title) . ']" class="large-text code"></span>
-		</td>
-
-		<td class="form-date column-form-date" data-colname="Form-date">
-		<abbr><a href="' . esc_url($lfb_admin_url)  . 'admin.php?page=wplf-plugin-menu&action=today_leads&formid=' . $form_id . '" target="_blank"><div class="lfb-counter">' . intval($lead_count) . '</div></a></abbr>
-		</td>
-		<td class="form-date column-form-date" data-colname="Form-date">
-		<abbr><a href="' . esc_url($lfb_admin_url)  . 'admin.php?page=wplf-plugin-menu&action=total_leads&formid=' . intval($form_id) . '" target="_blank"><div class="lfb-counter">' . intval($total_lead_result) . '</div></a></abbr>
-		</td>
-        <td class="form-config column-form-date" data-colname="Form-date">
-        <abbr title="Configure"><button data-dropdown="#lfb-dropdown-with-'.intval($form_id).'" class="lfb-dropdown-btn">Form Settings</button>
-</abbr>
-        <div class="dropdown-menu dropdown-anchor-top-left dropdown-has-anchor" id="lfb-dropdown-with-'.intval($form_id).'">
-    <ul>
-        <li><a href="'.esc_url($edit_url_nonce.'&email-setting').'"><i class="fa fa-envelope-o" aria-hidden="true"></i>
- '.esc_html__('Email Notification (Auto-responders)','lead-form-builder').' </a></li>
-                <li class="divider"></li>
-        <li><a href="#"><i class="fa fa-repeat" aria-hidden="true"></i>
-'.esc_html__('Form Redirction Option','lead-form-builder').LFB_FORM_PRO_LOCK.'</li>
-        <li class="divider"></li>
-        <li><a href="'.esc_url($edit_url_nonce.'&form-setting').'"> <i class="fa fa-bullhorn" aria-hidden="true"></i> '.esc_html__('Lead Receiving Method (Email, Database, Both).','lead-form-builder').' </a></li>
-                <li class="divider"></li>
-
-        <li><a href="#"><i class="fa fa-commenting-o" aria-hidden="true"></i>
- '.esc_html__('Form Submit (Thank You Message)','lead-form-builder').LFB_FORM_PRO_LOCK.'<span></a></li>
- <li><a href="'.esc_url($edit_url_nonce.'&captcha-setting').'"><img width="18px" src="'.LFB_FORM_CAPTCHA_SVG.'" title="Form Import">
-'.esc_html__('Spam Protection (Google Captcha)','lead-form-builder').'</a>';
-        echo '</li>
-    </ul>
-</div>
-        </td>
-
-        <td class="form-config column-form-date" data-colname="Form-date">
-         <div class="dropdown-menu dropdown-anchor-top-left dropdown-has-anchor" id="dropdown-with-adon-'.intval($form_id).'">
-    <ul>
-    <li><a href="https://themehunk.com/product/lead-form-builder-pro/" target="_blank"><img width="18" src="'.LFB_GOOGLE_IMAGE.'" />
-    One TapGoogle Auto Signin'.LFB_FORM_PRO_FEATURE.'</a></li>
-    <li class="divider"></li>
-
-<li><a><img width="18" src="'.LFB_FORM_COLOR_IMAGE.'" />
-Form Color Customize'.LFB_FORM_PRO_LOCK.'</a></li>
-<li class="divider"></li>
-
-        <li><a><img width="18px" src="'.LFB_MCPI_IMAGE.'" title="'.esc_html__("Mailchimp"."lead-form-builder").'">
-'.esc_html__('Mailchimp Adon Settings','lead-form-builder').LFB_FORM_PRO_LOCK.'</li>
-        <li><a href=""><img width="18px" src="'.LFB_SMTP_IMAGE.'" title="'.esc_html__("SMTP Configure","lead-form-builder").'">
-'.esc_html__('SMTP Adon Settings','lead-form-builder').LFB_FORM_PRO_LOCK.'<span> </a></li>
-<li class="divider"></li>
-
-        <li><a href="#"><img width="18px" src="'.LFB_EXPORT_IMAGE.'" title="'.esc_html__("Entry Export","lead-form-builder").'">
-Export (Form Leads) '.LFB_FORM_PRO_LOCK.'</a></li>
-<li class="divider"></li>
-
-        <li><a href="#"><img width="18px" src="'.LFB_FORM_EXPORT_IMAGE.'" title="'.esc_html__("Form Export","lead-form-builder").'">
-Form Export '.LFB_FORM_PRO_LOCK.'</a></li>
-    <li class="divider"></li>
-<li><a href="#"><img width="18px" src="'.LFB_FORM_IMPORT_IMAGE.'" title="'.esc_html__("Form Import","lead-form-builder").'">
-Form Import '.LFB_FORM_PRO_LOCK.'</a></li>
-<li class="divider"></li>
-
-
-    </ul>
-</div>
-<button data-dropdown="#dropdown-with-adon-'.intval($form_id).'" class="lfb-dropdown-btn">'.esc_html__("View Add-Ons","lead-form-builder").'</button>
-
+                echo '
+<tr data-form-id="' . $form_id . '">
+<td class="lfb-col-cb column-cb">
+  <label class="lfb-custom-cb"><input type="checkbox" class="lfb-form-cb" value="' . $form_id . '" /><span class="lfb-cb-mark"></span></label>
 </td>
-
-        <td class="form-date column-form-date" data-colname="Form-date">
-        <span title="' . $form_date . '">' .  date("d M, Y", strtotime($form_date)). '</span>
-        </td>
-		</tr>';
+<td class="lfb-col-title" data-colname="Title">
+  <a class="lfb-form-title-link" href="' . esc_url( $edit_url_nonce ) . '">' . esc_html( $form_title ) . '</a>
+  <button type="button" class="toggle-row"><span class="screen-reader-text">Show more details</span></button>
+</td>
+<td class="lfb-col-shortcode" data-colname="Shortcode">
+  <span class="lfb-sc-pill">
+    <span class="lfb-sc-label">' . esc_html( $sc_short ) . '</span>
+    <input type="text" onfocus="this.select();" value="' . esc_attr( $sc_full ) . '" class="large-text code lfb-sc-input" name="copycode" readonly>
+    <a class="lfb-copy lfb-sc-copy" title="' . __( 'Copy', 'lead-form-builder' ) . '">' . lfb_svg( 'duplicate', 12 ) . '</a>
+  </span>
+</td>
+<td class="lfb-col-count" data-colname="Today">
+  <a href="' . esc_url( $lfb_admin_url . 'admin.php?page=wplf-plugin-menu&action=today_leads&formid=' . $form_id ) . '" class="lfb-lead-num">' . intval( $lead_count ) . '</a>
+</td>
+<td class="lfb-col-count" data-colname="Total">
+  <a href="' . esc_url( $lfb_admin_url . 'admin.php?page=wplf-plugin-menu&action=total_leads&formid=' . $form_id ) . '" class="lfb-lead-num">' . intval( $total_lead_result ) . '</a>
+</td>
+<td class="lfb-col-date" data-colname="Date">' . esc_html( date( 'd M, Y', strtotime( $form_date ) ) ) . '</td>
+<td class="lfb-col-actions" data-colname="Actions">
+  <div class="lfb-row-act">
+    <a href="' . esc_url( $edit_url_nonce ) . '" class="lfb-act-btn" title="' . __( 'Edit', 'lead-form-builder' ) . '">' . lfb_svg( 'edit' ) . '</a>
+    <a href="' . esc_url( $form_preview_url ) . '" class="lfb-act-btn" title="' . __( 'View', 'lead-form-builder' ) . '" target="_blank">' . lfb_svg( 'eye' ) . '</a>
+    <button type="button" class="lfb-act-btn lfb-act-btn--dup" data-form-id="' . $form_id . '" title="' . __( 'Duplicate', 'lead-form-builder' ) . '">' . lfb_svg( 'duplicate' ) . '</button>
+    <a href="' . esc_url( $delete_url ) . '" class="lfb-act-btn lfb-act-btn--danger" title="' . __( 'Delete', 'lead-form-builder' ) . '">' . lfb_svg( 'trash' ) . '</a>
+  </div>
+</td>
+</tr>';
             }
         }
-        echo '</tbody>
-  </table><div class="tablenav bottom"><br class="clear">';
-  
-            $prepare_15 = $wpdb->prepare("SELECT * FROM $table_name WHERE form_status = %s ", 'ACTIVE' );
-            $rows = $th_save_db->lfb_get_form_content($prepare_15);
-            $rows = count($rows);
-            $total = ceil($rows / $limit);
-            if ($id > 1) {
-                echo "<a href='". esc_url($lfb_admin_url . "admin.php?page=wplf-plugin-menu&page_id=" . intval($id - 1) ). "' class='button'><i class='fa fa-chevron-right'></i></a>";
-            }
-            if ($id != $total) {
-                echo "<a href='". esc_url($lfb_admin_url . "admin.php?page=wplf-plugin-menu&page_id=" . intval($id + 1) ). "' class='button'><i class='fa fa-chevron-left'></i></a>";
-            }
-            echo "<ul class='page'>";
-            for ($i = 1; $i <= $total; $i++) {
-                if ($i == $id) {
-                    echo "<li class='lf-current'><a href='#'>" . intval($i) . "</a></li>";
-                } else {
-                    echo "<li><a href='". esc_url($lfb_admin_url . "admin.php?page=wplf-plugin-menu&page_id=" .intval($i) ). "'>" . intval($i) . "</a></li>";
-                }
-            }
-             echo '</ul>';
-echo '</div> </div>
 
+        echo '</tbody>
+  </table>';
+        echo '<div class="tablenav bottom" id="lfb-forms-pagi-wrap">';
+        echo $this->lfb_form_pagi_html( $id, $this->lfb_form_total_pages() );
+        echo '</div></div>
+</div>
+</div>
 </div>';
+    }
+
+    function lfb_form_total_pages( $limit = 10 ) {
+        global $wpdb;
+        $table_name = LFB_FORM_FIELD_TBL;
+        $count      = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $table_name WHERE form_status = %s", 'ACTIVE' ) );
+        return (int) ceil( $count / $limit );
+    }
+
+    function lfb_form_pagi_html( $current, $total_pages ) {
+        if ( $total_pages <= 1 ) return '';
+        $prev_svg = lfb_svg( 'chevron-left' );
+        $next_svg = lfb_svg( 'chevron-right' );
+        $html     = '<div class="lfb-pagination">';
+        if ( $current <= 1 ) {
+            $html .= '<button class="lfb-pagi-btn lfb-pagi-nav lfb-pagi-disabled" disabled>' . $prev_svg . '</button>';
+        } else {
+            $html .= '<button class="lfb-pagi-btn lfb-pagi-nav" onclick="lfbFormPage(' . ( $current - 1 ) . ')">' . $prev_svg . '</button>';
+        }
+        for ( $i = 1; $i <= $total_pages; $i++ ) {
+            $active = ( $i == $current ) ? ' lfb-pagi-active' : '';
+            $html  .= '<button class="lfb-pagi-btn' . $active . '" onclick="lfbFormPage(' . $i . ')">' . $i . '</button>';
+        }
+        if ( $current >= $total_pages ) {
+            $html .= '<button class="lfb-pagi-btn lfb-pagi-nav lfb-pagi-disabled" disabled>' . $next_svg . '</button>';
+        } else {
+            $html .= '<button class="lfb-pagi-btn lfb-pagi-nav" onclick="lfbFormPage(' . ( $current + 1 ) . ')">' . $next_svg . '</button>';
+        }
+        $html .= '</div>';
+        return $html;
+    }
+
+    function lfb_render_form_rows( $id ) {
+        global $wpdb;
+        $lfb_admin_url = admin_url();
+        $th_save_db    = new LFB_SAVE_DB( $wpdb );
+        $table_name    = LFB_FORM_FIELD_TBL;
+        $limit         = 10;
+        $start         = ( $id - 1 ) * $limit;
+        $prepare       = $wpdb->prepare( "SELECT * FROM $table_name WHERE form_status = %s ORDER BY id DESC LIMIT $start, $limit", 'ACTIVE' );
+        $posts         = $th_save_db->lfb_get_form_content( $prepare );
+        ob_start();
+        if ( $posts ) {
+            $th_save_db = new LFB_SAVE_DB();
+            foreach ( $posts as $results ) {
+                $form_title        = $results->form_title;
+                $form_date         = $results->date;
+                $form_id           = $results->id;
+                $lead_count        = $th_save_db->today_lead_count( $form_id );
+                $total_lead_result = $th_save_db->total_leads_count( $form_id );
+                $edit_url_nonce    = $lfb_admin_url . 'admin.php?page=add-new-form&action=edit&formid=' . $form_id . '&_wpnonce=' . $this->lfb_show_form_nonce();
+                $form_preview_url  = $lfb_admin_url . 'admin.php?page=wplf-plugin-menu&action=show&hide_elementor_msg=1&formid=' . $form_id;
+                $delete_url        = $lfb_admin_url . 'admin.php?page=wplf-plugin-menu&action=delete&page_id=' . $id . '&formid=' . $form_id . '&_wpnonce=' . $this->lfb_show_form_nonce();
+                $sc_full           = '[lead-form form-id=' . $form_id . ' title=' . esc_attr( $form_title ) . ']';
+                $sc_short          = '[lead-form id=' . $form_id . ']';
+
+                echo '
+<tr data-form-id="' . $form_id . '">
+<td class="lfb-col-cb column-cb">
+  <label class="lfb-custom-cb"><input type="checkbox" class="lfb-form-cb" value="' . $form_id . '" /><span class="lfb-cb-mark"></span></label>
+</td>
+<td class="lfb-col-title" data-colname="Title">
+  <a class="lfb-form-title-link" href="' . esc_url( $edit_url_nonce ) . '">' . esc_html( $form_title ) . '</a>
+  <button type="button" class="toggle-row"><span class="screen-reader-text">Show more details</span></button>
+</td>
+<td class="lfb-col-shortcode" data-colname="Shortcode">
+  <span class="lfb-sc-pill">
+    <span class="lfb-sc-label">' . esc_html( $sc_short ) . '</span>
+    <input type="text" onfocus="this.select();" value="' . esc_attr( $sc_full ) . '" class="large-text code lfb-sc-input" name="copycode" readonly>
+    <a class="lfb-copy lfb-sc-copy" title="' . __( 'Copy', 'lead-form-builder' ) . '">' . lfb_svg( 'duplicate', 12 ) . '</a>
+  </span>
+</td>
+<td class="lfb-col-count" data-colname="Today">
+  <a href="' . esc_url( $lfb_admin_url . 'admin.php?page=wplf-plugin-menu&action=today_leads&formid=' . $form_id ) . '" class="lfb-lead-num">' . intval( $lead_count ) . '</a>
+</td>
+<td class="lfb-col-count" data-colname="Total">
+  <a href="' . esc_url( $lfb_admin_url . 'admin.php?page=wplf-plugin-menu&action=total_leads&formid=' . $form_id ) . '" class="lfb-lead-num">' . intval( $total_lead_result ) . '</a>
+</td>
+<td class="lfb-col-date" data-colname="Date">' . esc_html( date( 'd M, Y', strtotime( $form_date ) ) ) . '</td>
+<td class="lfb-col-actions" data-colname="Actions">
+  <div class="lfb-row-act">
+    <a href="' . esc_url( $edit_url_nonce ) . '" class="lfb-act-btn" title="' . __( 'Edit', 'lead-form-builder' ) . '">' . lfb_svg( 'edit' ) . '</a>
+    <a href="' . esc_url( $form_preview_url ) . '" class="lfb-act-btn" title="' . __( 'View', 'lead-form-builder' ) . '" target="_blank">' . lfb_svg( 'eye' ) . '</a>
+    <button type="button" class="lfb-act-btn lfb-act-btn--dup" data-form-id="' . $form_id . '" title="' . __( 'Duplicate', 'lead-form-builder' ) . '">' . lfb_svg( 'duplicate' ) . '</button>
+    <a href="' . esc_url( $delete_url ) . '" class="lfb-act-btn lfb-act-btn--danger" title="' . __( 'Delete', 'lead-form-builder' ) . '">' . lfb_svg( 'trash' ) . '</a>
+  </div>
+</td>
+</tr>';
+            }
+        }
+        return ob_get_clean();
     }
 }
