@@ -1212,6 +1212,63 @@ function lfbFormPage(page_id) {
 /* ============================================================
    Duplicate Form
    ============================================================ */
+/* ============================================================
+   Pro Settings Modal
+   ============================================================ */
+(function($) {
+    var $overlay = $('#lfbProSettingsOverlay');
+
+    // Open modal
+    $(document).on('click', '.lfb-act-btn--settings', function() {
+        var formTitle = $(this).data('form-title') || '';
+        $('#lfbProModalFormTitle').text(formTitle);
+        // Reset to first sidebar tab
+        $('.lfb-pro-stab').removeClass('active').first().addClass('active');
+        $('.lfb-pro-tab-content').removeClass('active').first().addClass('active');
+        $overlay.fadeIn(180);
+        $('body').addClass('lfb-modal-open');
+    });
+
+    // Close via X button
+    $(document).on('click', '#lfbProModalClose', function() {
+        $overlay.fadeOut(180);
+        $('body').removeClass('lfb-modal-open');
+    });
+
+    // Close via overlay click
+    $(document).on('click', '#lfbProSettingsOverlay', function(e) {
+        if ($(e.target).is('#lfbProSettingsOverlay')) {
+            $overlay.fadeOut(180);
+            $('body').removeClass('lfb-modal-open');
+        }
+    });
+
+    // Sidebar tab switching
+    $(document).on('click', '.lfb-pro-stab', function() {
+        var tab = $(this).data('tab');
+        $('.lfb-pro-stab').removeClass('active');
+        $(this).addClass('active');
+        $('.lfb-pro-tab-content').removeClass('active');
+        $('#' + tab).addClass('active');
+    });
+
+    // Close on ESC key
+    $(document).on('keydown', function(e) {
+        if (e.key === 'Escape' && $overlay.is(':visible')) {
+            $overlay.fadeOut(180);
+            $('body').removeClass('lfb-modal-open');
+        }
+    });
+})(jQuery);
+
+/* ============================================================
+   Form List Table — Mobile toggle-row (expand/collapse cards)
+   ============================================================ */
+jQuery(document).on('click', '.lfb-form-table .toggle-row', function() {
+    var $tr = jQuery(this).closest('tr');
+    $tr.toggleClass('is-expanded');
+});
+
 jQuery(document).on('click', '.lfb-act-btn--dup', function() {
     var $btn   = jQuery(this);
     var formId = $btn.data('form-id');

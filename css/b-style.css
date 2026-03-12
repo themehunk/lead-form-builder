@@ -2872,13 +2872,13 @@ div.dropdown-opened {
   padding: 12px 14px;
   vertical-align: middle;
 }
-.lfb-th-title     { width: auto; }
-.lfb-th-shortcode { width: 200px; }
-.lfb-th-count     { width: 100px; text-align: center; }
-.lfb-th-date      { width: 110px; }
-.lfb-th-actions   { width: 130px; text-align: right; }
+.lfb-th-title     {  min-width: 10%; width:40%; }
+.lfb-th-shortcode { width: 10%; }
+.lfb-th-count     { width: 8%; text-align: center; }
+.lfb-th-date      { width: 8%; }
+.lfb-th-actions   { width: 15%; text-align: right; }
 .lfb-col-count    { text-align: center; }
-.lfb-col-actions  { text-align: right; }
+/* .lfb-col-actions  { text-align: right; } */
 .lfb-col-title    { vertical-align: middle; }
 .lfb-form-title-link {
   font-size: 13.5px;
@@ -3028,7 +3028,7 @@ div.dropdown-opened {
 
 /* Custom Checkbox */
 .lfb-col-cb {
-  width: 42px !important;
+  width: 5% !important;
   text-align: center;
   vertical-align: middle;
   padding: 8px 10px !important;
@@ -4199,4 +4199,532 @@ textarea.lfb-es-input {
 }
 .lfb-act-btn--dup:disabled {
     cursor: not-allowed;
+}
+
+/* ── Pro Settings Modal ─────────────────────────────────────────────── */
+/* ── Pro Settings Modal ─────────────────────────────────────────────── */
+.lfb-pro-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.lfb-pro-modal {
+    background: #fff;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+/* Header */
+.lfb-pro-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 22px;
+    border-bottom: 1px solid #eee;
+    background: linear-gradient(135deg, #f0f4ff 0%, #fff 100%);
+    flex-shrink: 0;
+}
+.lfb-pro-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.lfb-pro-modal-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #3c40e7, #6366f1);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.lfb-pro-modal-title h3 {
+    margin: 0 0 2px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+.lfb-pro-modal-title p {
+    margin: 0;
+    font-size: 11px;
+    color: #f59e0b;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+.lfb-pro-modal-close {
+    background: none;
+    border: 1px solid #e0e0e8;
+    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #888;
+    transition: all 0.15s;
+    flex-shrink: 0;
+}
+.lfb-pro-modal-close:hover {
+    background: #f0f0f8;
+    color: #333;
+}
+/* Layout: sidebar + content */
+.lfb-pro-modal-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+/* Sidebar */
+.lfb-pro-modal-sidebar {
+    width: 190px;
+    flex-shrink: 0;
+    background: #f7f8fc;
+    border-right: 1px solid #eee;
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow-y: auto;
+}
+.lfb-pro-stab {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 12px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    text-align: left;
+    width: 100%;
+    transition: background 0.15s, color 0.15s;
+    position: relative;
+}
+.lfb-pro-stab.active {
+    background: #fff;
+    color: #3c40e7;
+    box-shadow: 0 1px 4px rgba(60,64,231,0.1);
+}
+.lfb-pro-stab:hover:not(.active) {
+    background: #eef0f8;
+    color: #333;
+}
+.lfb-pro-stab-icon {
+    flex-shrink: 0;
+    color: inherit;
+    opacity: 0.75;
+}
+.lfb-pro-stab span:nth-child(2) {
+    flex: 1;
+}
+.lfb-pro-stab-lock {
+    color: #f59e0b;
+    opacity: 0.8;
+    flex-shrink: 0;
+}
+/* Content panel */
+.lfb-pro-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 18px 20px;
+    position: relative;
+}
+.lfb-pro-tab-content {
+    display: none;
+}
+.lfb-pro-tab-content.active {
+    display: block;
+}
+.lfb-pro-panel-title {
+    margin-bottom: 16px;
+}
+.lfb-pro-panel-title h2 {
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+.lfb-pro-panel-title p {
+    margin: 0;
+    font-size: 12px;
+    color: #888;
+}
+/* Preview cards: blur inputs */
+.lfb-pro-card-preview {
+    position: relative;
+}
+.lfb-pro-card-preview input,
+.lfb-pro-card-preview textarea,
+.lfb-pro-card-preview select {
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.6;
+    filter: blur(1.5px);
+}
+/* Lock overlay */
+.lfb-pro-lock-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(247,248,252,0.78);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+}
+.lfb-pro-lock-badge {
+    background: #fff;
+    border: 1px solid #e0deff;
+    border-radius: 16px;
+    padding: 28px 36px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(60,64,231,0.12);
+    max-width: 320px;
+}
+.lfb-pro-lock-badge svg {
+    color: #f59e0b;
+    margin-bottom: 10px;
+}
+.lfb-pro-lock-badge h4 {
+    margin: 0 0 6px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+.lfb-pro-lock-badge p {
+    margin: 0 0 16px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+}
+/* Upgrade button */
+.lfb-pro-upgrade-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 22px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff !important;
+    text-decoration: none !important;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s, transform 0.1s;
+    letter-spacing: 0.2px;
+}
+.lfb-pro-upgrade-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    color: #fff !important;
+}
+/* Footer */
+.lfb-pro-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 22px;
+    border-top: 1px solid #eee;
+    background: #fffbeb;
+    flex-shrink: 0;
+    gap: 12px;
+}
+.lfb-pro-modal-footer p {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+}
+/* Add-Ons grid */
+.lfb-pro-addon-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+.lfb-pro-addon-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #f7f8fc;
+    border: 1px solid #eee;
+    border-radius: 10px;
+}
+.lfb-pro-addon-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+}
+.lfb-pro-addon-icon--amber { background: linear-gradient(135deg,#f59e0b,#d97706); }
+.lfb-pro-addon-icon--blue  { background: linear-gradient(135deg,#0891b2,#0e7490); }
+.lfb-pro-addon-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.lfb-pro-addon-body strong {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+.lfb-pro-addon-body span {
+    font-size: 11px;
+    color: #888;
+    line-height: 1.4;
+}
+.lfb-pro-addon-lock {
+    color: #f59e0b;
+    flex-shrink: 0;
+}
+/* Google Sign-In field map preview */
+.lfb-pro-field-map-preview {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.lfb-pro-fmp-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #666;
+    border-bottom: 1px solid #f0f0f0;
+}
+.lfb-pro-fmp-row:last-child { border-bottom: none; }
+.lfb-pro-fmp-row span:first-child { flex: 1; font-weight: 500; color: #444; }
+.lfb-pro-fmp-row span:nth-child(2) { color: #3c40e7; font-weight: 700; }
+.lfb-pro-fmp-row span:last-child { flex: 1; text-align: right; }
+/* Responsive — Pro Modal */
+@media (max-width: 680px) {
+    .lfb-pro-modal { max-height: 95vh; }
+    .lfb-pro-modal-sidebar { width: 48px; padding: 8px 4px; }
+    .lfb-pro-stab span:nth-child(2),
+    .lfb-pro-stab-lock { display: none; }
+    .lfb-pro-stab { justify-content: center; padding: 10px; }
+    .lfb-pro-addon-grid { grid-template-columns: 1fr; }
+    .lfb-pro-modal-footer { flex-direction: column; text-align: center; }
+    .lfb-pro-lock-badge { padding: 20px; }
+}
+
+/* ================================================================
+   Form List Table — Responsive (Tablet & Mobile)
+   ================================================================ */
+
+/* ── toggle-row button (hidden on desktop) ── */
+.lfb-form-table .toggle-row {
+    display: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #999;
+    float: right;
+    margin-top: 2px;
+}
+.lfb-form-table .toggle-row .screen-reader-text {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+}
+.lfb-form-table .toggle-row::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 20px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat center;
+    background-size: 16px;
+    transition: transform 0.2s;
+    vertical-align: middle;
+}
+.lfb-form-table tr.is-expanded .toggle-row::before {
+    transform: rotate(180deg);
+}
+
+/* ── Tablet: 1024px ── */
+@media screen and (max-width: 1024px) {
+    .lfb-th-shortcode,
+    .lfb-col-shortcode { display: none; }
+
+    .lfb-th-title     { width: 42%; }
+    .lfb-th-count     { width: 11%; }
+    .lfb-th-date      { width: 13%; }
+    .lfb-th-actions   { width: 20%; }
+
+    .lfb-main-tabs-wrapper { overflow-x: auto; }
+    .lfb-main-tabs { flex-wrap: nowrap; min-width: max-content; }
+}
+
+/* ── WP Admin Mobile breakpoint: 782px ── */
+@media screen and (max-width: 782px) {
+
+    /* Wrap the form list content to be scrollable if needed */
+    .show-all-form .lfb-main-tab-content { padding: 10px; }
+
+    /* Main tabs scrollable */
+    .lfb-main-tabs-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .lfb-main-tabs { flex-wrap: nowrap; min-width: max-content; }
+
+    /* ── Table: card-based layout ── */
+    .lfb-form-table,
+    .lfb-form-table thead,
+    .lfb-form-table tbody,
+    .lfb-form-table tr { display: block; width: 100%; }
+
+    /* Hide desktop header row */
+    .lfb-form-table thead tr { display: none; }
+
+    /* Each row = card */
+    .lfb-form-table tbody tr {
+        border: 1px solid #e8e8f0;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        background: #fff;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        overflow: hidden;
+        padding: 0;
+    }
+    .lfb-form-table tbody tr:last-child { border-bottom: 1px solid #e8e8f0; }
+    .lfb-form-table tbody tr:hover { background: #fff; }
+
+    /* Show toggle-row button */
+    .lfb-form-table .toggle-row { display: inline-block; }
+
+    /* Primary row: checkbox + title + actions always visible */
+    .lfb-form-table tbody td {
+        display: none;        /* hide all by default */
+        width: 100% !important;
+        padding: 9px 14px;
+        border-bottom: 1px solid #f0f0f7;
+        box-sizing: border-box;
+        text-align: left !important;
+        vertical-align: middle;
+    }
+    .lfb-form-table tbody td:last-child { border-bottom: none; }
+
+    /* Always show: checkbox, title, actions */
+    .lfb-form-table tbody td.column-cb,
+    .lfb-form-table tbody td.lfb-col-title,
+    .lfb-form-table tbody td.lfb-col-actions { display: block; }
+
+    /* Title row: flex layout for toggle-row */
+    .lfb-form-table tbody td.lfb-col-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #f9f9fd;
+        border-bottom: 1px solid #eee;
+        padding: 12px 14px;
+        gap: 8px;
+    }
+    .lfb-form-table tbody td.lfb-col-title .lfb-form-title-link {
+        flex: 1;
+        font-size: 14px;
+    }
+
+    /* Checkbox row: slim */
+    .lfb-form-table tbody td.column-cb {
+        display: none; /* hide checkbox on mobile — bulk select via bar */
+    }
+
+    /* Actions row: always show, right-aligned */
+    .lfb-form-table tbody td.lfb-col-actions {
+        background: #fafafa;
+        padding: 10px 14px;
+    }
+    .lfb-form-table tbody td.lfb-col-actions .lfb-row-act {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    .lfb-act-btn { width: 34px; height: 34px; }
+
+    /* Expanded state: show hidden columns */
+    .lfb-form-table tbody tr.is-expanded td { display: block; }
+    .lfb-form-table tbody tr.is-expanded td.column-cb { display: none; }
+
+    /* Add label prefix via data-colname for expanded rows */
+    .lfb-form-table tbody td[data-colname]::before {
+        content: attr(data-colname) ": ";
+        font-weight: 600;
+        font-size: 11px;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        /* display: block; */
+        margin-bottom: 4px;
+    }
+    /* No label for title & actions */
+    .lfb-form-table tbody td.lfb-col-title::before,
+    .lfb-form-table tbody td.lfb-col-actions::before { display: none !important; }
+
+    /* Shortcode in expanded view */
+    .lfb-col-shortcode { display: none; }
+    .lfb-form-table tbody tr.is-expanded .lfb-col-shortcode { display: block; }
+    .lfb-sc-pill { flex-wrap: wrap; max-width: 100%; }
+    .lfb-sc-label { max-width: none; }
+
+    /* Lead counts — inline badges */
+    .lfb-form-table tbody td.lfb-col-count { display: none; }
+    .lfb-form-table tbody tr.is-expanded td.lfb-col-count { display: block; }
+
+    /* Date */
+    .lfb-form-table tbody td.lfb-col-date { display: none; }
+    .lfb-form-table tbody tr.is-expanded td.lfb-col-date { display: block; }
+
+    /* Bulk bar compact */
+    .lfb-bulk-actions-bar.lfb-bar-visible { flex-wrap: wrap; gap: 8px; max-height: none; padding: 10px 14px; }
+    .lfb-bulk-right { flex-wrap: wrap; gap: 6px; }
+
+    /* Pagination compact */
+    .lfb-pagination { flex-wrap: wrap; justify-content: center; gap: 4px; }
+    .lfb-pagi-btn { min-width: 34px; height: 34px; font-size: 12px; }
+}
+
+/* ── Small mobile: 480px ── */
+@media screen and (max-width: 480px) {
+    .show-all-form .lfb-main-tab-content { padding: 8px 6px; }
+
+    .lfb-form-table tbody td { padding: 8px 12px; }
+    .lfb-form-table tbody td.lfb-col-title { padding: 10px 12px; }
+
+    .lfb-act-btn { width: 32px; height: 32px; }
+    .lfb-act-btn--settings .lfb-act-pro-badge { top: -4px; right: -4px; }
+
+    /* Tabs: icon-only feel */
+    .lfb-main-tab { font-size: 12px; padding: 7px 12px; }
+
+    /* Delete modal */
+    .lfb-delete-modal { width: 92vw; padding: 22px 18px; }
+
+    /* Bulk bar */
+    .lfb-bulk-actions-bar.lfb-bar-visible { border-radius: 8px; }
+    .lfb-bulk-delete-btn,
+    .lfb-bulk-cancel-btn { font-size: 12px; padding: 6px 12px !important; }
 }
