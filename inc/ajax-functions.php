@@ -143,174 +143,111 @@ add_action('wp_ajax_SaveCaptchaOption', 'lfb_save_captcha_option');
  * Show all Leads column on Lead Page Based on form selection
  */
 
-function lfb_ShowAllLeadThisForm()
-{
+function lfb_ShowAllLeadThisForm() {
     if ( ! current_user_can( 'manage_options' ) ) {
         return false;
     }
 
-    if ((isset($_POST['form_id']) && ($_POST['form_id'] != '')) || (isset($_GET['form_id']) && ($_GET['form_id'] != ''))) {
+    $form_id = 0;
+    $id      = 1;
+    $start   = 0;
+    $limit   = 10;
 
-        global $wpdb;
-        $table_name = LFB_FORM_DATA_TBL;
-        $th_save_db = new LFB_SAVE_DB($wpdb);
-        $nonce = wp_create_nonce('lfb-nonce-rm');
-        $showLeadsObj = new LFB_Show_Leads();
-        $start = 0;
-        $limit = 10;
-        $detail_view  = '';
-        $slectleads = false;
-
-        if (isset($_GET['id'])) {
-            $id = intval($_GET['id']);
-            $start = ($id - 1) * $limit;
-            $form_id = intval($_GET['form_id']);
-            $sn_counter = $start;
-        } else {
-            $id = 1;
-            $form_id = intval($_POST['form_id']);
-            $sn_counter = 0;
-        }
-        if (isset($_GET['detailview'])) {
-            $detail_view = sanitize_text_field($_GET['detailview']);
-        }
-
-        if (isset($_POST['slectleads'])) {
-            $slectleads = sanitize_text_field($_POST['slectleads']);
-        }
-
-        $getArray = $th_save_db->lfb_get_all_view_leads_db($form_id, $start);
-        $posts          = $getArray['posts'];
-        $rows           = $getArray['rows'];
-        $limit          = $getArray['limit'];
-        $fieldData       = $getArray['fieldId'];
-        $tableHead  = '';
-        $headcount = 1;
-        $leadscount = 5;
-
-        foreach ($fieldData as $fieldkey => $fieldvalue) {
-            // Html Field removed
-            $pos = strpos($fieldkey, 'htmlfield_');
-            if ($pos !== false) {
-                continue;
-            }
-
-            if ($headcount < 6 && $slectleads) {
-                $tableHead  .= '<th>' . esc_html($fieldvalue) . '</th>';
-            } elseif (!$slectleads) {
-
-                $tableHead  .= '<th>' . esc_html($fieldvalue) . '</th>';
-
-                $leadscount =  $headcount;
-            }
-            $fieldIdNew[] = $fieldkey;
-            $headcount++;
-
-            // } else{ break; }
-        }
-
-        if (!empty($posts)) {
-            $entry_counter = 0;
-            $table_body = '';
-            $table_head = '';
-            $popupTab   = '';
-
-            if ($headcount >= 6 && $leadscount == 5) {
-                $table_head .= '<th></th><th> . . . </th><th><input type="button" onclick="show_all_leads(' . intval($id) . ',' . intval($form_id) . ')" value="Show all Columns"></th>';
-            }
-
-            foreach ($posts as $results) {
-                $table_row = '';
-                // $table_head = '';
-                $sn_counter++;
-                $row_size_limit = 0;
-                $form_data = $results->form_data;
-                $lead_id = $results->id;
-                $lead_date = date("jS F Y", strtotime($results->date));
-                $form_data = maybe_unserialize($form_data);
-                unset($form_data['hidden_field']);
-                unset($form_data['action']);
-                $entry_counter++;
-                $complete_data = '';
-                $popup_data_val = '';
-                $date_td = '<td><b>' . $lead_date . '</b></td>';
-
-
-                $returnData = $th_save_db->lfb_lead_form_value($form_data, $fieldIdNew, $fieldData, $leadscount);
-                $table_row .= $returnData['table_row'];
-                $table_row .= $date_td;
-
-                foreach ($form_data as $form_data_key => $form_data_value) {
-                    $row_size_limit++;
-
-                    if (($detail_view != 1) && ($row_size_limit == 6) && $leadscount == 5) {
-                        $table_row .= '<td>. . .</td><td><a href="#lf-openModal-' . $lead_id . '" value="view">view</a></td>';
-                    }
-                }
-
-                $complete_data .= "<table><tr><th>Field</th><th>Value</th></tr>" . $returnData['table_popup'] . "</table>";
-
-                /****/
-                $popupTab .= '<div id="lf-openModal-' . $lead_id . '" class="lf-modalDialog">
-                          <div class="lfb-popup-leads" ><a href="#lf-close" title="Close" class="lf-close">X</a>' . $complete_data . '
-                          </div>
-                          </div>';
-
-                //  $complete_data .=$returnData['table_popup']."</table>";
-
-                $table_body .= '<tbody id="lead-id-' . $lead_id . '">';
-
-                $table_body  .= '<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\'' . $nonce . '\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
-            }
-
-            $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" ><thead><tr><th>Action</th>' . $tableHead . '<th>Date</th>' . $table_head . '</tr></thead>';
-
-            echo wp_kses($thHead . $table_body . '</tbody></table>' . $popupTab, $showLeadsObj->expanded_alowed_tags());
-
-            $total = ceil($rows / $limit);
-            if ($headcount >= 6 && $leadscount == 5) {
-
-                if ($id > 1) {
-                    echo "<a href=''  onclick='lead_pagi_view(" . intval($id - 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-right'></i></a>";
-                }
-                if ($id != $total) {
-                    echo "<a href='' onclick='lead_pagi_view(" . intval($id + 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-left'></i></a>";
-                }
-                echo "<ul class='page'>";
-                for ($i = 1; $i <= $total; $i++) {
-                    if ($i == $id) {
-                        echo "<li class='lf-current'><a href='#'>" . intval($i) . "</a></li>";
-                    } else {
-                        echo "<li><a href='' onclick='lead_pagi_view(" . intval($i) . "," . intval($form_id) . ")'>" . intval($i) . "</a></li>";
-                    }
-                }
-                echo '</ul>';
-            } else {
-
-                if ($id > 1) {
-                    echo "<a href=''  onclick='lead_pagination(" . intval($id - 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-right'></i></a>";
-                }
-                if ($id != $total) {
-                    echo "<a href='' onclick='lead_pagination(" . intval($id + 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-left'></i></a>";
-                }
-                echo "<ul class='page'>";
-                for ($i = 1; $i <= $total; $i++) {
-                    if ($i == $id) {
-                        echo "<li class='lf-current'><a href='#'>" . intval($i) . "</a></li>";
-                    } else {
-                        echo "<li><a href='' onclick='lead_pagination(" . intval($i) . "," . intval($form_id) . ")'>" . intval($i) . "</a></li>";
-                    }
-                }
-                echo '</ul>';
-            }
-        } else {
-            esc_html_e('Opps No lead...!!', 'lead-form-builder');
-        }
-        die();
+    if ( isset( $_GET['id'] ) ) {
+        $id      = intval( $_GET['id'] );
+        $start   = ( $id - 1 ) * $limit;
+        $form_id = intval( $_GET['form_id'] );
+    } elseif ( isset( $_POST['form_id'] ) && $_POST['form_id'] !== '' ) {
+        $form_id = intval( $_POST['form_id'] );
+    } elseif ( isset( $_GET['form_id'] ) && $_GET['form_id'] !== '' ) {
+        $form_id = intval( $_GET['form_id'] );
     }
+
+    if ( ! $form_id ) { die(); }
+
+    global $wpdb;
+    $th_save_db   = new LFB_SAVE_DB( $wpdb );
+    $showLeadsObj = new LFB_Show_Leads();
+    $nonce        = wp_create_nonce( 'lfb-nonce-rm' );
+
+    $getArray  = $th_save_db->lfb_get_all_view_leads_db( $form_id, $start );
+    $posts     = $getArray['posts'];
+    $rows      = $getArray['rows'];
+    $limit     = $getArray['limit'];
+    $fieldData = $getArray['fieldId'];
+
+    $tableHead  = '';
+    $fieldIdNew = array();
+    $headcount  = 1;
+
+    foreach ( $fieldData as $fieldkey => $fieldvalue ) {
+        if ( strpos( $fieldkey, 'htmlfield_' ) !== false ) { continue; }
+        if ( $headcount < 6 ) {
+            $tableHead .= '<th>' . esc_html( $fieldvalue ) . '</th>';
+        }
+        $fieldIdNew[] = $fieldkey;
+        $headcount++;
+    }
+
+    if ( ! empty( $posts ) ) {
+        $sn_counter = ( $id - 1 ) * $limit;
+        $table_body = '';
+        $popupTab   = '';
+        $table_head = '<th><input type="button" onclick="show_all_leads(' . intval( $id ) . ',' . intval( $form_id ) . ')" value="' . esc_attr__( 'Show Details', 'lead-form-builder' ) . '"></th>';
+
+        foreach ( $posts as $results ) {
+            $table_row = '';
+            $sn_counter++;
+            $form_data = maybe_unserialize( $results->form_data );
+            $lead_id   = $results->id;
+            $lead_date = date( 'M d, Y', strtotime( $results->date ) );
+            unset( $form_data['hidden_field'], $form_data['action'], $form_data['g-recaptcha-response'] );
+
+            $date_td    = '<td><b>' . $lead_date . '</b></td>';
+            $returnData = $th_save_db->lfb_lead_form_value( $form_data, $fieldIdNew, $fieldData, 5 );
+            $table_row .= $returnData['table_row'] . $date_td;
+            $table_row .= '<td><a href="#lf-openModal-' . $lead_id . '" value="view">view</a></td>';
+
+            $popup_inner = wp_kses(
+                '<table><tr><th>' . esc_html__( 'Field', 'lead-form-builder' ) . '</th><th>' . esc_html__( 'Value', 'lead-form-builder' ) . '</th></tr>' . $returnData['table_popup'] . '<tr><td>' . esc_html__( 'Date', 'lead-form-builder' ) . '</td>' . $date_td . '</tr></table>',
+                $showLeadsObj->expanded_alowed_tags()
+            );
+            $popupTab .= '<div id="lf-openModal-' . $lead_id . '" class="lf-modalDialog">
+                <div class="lfb-popup-leads">
+                    <div class="lfb-popup-header">
+                        <span class="lfb-popup-title">' . lfb_svg( 'file', 16 ) . ' ' . esc_html__( 'Lead Details', 'lead-form-builder' ) . '</span>
+                        <a href="#lf-close" title="Close" class="lf-close">' . lfb_svg( 'close', 14 ) . '</a>
+                    </div>
+                    <div class="lfb-popup-body">' . $popup_inner . '</div>
+                </div>
+            </div>';
+
+            $table_body .= '<tbody id="lead-id-' . $lead_id . '">';
+            $table_body .= '<tr><td><span class="lfb-lead-sn">' . $sn_counter . '</span><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-cb" value="' . $lead_id . '" /><span class="lfb-cb-mark"></span></label><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\'' . $nonce . '\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
+        }
+
+        $thHead = '<div class="lfb-leads-content"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table"><thead><tr><th><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-select-all" /><span class="lfb-cb-mark"></span></label></th>' . $tableHead . '<th>Date</th>' . $table_head . '</tr></thead>';
+
+        echo wp_kses( $thHead . $table_body . '</tbody></table></div>', $showLeadsObj->expanded_alowed_tags() );
+        echo $popupTab;
+
+        $total = ceil( $rows / $limit );
+        echo '<ul class="page lfb-pagi">';
+        for ( $i = 1; $i <= $total; $i++ ) {
+            if ( $i == $id ) {
+                echo '<li class="lf-current"><a href="#">' . intval( $i ) . '</a></li>';
+            } else {
+                echo '<li><a href="" onclick="lead_pagination(' . intval( $i ) . ',' . intval( $form_id ) . '); return false;">' . intval( $i ) . '</a></li>';
+            }
+        }
+        echo '</ul>';
+    } else {
+        echo '<div class="lfb-leads-content lfb-no-leads"><p>' . esc_html__( 'No leads..!', 'lead-form-builder' ) . '</p></div>';
+    }
+    die();
 }
 
-add_action('wp_ajax_ShowAllLeadThisForm', 'lfb_ShowAllLeadThisForm');
+add_action( 'wp_ajax_ShowAllLeadThisForm', 'lfb_ShowAllLeadThisForm' );
 
 
 
@@ -794,6 +731,35 @@ function lfb_bulk_delete_forms() {
     wp_die();
 }
 add_action( 'wp_ajax_lfb_bulk_delete_forms', 'lfb_bulk_delete_forms' );
+
+/*
+ * Bulk delete leads
+ */
+function lfb_bulk_delete_leads() {
+    check_ajax_referer( 'lfb_secure_nonce', 'security' );
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( array( 'message' => 'Permission denied' ) );
+    }
+    if ( isset( $_POST['lead_ids'] ) && is_array( $_POST['lead_ids'] ) ) {
+        global $wpdb;
+        $table_name = LFB_FORM_DATA_TBL;
+        $deleted    = 0;
+        foreach ( $_POST['lead_ids'] as $lid ) {
+            $lid = intval( $lid );
+            if ( $lid > 0 ) {
+                $result = $wpdb->delete( $table_name, array( 'id' => $lid ) );
+                if ( $result !== false ) {
+                    $deleted++;
+                }
+            }
+        }
+        wp_send_json_success( array( 'deleted' => $deleted ) );
+    } else {
+        wp_send_json_error( array( 'message' => 'No leads selected' ) );
+    }
+    wp_die();
+}
+add_action( 'wp_ajax_lfb_bulk_delete_leads', 'lfb_bulk_delete_leads' );
 
 /*
  * AJAX handler for Form List pagination

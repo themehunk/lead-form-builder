@@ -8,20 +8,40 @@ function expanded_alowed_tags() {
 
     // form fields - input
     $allowed['a'] = array(
-        'href' => array(),
-        'class'    => array(),
-        'title'    => array(),
-        'target'   => array(),
+        'href'    => array(),
+        'class'   => array(),
+        'title'   => array(),
+        'target'  => array(),
+        'value'   => array(),
+        'onclick' => array(),
+    );
+    $allowed['button'] = array(
+        'type'    => array(),
+        'class'   => array(),
+        'id'      => array(),
+        'onclick' => array(),
+        'rem_nonce' => array(),
     );
 // form fields - input
     $allowed['input'] = array(
-        'class' => array(),
-        'id'    => array(),
-        'name'  => array(),
-        'value' => array(),
-        'type'  => array(),
+        'class'   => array(),
+        'id'      => array(),
+        'name'    => array(),
+        'value'   => array(),
+        'type'    => array(),
+        'onclick' => array(),
+        'checked' => array(),
     );
 
+    $allowed['label'] = array(
+        'class' => array(),
+        'for'   => array(),
+    );
+
+    $allowed['span'] = array(
+        'class' => array(),
+        'id'    => array(),
+    );
 
         $allowed['option'] = array(
             'value'    => array(),
@@ -52,20 +72,57 @@ function expanded_alowed_tags() {
                 $first_form_id = get_option('lf-remember-me-show-lead');
                 }
                 }
-                $option_form .= '<option ' . ($first_form_id == $form_id ? 'selected="selected"' : "" ) . ' value=' . intval($form_id) . '>' . esc_html($form_title) . '</option>';
+                $lead_count = intval( $th_save_db->lfb_post_count( $form_id ) );
+                $option_form .= '<option ' . ($first_form_id == $form_id ? 'selected="selected"' : "" ) . ' value=' . intval($form_id) . '>' . esc_html($form_title) . ' (' . $lead_count . ')</option>';
             }
         }
         $rem_nonce = wp_create_nonce( 'rem-nonce' );
 
-        include_once( plugin_dir_path(__FILE__) . 'header.php' );
+        lfb_admin_menu_header();
 
-        echo '<div class="wrap"><div class="inside"><div class="card"><table class="form-table"><tbody><tr><th scope="row">
-<label for="select_form_lead">'.esc_html__('Select From','lead-form-builder').'</label></th>
-<td><select name="select_form_lead" id="select_form_lead">' . wp_kses($option_form,$this->expanded_alowed_tags()) . '</select>
-<td><input rem_nonce = "'.$rem_nonce.'" type="button" value="'.esc_html__('Remember this form','lead-form-builder').'" onclick="remember_this_form_id();" id="remember_this_form_id"></td>
-</tr><tr><td><div id="remember_this_message" ></div></td></tr></tbody></table></div></div></div><div class="wrap" id="form-leads-show">';
-$this->lfb_show_leads_first_form($first_form_id);
-echo '</div>';
+        echo '<div class="lfb-leads-filter-bar">
+            <div class="lfb-leads-filter-left">
+                ' . lfb_svg('filter') . '
+                <label class="lfb-leads-filter-label" for="select_form_lead">' . esc_html__( 'Form', 'lead-form-builder' ) . '</label>
+                <div class="lfb-leads-select-wrap">
+                    <select name="select_form_lead" id="select_form_lead">' . wp_kses( $option_form, $this->expanded_alowed_tags() ) . '</select>
+                    <span class="lfb-leads-select-arrow">' . lfb_svg('chevron-down') . '</span>
+                </div>
+            </div>
+            <div class="lfb-leads-filter-right">
+                <button type="button" class="lfb-leads-remember-btn" rem_nonce="' . $rem_nonce . '" id="remember_this_form_id" onclick="remember_this_form_id();">
+                    <i class="fa fa-bookmark" aria-hidden="true"></i>
+                    ' . esc_html__( 'Remember', 'lead-form-builder' ) . '
+                </button>
+                <span id="remember_this_message"></span>
+            </div>
+        </div>';
+
+        echo '<div class="lfb-leads-bulk-bar">
+            <div class="lfb-bulk-left">
+                <span class="lfb-bulk-icon">' . lfb_svg( 'select-all' ) . '</span>
+                <span class="lfb-selected-count"><b class="lfb-leads-sel-num">0</b> ' . esc_html__( 'leads selected', 'lead-form-builder' ) . '</span>
+            </div>
+            <div class="lfb-bulk-right">
+                <button type="button" class="lfb-bulk-delete-btn lfb-leads-bulk-delete-btn">' . lfb_svg( 'trash' ) . ' ' . esc_html__( 'Delete', 'lead-form-builder' ) . '</button>
+                <button type="button" class="lfb-bulk-cancel-btn lfb-leads-bulk-cancel-btn">' . lfb_svg( 'close', 14 ) . ' ' . esc_html__( 'Cancel', 'lead-form-builder' ) . '</button>
+            </div>
+        </div>
+        <div class="lfb-leads-delete-modal-overlay" style="display:none;">
+            <div class="lfb-delete-modal">
+                <div class="lfb-modal-icon">' . lfb_svg( 'warning' ) . '</div>
+                <h3>' . esc_html__( 'Delete Leads?', 'lead-form-builder' ) . '</h3>
+                <p class="lfb-modal-msg">' . esc_html__( 'This will permanently remove the selected leads. This action cannot be undone.', 'lead-form-builder' ) . '</p>
+                <div class="lfb-modal-actions">
+                    <button type="button" class="lfb-leads-modal-cancel-btn lfb-modal-cancel-btn">' . esc_html__( 'Cancel', 'lead-form-builder' ) . '</button>
+                    <button type="button" class="lfb-leads-modal-confirm-btn lfb-bulk-delete-btn">' . lfb_svg( 'trash' ) . ' ' . esc_html__( 'Yes, Delete', 'lead-form-builder' ) . '</button>
+                </div>
+            </div>
+        </div>';
+
+        echo '<div class="wrap lfb-leads-table-wrap" id="form-leads-show">';
+        $this->lfb_show_leads_first_form($first_form_id);
+        echo '</div>';
     }
 
 function lfb_show_leads_first_form($form_id){
@@ -107,56 +164,51 @@ function lfb_show_leads_first_form($form_id){
             $table_body = '';
             $popupTab   = '';
 
-             if($headcount >= 6){
-                     $table_head .='<th> . . . </th><th><input type="button" onclick="show_all_leads(' . $id . ',' . $form_id . ')" value="Show all Columns"></th>';
-                }
+            $table_head .= '<th><input type="button" onclick="show_all_leads(' . $id . ',' . $form_id . ')" value="Show Details"></th>';
 
             foreach ($posts as $results) {
                 $table_row = '';
                 $sn_counter++;
-                $row_size_limit = 0;
                 $form_data = $results->form_data;
                 $lead_id = $results->id;
                 $form_data = maybe_unserialize($form_data);
-                $lead_date = date("jS F Y", strtotime($results->date));
+                $lead_date = date("M d, Y", strtotime($results->date));
                 unset($form_data['hidden_field']);
                 unset($form_data['action']);
                 unset($form_data['g-recaptcha-response']);
                 $entry_counter++;
                 $complete_data = '';
-                $popup_data_val= '';
-                $date_td = '<td><b>'.$lead_date.'</b></td>';
+                $date_td = '<td><b>' . $lead_date . '</b></td>';
 
                 $returnData = $th_save_db->lfb_lead_form_value($form_data,$fieldIdNew,$fieldData,5);
                 $table_row .= $returnData['table_row'];
                 $table_row .= $date_td;
+                $table_row .= '<td><a href="#lf-openModal-' . $lead_id . '" value="view">view</a></td>';
 
-                                   
-
-                foreach ($form_data as $form_data_key => $form_data_value) {
-                        $row_size_limit++;
-
-                    if (($detail_view != 1) && ($row_size_limit == 6)) {
-                        $table_row .= '<td> . . . </td><td><a href="#lf-openModal-' . $lead_id . '" value="view">view</a></td>';
-                    }
-                }
-
-                $complete_data .='<table><tr><th>Field</th><th>Value</th></tr>'.$returnData['table_popup'].'<tr><td>Date</td>'.$date_td.'</tr></table>';
-
-                $popupTab .= '<div id="lf-openModal-'.$lead_id.'" class="lf-modalDialog">
-                          <div class="lfb-popup-leads"><a href="#lf-close" title="Close" class="lf-close">X</a>'.$complete_data.'
-                          </div>
-                          </div>';
+                $popup_inner = wp_kses(
+                    '<table><tr><th>' . esc_html__( 'Field', 'lead-form-builder' ) . '</th><th>' . esc_html__( 'Value', 'lead-form-builder' ) . '</th></tr>' . $returnData['table_popup'] . '<tr><td>' . esc_html__( 'Date', 'lead-form-builder' ) . '</td>' . $date_td . '</tr></table>',
+                    $this->expanded_alowed_tags()
+                );
+                $popupTab .= '<div id="lf-openModal-' . $lead_id . '" class="lf-modalDialog">
+                    <div class="lfb-popup-leads">
+                        <div class="lfb-popup-header">
+                            <span class="lfb-popup-title">' . lfb_svg( 'file', 16 ) . ' ' . esc_html__( 'Lead Details', 'lead-form-builder' ) . '</span>
+                            <a href="#lf-close" title="Close" class="lf-close">' . lfb_svg( 'close', 14 ) . '</a>
+                        </div>
+                        <div class="lfb-popup-body">' . $popup_inner . '</div>
+                    </div>
+                </div>';
 
                 $table_body .= '<tbody id="lead-id-' . $lead_id . '">';
-                $table_body .= '<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\''.$nonce.'\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>'. $table_row .'</tr>';
+                $table_body .= '<tr><td><span class="lfb-lead-sn">' . $sn_counter . '</span><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-cb" value="' . $lead_id . '" /><span class="lfb-cb-mark"></span></label><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\'' . $nonce . '\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
             }
 
-              $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" >
-                <thead><tr><th>Action</th>'.$tableHead.'<th>Date</th>'.$table_head.'</tr></thead>';
+            $thHead = '<div class="lfb-leads-content"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table">
+                <thead><tr><th><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-select-all" /><span class="lfb-cb-mark"></span></label></th>' . $tableHead . '<th>Date</th>' . $table_head . '</tr></thead>';
 
-            echo wp_kses($thHead. $table_body.'</tbody></table>'.$popupTab,$this->expanded_alowed_tags());
-    
+            echo wp_kses( $thHead . $table_body . '</tbody></table></div>', $this->expanded_alowed_tags() );
+            echo $popupTab;
+
             $total = ceil($rows / $limit);
             if ($id > 1) {
                 echo "<a href=''  onclick='lead_pagi_view(" . intval($id - 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-left'></i></a>";
@@ -174,16 +226,9 @@ function lfb_show_leads_first_form($form_id){
                 }
             }
              ?> </ul>
-             </div>
              <?php
         } else {
-              ?>
-              <div class="wrap" id="form-leads-show">
-                <?php
-             esc_html_e("No leads..!","lead-form-builder")
-              ?>
-             </div>
-             <?php
+            echo '<div class="lfb-leads-content lfb-no-leads"><p>' . esc_html__( 'No leads..!', 'lead-form-builder' ) . '</p></div>';
         }
     }
 
@@ -228,54 +273,70 @@ function lfb_show_leads_first_form($form_id){
             $table_body = '';
             $popupTab   = '';
            
-            if($headcount >= 6){
-                     $table_head .='<th> . . . </th><th><input type="button" onclick="show_all_leads(' . $id . ',' . $form_id . ')" value="'.esc_html__('Show all Columns','lead-form-builder').'"></th>';
-                }
+            $table_head .= '<th><input type="button" onclick="show_all_leads(' . $id . ',' . $form_id . ')" value="' . esc_html__( 'Show Details', 'lead-form-builder' ) . '"></th>';
             foreach ($posts as $results) {
                 $table_row = '';
-                $row_size_limit = 0;
                 $form_data = $results->form_data;
-                $lead_date = date("jS F Y", strtotime($results->date));
+                $lead_date = date("M d, Y", strtotime($results->date));
                 $lead_id = $results->id;
                 $form_data = maybe_unserialize($form_data);
                 unset($form_data['hidden_field']);
                 unset($form_data['action']);
                 unset($form_data['g-recaptcha-response']);
                 $entry_counter++;
-                 $sn_counter++;
+                $sn_counter++;
                 $complete_data = '';
-                $popup_data_val= '';
-                    $date_td = '<td><b>'.$lead_date.'</b></td>';
+                $date_td = '<td><b>' . $lead_date . '</b></td>';
 
-            $returnData = $th_save_db->lfb_lead_form_value($form_data,$fieldIdNew,$fieldData,5);
-            $table_row .= $returnData['table_row'];
-                                   
-            $table_row .= $date_td;
-                foreach ($form_data as $form_data_key => $form_data_value) {
-                    $row_size_limit++;
+                $returnData = $th_save_db->lfb_lead_form_value($form_data,$fieldIdNew,$fieldData,5);
+                $table_row .= $returnData['table_row'];
+                $table_row .= $date_td;
+                $table_row .= '<td><a href="#lf-openModal-' . $lead_id . '" value="view">view</a></td>';
 
-                    if (($detail_view != 1) && ($row_size_limit == 6)) {
-                        $table_row .= '<td>. . .</td><td><a href="#lf-openModal-' . $lead_id . '" value="view">view</a></td>';
-                    }
-                }
-
-                $complete_data .='<table><tr><th>Field</th><th>Value</th></tr>'.$returnData['table_popup'].'<tr><td>Date</td>'.$date_td.'</tr></table>';
-
-
-                $popupTab .= '<div id="lf-openModal-'.$lead_id.'" class="lf-modalDialog">
-                          <div class="lfb-popup-leads" ><a href="#lf-close" title="Close" class="lf-close">X</a>'.$complete_data.'
-                          </div>
-                          </div>';
-                          /** Today Leads Show**/
+                $popup_inner = wp_kses(
+                    '<table><tr><th>' . esc_html__( 'Field', 'lead-form-builder' ) . '</th><th>' . esc_html__( 'Value', 'lead-form-builder' ) . '</th></tr>' . $returnData['table_popup'] . '<tr><td>' . esc_html__( 'Date', 'lead-form-builder' ) . '</td>' . $date_td . '</tr></table>',
+                    $this->expanded_alowed_tags()
+                );
+                $popupTab .= '<div id="lf-openModal-' . $lead_id . '" class="lf-modalDialog">
+                    <div class="lfb-popup-leads">
+                        <div class="lfb-popup-header">
+                            <span class="lfb-popup-title">' . lfb_svg( 'file', 16 ) . ' ' . esc_html__( 'Lead Details', 'lead-form-builder' ) . '</span>
+                            <a href="#lf-close" title="Close" class="lf-close">' . lfb_svg( 'close', 14 ) . '</a>
+                        </div>
+                        <div class="lfb-popup-body">' . $popup_inner . '</div>
+                    </div>
+                </div>';
                 $table_body .= '<tbody id="lead-id-' . $lead_id . '">';
-                $table_body .= '<tr><td><span class="lead-count">' . $sn_counter . '</span><a lfid = "ss" class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\''.$nonce.'\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>'. $table_row .'</tr>';
+                $table_body .= '<tr><td><span class="lfb-lead-sn">' . $sn_counter . '</span><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-cb" value="' . $lead_id . '" /><span class="lfb-cb-mark"></span></label><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\'' . $nonce . '\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
             }
 
+            echo '<div class="lfb-leads-bulk-bar">
+                <div class="lfb-bulk-left">
+                    <span class="lfb-bulk-icon">' . lfb_svg( 'select-all' ) . '</span>
+                    <span class="lfb-selected-count"><b class="lfb-leads-sel-num">0</b> ' . esc_html__( 'leads selected', 'lead-form-builder' ) . '</span>
+                </div>
+                <div class="lfb-bulk-right">
+                    <button type="button" class="lfb-bulk-delete-btn lfb-leads-bulk-delete-btn">' . lfb_svg( 'trash' ) . ' ' . esc_html__( 'Delete', 'lead-form-builder' ) . '</button>
+                    <button type="button" class="lfb-bulk-cancel-btn lfb-leads-bulk-cancel-btn">' . lfb_svg( 'close', 14 ) . ' ' . esc_html__( 'Cancel', 'lead-form-builder' ) . '</button>
+                </div>
+            </div>
+            <div class="lfb-leads-delete-modal-overlay" style="display:none;">
+                <div class="lfb-delete-modal">
+                    <div class="lfb-modal-icon">' . lfb_svg( 'warning' ) . '</div>
+                    <h3>' . esc_html__( 'Delete Leads?', 'lead-form-builder' ) . '</h3>
+                    <p class="lfb-modal-msg">' . esc_html__( 'This will permanently remove the selected leads. This action cannot be undone.', 'lead-form-builder' ) . '</p>
+                    <div class="lfb-modal-actions">
+                        <button type="button" class="lfb-leads-modal-cancel-btn lfb-modal-cancel-btn">' . esc_html__( 'Cancel', 'lead-form-builder' ) . '</button>
+                        <button type="button" class="lfb-leads-modal-confirm-btn lfb-bulk-delete-btn">' . lfb_svg( 'trash' ) . ' ' . esc_html__( 'Yes, Delete', 'lead-form-builder' ) . '</button>
+                    </div>
+                </div>
+            </div>';
 
-                $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" >
-                <thead><tr><th>Action</th>'.$tableHead.'<th>Date</th>'.$table_head.'</tr></thead>';
+            $thHead = '<div class="lfb-leads-content"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table">
+                <thead><tr><th><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-select-all" /><span class="lfb-cb-mark"></span></label></th>' . $tableHead . '<th>Date</th>' . $table_head . '</tr></thead>';
 
-                echo wp_kses($thHead. $table_body.'</tbody></table>'.$popupTab,$this->expanded_alowed_tags());
+            echo wp_kses( $thHead . $table_body . '</tbody></table></div>', $this->expanded_alowed_tags() );
+            echo $popupTab;
 
             $rows = count($rows);
             $total = ceil($rows / $limit);
@@ -293,12 +354,10 @@ function lfb_show_leads_first_form($form_id){
                     echo "<li><a href='' onclick='lead_pagination_datewise(".intval($i).",".intval($form_id).",\"".esc_attr($leadtype)."\");'>" . intval($i) . "</a></li>";
                 }
             }
-             ?></ul></div>
+             ?></ul>
              <?php
         } else {
-            ?> <div class="wrap" id="form-leads-show"><?php
-             esc_html_e("No leads..!","lead-form-builder");
-             ?> </div> <?php
+            echo '<div class="lfb-leads-content lfb-no-leads"><p>' . esc_html__( 'No leads..!', 'lead-form-builder' ) . '</p></div>';
         }
     }
 }

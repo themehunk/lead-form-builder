@@ -82,7 +82,7 @@ Class LFB_SHOW_FORMS {
 
                 echo '
 <tr data-form-id="' . $form_id . '">
-<td class="lfb-col-cb column-cb">
+<td class="column-cb">
   <label class="lfb-custom-cb"><input type="checkbox" class="lfb-form-cb" value="' . $form_id . '" /><span class="lfb-cb-mark"></span></label>
 </td>
 <td class="lfb-col-title" data-colname="Title">
@@ -181,7 +181,7 @@ Class LFB_SHOW_FORMS {
 
                 echo '
 <tr data-form-id="' . $form_id . '">
-<td class="lfb-col-cb column-cb">
+<td class="column-cb">
   <label class="lfb-custom-cb"><input type="checkbox" class="lfb-form-cb" value="' . $form_id . '" /><span class="lfb-cb-mark"></span></label>
 </td>
 <td class="lfb-col-title" data-colname="Title">

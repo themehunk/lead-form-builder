@@ -836,14 +836,23 @@ jQuery("form#captcha-on-off-setting").submit(function(event) {
     })
    
 /*
- *Show leads according to form in back-end.
+ * Show leads according to form in back-end.
  */
+function lfbLeadsLoader() {
+    return '<div class="lfb-leads-loading"><span class="lfb-leads-spinner"></span><span class="lfb-leads-loading-txt">Loading leads...</span></div>';
+}
+
 jQuery('#select_form_lead').on('change', function() {
     var form_id = jQuery(this).val();
-    form_data = "slectleads=1&form_id=" + form_id + "&action=ShowAllLeadThisForm";
+    var $wrap   = jQuery('#form-leads-show');
+    $wrap.html(lfbLeadsLoader());
+    var form_data = 'slectleads=1&form_id=' + form_id + '&action=ShowAllLeadThisForm';
     SaveByAjaxRequest(form_data, 'POST').success(function(response) {
-        jQuery('#form-leads-show').empty();
-        jQuery('#form-leads-show').append(response);
+        $wrap.fadeOut(80, function() {
+            $wrap.html(response).fadeIn(180);
+            jQuery('.lfb-lead-select-all').prop('checked', false);
+            lfbUpdateLeadBulkBar();
+        });
     });
 });
 /*
@@ -862,12 +871,17 @@ function delete_this_lead(this_lead_id,nonce) {
     }
 }
 
-function lead_pagination(page_id,form_id){
-event.preventDefault();
-    var form_data = "form_id=" + form_id + "&id=" + page_id + "&action=ShowAllLeadThisForm";
+function lead_pagination(page_id, form_id) {
+    event.preventDefault();
+    var $wrap = jQuery('#form-leads-show');
+    $wrap.html(lfbLeadsLoader());
+    var form_data = 'form_id=' + form_id + '&id=' + page_id + '&action=ShowAllLeadThisForm';
     SaveByAjaxRequest(form_data, 'GET').success(function(response) {
-        jQuery('#form-leads-show').empty();
-        jQuery('#form-leads-show').append(response);
+        $wrap.fadeOut(80, function() {
+            $wrap.html(response).fadeIn(180);
+            jQuery('.lfb-lead-select-all').prop('checked', false);
+            lfbUpdateLeadBulkBar();
+        });
     });
 }
 
@@ -965,15 +979,22 @@ jQuery('#lfb_formColor').append('<style>#wpbody-content{width:800px;}</style>');
    ============================================================ */
 jQuery(document).on('click', '.lfb-sc-copy', function(e) {
     e.preventDefault();
-    var $btn    = jQuery(this);
-    var $input  = $btn.prev('.lfb-sc-input');
-    if ($input.length) {
-        $input.select();
-        document.execCommand('Copy');
-    }
+    var $btn   = jQuery(this);
+    var $input = $btn.prev('.lfb-sc-input');
+    if (!$input.length) { return; }
+    var text = $input.val();
     var origHtml = $btn.html();
-    $btn.html('Copied!');
-    setTimeout(function() { $btn.html(origHtml); }, 2000);
+    function showCopied() {
+        $btn.html('Copied!');
+        setTimeout(function() { $btn.html(origHtml); }, 2000);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(showCopied);
+    } else {
+        $input.select();
+        document.execCommand('copy');
+        showCopied();
+    }
 });
 
 /* ============================================================
@@ -1077,6 +1098,96 @@ jQuery(document).on('click', '.lfb-modal-confirm-btn', function() {
         $btn.prop('disabled', false);
     }, 'json').fail(function() {
         jQuery('.lfb-delete-modal-overlay').fadeOut(200);
+        alert('Request failed. Please try again.');
+        $btn.prop('disabled', false);
+    });
+});
+
+/* ============================================================
+   Leads — Bulk Delete
+   ============================================================ */
+function lfbUpdateLeadBulkBar() {
+    var count = jQuery('.lfb-lead-cb:checked').length;
+    jQuery('.lfb-leads-sel-num').text(count);
+    if (count > 0) {
+        jQuery('.lfb-leads-bulk-bar').addClass('lfb-bar-visible');
+    } else {
+        jQuery('.lfb-leads-bulk-bar').removeClass('lfb-bar-visible');
+        jQuery('.lfb-lead-cb').closest('tr').removeClass('lfb-row-checked');
+    }
+}
+
+// Select all leads
+jQuery(document).on('change', '.lfb-lead-select-all', function() {
+    jQuery('.lfb-lead-cb').prop('checked', this.checked);
+    jQuery('.lfb-lead-cb').each(function() {
+        jQuery(this).closest('tr').toggleClass('lfb-row-checked', this.checked);
+    });
+    lfbUpdateLeadBulkBar();
+});
+
+// Individual lead checkbox
+jQuery(document).on('change', '.lfb-lead-cb', function() {
+    var total   = jQuery('.lfb-lead-cb').length;
+    var checked = jQuery('.lfb-lead-cb:checked').length;
+    jQuery('.lfb-lead-select-all').prop('checked', total === checked && total > 0);
+    jQuery(this).closest('tr').toggleClass('lfb-row-checked', this.checked);
+    lfbUpdateLeadBulkBar();
+});
+
+// Cancel lead bulk selection
+jQuery(document).on('click', '.lfb-leads-bulk-cancel-btn', function() {
+    jQuery('.lfb-lead-cb, .lfb-lead-select-all').prop('checked', false);
+    jQuery('.lfb-lead-cb').closest('tr').removeClass('lfb-row-checked');
+    lfbUpdateLeadBulkBar();
+});
+
+// Bulk delete leads — open confirm modal
+jQuery(document).on('click', '.lfb-leads-bulk-delete-btn', function() {
+    var count = jQuery('.lfb-lead-cb:checked').length;
+    if (count === 0) return;
+    jQuery('.lfb-leads-delete-modal-overlay').fadeIn(200);
+});
+
+// Lead modal cancel
+jQuery(document).on('click', '.lfb-leads-modal-cancel-btn, .lfb-leads-delete-modal-overlay', function(e) {
+    if (e.target === this) {
+        jQuery('.lfb-leads-delete-modal-overlay').fadeOut(200);
+    }
+});
+
+// Lead modal confirm delete
+jQuery(document).on('click', '.lfb-leads-modal-confirm-btn', function() {
+    var ids = [];
+    jQuery('.lfb-lead-cb:checked').each(function() {
+        ids.push(jQuery(this).val());
+    });
+    if (ids.length === 0) return;
+
+    var $btn = jQuery(this);
+    $btn.prop('disabled', true);
+
+    jQuery.post(backendajax.ajaxurl, {
+        action   : 'lfb_bulk_delete_leads',
+        security : backendajax.nonce,
+        lead_ids : ids
+    }, function(response) {
+        jQuery('.lfb-leads-delete-modal-overlay').fadeOut(200);
+        if (response.success) {
+            jQuery('.lfb-lead-cb:checked').each(function() {
+                jQuery(this).closest('tbody').addClass('lfb-row-deleting');
+            });
+            setTimeout(function() {
+                jQuery('.lfb-row-deleting').slideUp(300, function() { jQuery(this).remove(); });
+                jQuery('.lfb-lead-select-all').prop('checked', false);
+                lfbUpdateLeadBulkBar();
+            }, 300);
+        } else {
+            alert('Delete failed. Please try again.');
+        }
+        $btn.prop('disabled', false);
+    }, 'json').fail(function() {
+        jQuery('.lfb-leads-delete-modal-overlay').fadeOut(200);
         alert('Request failed. Please try again.');
         $btn.prop('disabled', false);
     });
