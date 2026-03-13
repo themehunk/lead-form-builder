@@ -1,20 +1,20 @@
 ======  Lead Form Builder & Contact Form ========
 Contributors: ThemeHunk
 Author URI: : https://www.themehunk.com/
-Tags: contact form, responsive form, lead form builder, contact form builder, newsletter form
+Tags: contact form, lead generation, lead form builder, contact form builder, newsletter form
 Requires at least: 5.5
-Tested up to: 6.8
+Tested up to: 6.9
 Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Fast Drag & Drop Contact From Builder and Lead Generation Tool With Google One Tap Login. Supports Block Editor.
+Drag & Drop Contact Form Builder for WordPress to create contact, lead generation, newsletter & registration forms. Works with Elementor & Gutenberg.
 
 == Description ==
 
 **Best WordPress Contact Form Plugin to create beautiful contact froms.**
 
-ThemeHunk : Lead Form Builder Plugin is a contact form builder as well as lead generator. Contact Form plugin is compatible with all page builders like Elementor, Brizy, SiteOrigin, Gutenburg etc. Lead Form Builder allows you to create beautiful contact forms. Plugin comes with nearly all field options required to create Contact form, Registration form, News letter and contain Ajax based drag & drop field ordering. 
+ThemeHunk Lead Form Builder Plugin is a powerful WordPress contact form builder and lead generation plugin. This contact form plugin is fully compatible with popular page builders like Elementor, Brizy, SiteOrigin, and Gutenberg. Lead Form Builder allows you to create beautiful and responsive contact forms easily. The plugin includes almost all field options required to create contact forms, registration forms, and newsletter forms, and comes with Ajax-based drag & drop field ordering for easy customization.
 
 [Check Documentation](http://www.themehunk.com/docs/lead-form/) |  [Demo](https://wpthemes.themehunk.com/lead-form-builder-pro/) | [Support](https://themehunk.com/contact-us/)
 
