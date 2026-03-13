@@ -164,7 +164,7 @@ function lfb_show_leads_first_form($form_id){
             $table_body = '';
             $popupTab   = '';
 
-            $table_head .= '<th><input type="button" onclick="show_all_leads(' . $id . ',' . $form_id . ')" value="Show Details"></th>';
+            $table_head .= '<th><input type="button" onclick="show_all_leads(' . $id . ',' . $form_id . ')" value="' . esc_attr__( 'Show Details', 'lead-form-builder' ) . '"></th>';
 
             foreach ($posts as $results) {
                 $table_row = '';
@@ -200,21 +200,21 @@ function lfb_show_leads_first_form($form_id){
                 </div>';
 
                 $table_body .= '<tbody id="lead-id-' . $lead_id . '">';
-                $table_body .= '<tr><td><span class="lfb-lead-sn">' . $sn_counter . '</span><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-cb" value="' . $lead_id . '" /><span class="lfb-cb-mark"></span></label><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\'' . $nonce . '\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
+                $table_body .= '<tr><td><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-cb" value="' . $lead_id . '" /><span class="lfb-cb-mark"></span></label><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\'' . $nonce . '\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
             }
 
             $thHead = '<div class="lfb-leads-content"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table">
-                <thead><tr><th><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-select-all" /><span class="lfb-cb-mark"></span></label></th>' . $tableHead . '<th>Date</th>' . $table_head . '</tr></thead>';
+                <thead><tr><th><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-select-all" /><span class="lfb-cb-mark"></span></label></th>' . $tableHead . '<th>' . esc_html__( 'Date', 'lead-form-builder' ) . '</th>' . $table_head . '</tr></thead>';
 
             echo wp_kses( $thHead . $table_body . '</tbody></table></div>', $this->expanded_alowed_tags() );
-            echo $popupTab;
+            echo wp_kses( $popupTab, $this->expanded_alowed_tags() );
 
             $total = ceil($rows / $limit);
             if ($id > 1) {
                 echo "<a href=''  onclick='lead_pagi_view(" . intval($id - 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-left'></i></a>";
             }
             if ($id != $total) {
-                "<a href='' onclick='lead_pagi_view(" . intval($id + 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-right'></i></a>";
+                echo "<a href='' onclick='lead_pagi_view(" . intval($id + 1) . "," . intval($form_id) . ")' class='button'><i class='fa fa-chevron-right'></i></a>";
             }
             ?> <ul class='page'>
                 <?php
@@ -307,7 +307,7 @@ function lfb_show_leads_first_form($form_id){
                     </div>
                 </div>';
                 $table_body .= '<tbody id="lead-id-' . $lead_id . '">';
-                $table_body .= '<tr><td><span class="lfb-lead-sn">' . $sn_counter . '</span><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-cb" value="' . $lead_id . '" /><span class="lfb-cb-mark"></span></label><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\'' . $nonce . '\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
+                $table_body .= '<tr><td><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-cb" value="' . $lead_id . '" /><span class="lfb-cb-mark"></span></label><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\'' . $nonce . '\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
             }
 
             echo '<div class="lfb-leads-bulk-bar">
@@ -333,10 +333,10 @@ function lfb_show_leads_first_form($form_id){
             </div>';
 
             $thHead = '<div class="lfb-leads-content"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table">
-                <thead><tr><th><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-select-all" /><span class="lfb-cb-mark"></span></label></th>' . $tableHead . '<th>Date</th>' . $table_head . '</tr></thead>';
+                <thead><tr><th><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-select-all" /><span class="lfb-cb-mark"></span></label></th>' . $tableHead . '<th>' . esc_html__( 'Date', 'lead-form-builder' ) . '</th>' . $table_head . '</tr></thead>';
 
             echo wp_kses( $thHead . $table_body . '</tbody></table></div>', $this->expanded_alowed_tags() );
-            echo $popupTab;
+            echo wp_kses( $popupTab, $this->expanded_alowed_tags() );
 
             $rows = count($rows);
             $total = ceil($rows / $limit);

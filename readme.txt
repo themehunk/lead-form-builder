@@ -4,7 +4,7 @@ Author URI: : https://www.themehunk.com/
 Tags: contact form, responsive form, lead form builder, contact form builder, newsletter form
 Requires at least: 5.5
 Tested up to: 6.8
-Stable tag: 2.0.4
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,14 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 9. Google Lead Store Data
 
 == Changelog ==
+
+= 2.1.0 =
+* Fix: SQL injection vulnerability fixed — all raw SQL queries replaced with $wpdb->prepare() in ajax-functions.php.
+* Fix: Unescaped output fixed — echo $check and popup HTML now properly escaped.
+* Fix: XSS vulnerability fixed — $popupTab output now passed through wp_kses() in show-lead.php.
+* Fix: Missing echo on pagination link in show-lead.php corrected.
+* Update: Hardcoded strings wrapped with translation functions — "Show Details", "Show all Columns", "Field", "Value", "Action", "Date" now translatable.
+* Update: Text domain applied consistently across ajax-functions.php and show-lead.php.
 
 = 2.0.4 =
 * New: Pro Settings modal added to form list — click the settings icon on any form to preview all premium settings (Email Notification, Spam Protection, Form Settings, Add-Ons, Export & Import, API Key, Google Sign-In) with Upgrade to Pro prompt.
@@ -543,5 +551,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 2.0.0 =
-* Update: _load_textdomain_just_in_time was called incorrectly issue resolved.
+= 2.1.0 =
+* Security fix: SQL injection and XSS vulnerabilities resolved. Translation coverage improved.

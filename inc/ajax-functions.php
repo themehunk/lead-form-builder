@@ -16,7 +16,7 @@ function lfb_save_lead_settings()
     $this_form_id = intval($_POST['action-lead-setting']);
     global $wpdb;
     $table_name = LFB_FORM_FIELD_TBL;
-    $update_query = "update " . LFB_FORM_FIELD_TBL . " set storeType='" . $data_recieve_method . "' where id='" . $this_form_id . "'";
+    $update_query = $wpdb->prepare( "UPDATE " . LFB_FORM_FIELD_TBL . " SET storeType=%d WHERE id=%d", $data_recieve_method, $this_form_id );
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
@@ -47,7 +47,7 @@ function lfb_save_email_settings()
     $email_setting['email_setting'] = isset($_POST['email_setting']) ? $_POST['email_setting'] : '';
     $serialize = maybe_serialize($email_setting);
     $table_name = LFB_FORM_FIELD_TBL;
-    $update_query = "update " . LFB_FORM_FIELD_TBL . " set mail_setting='" . $serialize . "' where id='" . $this_form_id . "'";
+    $update_query = $wpdb->prepare( "UPDATE " . LFB_FORM_FIELD_TBL . " SET mail_setting=%s WHERE id=%d", $serialize, $this_form_id );
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
@@ -109,7 +109,7 @@ function lfb_delete_leads_backend()
         echo esc_html($update_leads);
     }
 
-    echo $check;
+    echo esc_html( $check ? '1' : '0' );
 }
 
 add_action('wp_ajax_delete_leads_backend', 'lfb_delete_leads_backend');
@@ -127,7 +127,7 @@ if (isset($_POST['captcha_on_off_form_id'])  && current_user_can('manage_options
     $this_form_id = intval($_POST['captcha_on_off_form_id']);
     global $wpdb;
     $table_name = LFB_FORM_FIELD_TBL;
-    $update_query = "update " . LFB_FORM_FIELD_TBL . " set captcha_status='" . $captcha_option . "' where id='" . $this_form_id . "'";
+    $update_query = $wpdb->prepare( "UPDATE " . LFB_FORM_FIELD_TBL . " SET captcha_status=%s WHERE id=%d", $captcha_option, $this_form_id );
     $th_save_db = new LFB_SAVE_DB($wpdb);
     $update_leads = $th_save_db->lfb_update_form_data($update_query);
     if ($update_leads) {
@@ -223,7 +223,7 @@ function lfb_ShowAllLeadThisForm() {
             </div>';
 
             $table_body .= '<tbody id="lead-id-' . $lead_id . '">';
-            $table_body .= '<tr><td><span class="lfb-lead-sn">' . $sn_counter . '</span><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-cb" value="' . $lead_id . '" /><span class="lfb-cb-mark"></span></label><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\'' . $nonce . '\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
+            $table_body .= '<tr><td><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-cb" value="' . $lead_id . '" /><span class="lfb-cb-mark"></span></label><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\'' . $nonce . '\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
         }
 
         $thHead = '<div class="lfb-leads-content"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table"><thead><tr><th><label class="lfb-custom-cb"><input type="checkbox" class="lfb-lead-select-all" /><span class="lfb-cb-mark"></span></label></th>' . $tableHead . '<th>Date</th>' . $table_head . '</tr></thead>';
@@ -304,7 +304,7 @@ function lfb_ShowLeadPagi()
             $popupTab   = '';
 
             if ($headcount >= 6) {
-                $table_head .= '<th> . . . </th><th><input type="button" onclick="show_all_leads(' . $id . ',' . $form_id . ')" value="Show all Columns"></th>';
+                $table_head .= '<th> . . . </th><th><input type="button" onclick="show_all_leads(' . $id . ',' . $form_id . ')" value="' . esc_attr__( 'Show all Columns', 'lead-form-builder' ) . '"></th>';
             }
 
             foreach ($posts as $results) {
@@ -331,7 +331,7 @@ function lfb_ShowLeadPagi()
                     }
                 }
 
-                $complete_data .= "<table><tr><th>Field</th><th>Value</th></tr>" . $returnData['table_popup'] . "</table>";
+                $complete_data .= '<table><tr><th>' . esc_html__( 'Field', 'lead-form-builder' ) . '</th><th>' . esc_html__( 'Value', 'lead-form-builder' ) . '</th></tr>' . $returnData['table_popup'] . '</table>';
 
                 /****/
                 $popupTab .= '<div id="lf-openModal-' . $lead_id . '" class="lf-modalDialog">
@@ -344,7 +344,7 @@ function lfb_ShowLeadPagi()
                 $table_body  .= '<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\'' . $nonce . '\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
             }
 
-            $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" ><thead><tr><th>Action</th>' . $tableHead . $table_head . '</tr></thead>';
+            $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" ><thead><tr><th>' . esc_html__( 'Action', 'lead-form-builder' ) . '</th>' . $tableHead . $table_head . '</tr></thead>';
 
             echo wp_kses($thHead . $table_body . '</tbody></table>' . $popupTab, $showLeadsObj->expanded_alowed_tags());
 
@@ -468,7 +468,7 @@ function lfb_ShowAllLeadThisFormDate()
                     }
                 }
 
-                $complete_data .= "<table><tr><th>Field</th><th>Value</th></tr>" . $returnData['table_popup'] . "</table>";
+                $complete_data .= '<table><tr><th>' . esc_html__( 'Field', 'lead-form-builder' ) . '</th><th>' . esc_html__( 'Value', 'lead-form-builder' ) . '</th></tr>' . $returnData['table_popup'] . '</table>';
 
                 /****/
                 $popupTab .= '<div id="lf-openModal-' . $lead_id . '" class="lf-modalDialog">
@@ -481,7 +481,7 @@ function lfb_ShowAllLeadThisFormDate()
                 $table_body  .= '<tr><td><span class="lead-count">' . $sn_counter . '</span><a class="lead-remove" onclick="delete_this_lead(' . $lead_id . ',\'' . $nonce . '\')" ><i class="fa fa-trash" aria-hidden="true"></i></a></td>' . $table_row . '</tr>';
             }
 
-            $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" ><thead><tr><th>Action</th>' . $tableHead . $table_head . '</tr></thead>';
+            $thHead = '<div class="wrap" id="form-leads-show"><table class="show-leads-table wp-list-table widefat fixed" id="show-leads-table" ><thead><tr><th>' . esc_html__( 'Action', 'lead-form-builder' ) . '</th>' . $tableHead . $table_head . '</tr></thead>';
 
             echo wp_kses($thHead . $table_body . '</tbody></table>' . $popupTab, $showLeadsObj->expanded_alowed_tags());
 
@@ -692,11 +692,11 @@ function lfb_SaveUserEmailSettings()
         $this_form_id = intval($_POST['user_email_setting']['form-id']);
         global $wpdb;
         $table_name = LFB_FORM_FIELD_TBL;
-        $update_query = "update " . LFB_FORM_FIELD_TBL . " set usermail_setting='" . $email_setting . "' where id='" . $this_form_id . "'";
+        $update_query = $wpdb->prepare( "UPDATE " . LFB_FORM_FIELD_TBL . " SET usermail_setting=%s WHERE id=%d", $email_setting, $this_form_id );
         $th_save_db = new LFB_SAVE_DB($wpdb);
         $update_leads = $th_save_db->lfb_update_form_data($update_query);
         if ($update_leads) {
-            echo esc_html("updated");
+            esc_html_e( 'updated', 'lead-form-builder' );
         }
     }
     die();
