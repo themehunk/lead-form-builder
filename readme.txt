@@ -4,7 +4,7 @@ Author URI: : https://www.themehunk.com/
 Tags: contact form, lead generation, lead form builder, contact form builder, newsletter form
 Requires at least: 5.5
 Tested up to: 6.9
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -147,17 +147,19 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 
 == Screenshots ==
 
-1. Drag and Drop field ordering. 
-2. Form Field Create.
+1. Dashboard 
+2. Form Field Create & Drag and Drop field ordering.
 3. Form Leads
 4. Google One Tap Login Feature
-5. Leads Tracing like: IP Address, Country, OS & Browser etc.
-6. Elementor Form
-7. Contact form
-8. Google Captcha
-9. Google Lead Store Data
+5. Mail Notification
+6. Form Leads Data
+7. Design
+8. Prebuild Form
 
 == Changelog ==
+
+= 2.1.1 =
+* Update: Latest Image update.
 
 = 2.1.0 =
 * Fix: SQL injection vulnerability fixed — all raw SQL queries replaced with $wpdb->prepare() in ajax-functions.php.
