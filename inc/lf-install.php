@@ -52,6 +52,7 @@ add_submenu_page( 'themehunk-plugins', __('Lead Form Builder', 'wppb'), __('Lead
     }
     add_submenu_page(false, __('Premium Version', 'th-lead-form'), __('Premium Version', 'th-lead-form'), 'manage_options', 'pro-form-leads', 'lfb_pro_feature');
 
+
 }
 add_action('admin_menu', 'lfb_register_my_custom_menu_page');
 

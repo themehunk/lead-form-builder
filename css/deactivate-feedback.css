@@ -1,0 +1,148 @@
+/* Lead Form Builder – Deactivation Feedback Popup */
+
+/* Overlay */
+.lfb-df-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.60);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Modal box */
+.lfb-df-modal {
+    background: #ffffff;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 520px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    animation: lfbDfIn 0.22s ease;
+}
+
+@keyframes lfbDfIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.lfb-df-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 22px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.lfb-df-header strong {
+    font-size: 0.9em;
+    letter-spacing: 0.06em;
+    color: #1e1e1e;
+    text-transform: uppercase;
+}
+.lfb-df-icon {
+    display: flex;
+    align-items: center;
+}
+
+/* Body */
+.lfb-df-body {
+    padding: 22px 24px 16px;
+}
+.lfb-df-body > p {
+    margin: 0 0 16px;
+    font-size: 0.95em;
+    color: #333;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+/* Reasons list */
+.lfb-df-reasons {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.lfb-df-reasons li {
+    margin-bottom: 10px;
+}
+.lfb-df-reasons label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: #444;
+}
+.lfb-df-reasons input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #e74c3c;
+    flex-shrink: 0;
+    cursor: pointer;
+    margin: 0;
+}
+.lfb-df-reasons label:hover span {
+    color: #1e1e1e;
+}
+
+/* Detail textarea */
+.lfb-df-detail {
+    margin-top: 12px;
+}
+.lfb-df-detail textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.875em;
+    resize: vertical;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+.lfb-df-detail textarea:focus {
+    border-color: #e74c3c;
+    outline: none;
+}
+
+/* Footer */
+.lfb-df-footer {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 16px 24px 20px;
+    border-top: 1px solid #f5f5f5;
+}
+
+.lfb-df-submit-btn.button-primary {
+    background-color: #e74c3c !important;
+    border-color: #c0392b !important;
+    color: #fff !important;
+    padding: 8px 18px !important;
+    font-size: 0.9em !important;
+    height: auto !important;
+    line-height: 1.5 !important;
+    border-radius: 4px !important;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.lfb-df-submit-btn.button-primary:hover:not(:disabled) {
+    background-color: #c0392b !important;
+    border-color: #a93226 !important;
+}
+.lfb-df-submit-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.lfb-df-skip-link {
+    font-size: 0.875em;
+    color: #555;
+    text-decoration: none;
+}
+.lfb-df-skip-link:hover {
+    color: #c0392b;
+    text-decoration: underline;
+}

@@ -4,7 +4,7 @@ Author URI: : https://www.themehunk.com/
 Tags: contact form, lead generation, lead form builder, contact form builder, newsletter form
 Requires at least: 5.5
 Tested up to: 6.9
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,9 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 8. Prebuild Form
 
 == Changelog ==
+
+= 2.1.2 =
+New: Added feedback form after plugin deactivation.
 
 = 2.1.1 =
 * Update: Latest Image update.

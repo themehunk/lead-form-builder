@@ -23,3 +23,4 @@ include_once( plugin_dir_path( __FILE__ ) . 'front-end.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'show-lead.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'lead-store-type.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'ajax-functions.php' );
+include_once( plugin_dir_path( __FILE__ ) . 'deactivate-feedback.php' );
