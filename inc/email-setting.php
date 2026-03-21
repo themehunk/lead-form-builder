@@ -353,5 +353,42 @@ class LFB_EmailSettingForm
   </div>
 </div>
 </div>';
+
+        // Validation Messages card
+        $required_field_msg = get_option( 'lfb_required_field_msg', __( 'The field is required.', 'lead-form-builder' ) );
+        $general_error_msg  = get_option( 'lfb_general_error_msg',  __( 'One or more fields have an error. Please check and try again.', 'lead-form-builder' ) );
+        $vm_nonce           = wp_create_nonce( 'lfb-vm-nonce' );
+
+        echo '<div class="lfb-setting-two-col">
+<div class="lfb-es-card">
+  <div class="lfb-es-header">
+    <span class="lfb-es-icon lfb-es-icon-lead">' . lfb_svg( 'check-circle', 22 ) . '</span>
+    <div class="lfb-es-header-text">
+      <h3>' . esc_html__( 'Validation Messages', 'lead-form-builder' ) . '</h3>
+      <p>' . esc_html__( 'Customize the error messages shown when required fields are left empty.', 'lead-form-builder' ) . '</p>
+    </div>
+  </div>
+  <div class="lfb-es-body">
+    <form id="lfb-validation-msg-form" method="post" action="">
+      <div class="lfb-es-field">
+        <label class="lfb-es-label">' . esc_html__( 'Required Field Message', 'lead-form-builder' ) . '</label>
+        <input type="text" name="lfb_required_field_msg" id="lfb_required_field_msg" value="' . esc_attr( $required_field_msg ) . '" class="lfb-es-input">
+        <span class="lfb-es-hint">' . esc_html__( 'Shown below each empty required field on submit.', 'lead-form-builder' ) . '</span>
+      </div>
+      <div class="lfb-es-field">
+        <label class="lfb-es-label">' . esc_html__( 'General Error Message', 'lead-form-builder' ) . '</label>
+        <input type="text" name="lfb_general_error_msg" id="lfb_general_error_msg" value="' . esc_attr( $general_error_msg ) . '" class="lfb-es-input">
+        <span class="lfb-es-hint">' . esc_html__( 'Shown at the bottom of the form when validation fails.', 'lead-form-builder' ) . '</span>
+      </div>
+      <input type="hidden" name="lfb_vm_nonce" value="' . esc_attr( $vm_nonce ) . '">
+      <input type="hidden" name="lfb_vm_form_id" value="' . intval( $this_form_id ) . '">
+      <div class="lfb-es-footer">
+        <div id="error-message-validation-msg"></div>
+        <button type="submit" class="lfb-es-save-btn" id="lfb_save_validation_msg"><i class="fa fa-check"></i> ' . esc_html__( 'Save', 'lead-form-builder' ) . '</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>';
     }
 }

@@ -29,6 +29,9 @@ function lfbErrorCheck(){
 
 
 jQuery(document).ready(function(){
+// Disable native browser validation to use custom messages
+jQuery('form.lead-form-front').attr('novalidate', true);
+
 var dateToday = new Date();
 
 
@@ -90,27 +93,33 @@ function lfbInserForm(element,form_id,uploaddata=''){
                                  _wpnonce: frontendajax._wpnonce
                                 };
         SavedataByAjaxRequest(lfbFormData, 'POST').success(function(response) {
-            element.find('#loading_image').hide();;
+            element.find('#loading_image').hide();
             if (jQuery.trim(response) == 'invalidcaptcha') {
-
-            element.find(".leadform-show-message-form-"+form_id).append("<div class='error'><p>Invalid Captcha</p></div>");
-                grecaptcha.reset();
+                element.find(".leadform-show-message-form-"+form_id).append("<div class='error'><p>Invalid Captcha</p></div>");
+                if (typeof grecaptcha !== "undefined") { grecaptcha.reset(); }
+                element.find('input[type=submit]').prop('disabled', false);
 
             } else if (jQuery.trim(response) == 'inserted') {
                 var redirect = jQuery(".successmsg_"+form_id).attr('redirect');
-                    element.siblings(".successmsg_"+form_id).css('display','block');
-                    jQuery('#lfb-submit').trigger('click');
-                    element.hide();
-                    if (typeof grecaptcha === "function") { 
-                        grecaptcha.reset();
-                    }
-                if(jQuery.trim(redirect)!=''){
+                element.siblings(".successmsg_"+form_id).css('display','block');
+                element.hide();
+                if (typeof grecaptcha !== "undefined") {
+                    grecaptcha.reset();
+                }
+                if (jQuery.trim(redirect) !== '') {
                     window.location.href = redirect;
                 }
-            }  else if (jQuery.trim(response) === 'INVAILD') {
-                element.find(".leadform-show-message-form-"+form_id).append("<div class='error'><p>Invalid Data!</p></div>");
 
+            } else if (jQuery.trim(response) === 'INVAILD') {
+                element.find(".leadform-show-message-form-"+form_id).append("<div class='error'><p>Invalid Data!</p></div>");
+                element.find('input[type=submit]').prop('disabled', false);
+
+            } else {
+                element.find('input[type=submit]').prop('disabled', false);
             }
+        }).fail(function() {
+            element.find('#loading_image').hide();
+            element.find('input[type=submit]').prop('disabled', false);
         });
     }
 
@@ -134,31 +143,69 @@ function lfbCaptchaCheck(element,form_id){
 }
 
 
+// required field validation with custom messages
+function lfbValidateRequiredFields(element) {
+    var hasError = false;
+    var requiredMsg = (frontendajax && frontendajax.required_msg) ? frontendajax.required_msg : 'The field is required.';
+    var errorMsg   = (frontendajax && frontendajax.error_msg)    ? frontendajax.error_msg    : 'One or more fields have an error. Please check and try again.';
+
+    // remove previous validation messages
+    element.find('.lfb-field-error').remove();
+    element.find('.lfb-general-error-box').remove();
+
+    // validate each required field
+    element.find('input[required], textarea[required], select[required]').each(function() {
+        var field     = jQuery(this);
+        var fieldType = (field.attr('type') || '').toLowerCase();
+        var container = field.closest('.lf-field');
+
+        if (fieldType === 'radio') {
+            var radioName = field.attr('name');
+            if (!element.find('input[name="' + radioName + '"]:checked').length) {
+                if (!container.find('.lfb-field-error').length) {
+                    container.append('<p class="lfb-field-error">' + requiredMsg + '</p>');
+                    hasError = true;
+                }
+            }
+        } else {
+            var val = jQuery.trim(field.val());
+            if (!val) {
+                container.append('<p class="lfb-field-error">' + requiredMsg + '</p>');
+                hasError = true;
+            }
+        }
+    });
+
+    if (hasError) {
+        element.find('.lf-form-panel').after('<div class="lfb-general-error-box"><p>' + errorMsg + '</p></div>');
+    }
+
+    return !hasError;
+}
+
 // form submit
 jQuery(document).on('submit', "form.lead-form-front", function(event) {
-    
-     if(!lfbErrorCheck()){
+
+    if (!lfbValidateRequiredFields(jQuery(this))) {
+        return false;
+    }
+    if(!lfbErrorCheck()){
       return false;
     }
-    event.preventDefault(); 
+    event.preventDefault();
     var element = jQuery(this);
     element.find('input[type=submit]').prop('disabled', true);
     var form_id = element.find(".hidden_field").val();   
     var captcha_status = element.find(".this_form_captcha_status").val();
     
-    element.find('#loading_image').show();  
+    element.find('#loading_image').show();
     element.find(".leadform-show-message-form-"+form_id).empty();
 
-    if(captcha_status=='disable'){
-        // if(element.find('.upload-type').length){
-        //     lfbfileUpload(element,form_id);
-        // } else{
-            lfbInserForm(element,form_id);
-       // }
-     } else {
-            lfbCaptchaCheck(element,form_id);
+    if (captcha_status == 'disable') {
+        lfbInserForm(element, form_id);
+    } else {
+        lfbCaptchaCheck(element, form_id);
     }
- element.find('input[type=submit]').prop('disabled', false);
 });
 
 // required-field-function

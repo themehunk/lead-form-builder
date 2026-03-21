@@ -834,3 +834,20 @@ function lfb_duplicate_form() {
 }
 add_action( 'wp_ajax_lfb_duplicate_form', 'lfb_duplicate_form' );
 
+/*
+ * Save Validation Messages
+ */
+function lfb_save_validation_messages() {
+    $nonce = isset( $_POST['lfb_vm_nonce'] ) ? $_POST['lfb_vm_nonce'] : '';
+    if ( ! current_user_can( 'manage_options' ) || ! wp_verify_nonce( $nonce, 'lfb-vm-nonce' ) ) {
+        die( 'error' );
+    }
+    $required_msg = isset( $_POST['lfb_required_field_msg'] ) ? sanitize_text_field( $_POST['lfb_required_field_msg'] ) : '';
+    $error_msg    = isset( $_POST['lfb_general_error_msg'] )  ? sanitize_text_field( $_POST['lfb_general_error_msg'] )  : '';
+    update_option( 'lfb_required_field_msg', $required_msg );
+    update_option( 'lfb_general_error_msg',  $error_msg );
+    esc_html_e( 'updated', 'lead-form-builder' );
+    die();
+}
+add_action( 'wp_ajax_lfb_save_validation_messages', 'lfb_save_validation_messages' );
+

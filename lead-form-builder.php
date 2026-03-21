@@ -75,6 +75,7 @@ if ( ! function_exists( 'lfb_plugin_meta_links' ) ){
 
 
 include_once( plugin_dir_path(__FILE__) . 'inc/lf-db.php' );
+include_once( plugin_dir_path(__FILE__) . 'inc/deactivate-feedback.php' );
 
 register_activation_hook(__FILE__, 'lfb_plugin_activate');
 if(!function_exists('lfb_include_file')) {

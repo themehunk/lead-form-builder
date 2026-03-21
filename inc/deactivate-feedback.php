@@ -55,6 +55,7 @@ function lfb_deactivate_feedback_modal() {
         'found_better'       => __( 'I found a better plugin', 'lead-form-builder' ),
         'not_working'        => __( 'I couldn\'t get the plugin to work', 'lead-form-builder' ),
         'temporary'          => __( 'It\'s a temporary deactivation', 'lead-form-builder' ),
+        'have_premium'       => __( 'I have premium plugin', 'lead-form-builder' ),
         'missing_feature'    => __( 'Plugin is missing a required feature', 'lead-form-builder' ),
         'other'              => __( 'Other', 'lead-form-builder' ),
     );
@@ -65,7 +66,7 @@ function lfb_deactivate_feedback_modal() {
             <div class="lfb-df-header">
                 <span class="lfb-df-icon">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="20" height="20" rx="4" fill="#e74c3c"/>
+                        <rect width="20" height="20" rx="4" fill="#FF3131"/>
                         <text x="10" y="15" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">!</text>
                     </svg>
                 </span>

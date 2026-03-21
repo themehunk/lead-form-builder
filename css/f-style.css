@@ -485,6 +485,27 @@ font-size:0px;
     line-height: 1.7em;
     color: #555;
 }
+/* required field inline error */
+.leadform-show-form .lfb-field-error {
+    color: #D8000C;
+    font-size: 13px;
+    margin: 4px 0 0 0;
+    padding: 0;
+}
+/* general error box at bottom of form */
+.leadform-show-form .lfb-general-error-box {
+    border: 1px solid #e0a800;
+    background: #fff9e6;
+    color: #333;
+    font-size: 13px;
+    padding: 10px 14px;
+    margin-top: 10px;
+    border-radius: 3px;
+}
+.leadform-show-form .lfb-general-error-box p {
+    margin: 0;
+    padding: 0;
+}
 /*notification massage*/
 .leadform-show-form .error p{
 font-size:14px;

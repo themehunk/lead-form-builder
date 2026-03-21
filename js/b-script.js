@@ -836,6 +836,23 @@ jQuery("form#captcha-on-off-setting").submit(function(event) {
     })
    
 /*
+ * Save validation messages setting
+ */
+jQuery("form#lfb-validation-msg-form").submit(function(event) {
+    event.preventDefault();
+    var form_data = jQuery("form#lfb-validation-msg-form").serialize();
+    form_data = form_data + "&action=lfb_save_validation_messages";
+    jQuery("#error-message-validation-msg").find("div").remove();
+    SaveByAjaxRequest(form_data, 'POST').success(function(response) {
+        if (jQuery.trim(response) == 'updated' || jQuery.trim(response) == '') {
+            jQuery("#error-message-validation-msg").append("<div class='success'><p>Updated Successfully..!!</p></div>");
+        } else {
+            jQuery("#error-message-validation-msg").append("<div class='error'><p>Something Went Wrong..!!</p></div>");
+        }
+    });
+});
+
+/*
  * Show leads according to form in back-end.
  */
 function lfbLeadsLoader() {
