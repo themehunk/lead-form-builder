@@ -29,9 +29,20 @@ function lfb_admin_assets($hook) {
 }
 add_action('admin_enqueue_scripts', 'lfb_admin_assets');
 
+function lfb_page_has_form() {
+    global $post;
+    if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'lead-form' ) ) {
+        return true;
+    }
+    return false;
+}
+
 function lfb_wp_assets() {
+    if ( ! lfb_page_has_form() ) {
+        return;
+    }
     wp_enqueue_style('lfb_f_css', LFB_PLUGIN_URL . 'css/f-style.css');
-    wp_enqueue_script('jquery-ui-datepicker');        
+    wp_enqueue_script('jquery-ui-datepicker');
     wp_enqueue_script('lfb_f_js', LFB_PLUGIN_URL . 'js/f-script.js', array('jquery'), LFB_VER, true);
     wp_localize_script('lfb_f_js', 'frontendajax', array(
         'ajaxurl'      => admin_url('admin-ajax.php'),

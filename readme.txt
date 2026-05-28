@@ -4,7 +4,7 @@ Author URI: : https://www.themehunk.com/
 Tags: contact form, lead generation, lead form builder, contact form builder, newsletter form
 Requires at least: 5.5
 Tested up to: 6.9
-Stable tag: 2.1.3
+Stable tag: 2.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,9 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 8. Prebuild Form
 
 == Changelog ==
+
+= 2.1.4 =
+* Performance: Frontend CSS and JS assets now load only on pages containing the lead form shortcode, improving page speed site-wide.
 
 = 2.1.3 =
 * New: Required field option added — form fields can now be marked as required.
@@ -558,6 +561,9 @@ r
 Initial release
 
 == Upgrade Notice ==
+
+= 2.1.4 =
+* Performance improvement: assets now load only on pages with the lead form, reducing load time on all other pages.
 
 = 2.1.3 =
 * New required field option added for form fields.
