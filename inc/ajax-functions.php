@@ -851,3 +851,22 @@ function lfb_save_validation_messages() {
 }
 add_action( 'wp_ajax_lfb_save_validation_messages', 'lfb_save_validation_messages' );
 
+/*
+ * Save form design / color settings (React design panel)
+ */
+function lfb_save_colors_settings() {
+    check_ajax_referer( 'lfb_secure_nonce', 'security' );
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( 'Permission denied' );
+    }
+    if ( isset( $_POST['colorid'] ) ) {
+        $lfbDb = new LFB_SAVE_DB();
+        $fid   = intval( $_POST['colorid'] );
+        unset( $_POST['action'] );
+        $serialize = maybe_serialize( array_map( 'stripslashes_deep', $_POST ) );
+        echo $lfbDb->lfb_colors_insert_update( $fid, $serialize );
+    }
+    die();
+}
+add_action( 'wp_ajax_SaveColorsSettings', 'lfb_save_colors_settings' );
+

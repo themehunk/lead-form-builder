@@ -17,7 +17,12 @@ if ( is_admin() ) {
     include_once( plugin_dir_path( __FILE__ ) . 'create-lead-form.php' );
 }
 
+include_once( plugin_dir_path( __FILE__ ) . 'lfb-color-settings.php' );
+include_once( plugin_dir_path( __FILE__ ) . 'lfb-style.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'email-setting.php' );
+include_once( plugin_dir_path( __FILE__ ) . 'export-leads.php' );
+include_once( plugin_dir_path( __FILE__ ) . 'lfb-import-export.php' );
+include_once( plugin_dir_path( __FILE__ ) . 'lfb-form-settings.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'show-forms-backend.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'front-end.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'show-lead.php' );

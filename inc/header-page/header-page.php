@@ -38,6 +38,13 @@ function lfb_header_page_manage( $type = '', $option = '' ) {
     } elseif ( isset( $_GET['action'] ) && $_GET['action'] === 'total_leads' ) {
         $page_title = esc_html__( 'Total Leads', 'lead-form-builder' );
         $breadcrumb = 'Total Leads';
+
+    } elseif ( isset( $_GET['page'] ) && $_GET['page'] === 'lfb-form-settings' ) {
+        global $wpdb;
+        $_fid    = isset( $_GET['form_id'] ) ? intval( $_GET['form_id'] ) : 0;
+        $_ftitle = $_fid ? $wpdb->get_var( $wpdb->prepare( "SELECT form_title FROM {$wpdb->prefix}lead_form WHERE id = %d LIMIT 1", $_fid ) ) : '';
+        $page_title = esc_html__( 'Form Settings', 'lead-form-builder' );
+        $breadcrumb = $_ftitle ? esc_html( $_ftitle ) : __( 'Settings', 'lead-form-builder' );
     }
     ?>
 

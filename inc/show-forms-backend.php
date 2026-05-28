@@ -106,8 +106,8 @@ Class LFB_SHOW_FORMS {
 <td class="lfb-col-actions" data-colname="Actions">
   <div class="lfb-row-act">
     <a href="' . esc_url( $edit_url_nonce ) . '" class="lfb-act-btn" title="' . __( 'Edit', 'lead-form-builder' ) . '">' . lfb_svg( 'edit' ) . '</a>
-    <a href="' . esc_url( $form_preview_url ) . '" class="lfb-act-btn" title="' . __( 'View', 'lead-form-builder' ) . '" target="_blank">' . lfb_svg( 'eye' ) . '</a>
-    <button type="button" class="lfb-act-btn lfb-act-btn--settings lfb-act-btn--pro" data-form-id="' . $form_id . '" data-form-title="' . esc_attr( $form_title ) . '" title="' . __( 'Settings (Pro)', 'lead-form-builder' ) . '">' . lfb_svg( 'settings' ) . '<span class="lfb-act-pro-badge">' . lfb_svg( 'lock', 8 ) . '</span></button>
+    <a href="' . esc_url( $form_preview_url ) . '" class="lfb-act-btn" title="' . __( 'Design', 'lead-form-builder' ) . '">' . lfb_svg( 'palette' ) . '</a>
+    <a href="' . esc_url( admin_url( 'admin.php?page=lfb-form-settings&form_id=' . $form_id ) ) . '" class="lfb-act-btn lfb-act-btn--settings" title="' . __( 'Settings', 'lead-form-builder' ) . '">' . lfb_svg( 'settings' ) . '</a>
     <button type="button" class="lfb-act-btn lfb-act-btn--dup" data-form-id="' . $form_id . '" title="' . __( 'Duplicate', 'lead-form-builder' ) . '">' . lfb_svg( 'duplicate' ) . '</button>
     <a href="' . esc_url( $delete_url ) . '" class="lfb-act-btn lfb-act-btn--danger" title="' . __( 'Delete', 'lead-form-builder' ) . '">' . lfb_svg( 'trash' ) . '</a>
   </div>
@@ -125,8 +125,6 @@ Class LFB_SHOW_FORMS {
 </div>
 </div>';
 
-        // Pro Settings Modal (rendered once on page)
-        $this->lfb_pro_settings_modal();
     }
 
     function lfb_pro_settings_modal() {
@@ -510,8 +508,8 @@ Class LFB_SHOW_FORMS {
 <td class="lfb-col-actions" data-colname="Actions">
   <div class="lfb-row-act">
     <a href="' . esc_url( $edit_url_nonce ) . '" class="lfb-act-btn" title="' . __( 'Edit', 'lead-form-builder' ) . '">' . lfb_svg( 'edit' ) . '</a>
-    <a href="' . esc_url( $form_preview_url ) . '" class="lfb-act-btn" title="' . __( 'View', 'lead-form-builder' ) . '" target="_blank">' . lfb_svg( 'eye' ) . '</a>
-    <button type="button" class="lfb-act-btn lfb-act-btn--settings lfb-act-btn--pro" data-form-id="' . $form_id . '" data-form-title="' . esc_attr( $form_title ) . '" title="' . __( 'Settings (Pro)', 'lead-form-builder' ) . '">' . lfb_svg( 'settings' ) . '<span class="lfb-act-pro-badge">' . lfb_svg( 'lock', 8 ) . '</span></button>
+    <a href="' . esc_url( $form_preview_url ) . '" class="lfb-act-btn" title="' . __( 'Design', 'lead-form-builder' ) . '">' . lfb_svg( 'palette' ) . '</a>
+    <a href="' . esc_url( admin_url( 'admin.php?page=lfb-form-settings&form_id=' . $form_id ) ) . '" class="lfb-act-btn lfb-act-btn--settings" title="' . __( 'Settings', 'lead-form-builder' ) . '">' . lfb_svg( 'settings' ) . '</a>
     <button type="button" class="lfb-act-btn lfb-act-btn--dup" data-form-id="' . $form_id . '" title="' . __( 'Duplicate', 'lead-form-builder' ) . '">' . lfb_svg( 'duplicate' ) . '</button>
     <a href="' . esc_url( $delete_url ) . '" class="lfb-act-btn lfb-act-btn--danger" title="' . __( 'Delete', 'lead-form-builder' ) . '">' . lfb_svg( 'trash' ) . '</a>
   </div>

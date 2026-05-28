@@ -424,4 +424,31 @@ function lfb_save_xml_colordata($formid,$colorData){
   $query = $this->thdb->query( $this->thdb->prepare( "INSERT INTO $this->tbl_options ( fid, colorData) VALUES ( %d, %s )",$formid,$colorData));
 }
 
+public function get_combined_form_data($fid) {
+    $form  = $this->lfb_get_form_data($fid);
+    $color = $this->lfb_get_colors_data($fid);
+    $combined = array(
+        'form_title' => isset($form[0]->form_title)  ? $form[0]->form_title  : '',
+        'form_data'  => isset($form[0]->form_data)   ? $form[0]->form_data   : '',
+        'multiData'  => isset($form[0]->multiData)   ? $form[0]->multiData   : '',
+        'storeType'  => isset($form[0]->storeType)   ? $form[0]->storeType   : 2,
+        'colorData'  => isset($color[0]->colorData)  ? $color[0]->colorData  : '',
+    );
+    return array($combined);
+}
+
+public function import_complete_data($data) {
+    $form_arr = array(
+        'form_title' => isset($data['form_title']) ? sanitize_text_field($data['form_title']) : 'Imported Form',
+        'form_data'  => isset($data['form_data'])  ? $data['form_data']  : '',
+        'multiData'  => isset($data['multiData'])  ? $data['multiData']  : '',
+        'storeType'  => isset($data['storeType'])  ? intval($data['storeType']) : 2,
+    );
+    $formId = $this->lfb_save_xml_formdata($form_arr);
+    if ($formId && ! empty($data['colorData'])) {
+        $this->lfb_save_xml_colordata($formId, $data['colorData']);
+    }
+    return $formId;
+}
+
 }

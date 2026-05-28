@@ -163,7 +163,12 @@ Class LFB_Front_end_FORMS {
                 <span><input id="default-submit" class="lf-form-submit" type="submit" name="submit-form" value="submit"/></span>
                  <br/><br/>';
                 }
-        $return =  '<div class="leadform-show-form-'.$this_form_id.' leadform-show-form '.$this_form_size.' lf-form-default leadform-lite"><div class="lead-head"></div>'.$captcha_script.'
+        $custom_style = '';
+        if ( function_exists( 'lfb_custom_style' ) ) {
+            $style_db     = new LFB_SAVE_DB();
+            $custom_style = lfb_custom_style( $this_form_id, $style_db );
+        }
+        $return = $custom_style . '<div class="leadform-show-form-'.$this_form_id.' leadform-show-form '.$this_form_size.' lf-form-default leadform-lite"><div class="lead-head"></div>'.$captcha_script.'
                <form action="" method="post" class="lead-form-front" id="form_' . $this_form_id . '" enctype="multipart/form-data">
                 <h2 class="lfb-heading">' . $form_title . '</h2>' . $form_elemets . '<div class="lf-form-panel">' . $submit_button . '</div>
                 <div class="captcha-field-area" id="captcha-field-area"></div>

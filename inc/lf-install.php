@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * Include assets
  */
 function lfb_admin_assets($hook) {
-    $pageSearch = array('admin_page_add-new-form','admin_page_all-form-leads','themehunk_page_wplf-plugin-menu','admin_page_pro-form-leads');
+    $pageSearch = array('admin_page_add-new-form','admin_page_all-form-leads','themehunk_page_wplf-plugin-menu','admin_page_pro-form-leads','admin_page_lfb-form-settings');
     if(in_array($hook, $pageSearch)){
         wp_enqueue_style('wpth_fa_css', LFB_PLUGIN_URL . 'font-awesome/css/font-awesome.css');
         wp_enqueue_style('lfb-option-css', LFB_PLUGIN_URL . 'css/option-style.css');
@@ -14,9 +14,9 @@ function lfb_admin_assets($hook) {
         wp_enqueue_script('jquery-ui-datepicker');
         wp_enqueue_script("jquery-ui-sortable");
         wp_enqueue_script("jquery-ui-draggable");
-        wp_enqueue_script("jquery-ui-droppable"); 
+        wp_enqueue_script("jquery-ui-droppable");
         wp_enqueue_script("jquery-ui-accordion");
-        wp_enqueue_style( 'jquery-ui' );  
+        wp_enqueue_style( 'jquery-ui' );
         wp_enqueue_script('lfb_upload', LFB_PLUGIN_URL . 'js/upload.js', '', LFB_VER, true);
         wp_enqueue_script('sweet-dropdown.min', LFB_PLUGIN_URL . 'js/jquery.sweet-dropdown.min.js', '', LFB_VER, true);
         wp_enqueue_script('lfb_b_js', LFB_PLUGIN_URL . 'js/b-script.js', array('jquery'), LFB_VER, true);
@@ -24,6 +24,112 @@ function lfb_admin_assets($hook) {
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
             'nonce'   => wp_create_nonce( 'lfb_secure_nonce' ),
         ) );
+    }
+
+    // Enqueue React design panel on the form preview/design page
+    if (
+        isset( $_GET['page'] )   && $_GET['page']   === 'wplf-plugin-menu' &&
+        isset( $_GET['action'] ) && $_GET['action']  === 'show' &&
+        isset( $_GET['formid'] ) && is_numeric( $_GET['formid'] )
+    ) {
+        wp_enqueue_style( 'lfb_f_css', LFB_PLUGIN_URL . 'css/f-style.css' );
+
+        $fid        = intval( $_GET['formid'] );
+        $asset_file = LFB_BASE_DIR_PATH . 'block/build/admin-panel.asset.php';
+
+        if ( file_exists( $asset_file ) ) {
+            $asset = include $asset_file;
+
+            wp_enqueue_style(
+                'lfb-design-panel-css',
+                LFB_PLUGIN_URL . 'block/build/admin-panel.css',
+                array( 'wp-components' ),
+                $asset['version']
+            );
+
+            if ( function_exists( 'wp_enqueue_media' ) ) {
+                wp_enqueue_media();
+            }
+
+            wp_enqueue_script(
+                'lfb-design-panel-js',
+                LFB_PLUGIN_URL . 'block/build/admin-panel.js',
+                $asset['dependencies'],
+                $asset['version'],
+                true
+            );
+
+            // Defaults that match f-style.css exactly — used when no custom design is saved
+            $frontend_defaults = array(
+                'colorid'                    => $fid,
+                'lfb_form_width'             => 100,
+                'lfb_form_border_width'      => 0,
+                'lfb_form_border_style'      => 'none',
+                'lfb_form_border_color'      => '#cccccc',
+                'lfb_form_border_radius'     => 0,
+                'lfb_form_box_shadow'        => 'none',
+                'lfb_header_image'           => '',
+                'lfb_color_heading'          => '#111111',
+                'lfb_heading_alignment'      => 'left',
+                'lfb_heading_hide'           => 'block',
+                'lfb_heading_font_size'      => 26,
+                'lfb_heading_position'       => 'default',
+                'lfb_header_algmnt_tb'       => 0,
+                'lfb_header_algmnt_lr'       => 0,
+                'lfb_color_header_overlay'   => 'rgba(0,0,0,0)',
+                'lfb_header_backdrop_blur'   => 0,
+                'lfb_bg_image'               => '',
+                'lfb_color_bg'               => 'rgba(255,255,255,0)',
+                'lfb_bg_backdrop_blur'       => 0,
+                'lfb_form_padding_top'       => 2,
+                'lfb_form_padding_bottom'    => 2,
+                'lfb_form_padding_left'      => 2,
+                'lfb_form_padding_right'     => 2,
+                'lfb_color_label'            => '#374151',
+                'lfb_color_field_border'     => '#e0e0e0',    // f-style: border: 1px solid #e0e0e0
+                'lfb_field_border_width'     => 1,
+                'lfb_field_border_style'     => 'solid',
+                'lfb_field_border_radius'    => 8,            // f-style: border-radius: 8px
+                'lfb_color_field_bg'         => '#ffffff',
+                'lfb_color_field_placeholder'=> '#555555',    // f-style: color: #555
+                'lfb_req_star_color'         => '#e53e3e',
+                'lfb_req_star_size'          => 14,
+                'lfb_icon_bg'                => '#7b61ff',
+                'lfb_choice_checked_color'   => '#7b61ff',
+                'lfb_color_button_text'      => '#ffffff',
+                'lfb_color_button_bg'        => '#0C0C10',    // f-style: background: #0C0C10
+                'lfb_color_button_bg_hover'  => '#333333',
+                'lfb_color_button_border'    => '#000000',    // f-style: border-color: #000
+                'lfb_btn_border_width'       => 1,
+                'lfb_btn_border_style'       => 'solid',
+                'lfb_btn_border_radius'      => 3,            // f-style: border-radius: 3px
+                'lfb_button_aligment'        => 'left',
+                'lfb_button_font_size'       => 14,           // f-style: font-size: 14px
+                'lfb_btn_padding_tb'         => 2,            // 2% ≈ 10px at 500px container (matches React default)
+                'lfb_btn_padding_lr'         => 35,           // 35% width (matches React default; 0 = auto in PHP)
+                'lfb_field_columns'          => '1',
+                'lfb_custom_css'             => '',
+            );
+
+            $lfbdb_panel  = new LFB_SAVE_DB();
+            $colordata    = $lfbdb_panel->lfb_get_colors_data( $fid );
+            $colors_array = $frontend_defaults; // start with front-end defaults
+
+            if ( isset( $colordata[0]->colorData ) && ! empty( $colordata[0]->colorData ) ) {
+                $saved = maybe_unserialize( $colordata[0]->colorData );
+                if ( is_array( $saved ) ) {
+                    // Merge saved settings over defaults so missing keys still resolve
+                    $colors_array = array_merge( $frontend_defaults, $saved );
+                }
+            }
+
+            wp_localize_script( 'lfb-design-panel-js', 'lfbDesignPanel', array(
+                'formId'   => $fid,
+                'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
+                'nonce'    => wp_create_nonce( 'lfb_secure_nonce' ),
+                'settings' => $colors_array,
+            ) );
+        }
     }
 
 }
@@ -67,6 +173,7 @@ add_submenu_page( 'themehunk-plugins', __('Lead Form Builder', 'wppb'), __('Lead
     add_submenu_page(false, __('View Leads', 'lead-form-builder'), __('View Leads', 'lead-form-builder'), 'manage_options', 'all-form-leads', 'lfb_all_forms_lead');
     }
     add_submenu_page(false, __('Premium Version', 'th-lead-form'), __('Premium Version', 'th-lead-form'), 'manage_options', 'pro-form-leads', 'lfb_pro_feature');
+    add_submenu_page(false, __('Form Settings', 'lead-form-builder'), __('Form Settings', 'lead-form-builder'), 'manage_options', 'lfb-form-settings', 'lfb_form_settings_page');
 
 
 }
@@ -87,20 +194,34 @@ function lfb_lead_form_page() {
             $th_edit_del_form = new LFB_EDIT_DEL_FORM();
             $th_edit_del_form->lfb_delete_form_content($form_action, $this_form_id,$page_id);
         }
-        if ($form_action == 'show' && isset($_GET['formid'])) {
-                $fid = intval($_GET['formid']); 
-                echo "<div class='lfb-show'><h1>". esc_html('Lead Form Preview Page')."</h1>";
-            echo do_shortcode('[lead-form form-id="'.$fid.'" title=Contact Us]');
-
-            echo "<div>";
+        if ( $form_action == 'show' && isset( $_GET['formid'] ) ) {
+            $fid       = intval( $_GET['formid'] );
+            $lfbColors = new LFB_COLORS();
+            $back_url  = esc_url( admin_url( 'admin.php?page=wplf-plugin-menu' ) );
+            echo '<div class="lfb-design-page-wrap">';
+            echo '<a href="' . $back_url . '" class="lfb-back-btn">' . lfb_svg( 'chevron-left' ) . ' ' . __( 'Back to Forms', 'lead-form-builder' ) . '</a>';
+            echo $lfbColors->change_color();
+            echo '<div class="lfb-form-preview-wrap">';
+            echo do_shortcode( '[lead-form form-id="' . $fid . '" title=Contact Us]' );
+            echo '</div>';
+            echo '</div>';
+            $lfbColors->lfb_color_form( $fid );
         }
         if ($form_action == 'today_leads') {
+            $back_url = esc_url( admin_url( 'admin.php?page=wplf-plugin-menu' ) );
+            echo '<div class="wrap">';
+            echo '<a href="' . $back_url . '" class="lfb-back-btn">' . lfb_svg( 'chevron-left' ) . ' ' . __( 'Back to Forms', 'lead-form-builder' ) . '</a>';
             $th_show_today_leads = new LFB_Show_Leads();
             $th_show_today_leads->lfb_show_form_leads_datewise($this_form_id,"today_leads");
+            echo '</div>';
         }
         if ($form_action == 'total_leads') {
+            $back_url = esc_url( admin_url( 'admin.php?page=wplf-plugin-menu' ) );
+            echo '<div class="wrap">';
+            echo '<a href="' . $back_url . '" class="lfb-back-btn">' . lfb_svg( 'chevron-left' ) . ' ' . __( 'Back to Forms', 'lead-form-builder' ) . '</a>';
             $th_show_all_leads = new LFB_Show_Leads();
             $th_show_all_leads->lfb_show_form_leads_datewise($this_form_id,"total_leads");
+            echo '</div>';
         }
     } else {
         $th_show_forms = new LFB_SHOW_FORMS();
