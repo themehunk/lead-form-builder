@@ -155,6 +155,7 @@ function lfb_wp_assets() {
         '_wpnonce'     => wp_create_nonce( 'lfb_front_nonce' ),
         'required_msg' => get_option( 'lfb_required_field_msg', __( 'The field is required.', 'lead-form-builder' ) ),
         'error_msg'    => get_option( 'lfb_general_error_msg',  __( 'One or more fields have an error. Please check and try again.', 'lead-form-builder' ) ),
+        'email_msg'    => get_option( 'lfb_email_field_msg',    __( 'Please enter a valid email address.', 'lead-form-builder' ) ),
     ));
     wp_enqueue_style('font-awesome', LFB_PLUGIN_URL . 'font-awesome/css/font-awesome.css');
 }
