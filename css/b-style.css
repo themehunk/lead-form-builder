@@ -108,7 +108,7 @@ a:focus {
   font-weight: 500;
   opacity: 0.8;
 }
-.lfb-back-btn {
+.lfb-header .lfb-back-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -120,12 +120,12 @@ a:focus {
   text-decoration: none;
   transition: all 0.2s ease;
 }
-.lfb-back-btn:hover {
+.lfb-header .lfb-back-btn:hover {
   background: var(--global-bg-active-color, #3c40e7);
   color: #fff;
   box-shadow: 0 2px 8px rgba(60, 64, 231, 0.3);
 }
-.lfb-back-btn svg {
+.lfb-header .lfb-back-btn svg {
   display: block;
 }
 .lfb-header-right {
@@ -3003,32 +3003,42 @@ div.dropdown-opened {
   color: #555;
   border-color: #d0d0e8;
 }
-.lfb-act-btn--primary {
+.lfb-act-btn.lfb-act-btn--primary {
   color: var(--global-bg-active-color, #3c40e7);
-  border-color: rgba(60,64,231,0.2);
-  background: rgba(60,64,231,0.05);
+  border-color: rgba(60,64,231,0.25);
+  background: rgba(60,64,231,0.08);
 }
-.lfb-act-btn--primary:hover {
+.lfb-act-btn.lfb-act-btn--primary:hover {
   background: var(--global-bg-active-color, #3c40e7);
   color: #fff;
   border-color: var(--global-bg-active-color, #3c40e7);
 }
-.lfb-act-btn--copy {
-  color: #16a34a;
-  border-color: rgba(22,163,74,0.2);
-  background: rgba(22,163,74,0.05);
+.lfb-act-btn.lfb-act-btn--design {
+  color: #7c3aed;
+  border-color: rgba(124,58,237,0.25);
+  background: rgba(124,58,237,0.08);
 }
-.lfb-act-btn--copy:hover {
+.lfb-act-btn.lfb-act-btn--design:hover {
+  background: #7c3aed;
+  color: #fff;
+  border-color: #7c3aed;
+}
+.lfb-act-btn.lfb-act-btn--copy {
+  color: #16a34a;
+  border-color: rgba(22,163,74,0.25);
+  background: rgba(22,163,74,0.08);
+}
+.lfb-act-btn.lfb-act-btn--copy:hover {
   background: #16a34a;
   color: #fff;
   border-color: #16a34a;
 }
-.lfb-act-btn--danger {
+.lfb-act-btn.lfb-act-btn--danger {
   color: #e05252;
-  border-color: rgba(224,82,82,0.2);
-  background: rgba(224,82,82,0.05);
+  border-color: rgba(224,82,82,0.25);
+  background: rgba(224,82,82,0.08);
 }
-.lfb-act-btn--danger:hover {
+.lfb-act-btn.lfb-act-btn--danger:hover {
   background: #e05252;
   color: #fff;
   border-color: #e05252;
@@ -4988,6 +4998,8 @@ textarea.lfb-es-input {
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  width: auto;
+  height: auto;
   margin: 0 0 14px;
   padding: 7px 14px;
   background: #fff;
@@ -4997,6 +5009,7 @@ textarea.lfb-es-input {
   font-size: 13px;
   font-weight: 500;
   line-height: 1;
+  white-space: nowrap;
   text-decoration: none;
   transition: background .15s, border-color .15s;
 }

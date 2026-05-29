@@ -1,10 +1,10 @@
 ======  Lead Form Builder & Contact Form ========
 Contributors: ThemeHunk
 Author URI: : https://www.themehunk.com/
-Tags: contact form, lead generation, lead form builder, contact form builder, newsletter form
-Requires at least: 5.5
-Tested up to: 6.9
-Stable tag: 2.1.4
+Tags: contact form, lead generation, form builder, forms, WordPress form plugin
+Requires at least: 7.0
+Tested up to: 7.0
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,14 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 8. Prebuild Form
 
 == Changelog ==
+
+= 2.2.0 =
+* New: Added form design customization with custom styling options.
+* New: Added duplicate form creation feature.
+* New: Added email notifications, spam protection (CAPTCHA), and redesigned form settings page for a better user experience.
+* Update: Added back button on all pages for easier navigation.
+* Update: Redesigned dashboard with a more modern and user-friendly interface. 
+
 
 = 2.1.4 =
 * Performance: Frontend CSS and JS assets now load only on pages containing the lead form shortcode, improving page speed site-wide.

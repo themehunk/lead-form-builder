@@ -105,10 +105,10 @@ Class LFB_SHOW_FORMS {
 <td class="lfb-col-date" data-colname="Date">' . esc_html( date( 'd M, Y', strtotime( $form_date ) ) ) . '</td>
 <td class="lfb-col-actions" data-colname="Actions">
   <div class="lfb-row-act">
-    <a href="' . esc_url( $edit_url_nonce ) . '" class="lfb-act-btn" title="' . __( 'Edit', 'lead-form-builder' ) . '">' . lfb_svg( 'edit' ) . '</a>
-    <a href="' . esc_url( $form_preview_url ) . '" class="lfb-act-btn" title="' . __( 'Design', 'lead-form-builder' ) . '">' . lfb_svg( 'palette' ) . '</a>
-    <a href="' . esc_url( admin_url( 'admin.php?page=lfb-form-settings&form_id=' . $form_id ) ) . '" class="lfb-act-btn lfb-act-btn--settings" title="' . __( 'Settings', 'lead-form-builder' ) . '">' . lfb_svg( 'settings' ) . '</a>
-    <button type="button" class="lfb-act-btn lfb-act-btn--dup" data-form-id="' . $form_id . '" title="' . __( 'Duplicate', 'lead-form-builder' ) . '">' . lfb_svg( 'duplicate' ) . '</button>
+    <a href="' . esc_url( $edit_url_nonce ) . '" class="lfb-act-btn lfb-act-btn--primary" title="' . __( 'Edit', 'lead-form-builder' ) . '">' . lfb_svg( 'edit' ) . '</a>
+    <a href="' . esc_url( $form_preview_url ) . '" class="lfb-act-btn lfb-act-btn--design" title="' . __( 'Design', 'lead-form-builder' ) . '">' . lfb_svg( 'palette' ) . '</a>
+    <a href="' . esc_url( admin_url( 'admin.php?page=lfb-form-settings&form_id=' . $form_id ) ) . '" class="lfb-act-btn lfb-act-btn--primary" title="' . __( 'Settings', 'lead-form-builder' ) . '">' . lfb_svg( 'settings' ) . '</a>
+    <button type="button" class="lfb-act-btn lfb-act-btn--copy" data-form-id="' . $form_id . '" title="' . __( 'Duplicate', 'lead-form-builder' ) . '">' . lfb_svg( 'duplicate' ) . '</button>
     <a href="' . esc_url( $delete_url ) . '" class="lfb-act-btn lfb-act-btn--danger" title="' . __( 'Delete', 'lead-form-builder' ) . '">' . lfb_svg( 'trash' ) . '</a>
   </div>
 </td>
@@ -507,10 +507,10 @@ Class LFB_SHOW_FORMS {
 <td class="lfb-col-date" data-colname="Date">' . esc_html( date( 'd M, Y', strtotime( $form_date ) ) ) . '</td>
 <td class="lfb-col-actions" data-colname="Actions">
   <div class="lfb-row-act">
-    <a href="' . esc_url( $edit_url_nonce ) . '" class="lfb-act-btn" title="' . __( 'Edit', 'lead-form-builder' ) . '">' . lfb_svg( 'edit' ) . '</a>
-    <a href="' . esc_url( $form_preview_url ) . '" class="lfb-act-btn" title="' . __( 'Design', 'lead-form-builder' ) . '">' . lfb_svg( 'palette' ) . '</a>
-    <a href="' . esc_url( admin_url( 'admin.php?page=lfb-form-settings&form_id=' . $form_id ) ) . '" class="lfb-act-btn lfb-act-btn--settings" title="' . __( 'Settings', 'lead-form-builder' ) . '">' . lfb_svg( 'settings' ) . '</a>
-    <button type="button" class="lfb-act-btn lfb-act-btn--dup" data-form-id="' . $form_id . '" title="' . __( 'Duplicate', 'lead-form-builder' ) . '">' . lfb_svg( 'duplicate' ) . '</button>
+    <a href="' . esc_url( $edit_url_nonce ) . '" class="lfb-act-btn lfb-act-btn--primary" title="' . __( 'Edit', 'lead-form-builder' ) . '">' . lfb_svg( 'edit' ) . '</a>
+    <a href="' . esc_url( $form_preview_url ) . '" class="lfb-act-btn lfb-act-btn--design" title="' . __( 'Design', 'lead-form-builder' ) . '">' . lfb_svg( 'palette' ) . '</a>
+    <a href="' . esc_url( admin_url( 'admin.php?page=lfb-form-settings&form_id=' . $form_id ) ) . '" class="lfb-act-btn lfb-act-btn--primary" title="' . __( 'Settings', 'lead-form-builder' ) . '">' . lfb_svg( 'settings' ) . '</a>
+    <button type="button" class="lfb-act-btn lfb-act-btn--copy" data-form-id="' . $form_id . '" title="' . __( 'Duplicate', 'lead-form-builder' ) . '">' . lfb_svg( 'duplicate' ) . '</button>
     <a href="' . esc_url( $delete_url ) . '" class="lfb-act-btn lfb-act-btn--danger" title="' . __( 'Delete', 'lead-form-builder' ) . '">' . lfb_svg( 'trash' ) . '</a>
   </div>
 </td>
