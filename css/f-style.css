@@ -495,6 +495,12 @@ font-size:0px;
     margin: 4px 0 0 0;
     padding: 0;
 }
+/* red border on invalid fields */
+.leadform-show-form input.lfb-input-error,
+.leadform-show-form textarea.lfb-input-error,
+.leadform-show-form select.lfb-input-error {
+    border-color: #D8000C !important;
+}
 /* general error box at bottom of form */
 .leadform-show-form .lfb-general-error-box {
     border: 1px solid #e0a800;
