@@ -1,9 +1,9 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "themehunk/lead-form-builder",
+  "name": "themehunk/lead-form-builder-blocks",
   "version": "0.1.0",
-  "title": "Lead Form Builder",
+  "title": "Advance Lead Form",
   "category": "vayu-blocks",
   "icon": "feedback",
   "keywords": [
@@ -26,6 +26,9 @@
       "type": "string"
     },
     "formList": {
+      "type": "object"
+    },
+    "data": {
       "type": "object"
     },
     "randerForm": {

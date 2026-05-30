@@ -1,8 +1,8 @@
 /******/ (() => { // webpackBootstrap
 var __webpack_exports__ = {};
-/*!*********************!*\
-  !*** ./src/view.js ***!
-  \*********************/
+/*!**************************!*\
+  !*** ./src/form/view.js ***!
+  \**************************/
 /**
  * Use this file for JavaScript code that you want to run in the front-end
  * on posts/pages that contain this block.

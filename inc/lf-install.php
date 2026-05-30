@@ -17,8 +17,10 @@ function lfb_admin_assets($hook) {
         wp_enqueue_script("jquery-ui-droppable");
         wp_enqueue_script("jquery-ui-accordion");
         wp_enqueue_style( 'jquery-ui' );
+        wp_enqueue_script('alpha-color-picker', LFB_PLUGIN_URL . 'js/alpha-color-picker.js', array('jquery'), LFB_VER, true);
         wp_enqueue_script('lfb_upload', LFB_PLUGIN_URL . 'js/upload.js', '', LFB_VER, true);
         wp_enqueue_script('sweet-dropdown.min', LFB_PLUGIN_URL . 'js/jquery.sweet-dropdown.min.js', '', LFB_VER, true);
+
         wp_enqueue_script('lfb_b_js', LFB_PLUGIN_URL . 'js/b-script.js', array('jquery'), LFB_VER, true);
         wp_localize_script( 'lfb_b_js', 'backendajax', array(
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
@@ -137,7 +139,8 @@ add_action('admin_enqueue_scripts', 'lfb_admin_assets');
 
 function lfb_page_has_form() {
     global $post;
-    if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'lead-form' ) ) {
+    //|| has_block( 'themehunk/lead-form-builder', $post )
+    if ( is_a( $post, 'WP_Post' ) && (has_shortcode( $post->post_content, 'lead-form' )   ) ) {
         return true;
     }
     return false;

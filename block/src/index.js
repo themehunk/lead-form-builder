@@ -41,5 +41,5 @@ registerBlockType( name, {
 	 /**
 	  * @see ./save.js
 	  */
-	 save,
+	 save
  } );

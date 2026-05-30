@@ -59,7 +59,7 @@ function restrict_blocks_to_cpt($allowed_blocks, $post) {
         if ('lead-form-builder' === $post->post->post_type) {
             return array(
                 'core/paragraph',
-                'create-block/lead-form-builder', // Replace with your block's name
+                'themehunk/lead-form-builder', // Replace with your block's name
             );
         }
   
