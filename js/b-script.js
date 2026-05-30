@@ -1238,7 +1238,7 @@ jQuery(document).on('click', '.lfb-form-table .toggle-row', function() {
     $tr.toggleClass('is-expanded');
 });
 
-jQuery(document).on('click', '.lfb-act-btn--dup', function() {
+jQuery(document).on('click', '.lfb-act-btn--copy', function() {
     var $btn   = jQuery(this);
     var formId = $btn.data('form-id');
     $btn.prop('disabled', true).css('opacity', '0.5');
