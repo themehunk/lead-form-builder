@@ -91,7 +91,7 @@ function lead_form_builder_block_init() {
         'themehunk-lead-form-builder-editor-script',
         plugins_url( 'build/index.js', __FILE__ ), // Adjust the path to your built JavaScript file
         array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n', 'wp-api-fetch' ), // Ensure the necessary dependencies are included
-        filemtime( plugin_dir_path( __FILE__ ) . 'build/index.js' )
+        file_exists( plugin_dir_path( __FILE__ ) . 'build/index.js' ) ? filemtime( plugin_dir_path( __FILE__ ) . 'build/index.js' ) : false
     );
 
     // Localize the script with the nonce and AJAX URL

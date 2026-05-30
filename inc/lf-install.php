@@ -44,7 +44,7 @@ function lfb_admin_assets($hook) {
 
             wp_enqueue_style(
                 'lfb-design-panel-css',
-                LFB_PLUGIN_URL . 'block/build/admin-panel.css',
+                LFB_PLUGIN_URL . 'block/build/style-admin-panel.css',
                 array( 'wp-components' ),
                 $asset['version']
             );
@@ -140,7 +140,7 @@ add_action('admin_enqueue_scripts', 'lfb_admin_assets');
 function lfb_page_has_form() {
     global $post;
     //|| has_block( 'themehunk/lead-form-builder', $post )
-    if ( is_a( $post, 'WP_Post' ) && (has_shortcode( $post->post_content, 'lead-form' )   ) ) {
+    if ( is_a( $post, 'WP_Post' ) && (has_shortcode( $post->post_content, 'lead-form' )   || has_block( 'themehunk/lead-form-builder', $post ) ) ) {
         return true;
     }
     return false;
