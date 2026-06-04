@@ -1239,9 +1239,11 @@ jQuery(document).on('click', '.lfb-form-table .toggle-row', function() {
 });
 
 jQuery(document).on('click', '.lfb-act-btn--copy', function() {
-    var $btn   = jQuery(this);
-    var formId = $btn.data('form-id');
-    $btn.prop('disabled', true).css('opacity', '0.5');
+    var $btn      = jQuery(this);
+    var formId    = $btn.data('form-id');
+    var origHtml  = $btn.html();
+    var spinnerSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>';
+    $btn.addClass('lfb-loading').prop('disabled', true).html(spinnerSvg);
     jQuery.post(backendajax.ajaxurl, {
         action  : 'lfb_duplicate_form',
         form_id : formId,
@@ -1251,7 +1253,10 @@ jQuery(document).on('click', '.lfb-act-btn--copy', function() {
             lfbFormPage(1);
         } else {
             alert('Could not duplicate form.');
-            $btn.prop('disabled', false).css('opacity', '1');
+            $btn.removeClass('lfb-loading').prop('disabled', false).html(origHtml);
         }
-    }, 'json');
+    }, 'json').fail(function() {
+        alert('Could not duplicate form.');
+        $btn.removeClass('lfb-loading').prop('disabled', false).html(origHtml);
+    });
 });

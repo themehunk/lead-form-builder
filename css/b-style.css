@@ -3027,11 +3027,27 @@ div.dropdown-opened {
   color: #16a34a;
   border-color: rgba(22,163,74,0.25);
   background: rgba(22,163,74,0.08);
+  cursor: pointer;
 }
 .lfb-act-btn.lfb-act-btn--copy:hover {
   background: #16a34a;
   color: #fff;
   border-color: #16a34a;
+}
+.lfb-act-btn.lfb-act-btn--copy:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+@keyframes lfb-btn-spin {
+  to { transform: rotate(360deg); }
+}
+.lfb-act-btn--copy.lfb-loading {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.lfb-act-btn--copy.lfb-loading svg {
+  animation: lfb-btn-spin 0.7s linear infinite;
+  transform-origin: center;
 }
 .lfb-act-btn.lfb-act-btn--danger {
   color: #e05252;

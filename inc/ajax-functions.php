@@ -816,11 +816,11 @@ function lfb_duplicate_form() {
     if ( ! $row ) {
         wp_send_json_error( 'Form not found' );
     }
-    $new_title = __( 'Copy of', 'lead-form-builder' ) . ' ' . $row->form_title;
+    $new_title = $row->form_title . ' ' . __( '(Duplicate)', 'lead-form-builder' );
     $wpdb->insert( $table, array(
         'form_title'       => $new_title,
         'form_data'        => $row->form_data,
-        'date'             => current_time( 'Y/m/d g:i:s' ),
+        'date'             => current_time( 'Y-m-d H:i:s' ),
         'mail_setting'     => $row->mail_setting,
         'usermail_setting' => $row->usermail_setting,
         'multiData'        => $row->multiData,
