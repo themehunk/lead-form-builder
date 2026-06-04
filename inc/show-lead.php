@@ -172,7 +172,8 @@ function lfb_show_leads_first_form($form_id){
                 $form_data = $results->form_data;
                 $lead_id = $results->id;
                 $form_data = maybe_unserialize($form_data);
-                $lead_date = date("M d, Y", strtotime($results->date));
+                $raw_ts = (!empty($results->date) && $results->date !== '0000-00-00 00:00:00') ? strtotime($results->date) : false;
+                $lead_date = ($raw_ts && $raw_ts > 0) ? date("M d, Y", $raw_ts) : esc_html__('N/A', 'lead-form-builder');
                 unset($form_data['hidden_field']);
                 unset($form_data['action']);
                 unset($form_data['g-recaptcha-response']);
@@ -277,7 +278,8 @@ function lfb_show_leads_first_form($form_id){
             foreach ($posts as $results) {
                 $table_row = '';
                 $form_data = $results->form_data;
-                $lead_date = date("M d, Y", strtotime($results->date));
+                $raw_ts = (!empty($results->date) && $results->date !== '0000-00-00 00:00:00') ? strtotime($results->date) : false;
+                $lead_date = ($raw_ts && $raw_ts > 0) ? date("M d, Y", $raw_ts) : esc_html__('N/A', 'lead-form-builder');
                 $lead_id = $results->id;
                 $form_data = maybe_unserialize($form_data);
                 unset($form_data['hidden_field']);

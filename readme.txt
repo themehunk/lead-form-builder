@@ -4,7 +4,7 @@ Author URI: : https://www.themehunk.com/
 Tags: contact form, lead generation, form builder, forms, WordPress form plugin
 Requires at least: 7.0
 Tested up to: 7.0
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,9 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 8. Prebuild Form
 
 == Changelog ==
+
+= 2.2.1 =
+* Fix: Fixed the global lead data saving issue completely.
 
 = 2.2.0 =
 * New: Added form design customization with custom styling options.

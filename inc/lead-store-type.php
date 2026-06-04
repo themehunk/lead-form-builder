@@ -46,7 +46,7 @@ function lfb_phpmailer_send($phpmailer){
        $update_leads = $wpdb->query( $wpdb->prepare( 
          "INSERT INTO $data_table_name ( form_id, form_data, ip_address, server_request, date ) 
          VALUES ( %d, %s, %s, %s, %s )",
-          $form_id, $form_data, $ip_address, $server_request, date('Y/m/d g:i:s') ) );
+          $form_id, $form_data, $ip_address, $server_request, date('Y-m-d H:i:s') ) );
         if ($update_leads) {
             return esc_html__('inserted','lead-form-builder');
         }

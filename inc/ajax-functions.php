@@ -200,7 +200,8 @@ function lfb_ShowAllLeadThisForm() {
             $sn_counter++;
             $form_data = maybe_unserialize( $results->form_data );
             $lead_id   = $results->id;
-            $lead_date = date( 'M d, Y', strtotime( $results->date ) );
+            $raw_ts    = ( ! empty( $results->date ) && $results->date !== '0000-00-00 00:00:00' ) ? strtotime( $results->date ) : false;
+            $lead_date = ( $raw_ts && $raw_ts > 0 ) ? date( 'M d, Y', $raw_ts ) : esc_html__( 'N/A', 'lead-form-builder' );
             unset( $form_data['hidden_field'], $form_data['action'], $form_data['g-recaptcha-response'] );
 
             $date_td    = '<td><b>' . $lead_date . '</b></td>';
