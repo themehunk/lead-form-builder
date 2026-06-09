@@ -139,9 +139,21 @@ add_action('admin_enqueue_scripts', 'lfb_admin_assets');
 
 function lfb_page_has_form() {
     global $post;
-    //|| has_block( 'themehunk/lead-form-builder', $post )
-    if ( is_a( $post, 'WP_Post' ) && (has_shortcode( $post->post_content, 'lead-form' )   || has_block( 'themehunk/lead-form-builder', $post ) ) ) {
+    if ( ! is_a( $post, 'WP_Post' ) ) {
+        return false;
+    }
+    if ( has_shortcode( $post->post_content, 'lead-form' ) || has_block( 'themehunk/lead-form-builder', $post ) ) {
         return true;
+    }
+    // Detect lead form placed via Elementor (widget or shortcode widget stored in _elementor_data meta)
+    if ( did_action( 'elementor/loaded' ) ) {
+        $elementor_data = get_post_meta( $post->ID, '_elementor_data', true );
+        if ( ! empty( $elementor_data ) && (
+            strpos( $elementor_data, 'lead-form-styler' ) !== false ||
+            strpos( $elementor_data, '[lead-form' ) !== false
+        ) ) {
+            return true;
+        }
     }
     return false;
 }

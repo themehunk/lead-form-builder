@@ -125,7 +125,7 @@ final class LFB_Addon_Init {
 
   public function widget_style() {      
 
-    wp_register_style( 'lfb-style', LFB_UN_PLUGIN_URL. '/css/lfb-styler.css' );
+    wp_register_style( 'lfb-style', LFB_UN_PLUGIN_URL . 'css/lfb-styler.css' );
 
     wp_enqueue_style( 'lfb-style' ); 
 
