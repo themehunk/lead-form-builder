@@ -96,7 +96,13 @@ if (!function_exists('lfb_plugin_activate')) {
 
 
 }
- add_action( 'admin_init', 'lfb_plugin_activate' );
+ function lfb_maybe_run_activate() {
+     if ( get_option( 'lfb_db_version' ) !== LFB_VER ) {
+         lfb_plugin_activate();
+         update_option( 'lfb_db_version', LFB_VER );
+     }
+ }
+ add_action( 'admin_init', 'lfb_maybe_run_activate' );
 
 } 
 
