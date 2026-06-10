@@ -17,7 +17,6 @@ define( 'LFB_VER', '2.2.2' );
 define( 'LFB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'LFB_BASE_DIR_PATH', plugin_dir_path( __FILE__ ) );
 
-include_once( plugin_dir_path( __FILE__ ) . 'inc/lfb-constant.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'inc/themehunk-menu/admin-menu.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'block/app.php' );
 
@@ -80,6 +79,7 @@ include_once( plugin_dir_path(__FILE__) . 'inc/deactivate-feedback.php' );
 register_activation_hook(__FILE__, 'lfb_plugin_activate');
 if(!function_exists('lfb_include_file')) {
 function lfb_include_file(){
+include_once( plugin_dir_path(__FILE__) . 'inc/lfb-constant.php' );
 include_once( plugin_dir_path(__FILE__) . 'inc/inc.php' );
 }
 add_action('init','lfb_include_file');
