@@ -4,7 +4,7 @@ Author URI: : https://www.themehunk.com/
 Tags: contact form, lead generation, form builder, forms, WordPress form plugin
 Requires at least: 7.0
 Tested up to: 7.0
-Stable tag: 2.2.2
+Stable tag: 2.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,9 +158,18 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 
 == Changelog ==
 
+= 2.2.3 =
+* Fix: Form save/update redirect issue fixed.
+* Fix: Edit form routing improved by checking formid only.
+* Fix: Nonce redirect issue fixed to prevent broken GET parameters.
+* Fix: Field label/default value spacing preserved.
+* Update: Form Title placeholder improved with naming example.
+
 = 2.2.2 =
-* Fix: Critical bug where saving a new form would duplicate it on every subsequent admin page load due to missing Post/Redirect/Get pattern.
-* Fix: Form update (Edit Form) also lacked a redirect after saving, allowing repeated re-submissions on page refresh.
+* Fix: New form duplication issue fixed after save.
+* Fix: Edit form refresh re-submission issue fixed.
+* Fix: Added proper redirect after save/update to prevent duplicate submissions.
+
 
 = 2.2.1 =
 * Fix: Default form styles (f-style.css) and scripts now load correctly on Elementor.
