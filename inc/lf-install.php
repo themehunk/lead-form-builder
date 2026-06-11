@@ -259,7 +259,7 @@ function lfb_array_stripslash($theArray){
 function lfb_add_contact_forms() {
     if (isset($_POST['update_form']) && wp_verify_nonce($_REQUEST['_wpnonce'],'_nonce_verify') ) {
     $update_form_id = intval($_POST['update_form_id']);
-    $title = sanitize_text_field($_POST['post_title']);
+    $title = sanitize_text_field( $_POST['post_title'] );
     // Collect form_field_* keys directly (new field naming without lfb_form wrapper)
     $data_form = array();
     foreach ( $_POST as $key => $value ) {

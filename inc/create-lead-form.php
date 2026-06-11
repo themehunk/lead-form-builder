@@ -8,8 +8,8 @@ function lfb_create_form_sanitize( $form_data ) {
     $field_rco = array( 'option', 'checkbox', 'radio' );
     foreach ( $form_data as $key => $value ) {
         if ( in_array( $value['field_type']['type'], $fieldArr ) ) {
-            $form_data[ $key ]['field_name']    = sanitize_title( $value['field_name'] );
-            $form_data[ $key ]['default_value'] = sanitize_title( $value['default_value'] );
+            $form_data[ $key ]['field_name']    = sanitize_text_field( $value['field_name'] );
+            $form_data[ $key ]['default_value'] = sanitize_text_field( $value['default_value'] );
             $form_data[ $key ]['field_id']      = intval( $value['field_id'] );
             if ( isset( $value['default_placeholder'] ) ) {
                 $form_data[ $key ]['default_placeholder'] = intval( $value['default_placeholder'] );
@@ -123,7 +123,7 @@ Class LFB_AddNewForm {
             <form method="post" action="' . esc_url( $create_url ) . '" id="new_lead_form">
                 <div class="lfb-form-title-wrap">
                     <label class="lfb-form-title-label">' . esc_html__( 'Form Title', 'lead-form-builder' ) . '</label>
-                    <input type="text" class="new_form_heading" name="post_title" placeholder="' . esc_attr__( 'Enter title here', 'lead-form-builder' ) . '" value="" id="title" autocomplete="off">
+                    <input type="text" class="new_form_heading" name="post_title" placeholder="' . esc_attr__( 'hello-form-and-theme', 'lead-form-builder' ) . '" value="" id="title" autocomplete="off">
                     <input type="hidden" name="_wpnonce" value="' . esc_attr( $nonce ) . '" />
                 </div>';
         $this->lfb_basic_form();

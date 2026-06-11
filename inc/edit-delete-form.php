@@ -78,7 +78,7 @@ Class LFB_EDIT_DEL_FORM {
                     <form method="post" action="' . esc_url( $update_url ) . '" id="new_lead_form">
                         <div class="lfb-form-title-wrap">
                             <label class="lfb-form-title-label">' . esc_html__( 'Form Title', 'lead-form-builder' ) . '</label>
-                            <input type="text" class="new_form_heading" name="post_title" placeholder="' . esc_attr__( 'Enter title here', 'lead-form-builder' ) . '" value="' . esc_attr( $form_title ) . '" id="title" autocomplete="off">
+                            <input type="text" class="new_form_heading" name="post_title" placeholder="' . esc_attr__( 'hello-form-and-theme', 'lead-form-builder' ) . '" value="' . esc_attr( $form_title ) . '" id="title" autocomplete="off">
                         </div>';
         $this->lfb_basic_form();
         echo $all_form_fields;
