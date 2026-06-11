@@ -45,7 +45,7 @@ Class LFB_EDIT_DEL_FORM {
             if ( $rv === 'create' ) {
                 $form_message = '<div id="message" class="updated notice is-dismissible"><p>Form <strong>Saved</strong>.</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">' . esc_html__( 'Dismiss this notice.', 'lead-form-builder' ) . '</span></button></div>';
             } elseif ( $rv === 'update' ) {
-                $form_message = '<div id="message" class="updated notice is-dismissible"><p>Form <strong>Updated</strong>.</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">' . esc_html__( 'Dismiss this notice.', 'lead-form-builder' ) . '</span></button></div>';
+                $form_message = '<div id="message" class="updated notice is-dismissible"><p><strong>' . esc_html__( 'Updated successfully.', 'lead-form-builder' ) . '</strong></p><button type="button" class="notice-dismiss"><span class="screen-reader-text">' . esc_html__( 'Dismiss this notice.', 'lead-form-builder' ) . '</span></button></div>';
             }
         }
 

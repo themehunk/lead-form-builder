@@ -276,19 +276,15 @@ function lfb_add_contact_forms() {
       'form_data' => maybe_serialize(lfb_create_form_sanitize($data_form))
     ), 
     array( 'id' => $update_form_id ));
-    $rd_url = admin_url( 'admin.php?page=add-new-form&action=edit&redirect=update&formid=' . $update_form_id );
-    $complete_url = wp_nonce_url( $rd_url, '_nonce_verify' );
-    wp_redirect( $complete_url );
+    $redirect_nonce = wp_create_nonce( '_nonce_verify' );
+    wp_redirect( admin_url( 'admin.php?page=add-new-form&action=edit&redirect=update&formid=' . $update_form_id . '&_wpnonce=' . $redirect_nonce ) );
     exit;
   }
 
-if (isset($_GET['action']) && isset($_GET['formid'])) {
-        $form_action = sanitize_text_field($_GET['action']);
-        $this_form_id = intval($_GET['formid']);
-        if ($form_action == 'edit') {
-            $th_edit_del_form = new LFB_EDIT_DEL_FORM();
-            $th_edit_del_form->lfb_edit_form_content($form_action, $this_form_id);
-        }
+    if ( isset( $_GET['formid'] ) && intval( $_GET['formid'] ) > 0 ) {
+        $this_form_id = intval( $_GET['formid'] );
+        $th_edit_del_form = new LFB_EDIT_DEL_FORM();
+        $th_edit_del_form->lfb_edit_form_content( 'edit', $this_form_id );
     } else {
         $lf_add_new_form = new LFB_AddNewForm();
         $lf_add_new_form->lfb_add_new_form();
