@@ -123,7 +123,7 @@ Class LFB_AddNewForm {
             <form method="post" action="' . esc_url( $create_url ) . '" id="new_lead_form">
                 <div class="lfb-form-title-wrap">
                     <label class="lfb-form-title-label">' . esc_html__( 'Form Title', 'lead-form-builder' ) . '</label>
-                    <input type="text" class="new_form_heading" name="post_title" placeholder="' . esc_attr__( 'hello-form-and-theme', 'lead-form-builder' ) . '" value="" id="title" autocomplete="off">
+                    <input type="text" class="new_form_heading" name="post_title" placeholder="' . esc_attr__( 'Enter form title', 'lead-form-builder' ) . '" value="" id="title" autocomplete="off">
                     <input type="hidden" name="_wpnonce" value="' . esc_attr( $nonce ) . '" />
                 </div>';
         $this->lfb_basic_form();

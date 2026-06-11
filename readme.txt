@@ -4,7 +4,7 @@ Author URI: : https://www.themehunk.com/
 Tags: contact form, lead generation, form builder, forms, WordPress form plugin
 Requires at least: 7.0
 Tested up to: 7.0
-Stable tag: 2.2.3
+Stable tag: 2.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,6 +157,11 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 8. Prebuild Form
 
 == Changelog ==
+
+= 2.2.4 =
+* New: AJAX-based form save and update — no page reload required.
+* New: "Updated successfully." notice auto-shows and hides after 3 seconds.
+* Fix: Updated successfully notice display selector fixed.
 
 = 2.2.3 =
 * Fix: Form save/update redirect issue fixed.

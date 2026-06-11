@@ -1,6 +1,67 @@
 <?php
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
+// AJAX: Save new form
+function lfb_ajax_save_form() {
+    if ( ! current_user_can( 'manage_options' ) || ! wp_verify_nonce( $_POST['nonce'], 'lfb_secure_nonce' ) ) {
+        wp_send_json_error( array( 'message' => __( 'Unauthorized', 'lead-form-builder' ) ) );
+    }
+    $form_data = array();
+    foreach ( $_POST as $key => $value ) {
+        if ( strpos( $key, 'form_field_' ) === 0 && is_array( $value ) ) {
+            $form_data[ $key ] = $value;
+        }
+    }
+    $title      = sanitize_text_field( $_POST['post_title'] );
+    $serialized = maybe_serialize( lfb_create_form_sanitize( $form_data ) );
+    global $wpdb;
+    $wpdb->query( $wpdb->prepare(
+        "INSERT INTO " . LFB_FORM_FIELD_TBL . " ( form_title, form_data, date ) VALUES ( %s, %s, %s )",
+        $title, $serialized, date( 'Y-m-d H:i:s' )
+    ) );
+    $new_form_id = $wpdb->insert_id;
+    if ( $new_form_id ) {
+        $redirect_nonce = wp_create_nonce( '_nonce_verify' );
+        wp_send_json_success( array(
+            'formid'   => $new_form_id,
+            'redirect' => admin_url( 'admin.php?page=add-new-form&action=edit&redirect=create&formid=' . $new_form_id . '&_wpnonce=' . $redirect_nonce ),
+        ) );
+    } else {
+        wp_send_json_error( array( 'message' => __( 'Failed to save form.', 'lead-form-builder' ) ) );
+    }
+}
+add_action( 'wp_ajax_lfb_ajax_save_form', 'lfb_ajax_save_form' );
+
+// AJAX: Update existing form
+function lfb_ajax_update_form() {
+    if ( ! current_user_can( 'manage_options' ) || ! wp_verify_nonce( $_POST['nonce'], 'lfb_secure_nonce' ) ) {
+        wp_send_json_error( array( 'message' => __( 'Unauthorized', 'lead-form-builder' ) ) );
+    }
+    $update_form_id = intval( $_POST['update_form_id'] );
+    $title          = sanitize_text_field( $_POST['post_title'] );
+    $data_form      = array();
+    foreach ( $_POST as $key => $value ) {
+        if ( strpos( $key, 'form_field_' ) === 0 && is_array( $value ) ) {
+            $data_form[ $key ] = $value;
+        }
+    }
+    global $wpdb;
+    $result = $wpdb->update(
+        LFB_FORM_FIELD_TBL,
+        array(
+            'form_title' => $title,
+            'form_data'  => maybe_serialize( lfb_create_form_sanitize( $data_form ) ),
+        ),
+        array( 'id' => $update_form_id )
+    );
+    if ( $result !== false ) {
+        wp_send_json_success( array( 'message' => __( 'Updated successfully.', 'lead-form-builder' ) ) );
+    } else {
+        wp_send_json_error( array( 'message' => __( 'Failed to update form.', 'lead-form-builder' ) ) );
+    }
+}
+add_action( 'wp_ajax_lfb_ajax_update_form', 'lfb_ajax_update_form' );
+
 
 
 /*
