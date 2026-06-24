@@ -138,6 +138,31 @@ function lfb_admin_assets($hook) {
 add_action('admin_enqueue_scripts', 'lfb_admin_assets');
 
 function lfb_page_has_form() {
+    // Always load in the Customizer preview — the shortcode may live in a widget,
+    // not in $post->post_content, so the checks below would miss it.
+    if ( is_customize_preview() ) {
+        return true;
+    }
+
+    // Check active text / HTML widgets on any sidebar so the CSS loads even
+    // when the form is placed in a sidebar widget on a normal page.
+    $sidebars    = get_option( 'sidebars_widgets', array() );
+    $text_widgets = get_option( 'widget_text', array() );
+    foreach ( $sidebars as $sidebar_id => $widget_ids ) {
+        if ( $sidebar_id === 'wp_inactive_widgets' || ! is_array( $widget_ids ) ) {
+            continue;
+        }
+        foreach ( $widget_ids as $widget_id ) {
+            if ( strpos( $widget_id, 'text-' ) === 0 ) {
+                $index = (int) str_replace( 'text-', '', $widget_id );
+                if ( isset( $text_widgets[ $index ]['text'] ) &&
+                     has_shortcode( $text_widgets[ $index ]['text'], 'lead-form' ) ) {
+                    return true;
+                }
+            }
+        }
+    }
+
     global $post;
     if ( ! is_a( $post, 'WP_Post' ) ) {
         return false;
