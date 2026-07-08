@@ -828,6 +828,19 @@ jQuery("form#form-user-email-setting").submit(function(event) {
         });
     })
     /*
+     *Toggle captcha keys/link when the provider selection changes
+     */
+    jQuery("#captcha-setting-provider").change(function(){
+        var form = jQuery("form#captcha-form");
+        var provider = jQuery(this).val();
+        var key = (provider == 'turnstile') ? form.data('turnstile-key') : form.data('recaptcha-key');
+        var secret = (provider == 'turnstile') ? form.data('turnstile-secret') : form.data('recaptcha-secret');
+        var url = (provider == 'turnstile') ? form.data('turnstile-url') : form.data('recaptcha-url');
+        jQuery("#sitekey").val(key || '');
+        jQuery("#secret").val(secret || '');
+        jQuery("#captcha-keys-link").attr('href', url);
+    });
+    /*
      *Save captcha setting for each form
      */
      jQuery("form#captcha-form").submit(function(event) {

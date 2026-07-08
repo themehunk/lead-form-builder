@@ -58,11 +58,21 @@ jQuery('input*[name^="date_"]').datepicker({
         });
 });
 
- var CaptchaCallback = function(){  
-     var recaptcha = jQuery(".g-recaptcha").attr('data-sitekey'); 
+ var CaptchaCallback = function(){
+     var recaptcha = jQuery(".g-recaptcha").attr('data-sitekey');
       jQuery('.g-recaptcha').each(function(){
         grecaptcha.render(this,{
             'sitekey' : recaptcha,
+            'callback' : correctCaptcha,
+            });
+      })
+  };
+
+ var TurnstileCallback = function(){
+      jQuery('.cf-turnstile').each(function(){
+        var turnstileKey = jQuery(this).attr('data-sitekey');
+        turnstile.render(this,{
+            'sitekey' : turnstileKey,
             'callback' : correctCaptcha,
             });
       })
@@ -96,16 +106,14 @@ function lfbInserForm(element,form_id,uploaddata=''){
             element.find('#loading_image').hide();
             if (jQuery.trim(response) == 'invalidcaptcha') {
                 element.find(".leadform-show-message-form-"+form_id).append("<div class='error'><p>Invalid Captcha</p></div>");
-                if (typeof grecaptcha !== "undefined") { grecaptcha.reset(); }
+                lfbResetCaptcha(element);
                 element.find('input[type=submit]').prop('disabled', false);
 
             } else if (jQuery.trim(response) == 'inserted') {
                 var redirect = jQuery(".successmsg_"+form_id).attr('redirect');
                 element.siblings(".successmsg_"+form_id).css('display','block');
                 element.hide();
-                if (typeof grecaptcha !== "undefined") {
-                    grecaptcha.reset();
-                }
+                lfbResetCaptcha(element);
                 if (jQuery.trim(redirect) !== '') {
                     window.location.href = redirect;
                 }
@@ -123,10 +131,23 @@ function lfbInserForm(element,form_id,uploaddata=''){
         });
     }
 
+//reset whichever captcha widget is active on this form
+function lfbResetCaptcha(element){
+    var captcha_provider = element.find(".this_form_captcha_provider").val();
+    if (captcha_provider == 'turnstile') {
+        if (typeof turnstile !== "undefined") { turnstile.reset(); }
+    } else if (typeof grecaptcha !== "undefined") {
+        grecaptcha.reset();
+    }
+}
+
 //captcha validation check
 function lfbCaptchaCheck(element,form_id){
-        var captcha_res = element.find(".g-recaptcha-response").val();
-    form_data = "captcha_res="+captcha_res+"&action=verifyFormCaptcha";
+    var captcha_provider = element.find(".this_form_captcha_provider").val();
+    var captcha_res = (captcha_provider == 'turnstile')
+        ? element.find('input[name="cf-turnstile-response"]').val()
+        : element.find(".g-recaptcha-response").val();
+    form_data = "captcha_res="+captcha_res+"&captcha_provider="+captcha_provider+"&action=verifyFormCaptcha";
     SavedataByAjaxRequest(form_data, 'POST').success(function(response) {
     element.find('#loading_image').hide();
         if (jQuery.trim(response) == 'Yes') {
@@ -137,7 +158,7 @@ function lfbCaptchaCheck(element,form_id){
         //}
          } else {
           element.find(".leadform-show-message-form-"+form_id).append("<div class='error'><p>Invalid Captcha</p></div>");
-          grecaptcha.reset();
+          lfbResetCaptcha(element);
         }
     });
 }

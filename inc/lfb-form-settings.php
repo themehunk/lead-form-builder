@@ -83,7 +83,7 @@ function lfb_form_settings_page() {
         case 'captcha':
             echo '<div class="lfb-stab-panel-title">
                 <h2>' . __( 'Spam Protection', 'lead-form-builder' ) . '</h2>
-                <p>' . __( 'Configure Google reCAPTCHA to prevent spam submissions on your form.', 'lead-form-builder' ) . '</p>
+                <p>' . __( 'Configure Google reCAPTCHA or Cloudflare Turnstile to prevent spam submissions on your form.', 'lead-form-builder' ) . '</p>
             </div>';
             $lf_email->lfb_captcha_setting_form( $form_id, $captcha_option );
             break;

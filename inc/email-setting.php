@@ -172,32 +172,46 @@ class LFB_EmailSettingForm
     {
         $captcha_nonce   = wp_create_nonce( 'captcha-nonce' );
         $captcha_option_val = ! empty( $captcha_option ) ? $captcha_option : 'OFF';
-        $captcha_sitekey = get_option( 'captcha-setting-sitekey' );
-        $captcha_secret  = get_option( 'captcha-setting-secret' );
+        $captcha_provider   = get_option( 'captcha-setting-provider' );
+        $captcha_provider   = in_array( $captcha_provider, array( 'recaptcha', 'turnstile' ), true ) ? $captcha_provider : 'recaptcha';
+        $captcha_sitekey    = get_option( 'captcha-setting-sitekey' );
+        $captcha_secret     = get_option( 'captcha-setting-secret' );
+        $turnstile_sitekey  = get_option( 'turnstile-setting-sitekey' );
+        $turnstile_secret   = get_option( 'turnstile-setting-secret' );
+        $current_sitekey    = ( $captcha_provider === 'turnstile' ) ? $turnstile_sitekey : $captcha_sitekey;
+        $current_secret     = ( $captcha_provider === 'turnstile' ) ? $turnstile_secret  : $captcha_secret;
+        $keys_url           = ( $captcha_provider === 'turnstile' ) ? 'https://dash.cloudflare.com/?to=/:account/turnstile' : 'https://www.google.com/recaptcha/admin/create';
 
         echo '<div class="lfb-setting-two-col">
 <div class="lfb-es-card">
   <div class="lfb-es-header">
     <span class="lfb-es-icon lfb-es-icon-captcha">' . lfb_svg( 'lock', 22 ) . '</span>
     <div class="lfb-es-header-text">
-      <h3>' . esc_html__( 'reCAPTCHA Setup', 'lead-form-builder' ) . '</h3>
-      <p>' . esc_html__( 'Protect your forms from spam and abuse.', 'lead-form-builder' ) . ' <a href="https://www.google.com/recaptcha/admin/create" target="_blank" class="lfb-es-link">' . esc_html__( 'Get your keys', 'lead-form-builder' ) . ' &rarr;</a></p>
+      <h3>' . esc_html__( 'Captcha Setup', 'lead-form-builder' ) . '</h3>
+      <p>' . esc_html__( 'Protect your forms from spam and abuse.', 'lead-form-builder' ) . ' <a href="' . esc_url( $keys_url ) . '" target="_blank" class="lfb-es-link" id="captcha-keys-link">' . esc_html__( 'Get your keys', 'lead-form-builder' ) . ' &rarr;</a></p>
     </div>
   </div>
   <div class="lfb-es-body">
-    <form method="post" id="captcha-form" action="">
+    <form method="post" id="captcha-form" action=""
+      data-recaptcha-key="' . esc_attr( $captcha_sitekey ) . '" data-recaptcha-secret="' . esc_attr( $captcha_secret ) . '"
+      data-turnstile-key="' . esc_attr( $turnstile_sitekey ) . '" data-turnstile-secret="' . esc_attr( $turnstile_secret ) . '"
+      data-recaptcha-url="https://www.google.com/recaptcha/admin/create"
+      data-turnstile-url="https://dash.cloudflare.com/?to=/:account/turnstile">
       <div class="lfb-es-field">
-        <label class="lfb-es-label">' . esc_html__( 'Captcha Version', 'lead-form-builder' ) . '</label>
-        <input type="text" class="lfb-es-input" value="reCAPTCHA v2 (Checkbox)" disabled readonly>
+        <label class="lfb-es-label" for="captcha-setting-provider">' . esc_html__( 'Captcha Provider', 'lead-form-builder' ) . '</label>
+        <select id="captcha-setting-provider" name="captcha-setting-provider" class="lfb-es-input">
+          <option value="recaptcha"' . selected( $captcha_provider, 'recaptcha', false ) . '>' . esc_html__( 'Google reCAPTCHA v2 (Checkbox)', 'lead-form-builder' ) . '</option>
+          <option value="turnstile"' . selected( $captcha_provider, 'turnstile', false ) . '>' . esc_html__( 'Cloudflare Turnstile', 'lead-form-builder' ) . '</option>
+        </select>
       </div>
       <div class="lfb-es-row lfb-es-two-col">
         <div class="lfb-es-field">
           <label class="lfb-es-label" for="sitekey">' . esc_html__( 'Site Key', 'lead-form-builder' ) . '</label>
-          <input type="text" required value="' . esc_attr( $captcha_sitekey ) . '" id="sitekey" name="captcha-setting-sitekey" class="lfb-es-input">
+          <input type="text" required value="' . esc_attr( $current_sitekey ) . '" id="sitekey" name="captcha-setting-sitekey" class="lfb-es-input">
         </div>
         <div class="lfb-es-field">
           <label class="lfb-es-label" for="secret">' . esc_html__( 'Secret Key', 'lead-form-builder' ) . '</label>
-          <input type="text" required value="' . esc_attr( $captcha_secret ) . '" id="secret" name="captcha-setting-secret" class="lfb-es-input">
+          <input type="text" required value="' . esc_attr( $current_secret ) . '" id="secret" name="captcha-setting-secret" class="lfb-es-input">
         </div>
       </div>
       <input type="hidden" name="captcha-keys" value="' . intval( $this_form_id ) . '">
@@ -215,7 +229,7 @@ class LFB_EmailSettingForm
     <span class="lfb-es-icon lfb-es-icon-shield">' . lfb_svg( 'shield', 22 ) . '</span>
     <div class="lfb-es-header-text">
       <h3>' . esc_html__( 'Captcha On / Off', 'lead-form-builder' ) . '</h3>
-      <p>' . esc_html__( 'Enable or disable reCAPTCHA for this specific form.', 'lead-form-builder' ) . '</p>
+      <p>' . esc_html__( 'Enable or disable the captcha for this specific form.', 'lead-form-builder' ) . '</p>
     </div>
   </div>
   <div class="lfb-es-body">
@@ -225,14 +239,14 @@ class LFB_EmailSettingForm
           <input type="radio" name="captcha-on-off-setting" ' . ( $captcha_option_val === 'ON' ? 'checked' : '' ) . ' value="ON">
           <div class="lfb-es-radio-text">
             <strong>' . esc_html__( 'Enable Captcha', 'lead-form-builder' ) . '</strong>
-            <span>' . esc_html__( 'Show reCAPTCHA challenge on this form.', 'lead-form-builder' ) . '</span>
+            <span>' . esc_html__( 'Show the captcha challenge on this form.', 'lead-form-builder' ) . '</span>
           </div>
         </label>
         <label class="lfb-es-radio-opt' . ( $captcha_option_val === 'OFF' ? ' lfb-es-radio-checked' : '' ) . '">
           <input type="radio" name="captcha-on-off-setting" ' . ( $captcha_option_val === 'OFF' ? 'checked' : '' ) . ' value="OFF">
           <div class="lfb-es-radio-text">
             <strong>' . esc_html__( 'Disable Captcha', 'lead-form-builder' ) . '</strong>
-            <span>' . esc_html__( 'Hide reCAPTCHA for this form.', 'lead-form-builder' ) . '</span>
+            <span>' . esc_html__( 'Hide the captcha for this form.', 'lead-form-builder' ) . '</span>
           </div>
         </label>
       </div>

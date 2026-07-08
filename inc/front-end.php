@@ -23,7 +23,12 @@ Class LFB_Front_end_FORMS {
     }      
 
     function lfb_captcha_on(){
-        wp_enqueue_script('lfb-captcha','https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit');
+        $captcha_provider = get_option( 'captcha-setting-provider' );
+        if ( $captcha_provider === 'turnstile' ) {
+            wp_enqueue_script('lfb-captcha','https://challenges.cloudflare.com/turnstile/v0/api.js?onload=TurnstileCallback&render=explicit');
+        } else {
+            wp_enqueue_script('lfb-captcha','https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit');
+        }
     }
     function lfb_show_front_end_forms($this_form_id,$ftitle='') {
         $form_elemets ='';
@@ -40,6 +45,8 @@ Class LFB_Front_end_FORMS {
 
             $form_id = $posts[0]->id;
             $captcha_option = $posts[0]->captcha_status;
+            $captcha_provider = get_option( 'captcha-setting-provider' );
+            $captcha_provider = in_array( $captcha_provider, array( 'recaptcha', 'turnstile' ), true ) ? $captcha_provider : 'recaptcha';
 
             $success_msg = $this->lfb_success_msg($posts);
             $redirect_url = $this->lfb_redirect_url($posts);
@@ -140,7 +147,7 @@ Class LFB_Front_end_FORMS {
                 /***Submit button***/
                 if ($field_type == 'submit') {
                     $submit_field_type++;
-                    $submit_button .=$this->lfb_front_end_field_type_submit($data_array,$captcha_option);
+                    $submit_button .=$this->lfb_front_end_field_type_submit($data_array,$captcha_option,$captcha_provider);
                 }
                 }
                 $captcha_script='';
@@ -157,7 +164,9 @@ Class LFB_Front_end_FORMS {
             if($submit_field_type < 1){
                     $captcha_field = '';
                     if ($captcha_option == 'ON') {
-                        $captcha_field = '<div class="g-recaptcha" data-sitekey="' . esc_html(get_option('captcha-setting-sitekey')) . '"></div><br/>';
+                        $captcha_field = ( $captcha_provider === 'turnstile' )
+                            ? '<div class="cf-turnstile" data-sitekey="' . esc_html(get_option('turnstile-setting-sitekey')) . '"></div><br/>'
+                            : '<div class="g-recaptcha" data-sitekey="' . esc_html(get_option('captcha-setting-sitekey')) . '"></div><br/>';
                         }
             $submit_button .='<label><span></span></label><span>' . $captcha_field . '</span><label><span></span></label>
                 <span><input id="default-submit" class="lf-form-submit" type="submit" name="submit-form" value="submit"/></span>
@@ -176,6 +185,7 @@ Class LFB_Front_end_FORMS {
 
                 <input type="hidden" class="hidden_field" name="_wpnonce_form" value="' . wp_create_nonce( 'lfb_front_nonce_'.$this_form_id ) . '"/>
                 <input type="hidden" class="this_form_captcha_status" value="' . $captcha_status . '"/>
+                <input type="hidden" class="this_form_captcha_provider" value="' . esc_attr( $captcha_provider ) . '"/>
                 <div class="leadform-show-loading front-loading leadform-show-message-form-'.$this_form_id.'" >
                 </div>
                 <div class="lf-loading">
@@ -336,12 +346,14 @@ Class LFB_Front_end_FORMS {
                     <span><ul>' . $checkbox_fields . '</ul></span></div>';
         return $checkbox;
     }
-    function lfb_front_end_field_type_submit($data_array,$captcha_option){
+    function lfb_front_end_field_type_submit($data_array,$captcha_option,$captcha_provider='recaptcha'){
         $captcha_field = '';
         $submit = '';
         //captch on/off
         if ($captcha_option == 'ON') {
-            $captcha_field = '<div class="g-recaptcha" data-sitekey="' . esc_html(get_option('captcha-setting-sitekey')) . '"></div><br/>';
+            $captcha_field = ( $captcha_provider === 'turnstile' )
+                ? '<div class="cf-turnstile" data-sitekey="' . esc_html(get_option('turnstile-setting-sitekey')) . '"></div><br/>'
+                : '<div class="g-recaptcha" data-sitekey="' . esc_html(get_option('captcha-setting-sitekey')) . '"></div><br/>';
             $submit ='<div class="captcha-type lf-field"><label>' . $captcha_field . '</label></div>';
         }
         // submit button

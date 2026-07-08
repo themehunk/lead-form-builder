@@ -1,7 +1,8 @@
 /*
 *Captcha
 */
-.leadform-show-form span .g-recaptcha div {
+.leadform-show-form span .g-recaptcha div,
+.leadform-show-form span .cf-turnstile div {
     width: auto !important;
     height: auto !important;
 }

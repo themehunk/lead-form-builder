@@ -130,15 +130,26 @@ function lfb_save_captcha_settings()
 
     if (isset($_POST['captcha-keys'])  && current_user_can('manage_options') && wp_verify_nonce($nonce, 'captcha-nonce')) {
 
+    $captcha_provider = isset($_POST['captcha-setting-provider']) ? sanitize_text_field($_POST['captcha-setting-provider']) : 'recaptcha';
+    $captcha_provider = in_array($captcha_provider, array('recaptcha', 'turnstile'), true) ? $captcha_provider : 'recaptcha';
     $captcha_setting_sitekey = sanitize_text_field($_POST['captcha-setting-sitekey']);
     $captcha_setting_secret = sanitize_text_field($_POST['captcha-setting-secret']);
 
-    if (get_option('captcha-setting-sitekey') !== false) {
-        update_option('captcha-setting-sitekey', $captcha_setting_sitekey);
-        update_option('captcha-setting-secret', $captcha_setting_secret);
+    if (get_option('captcha-setting-provider') !== false) {
+        update_option('captcha-setting-provider', $captcha_provider);
     } else {
-        add_option('captcha-setting-sitekey', $captcha_setting_sitekey);
-        add_option('captcha-setting-secret', $captcha_setting_secret);
+        add_option('captcha-setting-provider', $captcha_provider);
+    }
+
+    $sitekey_option = ($captcha_provider === 'turnstile') ? 'turnstile-setting-sitekey' : 'captcha-setting-sitekey';
+    $secret_option  = ($captcha_provider === 'turnstile') ? 'turnstile-setting-secret'  : 'captcha-setting-secret';
+
+    if (get_option($sitekey_option) !== false) {
+        update_option($sitekey_option, $captcha_setting_sitekey);
+        update_option($secret_option, $captcha_setting_secret);
+    } else {
+        add_option($sitekey_option, $captcha_setting_sitekey);
+        add_option($secret_option, $captcha_setting_secret);
     }
 }
     die();
@@ -263,7 +274,7 @@ function lfb_ShowAllLeadThisForm() {
             $lead_id   = $results->id;
             $raw_ts    = ( ! empty( $results->date ) && $results->date !== '0000-00-00 00:00:00' ) ? strtotime( $results->date ) : false;
             $lead_date = ( $raw_ts && $raw_ts > 0 ) ? date( 'M d, Y', $raw_ts ) : esc_html__( 'N/A', 'lead-form-builder' );
-            unset( $form_data['hidden_field'], $form_data['action'], $form_data['g-recaptcha-response'] );
+            unset( $form_data['hidden_field'], $form_data['action'], $form_data['g-recaptcha-response'], $form_data['cf-turnstile-response'] );
 
             $date_td    = '<td><b>' . $lead_date . '</b></td>';
             $returnData = $th_save_db->lfb_lead_form_value( $form_data, $fieldIdNew, $fieldData, 5 );
@@ -646,6 +657,7 @@ function lfb_Save_Form_Data()
 
         $form_id = intval($fromData['hidden_field']);
         unset($fromData['g-recaptcha-response']);
+        unset($fromData['cf-turnstile-response']);
         unset($fromData['action']);
         unset($fromData['hidden_field']);
 
@@ -677,9 +689,19 @@ function lfb_verifyFormCaptcha()
 {
     if ((isset($_POST['captcha_res'])) && (!empty($_POST['captcha_res']))) {
         $captcha = stripslashes($_POST['captcha_res']);
-        $secret_key = get_option('captcha-setting-secret');
+        $captcha_provider = isset($_POST['captcha_provider']) ? sanitize_text_field($_POST['captcha_provider']) : 'recaptcha';
+        $captcha_provider = in_array($captcha_provider, array('recaptcha', 'turnstile'), true) ? $captcha_provider : 'recaptcha';
+
+        if ($captcha_provider === 'turnstile') {
+            $secret_key   = get_option('turnstile-setting-secret');
+            $verify_url   = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+        } else {
+            $secret_key   = get_option('captcha-setting-secret');
+            $verify_url   = 'https://www.google.com/recaptcha/api/siteverify';
+        }
+
         $response = wp_remote_post(
-            'https://www.google.com/recaptcha/api/siteverify',
+            $verify_url,
             array(
                 'method' => 'POST',
                 'body' => array(

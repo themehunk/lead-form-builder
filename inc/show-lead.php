@@ -177,6 +177,7 @@ function lfb_show_leads_first_form($form_id){
                 unset($form_data['hidden_field']);
                 unset($form_data['action']);
                 unset($form_data['g-recaptcha-response']);
+                unset($form_data['cf-turnstile-response']);
                 $entry_counter++;
                 $complete_data = '';
                 $date_td = '<td><b>' . $lead_date . '</b></td>';
@@ -285,6 +286,7 @@ function lfb_show_leads_first_form($form_id){
                 unset($form_data['hidden_field']);
                 unset($form_data['action']);
                 unset($form_data['g-recaptcha-response']);
+                unset($form_data['cf-turnstile-response']);
                 $entry_counter++;
                 $sn_counter++;
                 $complete_data = '';
