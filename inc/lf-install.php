@@ -184,9 +184,13 @@ function lfb_page_has_form() {
 }
 
 function lfb_wp_assets() {
-    if ( ! lfb_page_has_form() ) {
-        return;
-    }
+    // Note: lfb_page_has_form() only detects the shortcode inside
+    // $post->post_content, active text widgets, or Elementor data. Themes
+    // frequently embed [lead-form] directly in PHP template files (e.g. the
+    // "featured" theme's section_contact.php / section_newsletter.php), which
+    // that check can't see. Rather than keep chasing every possible
+    // placement, always load the small front-end stylesheet/script on the
+    // front end so the form is styled no matter where it's rendered from.
     wp_enqueue_style('lfb_f_css', LFB_PLUGIN_URL . 'css/f-style.css');
     wp_enqueue_script('jquery-ui-datepicker');
     wp_enqueue_script('lfb_f_js', LFB_PLUGIN_URL . 'js/f-script.js', array('jquery'), LFB_VER, true);
