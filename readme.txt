@@ -4,7 +4,7 @@ Author URI: : https://www.themehunk.com/
 Tags: contact form, lead generation, form builder, forms, WordPress form plugin
 Requires at least: 7.0
 Tested up to: 7.0
-Stable tag: 2.2.6
+Stable tag: 2.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -159,11 +159,9 @@ Just upload the `lead-form-builder.zip` to the `/wp-content/plugins/` directory,
 
 == Changelog ==
 
-= Version 2.2.6 =
-* Fix: Form fields now load their default styling reliably when the [lead-form] shortcode is rendered from a theme template (e.g. a homepage contact section), not just from post content, a text widget, or Elementor — the front-end stylesheet is now always enqueued on the front end instead of relying on shortcode detection.
-
 = Version 2.2.5 =
 * New: Added Cloudflare Turnstile as an alternative captcha provider alongside Google reCAPTCHA — select the provider under each form's Captcha Setting tab.
+* Fix: Form fields now load their default styling reliably when the [lead-form] shortcode is rendered from a theme template (e.g. a homepage contact section), not just from post content, a text widget, or Elementor — the front-end stylesheet is now always enqueued on the front end instead of relying on shortcode detection.
 
 = 2.2.4 =
 * New: AJAX-based form save and update — no page reload required.
